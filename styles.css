@@ -1007,6 +1007,12 @@ body.no-ambient .hero__ambient { display: none; }
   #lamp-physics { width: 46px; height: 116px; }
   .vibe-btn { font-size: .66rem; padding: 10px 8px 6px 10px; }
 }
+
+/* Mobile header overrides — must come after global vibe rules to win the cascade */
+@media (max-width: 560px) {
+  #vibe-wrap { top: 0; left: 0; right: 0; }
+  .vibe-btn { padding: 1.6rem 1rem 1.25rem; font-size: 0.72rem; }
+}
 @media (prefers-reduced-motion: reduce) {
   .lamp-glow { transition: none; }
   #vibe-wrap { animation: none; }
