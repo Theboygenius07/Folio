@@ -55,6 +55,28 @@
         <a href="#contact" class="nav__link"><span>Contact</span></a>
       </nav>
     </div>
+    <div id="vibe-controls" class="nav__right">
+      <button id="vibe-btn" class="vibe-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+        <span id="vibe-clock">--:-- --</span>
+        <span id="vibe-label"></span>
+        <svg class="vibe-chevron" viewBox="0 0 10 6" width="10" height="6" fill="none">
+          <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div id="vibe-menu" class="vibe-menu" role="listbox" hidden>
+        <span class="vibe-menu-hdr">CHANGE THE LIGHT</span>
+        <button class="vibe-opt" data-vibe="auto"    role="option">AUTO</button>
+        <button class="vibe-opt" data-vibe="morning" role="option">MORNING</button>
+        <button class="vibe-opt" data-vibe="day"     role="option">DAY</button>
+        <button class="vibe-opt" data-vibe="evening" role="option">EVENING</button>
+        <button class="vibe-opt" data-vibe="night"   role="option">NIGHT</button>
+        <div class="vibe-menu-divider"></div>
+        <button id="particles-toggle" class="vibe-opt particles-opt" aria-pressed="true" aria-label="Toggle ambient">
+          <span class="particles-opt-label">✸&nbsp; AMBIENT</span>
+          <span class="particles-opt-state"></span>
+        </button>
+      </div>
+    </div>
   </header>
 
   <main>
@@ -355,31 +377,8 @@
     <a href="#top" class="footer__top" data-magnetic>Back to top ↑</a>
   </footer>
 
-  <!-- Vibe switcher + physics lamp — ported from Cohort ("change the light") -->
-  <div id="vibe-wrap" aria-label="Change the light">
-    <div id="vibe-controls">
-      <button id="vibe-btn" class="vibe-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
-        <span id="vibe-clock">--:-- --</span>
-        <span id="vibe-label"></span>
-        <svg class="vibe-chevron" viewBox="0 0 10 6" width="10" height="6" fill="none">
-          <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <div id="vibe-menu" class="vibe-menu" role="listbox" hidden>
-        <span class="vibe-menu-hdr">CHANGE THE LIGHT</span>
-        <button class="vibe-opt" data-vibe="auto"    role="option">AUTO</button>
-        <button class="vibe-opt" data-vibe="morning" role="option">MORNING</button>
-        <button class="vibe-opt" data-vibe="day"     role="option">DAY</button>
-        <button class="vibe-opt" data-vibe="evening" role="option">EVENING</button>
-        <button class="vibe-opt" data-vibe="night"   role="option">NIGHT</button>
-        <div class="vibe-menu-divider"></div>
-        <button id="particles-toggle" class="vibe-opt particles-opt" aria-pressed="true" aria-label="Toggle ambient">
-          <span class="particles-opt-label">✸&nbsp; AMBIENT</span>
-          <span class="particles-opt-state"></span>
-        </button>
-      </div>
-    </div>
-
+  <!-- Physics lamp — ported from Cohort ("change the light") -->
+  <div id="vibe-wrap" aria-hidden="true">
     <div id="lamp-mount" aria-hidden="true">
       <svg id="lamp-physics" viewBox="0 0 80 190" xmlns="http://www.w3.org/2000/svg">
         <defs>
