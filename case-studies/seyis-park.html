@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seyi's Park — Case Study · Seyi Ogundipe</title>
+  <meta name="description" content="A playable 3D portfolio: walk through a browser world built in Three.js instead of scrolling a page." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="case-study.css" />
+  <style>
+    /* ── SEYI'S PARK: mint / forest / playful / light ── */
+    :root { --tint: #3d6b41; }
+
+    body {
+      --paper:      #f0f7f0;
+      --paper-deep: #e3f0e3;
+      --ink:        #1d3820;
+      --ink-soft:   rgba(29,56,32,0.72);
+      --ink-mute:   rgba(29,56,32,0.48);
+      --ink-faint:  rgba(29,56,32,0.28);
+      --rule:       rgba(29,56,32,0.14);
+      --rule-soft:  rgba(29,56,32,0.08);
+      background: #f0f7f0;
+      color: #1d3820;
+    }
+
+    .cs-nav { background: rgba(240,247,240,0.9); border-color: rgba(29,56,32,0.1); }
+    .cs-nav__mark .ast { color: #3d6b41; }
+    ::selection { background: #3d6b41; color: #fff; }
+
+    .cs-section__num   { color: #3d6b41; }
+    .cs-section__title { color: #1d3820; }
+    .cs-card  { background: #fff; border-color: rgba(29,56,32,0.1); }
+    .cs-card__k { color: #3d6b41; }
+    .cs-card__t { color: #1d3820; }
+    .cs-card__d { color: rgba(29,56,32,0.65); }
+    .cs-step  { background: var(--paper); }
+    .cs-step__n { color: #3d6b41; }
+    .cs-step__t { color: #1d3820; }
+    .cs-step__d { color: rgba(29,56,32,0.65); }
+    .cs-steps { background: rgba(29,56,32,0.06); border-color: rgba(29,56,32,0.12); }
+    .cs-chip  { color: rgba(29,56,32,0.65); border-color: rgba(29,56,32,0.2); }
+    .cs-chip:hover { border-color: #3d6b41; color: #1d3820; }
+    .cs-stats { background: var(--rule-soft); border-color: var(--rule); }
+    .cs-stat  { background: var(--paper); }
+    .cs-stat__n { color: var(--ink); }
+    .cs-stat__l { color: var(--ink-mute); }
+    .cs-meta  { border-color: rgba(29,56,32,0.14); }
+    .cs-meta dt { color: rgba(29,56,32,0.45); }
+    .cs-meta dd { color: #1d3820; }
+    .cs-meta dd a { border-color: rgba(61,107,65,0.5); }
+    .cs-section + .cs-section { border-color: rgba(29,56,32,0.08); }
+    .cs-cover figure { background: #e3f0e3; border-color: rgba(29,56,32,0.1); }
+    .cs-pull  { border-color: #3d6b41; color: #1d3820; }
+    .prose p  { color: rgba(29,56,32,0.72); }
+    .prose ul li { color: rgba(29,56,32,0.72); }
+
+    /* ── Hero ── */
+    .sp-hero {
+      padding: clamp(5rem, 10vw, 8rem) var(--pad-x) clamp(2rem, 4vw, 3rem);
+      max-width: var(--maxw);
+      margin: 0 auto;
+    }
+
+    /* ── Three.js park viewer ── */
+    .sp-viewer-section {
+      position: relative;
+      height: 85vh;
+      min-height: 500px;
+      max-height: 900px;
+      overflow: hidden;
+      border-top: 1px solid rgba(29,56,32,0.1);
+      border-bottom: 1px solid rgba(29,56,32,0.1);
+      background: #c8e6c9;
+    }
+    #sp-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+    #sp-canvas:active { cursor: grabbing; }
+    .sp-viewer-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(29,56,32,0.55);
+      background: rgba(240,247,240,0.85);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem 1.25rem;
+      border-radius: 999px;
+      border: 1px solid rgba(29,56,32,0.15);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .sp-viewer-hint.show { opacity: 1; }
+    .sp-viewer-label {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(29,56,32,0.5);
+      pointer-events: none;
+    }
+    .sp-viewer-loading {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: #c8e6c9;
+      transition: opacity 0.6s ease;
+    }
+    .sp-viewer-loading.hidden { opacity: 0; pointer-events: none; }
+    .sp-loader-text {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(29,56,32,0.6);
+    }
+
+    /* ── Full-bleed image strip ── */
+    .sp-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid rgba(29,56,32,0.1);
+      border-bottom: 1px solid rgba(29,56,32,0.1);
+    }
+    .sp-strip figure {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+    .sp-strip figure:first-child {
+      border-right: 1px solid rgba(29,56,32,0.1);
+    }
+    .sp-strip img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.7s var(--ease);
+    }
+    .sp-strip figure:hover img { transform: scale(1.03); }
+    @media (max-width: 600px) {
+      .sp-strip { grid-template-columns: 1fr; }
+      .sp-strip figure:first-child { border-right: none; border-bottom: 1px solid rgba(29,56,32,0.1); }
+    }
+
+    /* ── Video ── */
+    .cs-video { border-color: rgba(29,56,32,0.1); }
+  </style>
+</head>
+<body style="--tint:#3d6b41">
+  <div class="grain" aria-hidden="true"></div>
+
+  <nav class="cs-nav">
+    <a href="../index.html#work" class="cs-nav__back" data-magnetic><span class="arrow">←</span><span>All work</span></a>
+    <span class="cs-nav__mark">Seyi's Park<span class="ast">✸</span></span>
+  </nav>
+
+  <!-- Hero -->
+  <header class="sp-hero">
+    <p class="cs-hero__eyebrow" data-reveal><span class="idx">03</span><span class="sep"></span><span>Case Study</span></p>
+    <h1 class="cs-hero__title" data-reveal>A portfolio you <em>walk through</em></h1>
+    <p class="cs-hero__lede" data-reveal>A browser-based 3D world built in Three.js — visitors move through space instead of scrolling a page. Two worlds inside one scene: an isometric park to explore, and a first-person gallery of work within.</p>
+    <dl class="cs-meta" data-reveal>
+      <div><dt>Role</dt><dd>Design &amp; creative dev</dd></div>
+      <div><dt>Scope</dt><dd>3D · WebGL · Interaction</dd></div>
+      <div><dt>Year</dt><dd>2025</dd></div>
+      <div><dt>Stack</dt><dd>Three.js · WebGL</dd></div>
+      <div><dt>Live</dt><dd><a href="https://seyi3d-park.vercel.app/" target="_blank" rel="noopener">seyi3d-park ↗</a></dd></div>
+    </dl>
+  </header>
+
+  <!-- Three.js viewer — the actual park model -->
+  <div class="sp-viewer-section">
+    <canvas id="sp-canvas"></canvas>
+    <div class="sp-viewer-loading" id="sp-loading">
+      <span class="sp-loader-text">Loading park…</span>
+    </div>
+    <div class="sp-viewer-label">Live 3D model · drag to explore</div>
+    <div class="sp-viewer-hint" id="sp-hint">drag · scroll to zoom</div>
+  </div>
+
+  <!-- Overview -->
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">01</span><span class="cs-section__label">Overview</span></div>
+    <h2 class="cs-section__title" data-reveal>Movement is <em>the interface</em></h2>
+    <div class="prose" data-reveal>
+      <p>Most portfolios are read. This one is walked. I set myself a brief: turn navigation into spatial exploration — prove a real-time 3D scene could load fast and feel good on a phone. Two worlds coexist in one Three.js scene: a bright isometric park to wander, and a first-person gallery inside the buildings.</p>
+    </div>
+    <blockquote class="cs-pull" data-reveal><em>No list of links. Just a world to discover.</em></blockquote>
+  </section>
+
+  <!-- Screenshots: two-up -->
+  <div class="sp-strip" data-reveal>
+    <figure><img src="../images/seyispark-park.png" alt="Park overhead — character near blackboard project boards" loading="lazy" /></figure>
+    <figure><img src="../images/seyispark-popup.png" alt="In-world project popup — Clark AI case study card" loading="lazy" /></figure>
+  </div>
+
+  <!-- Process -->
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">02</span><span class="cs-section__label">Process</span></div>
+    <h2 class="cs-section__title" data-reveal>From greybox <em>to playable</em></h2>
+    <div class="cs-steps" data-stagger>
+      <div class="cs-step"><span class="cs-step__n">1</span><div><p class="cs-step__t">Greybox the space</p><p class="cs-step__d">Blocked the world with primitives to test scale, sightlines, and the feel of movement before committing to any art direction.</p></div></div>
+      <div class="cs-step"><span class="cs-step__n">2</span><div><p class="cs-step__t">Controls &amp; camera</p><p class="cs-step__d">Tuned the camera rig and input until walking felt intuitive on both keyboard and touch — the world teaches itself in the first three seconds.</p></div></div>
+      <div class="cs-step"><span class="cs-step__n">3</span><div><p class="cs-step__t">Light &amp; mood</p><p class="cs-step__d">Layered materials and lighting to give the park warmth — inviting and lived-in — without blowing the frame budget.</p></div></div>
+      <div class="cs-step"><span class="cs-step__n">4</span><div><p class="cs-step__t">Optimise &amp; ship</p><p class="cs-step__d">Profiled draw calls, compressed assets, deployed to Vercel. First paint doesn't punish mobile visitors.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Engineering + stats -->
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">03</span><span class="cs-section__label">Engineering</span></div>
+    <h2 class="cs-section__title" data-reveal>Real-time rendering, <em>performance-first</em></h2>
+    <div class="prose" data-reveal>
+      <p>Three.js handled the scene graph, camera, and render loop. Inside the park: an isometric walkable world. Inside buildings: a first-person gallery with photo spheres, artwork rooms, and an in-world video screen — all the same Three.js scene, no transitions.</p>
+      <p>The work was in the budget — managing draw calls, geometry, and texture weight so the experience stayed smooth across devices.</p>
+    </div>
+    <div class="cs-chips" data-reveal style="margin-top:1.75rem">
+      <span class="cs-chip">Three.js</span>
+      <span class="cs-chip">WebGL</span>
+      <span class="cs-chip">GLSL materials</span>
+      <span class="cs-chip">Blender</span>
+      <span class="cs-chip">requestAnimationFrame</span>
+      <span class="cs-chip">Vercel</span>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">04</span><span class="cs-section__label">Outcome</span></div>
+    <h2 class="cs-section__title" data-reveal>Where it <em>landed</em></h2>
+    <dl class="cs-stats" data-reveal>
+      <div class="cs-stat"><dd class="cs-stat__n">3D</dd><dt class="cs-stat__l">Walkable world</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">60<span class="plus">fps</span></dd><dt class="cs-stat__l">Target frame rate</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">2</dd><dt class="cs-stat__l">Worlds, one scene</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">Live</dd><dt class="cs-stat__l">No install · web</dt></div>
+    </dl>
+  </section>
+
+  <!-- Demo video -->
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">05</span><span class="cs-section__label">Walkthrough</span></div>
+    <div class="cs-video" data-reveal>
+      <video muted playsinline preload="none" poster="../images/seyispark.png">
+        <source src="../images/seyispark-demo.mov" type="video/mp4">
+      </video>
+      <button class="cs-video__play" aria-label="Play Seyi's Park walkthrough">
+        <span class="cs-video__play-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <section class="cs-next">
+    <div class="cs-next__inner">
+      <p class="cs-next__label" data-reveal>Next case study</p>
+      <a href="kulture.html" class="cs-next__link" data-reveal data-magnetic>KULTURE<span class="ast">*</span> <span class="arrow">→</span></a>
+      <p class="cs-next__desc" data-reveal>For the Kulture — Lagos nightlife, ticketed.</p>
+      <div class="cs-foot">
+        <span>Seyi Ogundipe — Design Engineer</span>
+        <span><span id="cs-clock">--:--:--</span> local</span>
+        <a href="../index.html#work">All work ↑</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="case-study.js"></script>
+
+  <!-- Three.js park viewer -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    const canvas  = document.getElementById('sp-canvas');
+    const loading = document.getElementById('sp-loading');
+    const hint    = document.getElementById('sp-hint');
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.shadowMap.enabled = true;
+    renderer.setClearColor(0xc8e6c9);
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xc8e6c9);
+    scene.fog = new THREE.Fog(0xc8e6c9, 60, 120);
+
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
+    camera.position.set(20, 22, 20);
+    camera.lookAt(0, 0, 0);
+
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.minDistance = 8;
+    controls.maxDistance = 55;
+    controls.maxPolarAngle = Math.PI / 2.1;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.5;
+    controls.target.set(0, 0, 0);
+
+    // Lighting
+    const amb = new THREE.AmbientLight(0xffffff, 1.4);
+    scene.add(amb);
+    const sun = new THREE.DirectionalLight(0xfffde7, 1.8);
+    sun.position.set(15, 30, 20);
+    sun.castShadow = true;
+    scene.add(sun);
+    const fill = new THREE.DirectionalLight(0xdcedc8, 0.6);
+    fill.position.set(-10, 10, -10);
+    scene.add(fill);
+
+    function resize() {
+      const w = canvas.parentElement.clientWidth;
+      const h = canvas.parentElement.clientHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Load model
+    const loader = new GLTFLoader();
+    loader.load(
+      '../images/portfolio.glb',
+      (gltf) => {
+        const model = gltf.scene;
+
+        // Centre the model
+        const box = new THREE.Box3().setFromObject(model);
+        const centre = box.getCenter(new THREE.Vector3());
+        model.position.sub(centre);
+
+        // Scale to fit nicely
+        const size = box.getSize(new THREE.Vector3()).length();
+        const scale = 28 / size;
+        model.scale.setScalar(scale);
+        model.position.multiplyScalar(scale);
+
+        scene.add(model);
+        controls.target.set(0, 0, 0);
+
+        // Fade out loading screen
+        loading.classList.add('hidden');
+        setTimeout(() => hint.classList.add('show'), 800);
+      },
+      (xhr) => {
+        if (xhr.total) {
+          const pct = Math.round((xhr.loaded / xhr.total) * 100);
+          const el = loading.querySelector('.sp-loader-text');
+          if (el) el.textContent = `Loading park… ${pct}%`;
+        }
+      },
+      (err) => {
+        console.warn('GLB load error:', err);
+        loading.querySelector('.sp-loader-text').textContent = 'Could not load 3D model';
+      }
+    );
+
+    // Render loop
+    function tick() {
+      requestAnimationFrame(tick);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    tick();
+
+    // Stop auto-rotate on first interaction
+    canvas.addEventListener('pointerdown', () => {
+      controls.autoRotate = false;
+    }, { once: true });
+  </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subtitles — Case Study · Seyi Ogundipe</title>
+  <meta name="description" content="A 54-week photo and conversation archive with four distinct ways to view the same moments." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="case-study.css" />
+  <style>
+    body {
+      --paper:      #f9f8f4;
+      --paper-deep: #f0ede4;
+      --ink:        #1a1a18;
+      --ink-soft:   rgba(26,26,24,0.7);
+      --ink-mute:   rgba(26,26,24,0.46);
+      --ink-faint:  rgba(26,26,24,0.28);
+      --rule:       rgba(26,26,24,0.12);
+      --rule-soft:  rgba(26,26,24,0.07);
+      background: #f9f8f4;
+      color: #1a1a18;
+    }
+
+    .cs-nav { background: rgba(249,248,244,0.92); border-color: rgba(26,26,24,0.1); }
+    .cs-nav__mark .ast { color: #b09000; }
+    ::selection { background: #f5d800; color: #1a1a18; }
+    .cs-section__num { color: #b09000; }
+    .cs-card__k { color: #b09000; }
+    .cs-step__n { color: #b09000; }
+    .cs-chip:hover { border-color: #b09000; color: #1a1a18; }
+    .cs-pull { border-color: #f5d800; }
+    .cs-meta dt { color: rgba(26,26,24,0.42); }
+    .cs-meta dd a { border-color: rgba(176,144,0,0.5); }
+
+    .su-cover {
+      border-top: 1px solid rgba(26,26,24,0.1);
+      border-bottom: 1px solid rgba(26,26,24,0.1);
+    }
+    .su-cover img { width: 100%; display: block; }
+
+    .su-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid rgba(26,26,24,0.1);
+      border-bottom: 1px solid rgba(26,26,24,0.1);
+    }
+    .su-grid figure { overflow: hidden; aspect-ratio: 4/3; }
+    .su-grid figure:nth-child(even) { border-left: 1px solid rgba(26,26,24,0.1); }
+    .su-grid figure:nth-child(n+3) { border-top: 1px solid rgba(26,26,24,0.1); }
+    .su-grid img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s var(--ease); }
+    .su-grid figure:hover img { transform: scale(1.03); }
+    @media (max-width: 600px) {
+      .su-grid { grid-template-columns: 1fr; }
+      .su-grid figure:nth-child(even) { border-left: none; border-top: 1px solid rgba(26,26,24,0.1); }
+      .su-grid figure:nth-child(n+3) { border-top: 1px solid rgba(26,26,24,0.1); }
+    }
+  </style>
+</head>
+<body style="--tint:#b09000">
+  <div class="grain" aria-hidden="true"></div>
+
+  <nav class="cs-nav">
+    <a href="../index.html#work" class="cs-nav__back" data-magnetic><span class="arrow">←</span><span>All work</span></a>
+    <span class="cs-nav__mark">Subtitles<span class="ast">✸</span></span>
+  </nav>
+
+  <header class="cs-hero">
+    <p class="cs-hero__eyebrow" data-reveal><span class="idx">05</span><span class="sep"></span><span>Case Study</span></p>
+    <h1 class="cs-hero__title" data-reveal>54 weeks. <em>In photos.</em></h1>
+    <p class="cs-hero__lede" data-reveal>A personal photo and conversation archive, built for longevity. The same 54 weeks of moments rendered four different ways — strip, feed, gallery, globe.</p>
+    <dl class="cs-meta" data-reveal>
+      <div><dt>Role</dt><dd>Design &amp; development</dd></div>
+      <div><dt>Scope</dt><dd>Archive · Interaction · Personal</dd></div>
+      <div><dt>Year</dt><dd>2024</dd></div>
+      <div><dt>Stack</dt><dd>Next.js · Three.js · Supabase</dd></div>
+      <div><dt>Live</dt><dd><a href="https://subtitles.vercel.app/" target="_blank" rel="noopener">subtitles ↗</a></dd></div>
+    </dl>
+  </header>
+
+  <div class="su-cover" data-reveal="clip">
+    <img src="../images/subtitles.png" alt="Subtitles — strip view, 54 weeks of photos" loading="lazy" />
+  </div>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">01</span><span class="cs-section__label">Overview</span></div>
+    <h2 class="cs-section__title" data-reveal>Four views, <em>one archive</em></h2>
+    <div class="prose" data-reveal>
+      <p>Subtitles started as a question: what's the right shape for a personal archive? A photo dump loses context. A timeline loses feel. A chat log loses the images. The answer was to build all four and let the mood decide.</p>
+      <p>Strip view shows the weeks in sequence. Feed surfaces individual moments. Gallery puts the photos first. Globe maps them in three-dimensional space via a Three.js sphere. The data is the same — only the perspective changes.</p>
+    </div>
+    <blockquote class="cs-pull" data-reveal><em>The shape of memory depends on how you're looking for it.</em></blockquote>
+  </section>
+
+  <div class="su-grid" data-reveal>
+    <figure><img src="../images/subtitles.png" alt="Strip view" loading="lazy" /></figure>
+    <figure><img src="../images/seyispark-video.png" alt="Subtitle player view" loading="lazy" /></figure>
+    <figure><img src="../images/seyispark-gallery.png" alt="Gallery view" loading="lazy" /></figure>
+    <figure><img src="../images/seyispark-sphere.png" alt="Globe view" loading="lazy" /></figure>
+  </div>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">02</span><span class="cs-section__label">Design decisions</span></div>
+    <h2 class="cs-section__title" data-reveal>Same data, <em>different lenses</em></h2>
+    <div class="cs-cols" data-stagger>
+      <div class="cs-card"><p class="cs-card__k">Strip</p><p class="cs-card__t">Sequence as default</p><p class="cs-card__d">Weeks as horizontal rows, photos and conversations interleaved. Context preserved — you see what led to what.</p></div>
+      <div class="cs-card"><p class="cs-card__k">Feed</p><p class="cs-card__t">Moments surfaced</p><p class="cs-card__d">Photos re-ranked by signal. Surfaces the moments that would stay buried inside a week in strip view.</p></div>
+      <div class="cs-card"><p class="cs-card__k">Gallery</p><p class="cs-card__t">Images only</p><p class="cs-card__d">Text stripped away. The photos fill the screen — for when you want to look at faces, not read words.</p></div>
+      <div class="cs-card"><p class="cs-card__k">Globe</p><p class="cs-card__t">Space as index</p><p class="cs-card__d">A Three.js sphere maps each week to a point. Navigate by spinning — works well for random access.</p></div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">03</span><span class="cs-section__label">Outcome</span></div>
+    <h2 class="cs-section__title" data-reveal>Where it <em>landed</em></h2>
+    <dl class="cs-stats" data-reveal>
+      <div class="cs-stat"><dd class="cs-stat__n" data-count="1000">1,000</dd><dt class="cs-stat__l">Visitors</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">54</dd><dt class="cs-stat__l">Weeks archived</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">4</dd><dt class="cs-stat__l">View modes</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">Live</dd><dt class="cs-stat__l">Still running</dt></div>
+    </dl>
+    <div class="cs-chips" data-reveal style="margin-top:1.75rem">
+      <span class="cs-chip">Next.js</span>
+      <span class="cs-chip">Three.js</span>
+      <span class="cs-chip">Supabase</span>
+      <span class="cs-chip">Vercel</span>
+    </div>
+  </section>
+
+  <section class="cs-next">
+    <div class="cs-next__inner">
+      <p class="cs-next__label" data-reveal>Next case study</p>
+      <a href="cohort.html" class="cs-next__link" data-reveal data-magnetic>Cohort <span class="arrow">→</span></a>
+      <p class="cs-next__desc" data-reveal>The social layer for student life.</p>
+      <div class="cs-foot">
+        <span>Seyi Ogundipe — Design Engineer</span>
+        <span><span id="cs-clock">--:--:--</span> local</span>
+        <a href="../index.html#work">All work ↑</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="case-study.js"></script>
+</body>
+</html>

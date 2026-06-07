@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f3f1ea" />
+  <title>Seyi Ogundipe — Design Engineer</title>
+  <meta name="description" content="Seyi Ogundipe is a design engineer working at the intersection of design, engineering, growth, and storytelling. 11+ hackathon wins. Currently building Cohort." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Seyi Ogundipe — Design Engineer" />
+  <meta property="og:description" content="Design, engineering, growth & storytelling. Where ideas become products and products become experiences." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
+
+  <!-- All fonts load locally from /fonts — no external requests -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Set the time-of-day theme before first paint (no flash). ?vibe=night overrides. -->
+  <script>
+    (function () {
+      try {
+        var p = new URLSearchParams(location.search).get("vibe");
+        var m = p || localStorage.getItem("cohort-vibe") || "auto";
+        var t = m;
+        if (m === "auto") {
+          var h = new Date().getHours();
+          t = (h >= 5 && h < 10) ? "morning"
+            : (h >= 10 && h < 17) ? "day"
+            : (h >= 17 && h < 21) ? "evening" : "night";
+        }
+        document.documentElement.setAttribute("data-vibe", t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <!-- Grain / paper texture overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Ambient pool of light (tinted by the time-of-day theme) -->
+  <div class="lamp-glow" aria-hidden="true"></div>
+
+  <!-- ───────────────────────── NAV ───────────────────────── -->
+  <header class="nav" id="top">
+    <div class="nav__left">
+      <a href="#top" class="nav__brand">Seyi&nbsp;Ogundipe</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#work" class="nav__link"><span>Work</span></a>
+        <a href="#about" class="nav__link"><span>About</span></a>
+        <a href="#contact" class="nav__link"><span>Contact</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ───────────────────────── HERO ───────────────────────── -->
+    <section class="hero" id="hero">
+      <div class="hero__ambient" aria-hidden="true">
+        <div class="hero__spotlight"></div>
+      </div>
+
+      <div class="hero__doc">
+        <p class="hero__bio">
+          I&rsquo;m Seyi&nbsp;Ogundipe &mdash; an award-winning Design Engineer,
+          Growth Associate, and Writer. I build across product, engineering,
+          growth, and storytelling, turning ideas into thoughtful digital
+          experiences. 4+&nbsp;years of work, 11+&nbsp;hackathon wins, and a
+          focus on where creativity meets execution.
+        </p>
+      </div>
+
+      <div class="hero__foot">
+        <a href="#work" class="hero__cta">
+          <span>Selected work</span>
+          <span class="hero__cta-arrow">↓</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── WORK ───────────────────────── -->
+    <section class="work" id="work">
+      <div class="section-head">
+        <span class="section-head__label">(Selected Work)</span>
+        <span class="section-head__count">Six projects</span>
+      </div>
+
+      <ol class="projects" id="projects">
+
+        <!-- 1. Cohort -->
+        <li class="project" style="--tint:#3358ff">
+          <a class="project__card" href="https://www.trycohort.xyz/" target="_blank" rel="noopener">
+            <div class="project__cover">
+              <img src="images/cohort.png" alt="Cohort" loading="lazy" />
+              <video class="project__reel" data-src="videos/cohort.mp4" muted loop playsinline preload="none"></video>
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:#161616"><img src="images/cohort-work-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" /></span>
+                <p class="project__title">Cohort</p>
+                <span class="project__type">Product</span>
+                <span class="project__year">2025</span>
+              </div>
+              <div class="project__track" aria-hidden="true">
+                <span class="project__track-inner">Next.js, GSAP, Lenis, Framer Motion, TypeScript, Vercel, App Router, Scroll Animations, Next.js, GSAP, Lenis, Framer Motion, TypeScript, Vercel, App Router, Scroll Animations,</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 2. Subtitles -->
+        <li class="project" style="--tint:#6c5ce7">
+          <a class="project__card" href="https://subtitles-eight.vercel.app/" target="_blank" rel="noopener">
+            <div class="project__cover">
+              <img src="images/subtitles.png" alt="Subtitles" loading="lazy" />
+              <video class="project__reel" data-src="videos/subtitles.mp4" muted loop playsinline preload="none"></video>
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:transparent"><img src="images/subtitles-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" /></span>
+                <p class="project__title">Subtitles</p>
+                <span class="project__type">Motion</span>
+                <span class="project__year">2024</span>
+              </div>
+              <div class="project__track" aria-hidden="true">
+                <span class="project__track-inner">JavaScript, CSS Transitions, requestAnimationFrame, Typography, Motion Design, Vercel, JavaScript, CSS Transitions, requestAnimationFrame, Typography, Motion Design, Vercel,</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 3. Kulture -->
+        <li class="project" style="--tint:#c8a94a">
+          <a class="project__card" href="https://forthekulture.vercel.app/" target="_blank" rel="noopener">
+            <div class="project__cover">
+              <img src="images/kulture.png" alt="KULTURE*" loading="lazy" />
+              <video class="project__reel" data-src="videos/kulture.mp4" muted loop playsinline preload="none"></video>
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:#1a1208; border:1.5px solid var(--tint)">
+                  <img src="images/kulture-icon.svg" alt="" style="width:62%;height:62%;object-fit:contain;display:block;filter:invert(1) sepia(1) saturate(2) hue-rotate(5deg) brightness(1.1);" />
+                </span>
+                <p class="project__title">Kulture<span class="ast">*</span></p>
+                <span class="project__type">Events</span>
+                <span class="project__year">2025</span>
+              </div>
+              <div class="project__track" aria-hidden="true">
+                <span class="project__track-inner">HTML, CSS, JavaScript, Paystack, OpenStreetMap, @font-face, Vanilla Build, Vercel, HTML, CSS, JavaScript, Paystack, OpenStreetMap, @font-face, Vanilla Build, Vercel,</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 4. Raise -->
+        <li class="project" style="--tint:#4b63ff">
+          <a class="project__card" href="https://www.trycohort.xyz/raise" target="_blank" rel="noopener">
+            <div class="project__cover">
+              <img src="images/raise.png" alt="Cohort / Raise" loading="lazy" />
+              <video class="project__reel" data-src="videos/raise.mp4" muted loop playsinline preload="none"></video>
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:#161616"><img src="images/cohort-work-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" /></span>
+                <p class="project__title">Cohort / Raise</p>
+                <span class="project__type">Pitch</span>
+                <span class="project__year">2025</span>
+              </div>
+              <div class="project__track" aria-hidden="true">
+                <span class="project__track-inner">GSAP, ScrollTrigger, Lenis, Narrative Design, Next.js, CSS Variables, Motion Design, GSAP, ScrollTrigger, Lenis, Narrative Design, Next.js, CSS Variables, Motion Design,</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 5. Seyi's Park (3D case study) -->
+        <li class="project" style="--tint:#3a8f3a">
+          <a class="project__card" href="case-studies/seyis-park.html">
+            <div class="project__cover">
+              <img src="images/seyispark.png" alt="Seyi's Park" loading="lazy" />
+              <video class="project__reel" data-src="videos/seyispark.mp4" muted loop playsinline preload="none"></video>
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:transparent"><img src="images/seyispark-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" /></span>
+                <p class="project__title">Seyi's Park</p>
+                <span class="project__type">Creative</span>
+                <span class="project__year">2025</span>
+              </div>
+              <div class="project__track" aria-hidden="true">
+                <span class="project__track-inner">Three.js, WebGL, GLSL, 3D Modeling, requestAnimationFrame, Vercel, Creative Dev, Three.js, WebGL, GLSL, 3D Modeling, requestAnimationFrame, Vercel, Creative Dev,</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 6. Saleena -->
+        <li class="project" style="--tint:#e07ba0">
+          <a class="project__card" href="https://saleena.framer.website/" target="_blank" rel="noopener">
+            <div class="project__cover">
+              <img src="images/saleena.png" alt="Saleena" loading="lazy" />
+              <video class="project__reel" data-src="videos/saleena.mp4" muted loop playsinline preload="none"></video>
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:transparent"><img src="images/saleena-logo.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" /></span>
+                <p class="project__title">Saleena</p>
+                <span class="project__type">Personal</span>
+                <span class="project__year">2024</span>
+              </div>
+              <div class="project__track" aria-hidden="true">
+                <span class="project__track-inner">Framer, Typography, Multilingual, English, German, Nepali, Storytelling, Framer, Typography, Multilingual, English, German, Nepali, Storytelling,</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+      </ol>
+
+      <!-- Floating hover preview (desktop) -->
+      <div class="preview" id="preview" aria-hidden="true">
+        <div class="preview__inner">
+          <img class="preview__img" id="preview-img" alt="" />
+          <span class="preview__fallback" id="preview-fallback"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── ABOUT ───────────────────────── -->
+    <section class="about" id="about">
+      <div class="section-head">
+        <span class="section-head__label">(About)</span>
+      </div>
+
+      <ol class="exp-list">
+
+        <!-- ── Cohort ── -->
+        <li class="exp reveal" data-reveal>
+          <div class="exp__meta">
+            <div class="exp__co-info">
+              <img class="exp__co-logo" src="images/cohort-icon.png" alt="" loading="lazy" />
+              <span class="exp__co-name">Cohort &mdash; Founding Design Engineer</span>
+            </div>
+            <span class="exp__period">Dec 2025 &mdash; Present</span>
+          </div>
+          <p class="exp__narrative">
+            Built from day 0 &mdash; design,
+            <span class="exp__word" id="word-systems">systems</span>,
+            and <span class="exp__word" id="word-code">code</span>
+            in one seat. Every
+            <button class="exp__pill" data-for="x-screen" aria-expanded="false">screen</button><span id="x-screen" class="exp__reveal"> &mdash; the onboarding, landing page, deck, messaging, app &amp; the full design system</span>
+            in
+            <a class="exp__brand" href="https://www.trycohort.xyz/" target="_blank" rel="noopener">
+              <span class="exp__brand-name">Cohort</span>
+              <span class="exp__brand-marquee" aria-hidden="true">
+                <span>LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
+                <span aria-hidden="true">LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
+              </span>
+            </a>.
+            Not a feature team. A
+            <button class="exp__pill" data-for="x-complete" aria-expanded="false">complete</button><span id="x-complete" class="exp__reveal">&thinsp;&mdash;&thinsp;0&thinsp;&rarr;&thinsp;100, every screen shaped from the ground up</span>
+            product.
+          </p>
+        </li>
+
+        <!-- ── FourDimensions ── -->
+        <li class="exp reveal" data-reveal>
+          <div class="exp__meta">
+            <div class="exp__co-info">
+              <img class="exp__co-logo" src="linnked-logo.png" alt="" loading="lazy" />
+              <span class="exp__co-name">FourDimensions &mdash; Lead Design Engineer</span>
+            </div>
+            <span class="exp__period">Oct 2022 &mdash; June 2025</span>
+          </div>
+          <p class="exp__narrative">
+            Design and engineering across three early startups. Built
+            <a class="exp__brand" href="https://forthekulture.vercel.app/" target="_blank" rel="noopener">
+              <span class="exp__brand-name">Kulture</span>
+              <span class="exp__brand-marquee" aria-hidden="true">
+                <span>LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
+                <span aria-hidden="true">LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
+              </span>
+            </a>
+            and
+            <a class="exp__brand" href="https://linnked.vercel.app/" target="_blank" rel="noopener">
+              <span class="exp__brand-name">Linnked</span>
+              <span class="exp__brand-marquee" aria-hidden="true">
+                <span>LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
+                <span aria-hidden="true">LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
+              </span>
+            </a>
+            from first wireframe to live product ✦ &mdash; UX, systems design, and frontend execution for platforms reaching thousands of users.
+          </p>
+        </li>
+
+        <!-- ── Clark ── -->
+        <li class="exp reveal" data-reveal>
+          <div class="exp__meta">
+            <div class="exp__co-info">
+              <img class="exp__co-logo" src="clark-logo.png" alt="" loading="lazy" />
+              <span class="exp__co-name">Clark &mdash; Lead Product Designer</span>
+            </div>
+            <span class="exp__period">Dec 2024 &mdash; May 2025</span>
+          </div>
+          <p class="exp__narrative">
+            An AI ✦ <span id="word-study" class="exp__word" style="cursor:pointer">study</span> companion built for how students actually learn 🧠. Led product design at
+            <a class="exp__brand" href="https://clarkai-fe.vercel.app/" target="_blank" rel="noopener">
+              <span class="exp__brand-name">Clark</span>
+              <span class="exp__brand-marquee" aria-hidden="true">
+                <span>LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
+                <span aria-hidden="true">LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
+              </span>
+            </a>
+            from blank canvas to shipped MVP &mdash; landing ✏️, onboarding, streak system ⚡, card UI, and the core AI interface 💡. All of it.
+          </p>
+        </li>
+
+      </ol>
+
+    </section>
+
+    <!-- ───────────────────────── CONTACT ───────────────────────── -->
+    <section class="contact" id="contact">
+      <div class="section-head">
+        <span class="section-head__label">(Contact)</span>
+        <span class="section-head__count">Let&rsquo;s build</span>
+      </div>
+
+      <span class="contact__email reveal" data-reveal data-magnetic>
+        ogemgoldsmith07@gmail.com
+      </span>
+
+      <p class="contact__sub reveal" data-reveal>
+        Open to creative&hairsp;&mdash;&hairsp;product&hairsp;&middot;&hairsp;design&hairsp;&middot;&hairsp;growth&hairsp;&middot;&hairsp;engineering roles, collaborations, and good problems and conversation.
+      </p>
+
+      <ul class="socials">
+        <li><a href="https://www.trycohort.xyz/" target="_blank" rel="noopener noreferrer">Cohort ↗</a></li>
+        <li><a href="https://www.linkedin.com/in/oluwaseyiogundipe/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+        <li><a href="https://x.com/_theboygenius_" target="_blank" rel="noopener noreferrer">X / Twitter ↗</a></li>
+        <li><a href="https://github.com/Theboygenius07" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
+        <li><a href="https://docs.google.com/document/d/1vYnJxEyPxDjI2a7N3oeeTaSEkIPMNTu0D0r5MbuuB1Q/view" target="_blank" rel="noopener noreferrer">CV ↗</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- ───────────────────────── FOOTER ───────────────────────── -->
+  <footer class="footer">
+    <span class="footer__name">Seyi Ogundipe</span>
+    <span class="footer__clock"><span id="clock">--:--:--</span> <span class="footer__tz">local</span></span>
+    <a href="#top" class="footer__top" data-magnetic>Back to top ↑</a>
+  </footer>
+
+  <!-- Vibe switcher + physics lamp — ported from Cohort ("change the light") -->
+  <div id="vibe-wrap" aria-label="Change the light">
+    <div id="vibe-controls">
+      <button id="vibe-btn" class="vibe-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+        <span id="vibe-clock">--:-- --</span>
+        <span id="vibe-label"></span>
+        <svg class="vibe-chevron" viewBox="0 0 10 6" width="10" height="6" fill="none">
+          <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div id="vibe-menu" class="vibe-menu" role="listbox" hidden>
+        <span class="vibe-menu-hdr">CHANGE THE LIGHT</span>
+        <button class="vibe-opt" data-vibe="auto"    role="option">AUTO</button>
+        <button class="vibe-opt" data-vibe="morning" role="option">MORNING</button>
+        <button class="vibe-opt" data-vibe="day"     role="option">DAY</button>
+        <button class="vibe-opt" data-vibe="evening" role="option">EVENING</button>
+        <button class="vibe-opt" data-vibe="night"   role="option">NIGHT</button>
+        <div class="vibe-menu-divider"></div>
+        <button id="particles-toggle" class="vibe-opt particles-opt" aria-pressed="true" aria-label="Toggle ambient">
+          <span class="particles-opt-label">✸&nbsp; AMBIENT</span>
+          <span class="particles-opt-state"></span>
+        </button>
+      </div>
+    </div>
+
+    <div id="lamp-mount" aria-hidden="true">
+      <svg id="lamp-physics" viewBox="0 0 80 190" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="shade-grad" cx="34%" cy="22%" r="70%" fx="30%" fy="18%">
+            <stop offset="0%" stop-color="#909090"/><stop offset="28%" stop-color="#424242"/><stop offset="100%" stop-color="#141414"/>
+          </radialGradient>
+          <radialGradient id="shade-inner" cx="50%" cy="82%" r="58%">
+            <stop offset="0%" stop-color="#3a3a3a"/><stop offset="100%" stop-color="#1a1a1a"/>
+          </radialGradient>
+          <radialGradient id="light-cone" cx="50%" cy="0%" r="100%" fx="50%" fy="0%">
+            <stop offset="0%" stop-color="var(--lamp-glow)" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="var(--lamp-glow)" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect x="36" y="0" width="8" height="4" rx="2" fill="currentColor" opacity="0.38"/>
+        <line x1="40" y1="4" x2="40" y2="25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.38"/>
+        <g id="lp-shade-group">
+          <path id="lp-cone" d="M 22 58 L 2 130 Q 40 138 78 130 L 58 58 Z" fill="url(#light-cone)" opacity="0"/>
+          <path d="M 34 25 Q 24 27 19 44 Q 17 57 40 59 Q 63 57 61 44 Q 56 27 46 25 Z" fill="url(#shade-grad)"/>
+          <path d="M 34 25 Q 40 23 46 25" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1" stroke-linecap="round"/>
+          <ellipse cx="40" cy="58" rx="21.5" ry="5.2" fill="url(#shade-inner)"/>
+          <ellipse cx="40" cy="58" rx="22" ry="5.6" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+          <circle id="lp-bulb" cx="40" cy="51" r="5" fill="var(--lamp-glow,transparent)"/>
+        </g>
+        <path id="lp-cord" d="M 40 59 Q 40 82 40 104" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.4"/>
+        <circle id="lp-ball" cx="40" cy="104" r="5" fill="currentColor" opacity="0.5"/>
+        <circle id="lp-ball-ring" cx="40" cy="104" r="9" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Easter-egg furniture (toast + designer baseline grid) -->
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

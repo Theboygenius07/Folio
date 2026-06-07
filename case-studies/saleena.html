@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saleena — Case Study · Seyi Ogundipe</title>
+  <meta name="description" content="A Framer web piece designed as a personal gift, written in three languages. English, German, Nepali." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="case-study.css" />
+  <style>
+    body {
+      --paper:      #fefaf6;
+      --paper-deep: #f5ede3;
+      --ink:        #2c1f1a;
+      --ink-soft:   rgba(44,31,26,0.7);
+      --ink-mute:   rgba(44,31,26,0.46);
+      --ink-faint:  rgba(44,31,26,0.28);
+      --rule:       rgba(44,31,26,0.12);
+      --rule-soft:  rgba(44,31,26,0.07);
+      background: #fefaf6;
+      color: #2c1f1a;
+    }
+
+    .cs-nav { background: rgba(254,250,246,0.92); border-color: rgba(44,31,26,0.1); }
+    .cs-nav__mark .ast { color: #c4728f; }
+    ::selection { background: #c4728f; color: #fff; }
+    .cs-section__num { color: #c4728f; }
+    .cs-section__label { color: rgba(44,31,26,0.46); }
+    .cs-section__title { color: #2c1f1a; }
+    .cs-card  { background: #fff; border-color: rgba(44,31,26,0.1); }
+    .cs-card__k { color: #c4728f; }
+    .cs-card__t { color: #2c1f1a; }
+    .cs-card__d { color: rgba(44,31,26,0.65); }
+    .cs-step  { background: #fefaf6; }
+    .cs-step__n { color: #c4728f; }
+    .cs-step__t { color: #2c1f1a; }
+    .cs-step__d { color: rgba(44,31,26,0.65); }
+    .cs-steps { background: rgba(44,31,26,0.04); border-color: rgba(44,31,26,0.1); }
+    .cs-chip  { color: rgba(44,31,26,0.6); border-color: rgba(44,31,26,0.2); }
+    .cs-chip:hover { border-color: #c4728f; color: #2c1f1a; }
+    .cs-stats { background: rgba(44,31,26,0.04); border-color: rgba(44,31,26,0.1); }
+    .cs-stat  { background: #fefaf6; }
+    .cs-stat__n { color: #2c1f1a; }
+    .cs-stat__l { color: rgba(44,31,26,0.42); }
+    .cs-meta  { border-color: rgba(44,31,26,0.12); }
+    .cs-meta dt { color: rgba(44,31,26,0.42); }
+    .cs-meta dd { color: #2c1f1a; }
+    .cs-meta dd a { border-color: rgba(196,114,143,0.5); }
+    .cs-section + .cs-section { border-color: rgba(44,31,26,0.07); }
+    .cs-pull  { border-color: #c4728f; color: #2c1f1a; }
+    .prose p  { color: rgba(44,31,26,0.7); }
+    .cs-video { border-color: rgba(44,31,26,0.1); }
+
+    .sa-cover {
+      border-top: 1px solid rgba(44,31,26,0.1);
+      border-bottom: 1px solid rgba(44,31,26,0.1);
+    }
+    .sa-cover img { width: 100%; display: block; }
+
+    .sa-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid rgba(44,31,26,0.1);
+      border-bottom: 1px solid rgba(44,31,26,0.1);
+    }
+    .sa-strip figure { overflow: hidden; aspect-ratio: 4/3; }
+    .sa-strip figure + figure { border-left: 1px solid rgba(44,31,26,0.1); }
+    .sa-strip img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s var(--ease); }
+    .sa-strip figure:hover img { transform: scale(1.03); }
+    @media (max-width: 600px) {
+      .sa-strip { grid-template-columns: 1fr; }
+      .sa-strip figure + figure { border-left: none; border-top: 1px solid rgba(44,31,26,0.1); }
+    }
+  </style>
+</head>
+<body style="--tint:#c4728f">
+  <div class="grain" aria-hidden="true"></div>
+
+  <nav class="cs-nav">
+    <a href="../index.html#work" class="cs-nav__back" data-magnetic><span class="arrow">←</span><span>All work</span></a>
+    <span class="cs-nav__mark">Saleena<span class="ast">✸</span></span>
+  </nav>
+
+  <header class="cs-hero">
+    <p class="cs-hero__eyebrow" data-reveal><span class="idx">06</span><span class="sep"></span><span>Case Study</span></p>
+    <h1 class="cs-hero__title" data-reveal>A personal commission <em>in three languages</em></h1>
+    <p class="cs-hero__lede" data-reveal>A Framer website designed and written as a gift. The brief was entirely personal — make someone feel known, across English, German, and Nepali. Built with the same care as any client project.</p>
+    <dl class="cs-meta" data-reveal>
+      <div><dt>Role</dt><dd>Design &amp; writing</dd></div>
+      <div><dt>Scope</dt><dd>Personal · Framer · Web</dd></div>
+      <div><dt>Year</dt><dd>2024</dd></div>
+      <div><dt>Stack</dt><dd>Framer</dd></div>
+      <div><dt>Live</dt><dd><a href="https://saleena.framer.website/" target="_blank" rel="noopener">saleena ↗</a></dd></div>
+    </dl>
+  </header>
+
+  <div class="sa-cover" data-reveal="clip">
+    <img src="../images/saleena.png" alt="Saleena — homepage with multilingual floating elements" loading="lazy" />
+  </div>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">01</span><span class="cs-section__label">Overview</span></div>
+    <h2 class="cs-section__title" data-reveal>The web as a <em>personal medium</em></h2>
+    <div class="prose" data-reveal>
+      <p>Not every project is for an audience. Saleena is a website designed as a gift — proof that the same craft that ships products can hold something personal. The brief: make someone feel known, in more than one language, without the page feeling like a greeting card.</p>
+      <p>Three languages coexist as equals — German, Nepali, English — none of them captioning the others. Each carries its own weight. The pacing is slow and deliberate: generous space, no clutter, typography that reads rather than performs.</p>
+    </div>
+    <blockquote class="cs-pull" data-reveal><em>Some things are worth building for an audience of one.</em></blockquote>
+  </section>
+
+  <div class="sa-strip" data-reveal>
+    <figure><img src="../images/saleena-detail.png" alt="Saleena — interior view with photo and vinyl record" loading="lazy" /></figure>
+    <figure><img src="../images/saleena-photo.png" alt="Saleena — portrait" loading="lazy" /></figure>
+  </div>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">02</span><span class="cs-section__label">Design decisions</span></div>
+    <h2 class="cs-section__title" data-reveal>Warmth through <em>restraint</em></h2>
+    <div class="cs-cols" data-stagger>
+      <div class="cs-card"><p class="cs-card__k">Language</p><p class="cs-card__t">Many tongues, one voice</p><p class="cs-card__d">German, Nepali, English — in that order. None is a translation of another. Each section is written for its language, not adapted from another.</p></div>
+      <div class="cs-card"><p class="cs-card__k">Pacing</p><p class="cs-card__t">Read like a letter</p><p class="cs-card__d">Generous space and slow reveals give words room to land. The layout does not compete with the content — it holds it.</p></div>
+      <div class="cs-card"><p class="cs-card__k">Tone</p><p class="cs-card__t">Sincere, not sentimental</p><p class="cs-card__d">No ornament beyond what the words carry. No hearts, no confetti. The design steps back so the writing can step forward.</p></div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">03</span><span class="cs-section__label">Outcome</span></div>
+    <h2 class="cs-section__title" data-reveal>Where it <em>landed</em></h2>
+    <dl class="cs-stats" data-reveal>
+      <div class="cs-stat"><dd class="cs-stat__n">1</dd><dt class="cs-stat__l">Audience of one</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">3</dd><dt class="cs-stat__l">Languages · EN · DE · NE</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">Live</dd><dt class="cs-stat__l">Still up</dt></div>
+    </dl>
+    <div class="cs-chips" data-reveal style="margin-top:1.75rem">
+      <span class="cs-chip">Framer</span>
+      <span class="cs-chip">English</span>
+      <span class="cs-chip">Deutsch</span>
+      <span class="cs-chip">नेपाली</span>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">04</span><span class="cs-section__label">Walkthrough</span></div>
+    <div class="cs-video" data-reveal>
+      <video muted playsinline preload="none" poster="../images/saleena.png">
+        <source src="../images/saleena-demo.mov" type="video/mp4">
+      </video>
+      <button class="cs-video__play" aria-label="Play Saleena walkthrough">
+        <span class="cs-video__play-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <section class="cs-next">
+    <div class="cs-next__inner">
+      <p class="cs-next__label" data-reveal>Back to the start</p>
+      <a href="cohort.html" class="cs-next__link" data-reveal data-magnetic>Cohort <span class="arrow">→</span></a>
+      <p class="cs-next__desc" data-reveal>The social layer for student life.</p>
+      <div class="cs-foot">
+        <span>Seyi Ogundipe — Design Engineer</span>
+        <span><span id="cs-clock">--:--:--</span> local</span>
+        <a href="../index.html#work">All work ↑</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="case-study.js"></script>
+</body>
+</html>

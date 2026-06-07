@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KULTURE* — Case Study · Seyi Ogundipe</title>
+  <meta name="description" content="Brand identity and event web build for KULTURE* — a Lagos street culture party." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="case-study.css" />
+  <style>
+    body {
+      --paper:      #0c0d09;
+      --paper-deep: #141509;
+      --ink:        #f0ead8;
+      --ink-soft:   rgba(240,234,216,0.7);
+      --ink-mute:   rgba(240,234,216,0.46);
+      --ink-faint:  rgba(240,234,216,0.28);
+      --rule:       rgba(240,234,216,0.1);
+      --rule-soft:  rgba(240,234,216,0.06);
+      background: #0c0d09;
+      color: #f0ead8;
+    }
+
+    .cs-nav { background: rgba(12,13,9,0.92); border-color: rgba(240,234,216,0.08); }
+    .cs-nav__mark .ast { color: #c8192a; }
+    ::selection { background: #c8192a; color: #fff; }
+    .cs-section__num { color: #c8192a; }
+    .cs-section__label { color: rgba(240,234,216,0.46); }
+    .cs-section__title { color: #f0ead8; }
+    .cs-card  { background: rgba(240,234,216,0.04); border-color: rgba(240,234,216,0.08); }
+    .cs-card__k { color: #c8192a; }
+    .cs-card__t { color: #f0ead8; }
+    .cs-card__d { color: rgba(240,234,216,0.62); }
+    .cs-step  { background: #0c0d09; }
+    .cs-step__n { color: #c8192a; }
+    .cs-step__t { color: #f0ead8; }
+    .cs-step__d { color: rgba(240,234,216,0.58); }
+    .cs-steps { background: rgba(240,234,216,0.04); border-color: rgba(240,234,216,0.08); }
+    .cs-chip  { color: rgba(240,234,216,0.55); border-color: rgba(240,234,216,0.15); }
+    .cs-chip:hover { border-color: #c8192a; color: #f0ead8; }
+    .cs-stats { background: rgba(240,234,216,0.04); border-color: rgba(240,234,216,0.08); }
+    .cs-stat  { background: #0c0d09; }
+    .cs-stat__n { color: #f0ead8; }
+    .cs-stat__l { color: rgba(240,234,216,0.4); }
+    .cs-meta  { border-color: rgba(240,234,216,0.1); }
+    .cs-meta dt { color: rgba(240,234,216,0.4); }
+    .cs-meta dd { color: #f0ead8; }
+    .cs-meta dd a { border-color: rgba(200,25,42,0.5); }
+    .cs-section + .cs-section { border-color: rgba(240,234,216,0.06); }
+    .cs-pull  { border-color: #c8192a; color: #f0ead8; }
+    .prose p  { color: rgba(240,234,216,0.68); }
+    .cs-video { border-color: rgba(240,234,216,0.08); }
+    .cs-hero__lede { color: rgba(240,234,216,0.7); }
+    .cs-hero__eyebrow { color: rgba(240,234,216,0.46); }
+
+    .ku-flyer {
+      border-top: 1px solid rgba(240,234,216,0.08);
+      border-bottom: 1px solid rgba(240,234,216,0.08);
+    }
+    .ku-flyer img { width: 100%; display: block; max-height: 80vh; object-fit: cover; }
+
+    .ku-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid rgba(240,234,216,0.08);
+      border-bottom: 1px solid rgba(240,234,216,0.08);
+    }
+    .ku-strip figure { overflow: hidden; aspect-ratio: 16/10; }
+    .ku-strip figure + figure { border-left: 1px solid rgba(240,234,216,0.08); }
+    .ku-strip img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s var(--ease); }
+    .ku-strip figure:hover img { transform: scale(1.03); }
+    @media (max-width: 600px) {
+      .ku-strip { grid-template-columns: 1fr; }
+      .ku-strip figure + figure { border-left: none; border-top: 1px solid rgba(240,234,216,0.08); }
+    }
+  </style>
+</head>
+<body style="--tint:#c8192a">
+  <div class="grain" aria-hidden="true"></div>
+
+  <nav class="cs-nav">
+    <a href="../index.html#work" class="cs-nav__back" data-magnetic><span class="arrow">←</span><span>All work</span></a>
+    <span class="cs-nav__mark">KULTURE<span class="ast">*</span></span>
+  </nav>
+
+  <header class="cs-hero">
+    <p class="cs-hero__eyebrow" data-reveal><span class="idx">04</span><span class="sep"></span><span>Case Study</span></p>
+    <h1 class="cs-hero__title" data-reveal>An event brand, <em>built to move</em></h1>
+    <p class="cs-hero__lede" data-reveal>Brand identity and event web build for KULTURE* — a Lagos street culture party. Design system, ticket tiers, and a site engineered to convert before the early bird closes.</p>
+    <dl class="cs-meta" data-reveal>
+      <div><dt>Role</dt><dd>Design &amp; front-end</dd></div>
+      <div><dt>Scope</dt><dd>Brand · Web · Event</dd></div>
+      <div><dt>Year</dt><dd>2025</dd></div>
+      <div><dt>Stack</dt><dd>HTML · CSS · JS · Paystack</dd></div>
+      <div><dt>Live</dt><dd><a href="https://kulture-event.vercel.app/" target="_blank" rel="noopener">kulture-event ↗</a></dd></div>
+    </dl>
+  </header>
+
+  <div class="ku-flyer" data-reveal="clip">
+    <img src="../images/kulture-2.png" alt="KULTURE* event flyer" loading="lazy" />
+  </div>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">01</span><span class="cs-section__label">Overview</span></div>
+    <h2 class="cs-section__title" data-reveal>Lagos street culture, <em>designed to sell</em></h2>
+    <div class="prose" data-reveal>
+      <p>KULTURE* is a post-exam, one-night celebration targeting LASU students in Ojo, Lagos Mainland. The brief was dual: build a brand strong enough to make the event feel inevitable before it happened, and a site that moves people from discovery to purchase in one scroll.</p>
+      <p>Every decision — the custom display typeface, the three-tier ticket layout, the red accent used sparingly — was made to feel specifically Lagos without falling into generic streetwear tropes.</p>
+    </div>
+    <blockquote class="cs-pull" data-reveal><em>The asterisk is not decoration. It is the point.</em></blockquote>
+  </section>
+
+  <div class="ku-strip" data-reveal>
+    <figure><img src="../images/kulture.png" alt="KULTURE* hero section" loading="lazy" /></figure>
+    <figure><img src="../images/kulture-nav.png" alt="KULTURE* navigation" loading="lazy" /></figure>
+  </div>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">02</span><span class="cs-section__label">Process</span></div>
+    <h2 class="cs-section__title" data-reveal>From brand mark <em>to buy button</em></h2>
+    <div class="cs-steps" data-stagger>
+      <div class="cs-step"><span class="cs-step__n">1</span><div><p class="cs-step__t">Brand system</p><p class="cs-step__d">Three-font system — DynamicDisplay for display, Yapari for labels, Helvetica for body. Four-colour palette: black, green, cream, red. The asterisk anchors the whole identity.</p></div></div>
+      <div class="cs-step"><span class="cs-step__n">2</span><div><p class="cs-step__t">Ticket architecture</p><p class="cs-step__d">Three tiers — Early Bird, VIP, Table. Designed for urgency: live countdown, blinking early-bird indicator, limited availability language baked into the layout.</p></div></div>
+      <div class="cs-step"><span class="cs-step__n">3</span><div><p class="cs-step__t">Scroll narrative</p><p class="cs-step__d">Energy first (hero, marquee, flyer), then information (about, experience, venue), then conversion (tickets). The page has one job per section.</p></div></div>
+      <div class="cs-step"><span class="cs-step__n">4</span><div><p class="cs-step__t">Paystack integration</p><p class="cs-step__d">Ticket cards wired to Paystack inline checkout — no redirect. Gate-ticket notice and sold-out state ready to toggle on the night.</p></div></div>
+    </div>
+    <div class="cs-chips" data-reveal style="margin-top:1.75rem">
+      <span class="cs-chip">DynamicDisplay</span>
+      <span class="cs-chip">YapariTrial</span>
+      <span class="cs-chip">Paystack</span>
+      <span class="cs-chip">CSS animation</span>
+      <span class="cs-chip">Vercel</span>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">03</span><span class="cs-section__label">Outcome</span></div>
+    <h2 class="cs-section__title" data-reveal>Where it <em>landed</em></h2>
+    <dl class="cs-stats" data-reveal>
+      <div class="cs-stat"><dd class="cs-stat__n">500</dd><dt class="cs-stat__l">Capacity</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">3</dd><dt class="cs-stat__l">Ticket tiers</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">1</dd><dt class="cs-stat__l">Night · Lagos</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">Live</dd><dt class="cs-stat__l">Event site</dt></div>
+    </dl>
+  </section>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">04</span><span class="cs-section__label">Walkthrough</span></div>
+    <div class="cs-video" data-reveal>
+      <video muted playsinline preload="none" poster="../images/kulture.png">
+        <source src="../images/kulture-reel.mov" type="video/mp4">
+      </video>
+      <button class="cs-video__play" aria-label="Play KULTURE* walkthrough">
+        <span class="cs-video__play-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <section class="cs-next">
+    <div class="cs-next__inner">
+      <p class="cs-next__label" data-reveal>Next case study</p>
+      <a href="subtitles.html" class="cs-next__link" data-reveal data-magnetic>Subtitles <span class="arrow">→</span></a>
+      <p class="cs-next__desc" data-reveal>54 weeks, archived four ways.</p>
+      <div class="cs-foot">
+        <span>Seyi Ogundipe — Design Engineer</span>
+        <span><span id="cs-clock">--:--:--</span> local</span>
+        <a href="../index.html#work">All work ↑</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="case-study.js"></script>
+</body>
+</html>

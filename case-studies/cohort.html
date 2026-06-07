@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cohort — Case Study · Seyi Ogundipe</title>
+  <meta name="description" content="Two scroll-driven pages for Cohort — a proactive AI assistant and social network for university students." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="case-study.css" />
+  <style>
+    body {
+      --paper:      #090909;
+      --paper-deep: #111111;
+      --ink:        #f0ede8;
+      --ink-soft:   rgba(240,237,232,0.7);
+      --ink-mute:   rgba(240,237,232,0.46);
+      --ink-faint:  rgba(240,237,232,0.28);
+      --rule:       rgba(240,237,232,0.1);
+      --rule-soft:  rgba(240,237,232,0.06);
+      background: #090909;
+      color: #f0ede8;
+    }
+
+    .cs-nav { background: rgba(9,9,9,0.92); border-color: rgba(240,237,232,0.08); }
+    .cs-nav__mark .ast { color: #1c34f5; }
+    ::selection { background: #1c34f5; color: #fff; }
+    .cs-section__num { color: #4b63ff; }
+    .cs-section__label { color: rgba(240,237,232,0.46); }
+    .cs-section__title { color: #f0ede8; }
+    .cs-card  { background: rgba(240,237,232,0.04); border-color: rgba(240,237,232,0.08); }
+    .cs-card__k { color: #4b63ff; }
+    .cs-card__t { color: #f0ede8; }
+    .cs-card__d { color: rgba(240,237,232,0.62); }
+    .cs-step  { background: #090909; }
+    .cs-step__n { color: #4b63ff; }
+    .cs-step__t { color: #f0ede8; }
+    .cs-step__d { color: rgba(240,237,232,0.58); }
+    .cs-steps { background: rgba(240,237,232,0.04); border-color: rgba(240,237,232,0.08); }
+    .cs-chip  { color: rgba(240,237,232,0.55); border-color: rgba(240,237,232,0.15); }
+    .cs-chip:hover { border-color: #4b63ff; color: #f0ede8; }
+    .cs-stats { background: rgba(240,237,232,0.04); border-color: rgba(240,237,232,0.08); }
+    .cs-stat  { background: #090909; }
+    .cs-stat__n { color: #f0ede8; }
+    .cs-stat__l { color: rgba(240,237,232,0.4); }
+    .cs-meta  { border-color: rgba(240,237,232,0.1); }
+    .cs-meta dt { color: rgba(240,237,232,0.4); }
+    .cs-meta dd { color: #f0ede8; }
+    .cs-meta dd a { border-color: rgba(75,99,255,0.5); }
+    .cs-section + .cs-section { border-color: rgba(240,237,232,0.06); }
+    .cs-pull  { border-color: #4b63ff; color: #f0ede8; }
+    .prose p  { color: rgba(240,237,232,0.68); }
+    .cs-video { border-color: rgba(240,237,232,0.08); }
+    .cs-hero__lede { color: rgba(240,237,232,0.7); }
+    .cs-hero__eyebrow { color: rgba(240,237,232,0.46); }
+
+    .co-cover {
+      border-top: 1px solid rgba(240,237,232,0.08);
+      border-bottom: 1px solid rgba(240,237,232,0.08);
+    }
+    .co-cover img { width: 100%; display: block; }
+
+    .co-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid rgba(240,237,232,0.08);
+      border-bottom: 1px solid rgba(240,237,232,0.08);
+    }
+    .co-strip figure { overflow: hidden; aspect-ratio: 4/3; }
+    .co-strip figure + figure { border-left: 1px solid rgba(240,237,232,0.08); }
+    .co-strip img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s var(--ease); }
+    .co-strip figure:hover img { transform: scale(1.03); }
+    @media (max-width: 600px) {
+      .co-strip { grid-template-columns: 1fr; }
+      .co-strip figure + figure { border-left: none; border-top: 1px solid rgba(240,237,232,0.08); }
+    }
+  </style>
+</head>
+<body style="--tint:#1c34f5">
+  <div class="grain" aria-hidden="true"></div>
+
+  <nav class="cs-nav">
+    <a href="../index.html#work" class="cs-nav__back" data-magnetic><span class="arrow">←</span><span>All work</span></a>
+    <span class="cs-nav__mark">Cohort<span class="ast">✸</span></span>
+  </nav>
+
+  <header class="cs-hero">
+    <p class="cs-hero__eyebrow" data-reveal><span class="idx">01</span><span class="sep"></span><span>Case Study</span></p>
+    <h1 class="cs-hero__title" data-reveal>The social layer <em>for student life</em></h1>
+    <p class="cs-hero__lede" data-reveal>Two scroll-driven pages — one for students, one for investors — built around a proactive AI assistant that coordinates university life across a shared network. Same brand, two emotional gradients.</p>
+    <dl class="cs-meta" data-reveal>
+      <div><dt>Role</dt><dd>Design &amp; front-end</dd></div>
+      <div><dt>Scope</dt><dd>Product · Web · Motion</dd></div>
+      <div><dt>Year</dt><dd>2025</dd></div>
+      <div><dt>Stack</dt><dd>Next.js · GSAP · Lenis</dd></div>
+      <div><dt>Live</dt><dd><a href="https://www.trycohort.xyz/" target="_blank" rel="noopener">trycohort.xyz ↗</a></dd></div>
+    </dl>
+  </header>
+
+  <div class="co-cover" data-reveal="clip">
+    <img src="../images/cohort.png" alt="Cohort — customer page, dark scroll-driven narrative" loading="lazy" />
+  </div>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">01</span><span class="cs-section__label">Overview</span></div>
+    <h2 class="cs-section__title" data-reveal>Two pages, <em>one spine</em></h2>
+    <div class="prose" data-reveal>
+      <p>Cohort needed two distinct sites that couldn't feel like different products. The customer page sells relief — a student drowning in six apps finally getting help. The investor page sells momentum — a network that compounds with every new campus.</p>
+      <p>The same design tokens, particle system, and pill interaction pattern serve both. The difference is voice: lowercase-confident for students, sentence-case precise for investors. The animation philosophy is identical — things arrive, they don't pop.</p>
+    </div>
+    <blockquote class="cs-pull" data-reveal><em>The only way in is to be handed the URL.</em></blockquote>
+  </section>
+
+  <div class="co-strip" data-reveal>
+    <figure><img src="../images/cohort-phone.png" alt="Cohort — iMessage-style assistant interface on phone" loading="lazy" /></figure>
+    <figure><img src="../images/cohort-screenshot.png" alt="Cohort — product screenshot" loading="lazy" /></figure>
+  </div>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">02</span><span class="cs-section__label">Process</span></div>
+    <h2 class="cs-section__title" data-reveal>Narrative before <em>interface</em></h2>
+    <div class="cs-steps" data-stagger>
+      <div class="cs-step"><span class="cs-step__n">1</span><div><p class="cs-step__t">Define the two emotional gradients</p><p class="cs-step__d">Customer page: dark problem → electric blue solution → dark CTA. Investor page: mounting momentum toward a single ask. Color transitions are events, not background swaps.</p></div></div>
+      <div class="cs-step"><span class="cs-step__n">2</span><div><p class="cs-step__t">Build the pill system</p><p class="cs-step__d">Tappable phrases that expand inline — no modal, no new page. Stats, quotes, app stacks, and traction data all live inside pills. The reader stays in the flow.</p></div></div>
+      <div class="cs-step"><span class="cs-step__n">3</span><div><p class="cs-step__t">Chapter the investor narrative</p><p class="cs-step__d">Broke the thesis into escalating beats — problem, product, network moat, business model, traction, team, ask. Each beat owns its own viewport.</p></div></div>
+      <div class="cs-step"><span class="cs-step__n">4</span><div><p class="cs-step__t">Close on restraint</p><p class="cs-step__d">The investor page ends on white space and two email addresses. No CTA button. The absence of friction is the message.</p></div></div>
+    </div>
+    <div class="cs-chips" data-reveal style="margin-top:1.75rem">
+      <span class="cs-chip">Next.js</span>
+      <span class="cs-chip">GSAP ScrollTrigger</span>
+      <span class="cs-chip">Lenis</span>
+      <span class="cs-chip">Framer Motion</span>
+      <span class="cs-chip">Vercel</span>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">03</span><span class="cs-section__label">Outcome</span></div>
+    <h2 class="cs-section__title" data-reveal>Where it <em>landed</em></h2>
+    <dl class="cs-stats" data-reveal>
+      <div class="cs-stat"><dd class="cs-stat__n" data-count="2083">2,083</dd><dt class="cs-stat__l">Waitlist students</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">3</dd><dt class="cs-stat__l">Schools</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">0</dd><dt class="cs-stat__l">Paid acquisition</dt></div>
+      <div class="cs-stat"><dd class="cs-stat__n">2</dd><dt class="cs-stat__l">Pages · 1 brand</dt></div>
+    </dl>
+  </section>
+
+  <section class="cs-section">
+    <div class="cs-section__head" data-reveal><span class="cs-section__num">04</span><span class="cs-section__label">Walkthrough</span></div>
+    <div class="cs-video" data-reveal>
+      <video muted playsinline preload="none" poster="../images/cohort.png">
+        <source src="../images/cohort-demo.mov" type="video/mp4">
+      </video>
+      <button class="cs-video__play" aria-label="Play Cohort walkthrough">
+        <span class="cs-video__play-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <section class="cs-next">
+    <div class="cs-next__inner">
+      <p class="cs-next__label" data-reveal>Next case study</p>
+      <a href="raise.html" class="cs-next__link" data-reveal data-magnetic>Cohort / Raise <span class="arrow">→</span></a>
+      <p class="cs-next__desc" data-reveal>The investor cut — a pitch that reads like conviction.</p>
+      <div class="cs-foot">
+        <span>Seyi Ogundipe — Design Engineer</span>
+        <span><span id="cs-clock">--:--:--</span> local</span>
+        <a href="../index.html#work">All work ↑</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="case-study.js"></script>
+</body>
+</html>

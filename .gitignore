@@ -1,0 +1,57 @@
+# ── OS ────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# ── Raw screen recordings (use compressed videos/ instead) ───
+*.mov
+
+# ── Dev screenshots / recordings ─────────────────────────────
+images/Screenshot*
+images/Screen Recording*
+thumb_*.jpg
+Screenshot *.png
+Screen Recording *.mov
+
+# ── Source / reference material (not served by the site) ─────
+Cohort/
+Kulture/
+Subtitles/
+Seyi's 3d Park/
+
+# ── Duplicate font folder (fonts/ is the canonical one) ──────
+saans-font-family/
+
+# ── Root-level loose assets not referenced by the site ───────
+Clark-card-1.png
+Clark-folder.svg
+Clark-home.png
+Linnked-Email \[Vectorized\].svg
+Linnked-flowers.svg
+Linnked-headphone.svg
+Linnked-hero.png
+Seyi Ogundipe's Resumé*.pdf
+Seyi-Picture.png
+clark-card-streak.png
+clark-team-page-deck.png
+community-nav-component.svg
+home-nav-component.svg
+linnked-stand.svg
+linnks-nav-component.svg
+portfolio-favicon.svg
+/saleena-logo.png
+seyi's-park-logo.svg
+
+# ── PP Neue Montreal copies sitting in root (not in fonts/) ──
+ppneuemontreal-*.otf
+
+# ── Editor ───────────────────────────────────────────────────
+.vscode/
+
+# ── Node / build tools (if ever added) ───────────────────────
+node_modules/
+.env
+.env.local
+dist/
+.cache/
