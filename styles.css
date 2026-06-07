@@ -671,12 +671,12 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
 
 @media (max-width: 560px) {
   /* mobile nav: brand left · time center · lamp right */
-  .nav { display: flex; padding: 1.25rem var(--pad-x); }
+  .nav { display: flex; padding: 1.6rem var(--pad-x) 1.25rem; }
   .nav__links { display: none; }
   /* vibe-wrap spans full width; clock flexes to fill and centers; lamp stays right */
   #vibe-wrap { left: 0; right: 0; }
   #vibe-controls { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; }
-  .vibe-btn { padding: 1.25rem 1rem; font-size: 0.72rem; }
+  .vibe-btn { padding: 1.6rem 1rem 1.25rem; font-size: 0.72rem; }
 
   .hero { padding-top: 4.5rem; padding-bottom: 2rem; }
   .hero__bio { max-width: 100%; font-size: 0.92rem; }
