@@ -124,12 +124,12 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
 /* Bio text */
 .hero__bio {
   font-family: var(--sans);
-  font-size: clamp(0.9rem, 1.05vw, 1rem);
-  font-weight: 500;
-  line-height: 1.8;
+  font-size: clamp(2rem, 4.5vw, 5rem);
+  font-weight: 400;
+  line-height: 1.18;
   color: var(--ink);
-  max-width: 56ch;
-  letter-spacing: 0;
+  letter-spacing: -0.025em;
+  word-spacing: 0.04em;
 }
 
 @keyframes chip-float {
@@ -665,7 +665,7 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
 }
 
 @media (max-width: 768px) {
-  .exp__narrative { font-size: clamp(1.8rem, 6.5vw, 3rem); }
+  .exp__narrative, .hero__bio { font-size: clamp(1.8rem, 6.5vw, 3rem); }
   .exp__meta { flex-direction: column; gap: 0.2rem; align-items: flex-start; }
 }
 
@@ -679,7 +679,7 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
   .vibe-btn { padding: 1.6rem 1rem 1.25rem; font-size: 0.72rem; }
 
   .hero { padding-top: 4.5rem; padding-bottom: 2rem; }
-  .hero__bio { max-width: 100%; font-size: 0.92rem; }
+  .hero__bio { max-width: 100%; font-size: clamp(1.6rem, 7vw, 2.2rem); }
   .exp__meta { font-size: 0.78rem; }
   .exp__narrative { font-size: clamp(1.6rem, 7vw, 2.2rem); }
   .about__stats { gap: 1.5rem 3rem; }

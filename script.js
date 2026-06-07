@@ -765,6 +765,15 @@
     });
   }
 
+  /* ---- 7b. Back to top ---- */
+  const backToTop = document.querySelector(".footer__top");
+  if (backToTop) {
+    backToTop.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.scrollTo(0, 0);
+    });
+  }
+
   /* ---- 8. Tab-away title ---- */
   const realTitle = document.title;
   document.addEventListener("visibilitychange", () => {
