@@ -293,27 +293,6 @@
       pill.setAttribute("aria-controls", pill.dataset.for);
     });
 
-    /* ── "code" word: scrambles to coding symbols on hover ── */
-    const codeEl = document.getElementById("word-code");
-    if (codeEl && !noMotion) {
-      const GLYPHS = ["<>", "{}", "/", ";", "=>", "&&", "[]", "//", "!=", "++", "**", "??"];
-      const orig = codeEl.textContent;
-      let timer;
-      codeEl.addEventListener("mouseenter", () => {
-        let n = 0;
-        const run = () => {
-          if (n++ > 14) { codeEl.textContent = orig; return; }
-          codeEl.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-          timer = setTimeout(run, 60);
-        };
-        run();
-      });
-      codeEl.addEventListener("mouseleave", () => {
-        clearTimeout(timer);
-        codeEl.textContent = orig;
-      });
-    }
-
     /* ── "systems" word: sticky-note storm ── */
     const systemsEl = document.getElementById("word-systems");
     if (systemsEl && !noMotion) {
