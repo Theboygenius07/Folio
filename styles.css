@@ -670,15 +670,12 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
 }
 
 @media (max-width: 560px) {
-  /* hide nav on mobile — time takes its place */
-  .nav { display: none; }
+  /* mobile nav: brand · time · lamp — hide the text links */
+  .nav { display: flex; padding: 1.25rem var(--pad-x); }
+  .nav__links { display: none; }
+  .vibe-btn { padding: 1.25rem var(--pad-x) 1.25rem 14px; font-size: 0.72rem; }
 
-  /* center the vibe clock at the top */
-  #vibe-wrap { left: 0; right: 0; justify-content: center; }
-  #lamp-mount { display: none; }
-  .vibe-btn { padding: 1.25rem 1.5rem 0.75rem; font-size: 0.75rem; }
-
-  .hero { padding-top: 4rem; padding-bottom: 2rem; }
+  .hero { padding-top: 4.5rem; padding-bottom: 2rem; }
   .hero__bio { max-width: 100%; font-size: 0.92rem; }
   .exp__meta { font-size: 0.78rem; }
   .exp__narrative { font-size: clamp(1.6rem, 7vw, 2.2rem); }
