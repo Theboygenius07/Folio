@@ -673,8 +673,8 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
   /* mobile nav: brand left · time center · lamp right */
   .nav { display: flex; padding: 1.6rem var(--pad-x) 1.25rem; }
   .nav__links { display: none; }
-  /* vibe-wrap spans full width; clock flexes to fill and centers; lamp stays right */
-  #vibe-wrap { left: 0; right: 0; }
+  /* vibe-wrap spans full width, pinned to same top as nav */
+  #vibe-wrap { top: 0; left: 0; right: 0; }
   #vibe-controls { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; }
   .vibe-btn { padding: 1.6rem 1rem 1.25rem; font-size: 0.72rem; }
 
