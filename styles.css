@@ -920,17 +920,18 @@ main { position: relative; z-index: 1; }
 .nav__brand, .nav__links, .nav__meta, #vibe-controls { pointer-events: auto; }
 .nav__meta { display: none; }
 
-/* lamp-only container — vibe-controls moved into nav */
-#vibe-wrap {
-  position: fixed; top: env(safe-area-inset-top, 0px); right: env(safe-area-inset-right, 0px);
-  z-index: 95; pointer-events: none;
-  animation: rise 1s var(--ease) .5s both;
-}
 @keyframes rise { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
 
 #vibe-controls {
   display: flex; flex-direction: column; align-items: flex-end;
   position: relative;
+  animation: rise 1s var(--ease) .5s both;
+}
+
+/* lamp hangs below the clock button, right-aligned */
+#lamp-mount {
+  position: absolute; top: 100%; right: 0;
+  pointer-events: none;
 }
 .vibe-btn {
   display: flex; align-items: center; gap: .5em;
@@ -1003,6 +1004,6 @@ body.no-ambient .hero__ambient { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .lamp-glow { transition: none; }
-  #vibe-wrap { animation: none; }
+  #vibe-controls { animation: none; }
 }
 

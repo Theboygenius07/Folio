@@ -76,6 +76,35 @@
           <span class="particles-opt-state"></span>
         </button>
       </div>
+      <div id="lamp-mount" aria-hidden="true">
+        <svg id="lamp-physics" viewBox="0 0 80 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="shade-grad" cx="34%" cy="22%" r="70%" fx="30%" fy="18%">
+              <stop offset="0%" stop-color="#909090"/><stop offset="28%" stop-color="#424242"/><stop offset="100%" stop-color="#141414"/>
+            </radialGradient>
+            <radialGradient id="shade-inner" cx="50%" cy="82%" r="58%">
+              <stop offset="0%" stop-color="#3a3a3a"/><stop offset="100%" stop-color="#1a1a1a"/>
+            </radialGradient>
+            <radialGradient id="light-cone" cx="50%" cy="0%" r="100%" fx="50%" fy="0%">
+              <stop offset="0%" stop-color="var(--lamp-glow)" stop-opacity="0.28"/>
+              <stop offset="100%" stop-color="var(--lamp-glow)" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect x="36" y="0" width="8" height="4" rx="2" fill="currentColor" opacity="0.38"/>
+          <line x1="40" y1="4" x2="40" y2="25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.38"/>
+          <g id="lp-shade-group">
+            <path id="lp-cone" d="M 22 58 L 2 130 Q 40 138 78 130 L 58 58 Z" fill="url(#light-cone)" opacity="0"/>
+            <path d="M 34 25 Q 24 27 19 44 Q 17 57 40 59 Q 63 57 61 44 Q 56 27 46 25 Z" fill="url(#shade-grad)"/>
+            <path d="M 34 25 Q 40 23 46 25" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1" stroke-linecap="round"/>
+            <ellipse cx="40" cy="58" rx="21.5" ry="5.2" fill="url(#shade-inner)"/>
+            <ellipse cx="40" cy="58" rx="22" ry="5.6" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+            <circle id="lp-bulb" cx="40" cy="51" r="5" fill="var(--lamp-glow,transparent)"/>
+          </g>
+          <path id="lp-cord" d="M 40 59 Q 40 82 40 104" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.4"/>
+          <circle id="lp-ball" cx="40" cy="104" r="5" fill="currentColor" opacity="0.5"/>
+          <circle id="lp-ball-ring" cx="40" cy="104" r="9" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0"/>
+        </svg>
+      </div>
     </div>
   </header>
 
@@ -376,39 +405,6 @@
     <span class="footer__clock"><span id="clock">--:--:--</span> <span class="footer__tz">local</span></span>
     <a href="#top" class="footer__top" data-magnetic>Back to top ↑</a>
   </footer>
-
-  <!-- Physics lamp — ported from Cohort ("change the light") -->
-  <div id="vibe-wrap" aria-hidden="true">
-    <div id="lamp-mount" aria-hidden="true">
-      <svg id="lamp-physics" viewBox="0 0 80 190" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="shade-grad" cx="34%" cy="22%" r="70%" fx="30%" fy="18%">
-            <stop offset="0%" stop-color="#909090"/><stop offset="28%" stop-color="#424242"/><stop offset="100%" stop-color="#141414"/>
-          </radialGradient>
-          <radialGradient id="shade-inner" cx="50%" cy="82%" r="58%">
-            <stop offset="0%" stop-color="#3a3a3a"/><stop offset="100%" stop-color="#1a1a1a"/>
-          </radialGradient>
-          <radialGradient id="light-cone" cx="50%" cy="0%" r="100%" fx="50%" fy="0%">
-            <stop offset="0%" stop-color="var(--lamp-glow)" stop-opacity="0.28"/>
-            <stop offset="100%" stop-color="var(--lamp-glow)" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <rect x="36" y="0" width="8" height="4" rx="2" fill="currentColor" opacity="0.38"/>
-        <line x1="40" y1="4" x2="40" y2="25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.38"/>
-        <g id="lp-shade-group">
-          <path id="lp-cone" d="M 22 58 L 2 130 Q 40 138 78 130 L 58 58 Z" fill="url(#light-cone)" opacity="0"/>
-          <path d="M 34 25 Q 24 27 19 44 Q 17 57 40 59 Q 63 57 61 44 Q 56 27 46 25 Z" fill="url(#shade-grad)"/>
-          <path d="M 34 25 Q 40 23 46 25" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1" stroke-linecap="round"/>
-          <ellipse cx="40" cy="58" rx="21.5" ry="5.2" fill="url(#shade-inner)"/>
-          <ellipse cx="40" cy="58" rx="22" ry="5.6" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
-          <circle id="lp-bulb" cx="40" cy="51" r="5" fill="var(--lamp-glow,transparent)"/>
-        </g>
-        <path id="lp-cord" d="M 40 59 Q 40 82 40 104" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.4"/>
-        <circle id="lp-ball" cx="40" cy="104" r="5" fill="currentColor" opacity="0.5"/>
-        <circle id="lp-ball-ring" cx="40" cy="104" r="9" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0"/>
-      </svg>
-    </div>
-  </div>
 
   <!-- Easter-egg furniture (toast + designer baseline grid) -->
   <div class="grid-overlay" aria-hidden="true"></div>
