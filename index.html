@@ -11,6 +11,15 @@
   <meta property="og:title" content="Seyi Ogundipe — Design Engineer" />
   <meta property="og:description" content="Design, engineering, growth & storytelling. Where ideas become products and products become experiences." />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Seyi Ogundipe — Design Engineer" />
+  <meta name="twitter:description" content="Design, engineering, growth & storytelling. Where ideas become products and products become experiences." />
+  <meta name="twitter:image" content="og-image.png" />
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
 
@@ -51,7 +60,7 @@
       <a href="#top" class="nav__brand">Seyi&nbsp;Ogundipe</a>
       <nav class="nav__links" aria-label="Primary">
         <a href="#work" class="nav__link"><span>Work</span></a>
-        <a href="#about" class="nav__link"><span>About</span></a>
+        <a href="#about" class="nav__link"><span>Experience</span></a>
         <a href="#contact" class="nav__link"><span>Contact</span></a>
       </nav>
     </div>
@@ -65,12 +74,32 @@
       </div>
 
       <div class="hero__doc">
+        <p class="hero__greeting">Hello.</p>
+
         <p class="hero__bio">
-          I&rsquo;m Seyi&nbsp;Ogundipe &mdash; an award-winning Design Engineer,
-          Growth Associate, and Writer. I build across product, engineering,
-          growth, and storytelling, turning ideas into thoughtful digital
-          experiences. 4+&nbsp;years of work, 11+&nbsp;hackathon wins, and a
-          focus on where creativity meets execution.
+          I&rsquo;m Seyi&nbsp;Ogundipe<img class="hero__bio-photo" data-tilt src="images/seyi-cohort.png" alt="Seyi, as seen on the Cohort site" loading="lazy" />, a design engineer obsessed with building things.
+        </p>
+
+        <p class="hero__more">
+          I love working with
+          <button class="exp__pill" data-for="x-hero-startup" data-emoji="🚀" aria-expanded="false">startups</button><span id="x-hero-startup" class="exp__reveal">&mdash; there&rsquo;s nothing like watching an idea turn into something real</span>
+          and competing in
+          <button class="exp__pill exp__pill--term" data-for="x-hero-hackathon" aria-expanded="false">hackathons</button><span id="x-hero-hackathon" class="exp__reveal">, 11+ wins and counting</span>.
+          Most days I&rsquo;m somewhere between
+          <button class="exp__pill exp__pill--paint" data-emoji="🎨" aria-expanded="false" aria-label="design — toggle a paint cursor effect">design</button>
+          and code, with
+          <button class="exp__pill" data-for="x-hero-growth" data-emoji="📈" aria-expanded="false">growth</button><span id="x-hero-growth" class="exp__reveal">&mdash; I&rsquo;ve worked as a Growth Associate, managing online communities of thousands</span>
+          and
+          <button class="exp__pill" data-for="x-hero-writing" data-emoji="✍️" aria-expanded="false">writing</button><span id="x-hero-writing" class="exp__reveal">&mdash; turns out I&rsquo;m an award-winning writer too, and I&rsquo;m actually building a place to showcase those pieces right now</span>.
+        </p>
+
+        <p class="hero__more">
+          Currently building during the day, reading at night, and staying
+          <button class="exp__pill" data-for="x-hero-open" data-emoji="🤝" aria-expanded="false">open</button> to whatever&rsquo;s next<span id="x-hero-open" class="exp__reveal">, to internships, weird collaborations, or just a good conversation about an idea. If you&rsquo;re building something, I probably want to hear about it</span>.
+        </p>
+
+        <p class="hero__more">
+          <button class="exp__pill" data-for="x-hero-contact" data-emoji="👋" aria-expanded="false">Nice to meet you</button><span id="x-hero-contact" class="exp__reveal">. Reach me at <a href="mailto:ogemgoldsmith07@gmail.com">ogemgoldsmith07@gmail.com</a>, or just <a href="#contact">say hello</a></span>.
         </p>
       </div>
 
@@ -86,7 +115,7 @@
     <section class="work" id="work">
       <div class="section-head">
         <span class="section-head__label">(Selected Work)</span>
-        <span class="section-head__count">Six projects</span>
+        <span class="section-head__count">Eight projects</span>
       </div>
 
       <ol class="projects" id="projects">
@@ -95,7 +124,7 @@
         <li class="project" style="--tint:#3358ff">
           <a class="project__card" href="https://www.trycohort.xyz/" target="_blank" rel="noopener">
             <div class="project__cover">
-              <img src="images/cohort.png" alt="Cohort" loading="lazy" />
+              <img src="images/cohort-web.png" alt="Cohort" loading="lazy" />
               <video class="project__reel" data-src="videos/cohort.mp4" muted loop playsinline preload="none"></video>
             </div>
             <div class="project__foot">
@@ -114,9 +143,9 @@
 
         <!-- 2. Subtitles -->
         <li class="project" style="--tint:#6c5ce7">
-          <a class="project__card" href="https://subtitles-eight.vercel.app/" target="_blank" rel="noopener">
+          <a class="project__card" href="https://subtitles.vercel.app/" target="_blank" rel="noopener">
             <div class="project__cover">
-              <img src="images/subtitles.png" alt="Subtitles" loading="lazy" />
+              <img src="images/subtitles-web.png" alt="Subtitles" loading="lazy" />
               <video class="project__reel" data-src="videos/subtitles.mp4" muted loop playsinline preload="none"></video>
             </div>
             <div class="project__foot">
@@ -135,9 +164,9 @@
 
         <!-- 3. Kulture -->
         <li class="project" style="--tint:#c8a94a">
-          <a class="project__card" href="https://forthekulture.vercel.app/" target="_blank" rel="noopener">
+          <a class="project__card" href="https://kulture-event.vercel.app/" target="_blank" rel="noopener">
             <div class="project__cover">
-              <img src="images/kulture.png" alt="KULTURE*" loading="lazy" />
+              <img src="images/kulture-web.png" alt="KULTURE*" loading="lazy" />
               <video class="project__reel" data-src="videos/kulture.mp4" muted loop playsinline preload="none"></video>
             </div>
             <div class="project__foot">
@@ -156,11 +185,32 @@
           </a>
         </li>
 
-        <!-- 4. Raise -->
+        <!-- 4. Clark -->
+        <li class="project" style="--tint:#ff5b1f">
+          <a class="project__card" href="https://clarkai-fe.vercel.app/" target="_blank" rel="noopener">
+            <div class="project__cover">
+              <img src="images/clark.png" alt="Clark" loading="lazy" />
+              <video class="project__reel" data-src="videos/clark.mp4" muted loop playsinline preload="none"></video>
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:#161616"><img src="clark-logo.png" alt="" style="width:70%;height:70%;object-fit:contain;display:block;" /></span>
+                <p class="project__title">Clark</p>
+                <span class="project__type">Product</span>
+                <span class="project__year">2024</span>
+              </div>
+              <div class="project__track" aria-hidden="true">
+                <span class="project__track-inner">Product Design, Onboarding, Streak System, Card UI, AI Interface, Product Design, Onboarding, Streak System, Card UI, AI Interface,</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 5. Raise -->
         <li class="project" style="--tint:#4b63ff">
           <a class="project__card" href="https://www.trycohort.xyz/raise" target="_blank" rel="noopener">
             <div class="project__cover">
-              <img src="images/raise.png" alt="Cohort / Raise" loading="lazy" />
+              <img src="images/raise-web.png" alt="Cohort / Raise" loading="lazy" />
               <video class="project__reel" data-src="videos/raise.mp4" muted loop playsinline preload="none"></video>
             </div>
             <div class="project__foot">
@@ -177,11 +227,11 @@
           </a>
         </li>
 
-        <!-- 5. Seyi's Park (3D case study) -->
+        <!-- 6. Seyi's Park (3D case study) -->
         <li class="project" style="--tint:#3a8f3a">
           <a class="project__card" href="https://seyi3d-park.vercel.app/" target="_blank" rel="noopener">
             <div class="project__cover">
-              <img src="images/seyispark.png" alt="Seyi's Park" loading="lazy" />
+              <img src="images/seyispark-web.png" alt="Seyi's Park" loading="lazy" />
               <video class="project__reel" data-src="videos/seyispark.mp4" muted loop playsinline preload="none"></video>
             </div>
             <div class="project__foot">
@@ -198,11 +248,11 @@
           </a>
         </li>
 
-        <!-- 6. Saleena -->
+        <!-- 7. Saleena -->
         <li class="project" style="--tint:#e07ba0">
           <a class="project__card" href="https://saleena.framer.website/" target="_blank" rel="noopener">
             <div class="project__cover">
-              <img src="images/saleena.png" alt="Saleena" loading="lazy" />
+              <img src="images/saleena-web.png" alt="Saleena" loading="lazy" />
               <video class="project__reel" data-src="videos/saleena.mp4" muted loop playsinline preload="none"></video>
             </div>
             <div class="project__foot">
@@ -219,14 +269,34 @@
           </a>
         </li>
 
+        <!-- 8. Fragments -->
+        <li class="project" style="--tint:#c8a94a">
+          <a class="project__card" href="https://www.notion.so/theboygenius/Hello-I-m-Seyi-I-build-cool-Stuff-1086f532ebdc8047ba3efd26f28c9331?pvs=18" target="_blank" rel="noopener">
+            <div class="project__cover">
+              <img src="images/fragments-web.png" alt="Fragments" loading="lazy" />
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot">&#10038;</span>
+                <p class="project__title">Fragments</p>
+                <span class="project__type">Archive</span>
+                <span class="project__year">Ongoing</span>
+              </div>
+              <div class="project__track" aria-hidden="true">
+                <span class="project__track-inner">UI/UX, Brand, Landing Pages, Interaction Design, Mobile, 3D, UI/UX, Brand, Landing Pages, Interaction Design, Mobile, 3D,</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
       </ol>
 
-      <!-- Floating hover preview (desktop) -->
-      <div class="preview" id="preview" aria-hidden="true">
-        <div class="preview__inner">
-          <img class="preview__img" id="preview-img" alt="" />
-          <span class="preview__fallback" id="preview-fallback"></span>
-        </div>
+      <!-- Cursor note (desktop): follows the pointer over any project card -->
+      <div class="cursor-note" id="cursor-note" aria-hidden="true">
+        <span class="cursor-note__pill">
+          Case study in progress &mdash; visit live site
+          <span class="cursor-note__arrow">↗</span>
+        </span>
       </div>
     </section>
 
@@ -286,8 +356,8 @@
               </span>
             </a>
             and
-            <a class="exp__brand" href="https://linnked.vercel.app/" target="_blank" rel="noopener">
-              <span class="exp__brand-name">Linnked</span>
+            <a class="exp__brand" href="https://bybull.ai/" target="_blank" rel="noopener">
+              <span class="exp__brand-name">Bybull</span>
               <span class="exp__brand-marquee" aria-hidden="true">
                 <span>LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
                 <span aria-hidden="true">LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>

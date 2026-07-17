@@ -104,6 +104,22 @@
     video.addEventListener("ended", () => { btn.hidden = false; });
   });
 
+  /* ── Colour palette: stacked deck fans open on click ── */
+  document.querySelectorAll(".cs-palette").forEach((deck) => {
+    const hint = document.createElement("span");
+    hint.className = "cs-palette__hint";
+    hint.textContent = "Tap to expand";
+    deck.after(hint);
+    const toggle = () => {
+      const open = deck.classList.toggle("is-open");
+      hint.textContent = open ? "Tap to collapse" : "Tap to expand";
+    };
+    deck.addEventListener("click", toggle);
+    deck.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+    });
+  });
+
   /* ── Footer local clock ── */
   const clock = document.getElementById("cs-clock");
   if (clock) {

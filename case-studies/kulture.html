@@ -8,100 +8,50 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="case-study.css" />
-  <style>
-    body {
-      --paper:      #0c0d09;
-      --paper-deep: #141509;
-      --ink:        #f0ead8;
-      --ink-soft:   rgba(240,234,216,0.7);
-      --ink-mute:   rgba(240,234,216,0.46);
-      --ink-faint:  rgba(240,234,216,0.28);
-      --rule:       rgba(240,234,216,0.1);
-      --rule-soft:  rgba(240,234,216,0.06);
-      background: #0c0d09;
-      color: #f0ead8;
-    }
-
-    .cs-nav { background: rgba(12,13,9,0.92); border-color: rgba(240,234,216,0.08); }
-    .cs-nav__mark .ast { color: #c8192a; }
-    ::selection { background: #c8192a; color: #fff; }
-    .cs-section__num { color: #c8192a; }
-    .cs-section__label { color: rgba(240,234,216,0.46); }
-    .cs-section__title { color: #f0ead8; }
-    .cs-card  { background: rgba(240,234,216,0.04); border-color: rgba(240,234,216,0.08); }
-    .cs-card__k { color: #c8192a; }
-    .cs-card__t { color: #f0ead8; }
-    .cs-card__d { color: rgba(240,234,216,0.62); }
-    .cs-step  { background: #0c0d09; }
-    .cs-step__n { color: #c8192a; }
-    .cs-step__t { color: #f0ead8; }
-    .cs-step__d { color: rgba(240,234,216,0.58); }
-    .cs-steps { background: rgba(240,234,216,0.04); border-color: rgba(240,234,216,0.08); }
-    .cs-chip  { color: rgba(240,234,216,0.55); border-color: rgba(240,234,216,0.15); }
-    .cs-chip:hover { border-color: #c8192a; color: #f0ead8; }
-    .cs-stats { background: rgba(240,234,216,0.04); border-color: rgba(240,234,216,0.08); }
-    .cs-stat  { background: #0c0d09; }
-    .cs-stat__n { color: #f0ead8; }
-    .cs-stat__l { color: rgba(240,234,216,0.4); }
-    .cs-meta  { border-color: rgba(240,234,216,0.1); }
-    .cs-meta dt { color: rgba(240,234,216,0.4); }
-    .cs-meta dd { color: #f0ead8; }
-    .cs-meta dd a { border-color: rgba(200,25,42,0.5); }
-    .cs-section + .cs-section { border-color: rgba(240,234,216,0.06); }
-    .cs-pull  { border-color: #c8192a; color: #f0ead8; }
-    .prose p  { color: rgba(240,234,216,0.68); }
-    .cs-video { border-color: rgba(240,234,216,0.08); }
-    .cs-hero__lede { color: rgba(240,234,216,0.7); }
-    .cs-hero__eyebrow { color: rgba(240,234,216,0.46); }
-
-    .ku-flyer {
-      border-top: 1px solid rgba(240,234,216,0.08);
-      border-bottom: 1px solid rgba(240,234,216,0.08);
-    }
-    .ku-flyer img { width: 100%; display: block; max-height: 80vh; object-fit: cover; }
-
-    .ku-strip {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid rgba(240,234,216,0.08);
-      border-bottom: 1px solid rgba(240,234,216,0.08);
-    }
-    .ku-strip figure { overflow: hidden; aspect-ratio: 16/10; }
-    .ku-strip figure + figure { border-left: 1px solid rgba(240,234,216,0.08); }
-    .ku-strip img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s var(--ease); }
-    .ku-strip figure:hover img { transform: scale(1.03); }
-    @media (max-width: 600px) {
-      .ku-strip { grid-template-columns: 1fr; }
-      .ku-strip figure + figure { border-left: none; border-top: 1px solid rgba(240,234,216,0.08); }
-    }
-  </style>
 </head>
-<body style="--tint:#c8192a">
+<body>
   <div class="grain" aria-hidden="true"></div>
+
+  <div class="cs-marquee" aria-hidden="true">
+    <div class="cs-marquee__track">
+      <span>KULTURE* <span class="dot">·</span> Design &amp; front-end <span class="dot">·</span> Brand · Web · Event <span class="dot">·</span> 2025 <span class="dot">·</span> Lagos, Nigeria <span class="dot">·</span></span><span>KULTURE* <span class="dot">·</span> Design &amp; front-end <span class="dot">·</span> Brand · Web · Event <span class="dot">·</span> 2025 <span class="dot">·</span> Lagos, Nigeria <span class="dot">·</span></span>
+    </div>
+  </div>
 
   <nav class="cs-nav">
     <a href="../index.html#work" class="cs-nav__back" data-magnetic><span class="arrow">←</span><span>All work</span></a>
-    <span class="cs-nav__mark">KULTURE<span class="ast">*</span></span>
+    <span class="cs-nav__mark"><img class="cs-nav__icon" src="../images/kulture-icon.svg" alt="" /><span>KULTURE<span class="ast">*</span></span></span>
   </nav>
 
-  <header class="cs-hero">
-    <p class="cs-hero__eyebrow" data-reveal><span class="idx">04</span><span class="sep"></span><span>Case Study</span></p>
-    <h1 class="cs-hero__title" data-reveal>An event brand, <em>built to move</em></h1>
-    <p class="cs-hero__lede" data-reveal>Brand identity and event web build for KULTURE* — a Lagos street culture party. Design system, ticket tiers, and a site engineered to convert before the early bird closes.</p>
-    <dl class="cs-meta" data-reveal>
-      <div><dt>Role</dt><dd>Design &amp; front-end</dd></div>
-      <div><dt>Scope</dt><dd>Brand · Web · Event</dd></div>
-      <div><dt>Year</dt><dd>2025</dd></div>
-      <div><dt>Stack</dt><dd>HTML · CSS · JS · Paystack</dd></div>
-      <div><dt>Live</dt><dd><a href="https://kulture-event.vercel.app/" target="_blank" rel="noopener">kulture-event ↗</a></dd></div>
-    </dl>
-  </header>
-
-  <div class="ku-flyer" data-reveal="clip">
+  <div class="cs-cover" data-reveal="clip">
     <img src="../images/kulture-2.png" alt="KULTURE* event flyer" loading="lazy" />
   </div>
+
+  <header class="cs-hero">
+    <div class="cs-hero__main">
+      <p class="cs-hero__eyebrow" data-reveal><span class="idx">04</span><span class="sep"></span><span>Case Study</span></p>
+      <h1 class="cs-hero__title" data-reveal>An event brand, <em>built to move</em></h1>
+      <p class="cs-hero__lede" data-reveal>Brand identity and event web build for KULTURE* — a Lagos street culture party. Design system, ticket tiers, and a site engineered to convert before the early bird closes.</p>
+      <div class="cs-tags" data-reveal>
+        <span class="cs-tags__pill">Brand Identity</span>
+        <span class="cs-tags__pill">Event Design</span>
+        <span class="cs-tags__pill">Ticketing</span>
+        <span class="cs-tags__pill">Nightlife</span>
+        <span class="cs-tags__pill">Paystack Checkout</span>
+      </div>
+    </div>
+    <aside class="cs-hero__aside" data-reveal>
+      <a class="cs-visit" href="https://kulture-event.vercel.app/" target="_blank" rel="noopener">Visit site <span class="arrow">↗</span></a>
+      <dl class="cs-meta">
+        <div><dt>Role</dt><dd>Design &amp; front-end</dd></div>
+        <div><dt>Scope</dt><dd>Brand · Web · Event</dd></div>
+        <div><dt>Year</dt><dd>2025</dd></div>
+        <div><dt>Stack</dt><dd>HTML · CSS · JS · Paystack</dd></div>
+      </dl>
+    </aside>
+  </header>
 
   <section class="cs-section">
     <div class="cs-section__head" data-reveal><span class="cs-section__num">01</span><span class="cs-section__label">Overview</span></div>
@@ -113,10 +63,23 @@
     <blockquote class="cs-pull" data-reveal><em>The asterisk is not decoration. It is the point.</em></blockquote>
   </section>
 
-  <div class="ku-strip" data-reveal>
-    <figure><img src="../images/kulture.png" alt="KULTURE* hero section" loading="lazy" /></figure>
-    <figure><img src="../images/kulture-nav.png" alt="KULTURE* navigation" loading="lazy" /></figure>
-  </div>
+  <section class="cs-section" style="padding-bottom:0">
+    <div class="cs-section__head" data-reveal><span class="cs-section__label">Highlights</span></div>
+    <div class="cs-highlights" data-stagger>
+      <div class="cs-highlight">
+        <figure><img src="../images/kulture-web.png" alt="KULTURE* hero section" loading="lazy" /></figure>
+        <div class="cs-highlight__meta"><span class="cs-highlight__t">Hero section</span><span class="cs-highlight__k">Brand</span></div>
+      </div>
+      <div class="cs-highlight">
+        <figure><img src="../images/kulture-nav.png" alt="KULTURE* navigation" loading="lazy" /></figure>
+        <div class="cs-highlight__meta"><span class="cs-highlight__t">Navigation</span><span class="cs-highlight__k">System</span></div>
+      </div>
+      <div class="cs-highlight">
+        <figure><img src="../images/kulture-event.png" alt="KULTURE* — the night itself" loading="lazy" /></figure>
+        <div class="cs-highlight__meta"><span class="cs-highlight__t">The night itself</span><span class="cs-highlight__k">Photography</span></div>
+      </div>
+    </div>
+  </section>
 
   <section class="cs-section">
     <div class="cs-section__head" data-reveal><span class="cs-section__num">02</span><span class="cs-section__label">Process</span></div>
@@ -150,14 +113,23 @@
   <section class="cs-section">
     <div class="cs-section__head" data-reveal><span class="cs-section__num">04</span><span class="cs-section__label">Walkthrough</span></div>
     <div class="cs-video" data-reveal>
-      <video muted playsinline preload="none" poster="../images/kulture.png">
-        <source src="../images/kulture-reel.mov" type="video/mp4">
+      <video muted playsinline preload="none" poster="../images/kulture-web.png">
+        <source src="../videos/kulture.mp4" type="video/mp4">
       </video>
       <button class="cs-video__play" aria-label="Play KULTURE* walkthrough">
         <span class="cs-video__play-icon">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
         </span>
       </button>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="cs-palette__head" data-reveal>This project uses a colour palette of <strong>3</strong> colours</p>
+    <div class="cs-palette" data-stagger>
+      <div class="cs-swatch" style="background:#0c0d09"><span class="cs-swatch__aa" style="color:#f0ead8">Aa</span><span class="cs-swatch__hex" style="color:#f0ead8">#0C0D09</span></div>
+      <div class="cs-swatch" style="background:#c8192a"><span class="cs-swatch__aa" style="color:#fff">Aa</span><span class="cs-swatch__hex" style="color:#fff">#C8192A</span></div>
+      <div class="cs-swatch" style="background:#f0ead8"><span class="cs-swatch__aa" style="color:#0c0d09">Aa</span><span class="cs-swatch__hex" style="color:#0c0d09">#F0EAD8</span></div>
     </div>
   </section>
 

@@ -1,6 +1,91 @@
 /* ============================================================
    Seyi Ogundipe — Portfolio interactions (vanilla JS)
    ============================================================ */
+
+/* ── Sound — tiny synthesized UI cues, ported from Cohort's own Sound
+   module so both sites share one sonic identity. No audio files: every
+   sound is a couple of oscillators/noise bursts shaped with gain ramps.
+   Lazily creates its AudioContext on first call (satisfies autoplay
+   policies, since every call site is itself a user gesture handler). ── */
+window.Sound = {
+  ctx: null,
+
+  init() {
+    if (!this.ctx) {
+      try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); }
+      catch (_) { return; }
+    }
+    if (this.ctx.state === "suspended") this.ctx.resume();
+  },
+
+  tone(freq, start, dur, vol = 0.1, type = "sine") {
+    if (!this.ctx) return;
+    const o = this.ctx.createOscillator();
+    const g = this.ctx.createGain();
+    o.connect(g); g.connect(this.ctx.destination);
+    o.type = type; o.frequency.value = freq;
+    const t = this.ctx.currentTime + start;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.start(t); o.stop(t + dur + 0.01);
+  },
+
+  hover()  { this.init(); this.tone(900, 0, 0.04, 0.028); },
+  pop()    { this.init(); this.tone(780, 0, 0.09, 0.09); this.tone(1020, 0.06, 0.08, 0.06); },
+  tick()   { this.init(); this.tone(680, 0, 0.07, 0.07); this.tone(500, 0.05, 0.07, 0.05); },
+  party()  { this.init(); [[523,0],[659,.08],[784,.16],[1047,.25]].forEach(([f,s]) => this.tone(f, s, .22, .09)); },
+
+  switchLight(on) {
+    this.init();
+    if (!this.ctx) return;
+    const ctx = this.ctx;
+    const t   = ctx.currentTime;
+
+    // the physical snap: broadband noise, near-instant exponential decay
+    const snapLen = Math.floor(ctx.sampleRate * 0.028);
+    const snapBuf = ctx.createBuffer(1, snapLen, ctx.sampleRate);
+    const snapD   = snapBuf.getChannelData(0);
+    for (let i = 0; i < snapLen; i++) {
+      snapD[i] = (Math.random() * 2 - 1) * Math.exp(-i / (snapLen * 0.07));
+    }
+    const snap  = ctx.createBufferSource();
+    snap.buffer = snapBuf;
+    const bp    = ctx.createBiquadFilter();
+    bp.type = "bandpass"; bp.frequency.value = 1900; bp.Q.value = 0.6;
+    const snapG = ctx.createGain();
+    snapG.gain.setValueAtTime(on ? 0.85 : 0.7, t);
+    snap.connect(bp); bp.connect(snapG); snapG.connect(ctx.destination);
+    snap.start(t); snap.stop(t + 0.03);
+
+    // low body thud: the switch housing resonating
+    const thudLen = Math.floor(ctx.sampleRate * 0.05);
+    const thudBuf = ctx.createBuffer(1, thudLen, ctx.sampleRate);
+    const thudD   = thudBuf.getChannelData(0);
+    for (let i = 0; i < thudLen; i++) {
+      const env = Math.exp(-i / (thudLen * 0.2));
+      thudD[i]  = Math.sin(2 * Math.PI * (on ? 95 : 75) * i / ctx.sampleRate) * env;
+    }
+    const thud  = ctx.createBufferSource();
+    thud.buffer = thudBuf;
+    const thudG = ctx.createGain();
+    thudG.gain.setValueAtTime(0.18, t + 0.004);
+    thud.connect(thudG); thudG.connect(ctx.destination);
+    thud.start(t + 0.004); thud.stop(t + 0.06);
+
+    if (on) {
+      const osc  = ctx.createOscillator();
+      const humG = ctx.createGain();
+      osc.type = "sine"; osc.frequency.value = 120;
+      humG.gain.setValueAtTime(0, t + 0.02);
+      humG.gain.linearRampToValueAtTime(0.032, t + 0.05);
+      humG.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+      osc.connect(humG); humG.connect(ctx.destination);
+      osc.start(t + 0.02); osc.stop(t + 0.23);
+    }
+  },
+};
+
 (() => {
   "use strict";
 
@@ -51,70 +136,56 @@
     reveals.forEach((el) => el.classList.add("is-in"));
   }
 
-  /* ---------------------------------------------------------
-     2. Floating hover preview (desktop only)
-  --------------------------------------------------------- */
-  const preview = document.getElementById("preview");
-  const previewImg = document.getElementById("preview-img");
-  const previewFallback = document.getElementById("preview-fallback");
   const projectsList = document.getElementById("projects");
 
-  if (preview && projectsList && canHover && !prefersReduced) {
-    const projects = projectsList.querySelectorAll(".project");
-    let targetX = 0, targetY = 0, curX = 0, curY = 0;
-    let visible = false, rafId = null;
+  /* ---------------------------------------------------------
+     2b. Glass cursor note — "Case study being developed" label
+     that trails the pointer while hovering an individual project
+     card. Tracking is bound per-card (not the shared list), so it
+     can only ever be live while the pointer is actually over a
+     card — never across the gaps or the section header.
+  --------------------------------------------------------- */
+  const cursorNote = document.getElementById("cursor-note");
+  if (cursorNote && projectsList && canHover && !prefersReduced) {
+    const cards = projectsList.querySelectorAll(".project");
+    let noteTargetX = 0, noteTargetY = 0, noteCurX = 0, noteCurY = 0;
+    let noteVisible = false, noteRaf = null;
 
-    const lerp = (a, b, n) => a + (b - a) * n;
+    const noteLerp = (a, b, n) => a + (b - a) * n;
 
-    const render = () => {
-      curX = lerp(curX, targetX, 0.12);
-      curY = lerp(curY, targetY, 0.12);
-      // rotate slightly based on horizontal velocity for life
-      const tilt = Math.max(-6, Math.min(6, (targetX - curX) * 0.06));
-      preview.style.transform =
-        `translate(${curX}px, ${curY}px) translate(-50%, -50%) rotate(${tilt}deg) scale(${visible ? 1 : 0.92})`;
-      rafId = requestAnimationFrame(render);
+    const renderNote = () => {
+      const prevX = noteCurX;
+      noteCurX = noteLerp(noteCurX, noteTargetX, 0.13);
+      noteCurY = noteLerp(noteCurY, noteTargetY, 0.13);
+      // gentle velocity-based tilt — the same trick the old floating preview
+      // used — is what makes the trail read as fluid instead of just laggy.
+      const tilt = Math.max(-8, Math.min(8, (noteCurX - prevX) * 0.5));
+      cursorNote.style.setProperty("--cnx", `${noteCurX}px`);
+      cursorNote.style.setProperty("--cny", `${noteCurY}px`); // centered directly on the cursor
+      cursorNote.style.setProperty("--cnr", `${tilt}deg`);
+      noteRaf = requestAnimationFrame(renderNote);
     };
+    const startNote = () => { if (!noteRaf) noteRaf = requestAnimationFrame(renderNote); };
+    const stopNote = () => { if (noteRaf) { cancelAnimationFrame(noteRaf); noteRaf = null; } };
 
-    const start = () => { if (!rafId) rafId = requestAnimationFrame(render); };
-    const stop = () => { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } };
-
-    const setMedia = (project) => {
-      const src = project.getAttribute("data-preview");
-      const tint = project.getAttribute("data-tint") || "#1b1b1b";
-      const title = project.querySelector(".project__title")?.textContent.trim() || "";
-
-      // Prep fallback in case the screenshot isn't present yet
-      previewFallback.textContent = title;
-      previewFallback.style.background =
-        `linear-gradient(135deg, ${tint}, ${shade(tint, -28)})`;
-      previewFallback.classList.remove("is-shown");
-      previewImg.hidden = false;
-
-      previewImg.onload = () => { previewImg.hidden = false; previewFallback.classList.remove("is-shown"); };
-      previewImg.onerror = () => { previewImg.hidden = true; previewFallback.classList.add("is-shown"); };
-      previewImg.src = src;
-      previewImg.alt = title + " preview";
-    };
-
-    projects.forEach((p) => {
-      p.addEventListener("mouseenter", () => {
-        setMedia(p);
-        visible = true;
-        preview.classList.add("is-visible");
-        start();
+    cards.forEach((card) => {
+      card.addEventListener("mouseenter", (e) => {
+        noteVisible = true;
+        // snap the start point to the entry position so it doesn't fly in
+        // from wherever it last was over a different card.
+        noteTargetX = noteCurX = e.clientX;
+        noteTargetY = noteCurY = e.clientY;
+        cursorNote.classList.add("is-visible");
+        startNote();
       });
-    });
-
-    projectsList.addEventListener("mousemove", (e) => {
-      targetX = e.clientX; targetY = e.clientY;
-      if (curX === 0 && curY === 0) { curX = targetX; curY = targetY; }
-    });
-
-    projectsList.addEventListener("mouseleave", () => {
-      visible = false;
-      preview.classList.remove("is-visible");
-      setTimeout(stop, 500);
+      card.addEventListener("mousemove", (e) => {
+        noteTargetX = e.clientX; noteTargetY = e.clientY;
+      });
+      card.addEventListener("mouseleave", () => {
+        noteVisible = false;
+        cursorNote.classList.remove("is-visible");
+        setTimeout(() => { if (!noteVisible) stopNote(); }, 300);
+      });
     });
   }
 
@@ -129,6 +200,26 @@
         const x = (e.clientX - (r.left + r.width / 2)) * strength;
         const y = (e.clientY - (r.top + r.height / 2)) * strength;
         el.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      el.addEventListener("mouseleave", () => { el.style.transform = ""; });
+    });
+  }
+
+  /* ---------------------------------------------------------
+     3b. Inline hero photo — 3D tilt + pop on hover
+  --------------------------------------------------------- */
+  if (canHover && !prefersReduced) {
+    document.querySelectorAll("[data-tilt]").forEach((el) => {
+      const maxTilt = 22;   // degrees
+      const lift = 2.6 / 1.6; // base is 1.6em, hover pops to 2.6em
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;   // 0..1 across the image
+        const py = (e.clientY - r.top) / r.height;
+        const rotY = (px - 0.5) * maxTilt * 2;
+        const rotX = (0.5 - py) * maxTilt * 2;
+        el.style.transform =
+          `perspective(400px) scale(${lift}) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
       });
       el.addEventListener("mouseleave", () => { el.style.transform = ""; });
     });
@@ -179,6 +270,7 @@
 
         // lazy-load + play video over the still
         if (video) {
+          g.killTweensOf(video);
           if (!video.src && video.dataset.src) video.src = video.dataset.src;
           const p = video.play();
           if (p) p.catch(() => {});
@@ -191,6 +283,7 @@
         g.to(img, { scale: 1, x: "0%", duration: 0.7, ease: "power2.out" });
 
         if (video) {
+          g.killTweensOf(video);
           g.to(video, { opacity: 0, duration: 0.4, ease: "power2.in",
             onComplete: () => video.pause() });
         }
@@ -256,6 +349,7 @@
           });
         }
         if (g) g.fromTo(reveal, { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power2.out" });
+        Sound.pop();
       };
 
       const doClose = () => {
@@ -283,7 +377,10 @@
           if (g) g.to(reveal, { opacity: 0, duration: 0.18, ease: "power2.in", onComplete() { reveal.style.display = "none"; } });
           else reveal.style.display = "none";
         }
+        Sound.tick();
       };
+
+      pill.addEventListener("mouseenter", () => Sound.hover());
 
       pill.addEventListener("click", () => {
         pill.classList.contains("is-open") ? doClose() : doOpen();
@@ -437,20 +534,6 @@
     // stagger handled by GSAP in IO callback above
   })();
 
-  /* ---------------------------------------------------------
-     util: shade a hex color by percent (−darker / +lighter)
-  --------------------------------------------------------- */
-  function shade(hex, percent) {
-    const h = hex.replace("#", "");
-    const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
-    const num = parseInt(full, 16);
-    const amt = Math.round(2.55 * percent);
-    const clamp = (v) => Math.max(0, Math.min(255, v));
-    const r = clamp((num >> 16) + amt);
-    const g = clamp(((num >> 8) & 0xff) + amt);
-    const b = clamp((num & 0xff) + amt);
-    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
-  }
 })();
 
 /* ============================================================
@@ -492,6 +575,13 @@
               delay: 0.08,
             });
           }
+          const more = hero.querySelectorAll(".hero__more");
+          if (more.length) {
+            g.fromTo(more,
+              { opacity: 0, y: 8 },
+              { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power2.out", delay: 0.3 }
+            );
+          }
           const foot = hero.querySelector(".hero__foot");
           if (foot) {
             g.fromTo(foot,
@@ -502,6 +592,7 @@
         } else if (!reduce) {
           // no-GSAP fallback
           hero.querySelectorAll(".hero__bio .w").forEach((el) => { el.style.opacity = "1"; });
+          hero.querySelectorAll(".hero__more").forEach((el) => { el.style.opacity = "1"; });
           const foot = hero.querySelector(".hero__foot");
           if (foot) { foot.style.opacity = "1"; foot.style.transform = "none"; }
         }
@@ -567,6 +658,134 @@
       mx = e.clientX; my = e.clientY;
       if (!raf) raf = requestAnimationFrame(loop);
     }, { passive: true });
+  }
+
+  /* ---- 2b. "design" pill: paint-trail cursor (self-contained, no text reveal) ---- */
+  if (hero && canHover && !reduce && !still) {
+    const paintPill = hero.querySelector(".exp__pill--paint");
+    if (paintPill) {
+      const canvas = document.createElement("canvas");
+      canvas.className = "paint-canvas";
+      canvas.setAttribute("aria-hidden", "true");
+      hero.insertBefore(canvas, hero.firstChild);
+      const ctx = canvas.getContext("2d");
+
+      const cursorEl = document.createElement("div");
+      cursorEl.className = "paint-cursor";
+      cursorEl.textContent = "🖌️";
+      document.body.appendChild(cursorEl);
+
+      let hue = 190, painting = false;
+      let targetX = 0, targetY = 0;          // raw cursor position (page coords)
+      let curX = null, curY = null;          // lerped "brush tip" position
+      let lastX = null, lastY = null;        // last stamped point, in canvas-local coords
+      let raf = null, fadeUntil = 0;
+
+      const BRUSH_RADIUS = 78;
+      const STAMP_SPACING = 7; // « brush radius = heavy overlap = one solid ribbon, not beads
+
+      const resize = () => {
+        const r = hero.getBoundingClientRect();
+        canvas.width = r.width * devicePixelRatio;
+        canvas.height = r.height * devicePixelRatio;
+        canvas.style.width = r.width + "px";
+        canvas.style.height = r.height + "px";
+        ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+      };
+      resize();
+      addEventListener("resize", resize);
+
+      // Heavily-overlapping stamps along the path read as one continuous ribbon
+      // at any brush size — a big stroke drawn as a couple of per-frame lines
+      // (round or butt caps) instead reads as a beaded chain, because a frame's
+      // travel distance is short relative to the brush width. Each stamp is a
+      // soft radial gradient, not a hard-edged circle — hard edges piling up is
+      // what read as "jagged" at the trail's outer boundary; a feathered edge
+      // blends into the overlap seamlessly instead.
+      const stampAt = (x, y) => {
+        hue = (hue + 0.5) % 360;
+        const grad = ctx.createRadialGradient(x, y, 0, x, y, BRUSH_RADIUS);
+        grad.addColorStop(0,   `hsla(${hue}, 85%, 64%, 0.42)`);
+        grad.addColorStop(0.7, `hsla(${hue}, 85%, 64%, 0.30)`);
+        grad.addColorStop(1,   `hsla(${hue}, 85%, 64%, 0)`);
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(x, y, BRUSH_RADIUS, 0, Math.PI * 2);
+        ctx.fill();
+      };
+
+      // Erode existing alpha a little every frame — paint behind the cursor
+      // dissolves like a comet tail instead of permanently caking the page the
+      // longer you paint. Slow while actively painting (so the trail has real
+      // length), faster once stopped (so it doesn't linger forever).
+      const decay = (rate) => {
+        const w = canvas.width / devicePixelRatio, h = canvas.height / devicePixelRatio;
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.fillStyle = `rgba(0,0,0,${rate})`;
+        ctx.fillRect(0, 0, w, h);
+        ctx.globalCompositeOperation = "source-over";
+      };
+
+      const tick = (now) => {
+        if (curX == null) { curX = targetX; curY = targetY; }
+        curX += (targetX - curX) * 0.35;
+        curY += (targetY - curY) * 0.35;
+
+        decay(painting ? 0.012 : 0.045);
+
+        if (painting) {
+          const r = hero.getBoundingClientRect();
+          const x = curX - r.left, y = curY - r.top;
+          if (lastX == null) { lastX = x; lastY = y; stampAt(x, y); }
+          const dx = x - lastX, dy = y - lastY;
+          const dist = Math.hypot(dx, dy);
+          const steps = Math.max(1, Math.floor(dist / STAMP_SPACING));
+          for (let i = 1; i <= steps; i++) {
+            stampAt(lastX + (dx * i) / steps, lastY + (dy * i) / steps);
+          }
+          lastX = x; lastY = y;
+        }
+
+        const stillFading = !painting && now < fadeUntil;
+        if (painting || stillFading) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = null;
+          canvas.classList.remove("is-active");
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      };
+
+      const onMove = (e) => {
+        targetX = e.clientX; targetY = e.clientY;
+        cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      };
+
+      const startPainting = () => {
+        painting = true;
+        lastX = lastY = null;
+        curX = curY = null;
+        canvas.classList.add("is-active");
+        document.body.classList.add("is-painting");
+        if (!raf) raf = requestAnimationFrame(tick);
+      };
+      const stopPainting = () => {
+        painting = false;
+        document.body.classList.remove("is-painting");
+        fadeUntil = performance.now() + 1600; // let the trail dissolve before it's cleared
+      };
+
+      addEventListener("mousemove", onMove, { passive: true });
+
+      paintPill.addEventListener("mouseenter", () => Sound.hover());
+
+      paintPill.addEventListener("click", () => {
+        const opening = !paintPill.classList.contains("is-open");
+        paintPill.classList.toggle("is-open", opening);
+        paintPill.setAttribute("aria-expanded", opening ? "true" : "false");
+        if (opening) { startPainting(); Sound.pop(); } else { stopPainting(); Sound.tick(); }
+      });
+    }
   }
 
   /* ---- 2c. Hero word split + scramble ---- */
@@ -645,11 +864,17 @@
     }
   };
 
-  /* emoji pops are now only on em words — triggered via confetti on click */
+  /* ---- 3c. Hero pills: pop their emoji when opened ---- */
+  document.querySelectorAll(".hero .exp__pill[data-emoji]").forEach((pill) => {
+    pill.addEventListener("click", () => {
+      if (pill.classList.contains("is-open")) emojiPop(pill, pill.dataset.emoji);
+    });
+  });
 
   /* ---- 5. Confetti burst ---- */
   const confetti = () => {
     if (reduce) return;
+    Sound.party();
     const layer = document.createElement("div");
     layer.className = "confetti";
     document.body.appendChild(layer);
@@ -698,6 +923,12 @@
     // type "seyi"
     typed = (typed + key).slice(-4);
     if (typed === "seyi") { confetti(); toast("✸ hi, that's me"); }
+
+    // type "0to1" — pop every hidden pill in the hero at once
+    if (typed === "0to1") {
+      document.querySelectorAll(".hero .exp__pill:not(.is-open)").forEach((p) => p.click());
+      toast("✸ zero to one");
+    }
   });
 
 /* ---- 8. Brand name: 5-click easter egg ---- */
@@ -766,7 +997,7 @@
     "font-size:15px;color:#8b877b"
   );
   console.log(
-    "%cYou opened the console. Of course you did.\n\nA few things are hidden around here:\n  · the Konami code ↑↑↓↓←→←→ b a\n  · press  G  for the baseline grid\n  · press  L  for lights-off\n  · type  \"seyi\"  anywhere\n  · click the italic words in the headline\n\nLike what you see?  founders@trycohort.xyz",
+    "%cYou opened the console. Of course you did.\n\nA few things are hidden around here:\n  · the Konami code ↑↑↓↓←→←→ b a\n  · press  G  for the baseline grid\n  · press  L  for lights-off\n  · type  \"seyi\"  anywhere\n  · type  \"0to1\"  anywhere to pop every pill in the hero\n  · click the italic words in the headline\n  · click the pills in the intro\n\nLike what you see?  founders@trycohort.xyz",
     "font-family:monospace;line-height:1.55;color:#15140f"
   );
 

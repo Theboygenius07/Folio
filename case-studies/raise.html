@@ -6,117 +6,67 @@
   <title>Cohort / Raise — Case Study · Seyi Ogundipe</title>
   <meta name="description" content="The Cohort investor page — an unlisted, scroll-driven pitch engineered for momentum. Every chapter raises the stakes." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="case-study.css" />
-  <style>
-    body {
-      --paper:      #131210;
-      --paper-deep: #1c1a17;
-      --ink:        #ede9e2;
-      --ink-soft:   rgba(237,233,226,0.7);
-      --ink-mute:   rgba(237,233,226,0.46);
-      --ink-faint:  rgba(237,233,226,0.28);
-      --rule:       rgba(237,233,226,0.12);
-      --rule-soft:  rgba(237,233,226,0.07);
-      background: #131210;
-      color: #ede9e2;
-    }
-
-    .cs-nav { background: rgba(19,18,16,0.92); border-color: rgba(237,233,226,0.08); }
-    .cs-nav__mark .ast { color: #4b63ff; }
-    ::selection { background: #4b63ff; color: #fff; }
-    .cs-section__num { color: #4b63ff; }
-    .cs-section__label { color: rgba(237,233,226,0.46); }
-    .cs-section__title { color: #ede9e2; }
-    .cs-card  { background: rgba(237,233,226,0.04); border-color: rgba(237,233,226,0.08); }
-    .cs-card__k { color: #4b63ff; }
-    .cs-card__t { color: #ede9e2; }
-    .cs-card__d { color: rgba(237,233,226,0.62); }
-    .cs-step  { background: #131210; }
-    .cs-step__n { color: #4b63ff; }
-    .cs-step__t { color: #ede9e2; }
-    .cs-step__d { color: rgba(237,233,226,0.58); }
-    .cs-steps { background: rgba(237,233,226,0.04); border-color: rgba(237,233,226,0.08); }
-    .cs-chip  { color: rgba(237,233,226,0.55); border-color: rgba(237,233,226,0.15); }
-    .cs-chip:hover { border-color: #4b63ff; color: #ede9e2; }
-    .cs-stats { background: rgba(237,233,226,0.04); border-color: rgba(237,233,226,0.08); }
-    .cs-stat  { background: #131210; }
-    .cs-stat__n { color: #ede9e2; }
-    .cs-stat__l { color: rgba(237,233,226,0.4); }
-    .cs-meta  { border-color: rgba(237,233,226,0.1); }
-    .cs-meta dt { color: rgba(237,233,226,0.4); }
-    .cs-meta dd { color: #ede9e2; }
-    .cs-meta dd a { border-color: rgba(75,99,255,0.5); }
-    .cs-section + .cs-section { border-color: rgba(237,233,226,0.06); }
-    .cs-pull  { border-color: #4b63ff; color: #ede9e2; }
-    .prose p  { color: rgba(237,233,226,0.68); }
-    .cs-video { border-color: rgba(237,233,226,0.08); }
-    .cs-hero__lede { color: rgba(237,233,226,0.7); }
-    .cs-hero__eyebrow { color: rgba(237,233,226,0.46); }
-
-    .ra-cover {
-      border-top: 1px solid rgba(237,233,226,0.08);
-      border-bottom: 1px solid rgba(237,233,226,0.08);
-    }
-    .ra-cover img { width: 100%; display: block; }
-
-    .ra-strip {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid rgba(237,233,226,0.08);
-      border-bottom: 1px solid rgba(237,233,226,0.08);
-    }
-    .ra-strip figure { overflow: hidden; aspect-ratio: 4/3; }
-    .ra-strip figure + figure { border-left: 1px solid rgba(237,233,226,0.08); }
-    .ra-strip img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s var(--ease); }
-    .ra-strip figure:hover img { transform: scale(1.03); }
-    @media (max-width: 600px) {
-      .ra-strip { grid-template-columns: 1fr; }
-      .ra-strip figure + figure { border-left: none; border-top: 1px solid rgba(237,233,226,0.08); }
-    }
-  </style>
 </head>
-<body style="--tint:#4b63ff">
+<body>
   <div class="grain" aria-hidden="true"></div>
 
   <nav class="cs-nav">
     <a href="../index.html#work" class="cs-nav__back" data-magnetic><span class="arrow">←</span><span>All work</span></a>
-    <span class="cs-nav__mark">Cohort / Raise<span class="ast">✸</span></span>
+    <span class="cs-nav__mark"><img class="cs-nav__icon" src="../images/cohort-work-icon.svg" alt="" /><span>Cohort / Raise</span></span>
+    <div class="cs-nav__actions">
+      <a class="cs-btn cs-btn--ghost" href="https://www.trycohort.xyz/raise" target="_blank" rel="noopener">Visit site <span class="arrow">↗</span></a>
+    </div>
   </nav>
 
   <header class="cs-hero">
-    <p class="cs-hero__eyebrow" data-reveal><span class="idx">02</span><span class="sep"></span><span>Case Study</span></p>
-    <h1 class="cs-hero__title" data-reveal>A pitch that reads <em>like conviction</em></h1>
-    <p class="cs-hero__lede" data-reveal>The investor cut of Cohort — an unlisted, scroll-driven narrative that builds momentum toward a single ask. Every chapter raises the stakes. The close is two email addresses on white space.</p>
-    <dl class="cs-meta" data-reveal>
-      <div><dt>Role</dt><dd>Design &amp; front-end</dd></div>
-      <div><dt>Scope</dt><dd>Narrative · Web · Motion</dd></div>
-      <div><dt>Year</dt><dd>2025</dd></div>
-      <div><dt>Access</dt><dd>Unlisted · noindex</dd></div>
-      <div><dt>Live</dt><dd><a href="https://www.trycohort.xyz/raise" target="_blank" rel="noopener">trycohort.xyz/raise ↗</a></dd></div>
-    </dl>
+    <div class="cs-hero__meta" data-reveal>
+      <span>Case Study</span>
+      <span class="cs-hero__pill">2025</span>
+      <span>Narrative · Web · Motion</span>
+    </div>
+    <h1 class="cs-hero__title" data-reveal>Raise</h1>
+    <p class="cs-hero__lede" data-reveal>The investor cut of Cohort — an unlisted, scroll-driven narrative that builds momentum toward a single ask. The close is two email addresses on white space.</p>
+    <div class="cs-hero__by" data-reveal>
+      <span class="dot"><img src="../images/cohort-work-icon.svg" alt="" /></span>
+      <span>Seyi Ogundipe</span>
+      <span class="role">— Design &amp; front-end</span>
+    </div>
   </header>
 
-  <div class="ra-cover" data-reveal="clip">
-    <img src="../images/raise.png" alt="Cohort Raise — editorial dark text layout with inline pills" loading="lazy" />
+  <div class="cs-cover" data-reveal>
+    <div class="cs-frame">
+      <div class="cs-frame__bar"><span></span><span></span><span></span></div>
+      <div class="cs-frame__screen">
+        <img src="../images/raise-web.png" alt="Cohort Raise — editorial dark text layout with inline pills" loading="lazy" />
+      </div>
+    </div>
   </div>
 
-  <section class="cs-section">
+  <section class="cs-section" id="overview">
     <div class="cs-section__head" data-reveal><span class="cs-section__num">01</span><span class="cs-section__label">Overview</span></div>
     <h2 class="cs-section__title" data-reveal>A deck tells. <em>This makes you arrive.</em></h2>
     <div class="prose" data-reveal>
       <p>The investor page lives at an unlisted route — not linked from anywhere, not indexed. The only way in is to be handed the URL directly. That constraint became part of the design: a page that earns its exclusivity by being worth the directness.</p>
       <p>The surface narrative is one continuous scroll — no sections, no headers, no slide-deck structure. The depth lives inside inline pills that expand in context. Readers who go deep stay in the flow. Readers who scan still get the thesis.</p>
     </div>
-    <blockquote class="cs-pull" data-reveal><em>The network no one else can build.</em></blockquote>
+    <blockquote class="cs-pull" data-reveal>The network no one else can build.</blockquote>
   </section>
 
-  <div class="ra-strip" data-reveal>
-    <figure><img src="../images/raise-content.png" alt="Raise — investor copy, 500 students across three countries" loading="lazy" /></figure>
-    <figure><img src="../images/raise-phone.png" alt="Raise — phone mockup, investor version" loading="lazy" /></figure>
-  </div>
+  <section class="cs-section cs-section--alt" id="highlights">
+    <p class="cs-eyebrow" data-reveal>Elements</p>
+    <h2 class="cs-section__title" data-reveal>See the highlights <em>of this project</em></h2>
+    <div class="cs-highlights" data-stagger style="margin-top:2.5rem">
+      <article class="cs-highlight">
+        <div class="cs-highlight__card"><div class="cs-highlight__media"><img src="../images/raise-content.png" alt="Raise — investor copy, 500 students across three countries" loading="lazy" /></div></div>
+        <div class="cs-highlight__foot"><span class="cs-highlight__t">Investor copy</span><span class="cs-highlight__from">from</span><span class="cs-highlight__k">Narrative</span></div>
+      </article>
+      <article class="cs-highlight">
+        <div class="cs-highlight__card"><div class="cs-highlight__media"><img src="../images/raise-phone.png" alt="Raise — phone mockup, investor version" loading="lazy" /></div></div>
+        <div class="cs-highlight__foot"><span class="cs-highlight__t">Phone mockup</span><span class="cs-highlight__from">from</span><span class="cs-highlight__k">Responsive</span></div>
+      </article>
+    </div>
+  </section>
 
   <section class="cs-section">
     <div class="cs-section__head" data-reveal><span class="cs-section__num">02</span><span class="cs-section__label">Process</span></div>
@@ -129,15 +79,26 @@
     </div>
   </section>
 
-  <section class="cs-section">
+  <section class="cs-section cs-section--alt">
     <div class="cs-section__head" data-reveal><span class="cs-section__num">03</span><span class="cs-section__label">Traction</span></div>
     <h2 class="cs-section__title" data-reveal>Numbers that <em>do the talking</em></h2>
-    <dl class="cs-stats" data-reveal>
+    <dl class="cs-stats" data-stagger>
       <div class="cs-stat"><dd class="cs-stat__n" data-count="2083">2,083</dd><dt class="cs-stat__l">Waitlist students</dt></div>
       <div class="cs-stat"><dd class="cs-stat__n" data-count="500">500</dd><dt class="cs-stat__l">Students interviewed</dt></div>
       <div class="cs-stat"><dd class="cs-stat__n">87<span class="plus">%</span></dd><dt class="cs-stat__l">Would use daily</dt></div>
       <div class="cs-stat"><dd class="cs-stat__n">0</dd><dt class="cs-stat__l">Paid acquisition</dt></div>
     </dl>
+  </section>
+
+  <section class="cs-section" id="palette">
+    <p class="cs-eyebrow" data-reveal>Colour Palette</p>
+    <hr class="cs-rule-dotted" data-reveal />
+    <p class="cs-palette-lead" data-reveal>This project uses a colour palette of <strong>3</strong> colours</p>
+    <div class="cs-palette" data-reveal role="button" tabindex="0" aria-label="Expand colour palette">
+      <div class="cs-swatch" style="background:#ede9e2;color:#131210"><span class="cs-swatch__hex">HEX <b>#EDE9E2</b></span><span class="cs-swatch__aa">Aa</span></div>
+      <div class="cs-swatch" style="background:#4b63ff;color:#fff"><span class="cs-swatch__hex">HEX <b>#4B63FF</b></span><span class="cs-swatch__aa">Aa</span></div>
+      <div class="cs-swatch" style="background:#131210;color:#ede9e2"><span class="cs-swatch__hex">HEX <b>#131210</b></span><span class="cs-swatch__aa">Aa</span></div>
+    </div>
   </section>
 
   <section class="cs-next">
@@ -152,6 +113,14 @@
       </div>
     </div>
   </section>
+
+  <div class="cs-dock">
+    <span class="cs-dock__mark">Raise</span>
+    <a class="cs-dock__link" href="#overview">Overview</a>
+    <a class="cs-dock__link" href="#highlights">Highlights</a>
+    <a class="cs-dock__link" href="#palette">Palette</a>
+    <a class="cs-dock__visit" href="https://www.trycohort.xyz/raise" target="_blank" rel="noopener">Visit Site</a>
+  </div>
 
   <script src="case-study.js"></script>
 </body>

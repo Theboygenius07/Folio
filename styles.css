@@ -118,19 +118,93 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
 }
 
 .hero__doc {
+  position: relative;
+  z-index: 1; /* always paints above .paint-canvas, regardless of blend mode */
   margin-bottom: clamp(2rem, 4vw, 3rem);
+  max-width: var(--maxw);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
-/* Bio text */
-.hero__bio {
-  font-family: var(--sans);
-  font-size: clamp(2rem, 4.5vw, 5rem);
-  font-weight: 400;
-  line-height: 1.18;
-  color: var(--ink);
-  letter-spacing: -0.025em;
-  word-spacing: 0.04em;
+/* ── design pill: paint-trail cursor effect ── */
+.paint-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* no mix-blend-mode: soft-light pushed the color toward grey as alpha decayed.
+     Text stays legible regardless of blend mode (it's a separate layer above,
+     see .hero__doc z-index) — normal compositing just keeps the hue true as it fades. */
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
+.paint-canvas.is-active { opacity: 1; }
+
+.paint-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate3d(-100px, -100px, 0);
+  display: none;
+}
+body.is-painting .paint-cursor { display: block; }
+body.is-painting, body.is-painting .hero { cursor: none; }
+
+/* hover tease: a quick hue cycle hints at what clicking does */
+/* animate the background itself through real hue values — hue-rotate() on the
+   pill's own near-grey/achromatic default background has nothing to rotate,
+   so it just sat there looking grey instead of teasing the paint effect */
+.exp__pill--paint:hover:not(.is-open) {
+  animation: paint-hue-hover 2.4s linear infinite;
+}
+@keyframes paint-hue-hover {
+  0%   { background: hsl(0,   80%, 58%); }
+  16%  { background: hsl(60,  80%, 52%); }
+  33%  { background: hsl(120, 70%, 46%); }
+  50%  { background: hsl(180, 75%, 42%); }
+  66%  { background: hsl(240, 80%, 60%); }
+  83%  { background: hsl(300, 75%, 55%); }
+  100% { background: hsl(360, 80%, 58%); }
+}
+
+/* italic greeting above the bio, close to body size like Emily Campbell's "Hello." */
+.hero__greeting {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.2rem, 0.9rem + 1.5vw, 2rem);
+  color: var(--muted);
+  margin-bottom: 0.5em;
+}
+
+/* Bio text — one voice, one size, no headline treatment */
+.hero__bio,
+.hero__more {
+  font-family: var(--sans);
+  font-size: clamp(1.6rem, 1.15rem + 2vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  max-width: 34em;
+}
+.hero__more { opacity: 0; }
+.hero__doc p + p { margin-top: 0.6em; }
+
+.exp__reveal a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--muted);
+  text-underline-offset: 0.15em;
+}
+.exp__reveal a:hover { text-decoration-color: var(--ink); }
+
+/* trailing punctuation often follows a pill directly (reveal hidden); tighten so it doesn't read as a stray space */
+.hero__doc .exp__pill { margin: 0 0 0 0.12em; padding: 0.1em 0.18em; }
 
 @keyframes chip-float {
   0%   { opacity: 0; transform: translate(-50%, -80%) scale(.5) rotate(-8deg); }
@@ -143,7 +217,8 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
 .hero__doc em.w, .hero__doc strong.w { opacity: 0; }
 
 .hero__foot {
-  width: 100%; max-width: 100%;
+  width: 100%; max-width: var(--maxw);
+  margin-left: auto; margin-right: auto;
   opacity: 0; transform: translateY(10px);
   /* GSAP animates in — no CSS transition */
 }
@@ -361,8 +436,58 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
 
 /* Spring-back — GSAP handles */
 
-/* Floating preview — not used */
-.preview { display: none; }
+/* ── Cursor note: follows the pointer while hovering a project card ── */
+.cursor-note {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0;
+  transform:
+    translate(-50%, -50%)
+    translate(var(--cnx, 0), var(--cny, 0))
+    rotate(var(--cnr, 0deg))
+    scale(0.85);
+  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+  will-change: transform, opacity;
+}
+.cursor-note.is-visible {
+  opacity: 1;
+  transform:
+    translate(-50%, -50%)
+    translate(var(--cnx, 0), var(--cny, 0))
+    rotate(var(--cnr, 0deg))
+    scale(1);
+}
+
+/* Same solid "inverted chip" the rest of the site already uses on pill
+   hover (background: ink, color: paper) — no glass, no grain, no gradient.
+   Reusing that recipe means it's automatically correct in every vibe, since
+   --ink/--paper already flip light/dark for each theme on their own. */
+.cursor-note__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  white-space: nowrap;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 100px;
+  padding: 0.75em 1.2em;
+}
+
+.cursor-note__arrow {
+  font-size: 1em;
+  opacity: 0.7;
+}
+
+@media (hover: none) {
+  .cursor-note { display: none; } /* touch devices have no hover to trigger it */
+}
 
 /* ───────────────────────── About ───────────────────────── */
 .about {
@@ -473,8 +598,6 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
   align-items: center;
   vertical-align: -0.08em;
   background: var(--chip-bg, rgba(0,0,0,.07));
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
   box-shadow: inset 0 0 0 1px var(--chip-ring, rgba(0,0,0,.14));
   border: none;
   border-radius: 100px;
@@ -507,6 +630,48 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
 }
 .exp__pill--static { cursor: default; }
 .exp__reveal { display: none; }
+
+/* ── "hackathon": same flat pill as its siblings, just a dev-flavored text tint ── */
+.exp__pill--term {
+  color: #4fae5b;
+}
+.exp__pill--term:hover:not(.is-open) {
+  color: var(--paper);
+}
+.exp__pill--term.is-open {
+  color: #4fae5b;
+}
+/* Kill the browser's default blue focus ring (clashes with the green
+   theme) and replace it with an on-brand green one, kept for keyboard users. */
+.exp__pill--term:focus { outline: none; }
+.exp__pill--term:focus-visible {
+  outline: 2px solid rgba(127,227,138,.6);
+  outline-offset: 2px;
+}
+
+/* ── inline hero photo: plain image sized to match the surrounding text
+   height — no chip/pill chrome. JS drives a 3D tilt on mousemove; this just
+   sets up the perspective origin, size, and a lift shadow that fades in. ── */
+.hero__bio-photo {
+  display: inline-block;
+  width: 1.6em;
+  height: 1.6em;
+  margin: 0 0.14em;
+  vertical-align: -0.35em;
+  border-radius: 0.22em;
+  object-fit: cover;
+  cursor: default;
+  transform-style: preserve-3d;
+  will-change: transform;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0);
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+}
+.hero__bio-photo:hover {
+  box-shadow: 0 14px 28px -10px rgba(0,0,0,.35);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__bio-photo { transition: none; }
+}
 
 /* ── Interactive words (code scramble, systems sticky notes) ── */
 .exp__word {
@@ -665,7 +830,7 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
 }
 
 @media (max-width: 768px) {
-  .exp__narrative, .hero__bio { font-size: clamp(1.8rem, 6.5vw, 3rem); }
+  .exp__narrative { font-size: clamp(1.8rem, 6.5vw, 3rem); }
   .exp__meta { flex-direction: column; gap: 0.2rem; align-items: flex-start; }
 }
 
@@ -679,7 +844,6 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
   .vibe-btn { padding: 1.6rem 1rem 1.25rem; font-size: 0.72rem; }
 
   .hero { padding-top: 4.5rem; padding-bottom: 2rem; }
-  .hero__bio { max-width: 100%; font-size: clamp(1.6rem, 7vw, 2.2rem); }
   .exp__meta { font-size: 0.78rem; }
   .exp__narrative { font-size: clamp(1.6rem, 7vw, 2.2rem); }
   .about__stats { gap: 1.5rem 3rem; }
@@ -708,11 +872,6 @@ section { padding-left: var(--pad-x); padding-right: var(--pad-x); }
 body.is-still .hero,
 body.is-still .contact { min-height: auto; }
 
-/* Pointer-coarse: kill the floating preview entirely */
-@media (hover: none), (pointer: coarse) {
-  .preview { display: none; }
-}
-
 /* ============================================================
    HERO — signature polish + ambient layer
    ============================================================ */
@@ -736,11 +895,11 @@ body.lights-off .hero__spotlight { background: radial-gradient(circle at center,
 
 /* reduced motion / still: show hero immediately, no ambient */
 @media (prefers-reduced-motion: reduce) {
-  .hero__doc p { animation: none !important; opacity: 1 !important; }
+  .hero__doc p, .hero__doc .w { animation: none !important; opacity: 1 !important; }
   .hero__foot   { opacity: 1 !important; transform: none !important; transition: none; }
   .hero__spotlight { display: none; }
 }
-body.is-still .hero__doc p { animation: none !important; opacity: 1 !important; }
+body.is-still .hero__doc p, body.is-still .hero__doc .w { animation: none !important; opacity: 1 !important; }
 body.is-still .hero__foot  { opacity: 1 !important; transform: none !important; }
 
 

@@ -8,81 +8,50 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="case-study.css" />
-  <style>
-    body {
-      --paper:      #f9f8f4;
-      --paper-deep: #f0ede4;
-      --ink:        #1a1a18;
-      --ink-soft:   rgba(26,26,24,0.7);
-      --ink-mute:   rgba(26,26,24,0.46);
-      --ink-faint:  rgba(26,26,24,0.28);
-      --rule:       rgba(26,26,24,0.12);
-      --rule-soft:  rgba(26,26,24,0.07);
-      background: #f9f8f4;
-      color: #1a1a18;
-    }
-
-    .cs-nav { background: rgba(249,248,244,0.92); border-color: rgba(26,26,24,0.1); }
-    .cs-nav__mark .ast { color: #b09000; }
-    ::selection { background: #f5d800; color: #1a1a18; }
-    .cs-section__num { color: #b09000; }
-    .cs-card__k { color: #b09000; }
-    .cs-step__n { color: #b09000; }
-    .cs-chip:hover { border-color: #b09000; color: #1a1a18; }
-    .cs-pull { border-color: #f5d800; }
-    .cs-meta dt { color: rgba(26,26,24,0.42); }
-    .cs-meta dd a { border-color: rgba(176,144,0,0.5); }
-
-    .su-cover {
-      border-top: 1px solid rgba(26,26,24,0.1);
-      border-bottom: 1px solid rgba(26,26,24,0.1);
-    }
-    .su-cover img { width: 100%; display: block; }
-
-    .su-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid rgba(26,26,24,0.1);
-      border-bottom: 1px solid rgba(26,26,24,0.1);
-    }
-    .su-grid figure { overflow: hidden; aspect-ratio: 4/3; }
-    .su-grid figure:nth-child(even) { border-left: 1px solid rgba(26,26,24,0.1); }
-    .su-grid figure:nth-child(n+3) { border-top: 1px solid rgba(26,26,24,0.1); }
-    .su-grid img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s var(--ease); }
-    .su-grid figure:hover img { transform: scale(1.03); }
-    @media (max-width: 600px) {
-      .su-grid { grid-template-columns: 1fr; }
-      .su-grid figure:nth-child(even) { border-left: none; border-top: 1px solid rgba(26,26,24,0.1); }
-      .su-grid figure:nth-child(n+3) { border-top: 1px solid rgba(26,26,24,0.1); }
-    }
-  </style>
 </head>
-<body style="--tint:#b09000">
+<body>
   <div class="grain" aria-hidden="true"></div>
+
+  <div class="cs-marquee" aria-hidden="true">
+    <div class="cs-marquee__track">
+      <span>Subtitles <span class="dot">·</span> Design &amp; development <span class="dot">·</span> Archive · Interaction <span class="dot">·</span> 2024 <span class="dot">·</span> Next.js · Three.js · Supabase <span class="dot">·</span></span><span>Subtitles <span class="dot">·</span> Design &amp; development <span class="dot">·</span> Archive · Interaction <span class="dot">·</span> 2024 <span class="dot">·</span> Next.js · Three.js · Supabase <span class="dot">·</span></span>
+    </div>
+  </div>
 
   <nav class="cs-nav">
     <a href="../index.html#work" class="cs-nav__back" data-magnetic><span class="arrow">←</span><span>All work</span></a>
-    <span class="cs-nav__mark">Subtitles<span class="ast">✸</span></span>
+    <span class="cs-nav__mark"><img class="cs-nav__icon" src="../images/subtitles-icon.svg" alt="" /><span>Subtitles<span class="ast">✸</span></span></span>
   </nav>
 
-  <header class="cs-hero">
-    <p class="cs-hero__eyebrow" data-reveal><span class="idx">05</span><span class="sep"></span><span>Case Study</span></p>
-    <h1 class="cs-hero__title" data-reveal>54 weeks. <em>In photos.</em></h1>
-    <p class="cs-hero__lede" data-reveal>A personal photo and conversation archive, built for longevity. The same 54 weeks of moments rendered four different ways — strip, feed, gallery, globe.</p>
-    <dl class="cs-meta" data-reveal>
-      <div><dt>Role</dt><dd>Design &amp; development</dd></div>
-      <div><dt>Scope</dt><dd>Archive · Interaction · Personal</dd></div>
-      <div><dt>Year</dt><dd>2024</dd></div>
-      <div><dt>Stack</dt><dd>Next.js · Three.js · Supabase</dd></div>
-      <div><dt>Live</dt><dd><a href="https://subtitles.vercel.app/" target="_blank" rel="noopener">subtitles ↗</a></dd></div>
-    </dl>
-  </header>
-
-  <div class="su-cover" data-reveal="clip">
-    <img src="../images/subtitles.png" alt="Subtitles — strip view, 54 weeks of photos" loading="lazy" />
+  <div class="cs-cover" data-reveal="clip">
+    <img src="../images/subtitles-web.png" alt="Subtitles — strip view, 54 weeks of photos" loading="lazy" />
   </div>
+
+  <header class="cs-hero">
+    <div class="cs-hero__main">
+      <p class="cs-hero__eyebrow" data-reveal><span class="idx">05</span><span class="sep"></span><span>Case Study</span></p>
+      <h1 class="cs-hero__title" data-reveal>54 weeks. <em>In photos.</em></h1>
+      <p class="cs-hero__lede" data-reveal>A personal photo and conversation archive, built for longevity. The same 54 weeks of moments rendered four different ways — strip, feed, gallery, globe.</p>
+      <div class="cs-tags" data-reveal>
+        <span class="cs-tags__pill">Personal Archive</span>
+        <span class="cs-tags__pill">Multi-View</span>
+        <span class="cs-tags__pill">Three.js Globe</span>
+        <span class="cs-tags__pill">Longform Photography</span>
+        <span class="cs-tags__pill">Supabase</span>
+      </div>
+    </div>
+    <aside class="cs-hero__aside" data-reveal>
+      <a class="cs-visit" href="https://subtitles.vercel.app/" target="_blank" rel="noopener">Visit site <span class="arrow">↗</span></a>
+      <dl class="cs-meta">
+        <div><dt>Role</dt><dd>Design &amp; development</dd></div>
+        <div><dt>Scope</dt><dd>Archive · Interaction · Personal</dd></div>
+        <div><dt>Year</dt><dd>2024</dd></div>
+        <div><dt>Stack</dt><dd>Next.js · Three.js · Supabase</dd></div>
+      </dl>
+    </aside>
+  </header>
 
   <section class="cs-section">
     <div class="cs-section__head" data-reveal><span class="cs-section__num">01</span><span class="cs-section__label">Overview</span></div>
@@ -94,12 +63,27 @@
     <blockquote class="cs-pull" data-reveal><em>The shape of memory depends on how you're looking for it.</em></blockquote>
   </section>
 
-  <div class="su-grid" data-reveal>
-    <figure><img src="../images/subtitles.png" alt="Strip view" loading="lazy" /></figure>
-    <figure><img src="../images/seyispark-video.png" alt="Subtitle player view" loading="lazy" /></figure>
-    <figure><img src="../images/seyispark-gallery.png" alt="Gallery view" loading="lazy" /></figure>
-    <figure><img src="../images/seyispark-sphere.png" alt="Globe view" loading="lazy" /></figure>
-  </div>
+  <section class="cs-section" style="padding-bottom:0">
+    <div class="cs-section__head" data-reveal><span class="cs-section__label">Highlights</span></div>
+    <div class="cs-highlights" data-stagger>
+      <div class="cs-highlight">
+        <figure><img src="../images/subtitles-web.png" alt="Strip view" loading="lazy" /></figure>
+        <div class="cs-highlight__meta"><span class="cs-highlight__t">Strip view</span><span class="cs-highlight__k">Sequence</span></div>
+      </div>
+      <div class="cs-highlight">
+        <figure><img src="../images/seyispark-video.png" alt="Subtitle player view" loading="lazy" /></figure>
+        <div class="cs-highlight__meta"><span class="cs-highlight__t">Feed view</span><span class="cs-highlight__k">Moments</span></div>
+      </div>
+      <div class="cs-highlight">
+        <figure><img src="../images/seyispark-gallery.png" alt="Gallery view" loading="lazy" /></figure>
+        <div class="cs-highlight__meta"><span class="cs-highlight__t">Gallery view</span><span class="cs-highlight__k">Images</span></div>
+      </div>
+      <div class="cs-highlight">
+        <figure><img src="../images/seyispark-sphere.png" alt="Globe view" loading="lazy" /></figure>
+        <div class="cs-highlight__meta"><span class="cs-highlight__t">Globe view</span><span class="cs-highlight__k">Spatial</span></div>
+      </div>
+    </div>
+  </section>
 
   <section class="cs-section">
     <div class="cs-section__head" data-reveal><span class="cs-section__num">02</span><span class="cs-section__label">Design decisions</span></div>
@@ -126,6 +110,16 @@
       <span class="cs-chip">Three.js</span>
       <span class="cs-chip">Supabase</span>
       <span class="cs-chip">Vercel</span>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="cs-palette__head" data-reveal>This project uses a colour palette of <strong>4</strong> colours</p>
+    <div class="cs-palette" data-stagger>
+      <div class="cs-swatch" style="background:#f9f8f4"><span class="cs-swatch__aa" style="color:#1a1a18">Aa</span><span class="cs-swatch__hex" style="color:#1a1a18">#F9F8F4</span></div>
+      <div class="cs-swatch" style="background:#b09000"><span class="cs-swatch__aa" style="color:#fff">Aa</span><span class="cs-swatch__hex" style="color:#fff">#B09000</span></div>
+      <div class="cs-swatch" style="background:#f5d800"><span class="cs-swatch__aa" style="color:#1a1a18">Aa</span><span class="cs-swatch__hex" style="color:#1a1a18">#F5D800</span></div>
+      <div class="cs-swatch" style="background:#1a1a18"><span class="cs-swatch__aa" style="color:#f9f8f4">Aa</span><span class="cs-swatch__hex" style="color:#f9f8f4">#1A1A18</span></div>
     </div>
   </section>
 
