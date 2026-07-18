@@ -206,24 +206,38 @@ window.Sound = {
   }
 
   /* ---------------------------------------------------------
-     3b. Inline hero photo — 3D tilt + pop on hover
+     3b. Inline hero photo — 3D tilt, purely decorative, no click action.
+     Desktop: mousemove/mouseleave drives the tilt on hover, as before.
+     Touch has no hover to trigger it, so a tap plays the same tilt for
+     a moment and settles back — the touch equivalent of "hovering."
   --------------------------------------------------------- */
-  if (canHover && !prefersReduced) {
-    document.querySelectorAll("[data-tilt]").forEach((el) => {
-      const maxTilt = 22;   // degrees
-      const lift = 2.6 / 1.6; // base is 1.6em, hover pops to 2.6em
-      el.addEventListener("mousemove", (e) => {
-        const r = el.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width;   // 0..1 across the image
-        const py = (e.clientY - r.top) / r.height;
-        const rotY = (px - 0.5) * maxTilt * 2;
-        const rotX = (0.5 - py) * maxTilt * 2;
-        el.style.transform =
-          `perspective(400px) scale(${lift}) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-      });
+  document.querySelectorAll(".hero__bio-photo[data-tilt]").forEach((el) => {
+    if (prefersReduced) return;
+    const maxTilt = 22;   // degrees
+    const lift = 2.6 / 1.6; // base is 1.6em, hover pops to 2.6em
+    const tiltFromPoint = (clientX, clientY) => {
+      const r = el.getBoundingClientRect();
+      const px = (clientX - r.left) / r.width;   // 0..1 across the image
+      const py = (clientY - r.top) / r.height;
+      const rotY = (px - 0.5) * maxTilt * 2;
+      const rotX = (0.5 - py) * maxTilt * 2;
+      el.style.transform =
+        `perspective(400px) scale(${lift}) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    };
+
+    if (canHover) {
+      el.addEventListener("mousemove", (e) => tiltFromPoint(e.clientX, e.clientY));
       el.addEventListener("mouseleave", () => { el.style.transform = ""; });
-    });
-  }
+    } else {
+      el.addEventListener("touchstart", (e) => {
+        const t = e.touches[0];
+        tiltFromPoint(t.clientX, t.clientY);
+      }, { passive: true });
+      el.addEventListener("touchend", () => {
+        setTimeout(() => { el.style.transform = ""; }, 550);
+      }, { passive: true });
+    }
+  });
 
   /* ---------------------------------------------------------
      4. Count-up stats
@@ -775,15 +789,65 @@ window.Sound = {
         fadeUntil = performance.now() + 1600; // let the trail dissolve before it's cleared
       };
 
-      addEventListener("mousemove", onMove, { passive: true });
+      const setOpen = (opening) => {
+        paintPill.classList.toggle("is-open", opening);
+        paintPill.setAttribute("aria-expanded", opening ? "true" : "false");
+      };
+
+      // Press-and-drag paints while the button is held, like an actual brush —
+      // a plain click-to-toggle never registered as "painting" because nothing
+      // happened during the drag itself, only after release. A quick tap (press
+      // + release with barely any movement) still toggles a sticky hands-free
+      // mode, so you can also just wave the cursor around without holding it.
+      const DRAG_THRESHOLD = 8;
+      let pointerDown = false, dragMoved = false, dragStartX = 0, dragStartY = 0, wasPaintingBeforePress = false;
 
       paintPill.addEventListener("mouseenter", () => Sound.hover());
 
+      paintPill.addEventListener("mousedown", (e) => {
+        pointerDown = true;
+        dragMoved = false;
+        dragStartX = e.clientX; dragStartY = e.clientY;
+        wasPaintingBeforePress = painting;
+        if (!painting) {
+          setOpen(true);
+          startPainting();
+          Sound.pop();
+        }
+      });
+
+      addEventListener("mousemove", (e) => {
+        onMove(e);
+        if (pointerDown && !dragMoved) {
+          const dx = e.clientX - dragStartX, dy = e.clientY - dragStartY;
+          if (Math.hypot(dx, dy) > DRAG_THRESHOLD) dragMoved = true;
+        }
+      }, { passive: true });
+
+      addEventListener("mouseup", () => {
+        if (!pointerDown) return;
+        pointerDown = false;
+        // A genuine drag stops painting on release. A tap that was already
+        // sticky-painting from a previous tap turns it off; a fresh tap leaves
+        // the new sticky session running.
+        if (dragMoved || wasPaintingBeforePress) {
+          setOpen(false);
+          stopPainting();
+          Sound.tick();
+        }
+      });
+    }
+  }
+
+  /* ---- 2b-touch. "design" pill on touch devices: color toggle only, no canvas trail ---- */
+  if (hero && !canHover) {
+    const paintPill = hero.querySelector(".exp__pill--paint");
+    if (paintPill) {
       paintPill.addEventListener("click", () => {
-        const opening = !paintPill.classList.contains("is-open");
-        paintPill.classList.toggle("is-open", opening);
+        const opening = !paintPill.classList.contains("is-tapped");
+        paintPill.classList.toggle("is-tapped", opening);
         paintPill.setAttribute("aria-expanded", opening ? "true" : "false");
-        if (opening) { startPainting(); Sound.pop(); } else { stopPainting(); Sound.tick(); }
+        opening ? Sound.pop() : Sound.tick();
       });
     }
   }

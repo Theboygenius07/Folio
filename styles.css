@@ -159,8 +159,22 @@ body.is-painting, body.is-painting .hero { cursor: none; }
 /* animate the background itself through real hue values — hue-rotate() on the
    pill's own near-grey/achromatic default background has nothing to rotate,
    so it just sat there looking grey instead of teasing the paint effect */
-.exp__pill--paint:hover:not(.is-open) {
+@media (hover: hover) and (pointer: fine) {
+  /* scoped to real hover devices — on touch, a tap's lingering :hover state
+     never clears until you tap elsewhere, which would leave this animation
+     looking "stuck on" even after the .is-tapped class is removed */
+  .exp__pill--paint:hover:not(.is-open) {
+    animation: paint-hue-hover 2.4s linear infinite;
+  }
+}
+.exp__pill--paint.is-tapped {
   animation: paint-hue-hover 2.4s linear infinite;
+}
+.exp__pill--paint:hover:not(.is-open),
+.exp__pill--paint.is-tapped {
+  /* the generic .exp__pill hover rule (higher specificity) sets color to
+     var(--paper) on hover — override back to the default inherited text color */
+  color: inherit !important;
 }
 @keyframes paint-hue-hover {
   0%   { background: hsl(0,   80%, 58%); }
@@ -170,6 +184,15 @@ body.is-painting, body.is-painting .hero { cursor: none; }
   66%  { background: hsl(240, 80%, 60%); }
   83%  { background: hsl(300, 75%, 55%); }
   100% { background: hsl(360, 80%, 58%); }
+}
+
+/* touch devices: tapping the design pill just cycles its own color,
+   no canvas/cursor — that effect needs a hover-capable pointer to drag */
+@media (prefers-reduced-motion: reduce) {
+  .exp__pill--paint.is-tapped {
+    animation: none;
+    background: hsl(190, 80%, 55%);
+  }
 }
 
 /* italic greeting above the bio, close to body size like Emily Campbell's "Hello." */
@@ -611,12 +634,17 @@ body.is-painting, body.is-painting .hero { cursor: none; }
   cursor: pointer;
   transition: background 0.2s ease, box-shadow 0.2s ease, color 0.18s ease;
 }
-.exp__pill:not(.exp__pill--static):hover:not(.is-open) {
-  background: var(--ink);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow: none;
-  color: var(--paper);
+@media (hover: hover) and (pointer: fine) {
+  /* scoped to real hover devices — on touch, a tap leaves the pill in a
+     sticky :hover state with no mouseleave to clear it, so this dark-invert
+     would stay stuck after closing the reveal until you tapped elsewhere */
+  .exp__pill:not(.exp__pill--static):hover:not(.is-open) {
+    background: var(--ink);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    color: var(--paper);
+  }
 }
 .exp__pill.is-open {
   background: transparent;
@@ -635,8 +663,10 @@ body.is-painting, body.is-painting .hero { cursor: none; }
 .exp__pill--term {
   color: #4fae5b;
 }
-.exp__pill--term:hover:not(.is-open) {
-  color: var(--paper);
+@media (hover: hover) and (pointer: fine) {
+  .exp__pill--term:hover:not(.is-open) {
+    color: var(--paper);
+  }
 }
 .exp__pill--term.is-open {
   color: #4fae5b;
@@ -650,8 +680,9 @@ body.is-painting, body.is-painting .hero { cursor: none; }
 }
 
 /* ── inline hero photo: plain image sized to match the surrounding text
-   height — no chip/pill chrome. JS drives a 3D tilt on mousemove; this just
-   sets up the perspective origin, size, and a lift shadow that fades in. ── */
+   height — no chip/pill chrome, purely decorative. JS drives a 3D tilt on
+   hover (desktop); on touch devices, a tap plays the same tilt momentarily
+   since there's no hover to trigger it there. No click action either way. ── */
 .hero__bio-photo {
   display: inline-block;
   width: 1.6em;
@@ -659,12 +690,17 @@ body.is-painting, body.is-painting .hero { cursor: none; }
   margin: 0 0.14em;
   vertical-align: -0.35em;
   border-radius: 0.22em;
-  object-fit: cover;
-  cursor: default;
+  overflow: hidden;
   transform-style: preserve-3d;
   will-change: transform;
   box-shadow: 0 0 0 0 rgba(0,0,0,0);
   transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+}
+.hero__bio-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .hero__bio-photo:hover {
   box-shadow: 0 14px 28px -10px rgba(0,0,0,.35);
