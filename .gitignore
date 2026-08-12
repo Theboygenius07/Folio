@@ -7,6 +7,10 @@ Thumbs.db
 # ── Raw screen recordings (use compressed videos/ instead) ───
 *.mov
 
+# ── Raw source screenshots superseded by resized images/*-web.png ──
+videos/wire-img.png
+videos/Saleena-Tiwari-img.png
+
 # ── Dev screenshots / recordings ─────────────────────────────
 images/Screenshot*
 images/Screen Recording*
