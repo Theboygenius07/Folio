@@ -1,5 +1,40 @@
 {
   "redirects": [
-    { "source": "/index.html", "destination": "/", "permanent": true }
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/:slug(wire|cohort|tiwari-town|saleena-tiwari|subtitles|kulture|clark|raise|seyis-park|saleena).html",
+      "destination": "/:slug",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:slug(wire|cohort|tiwari-town|saleena-tiwari|subtitles|kulture|clark|raise|seyis-park|saleena)",
+      "destination": "/case-studies/:slug.html"
+    },
+    {
+      "source": "/:slug(wire|cohort|tiwari-town|saleena-tiwari|subtitles|kulture|clark|raise|seyis-park|saleena)/:path*",
+      "destination": "/case-studies/:slug/:path*"
+    },
+    {
+      "source": "/study.css",
+      "destination": "/case-studies/study.css"
+    },
+    {
+      "source": "/study.js",
+      "destination": "/case-studies/study.js"
+    },
+    {
+      "source": "/media/:path*",
+      "destination": "/case-studies/media/:path*"
+    },
+    {
+      "source": "/fonts-kulture/:path*",
+      "destination": "/case-studies/fonts-kulture/:path*"
+    }
   ]
 }

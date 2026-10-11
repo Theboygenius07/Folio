@@ -147,3 +147,40 @@
     sections.forEach((s) => spy.observe(s));
   }
 })();
+
+/* ---------------------------------------------------------
+   Clean addresses: in-page links scroll to their section
+   without writing a #hash into the address bar. An address
+   that arrives with one (an old link) is honoured, then
+   cleaned. The "back" link tells the homepage to open on the work grid.
+--------------------------------------------------------- */
+(() => {
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const go = (id, smooth) => {
+    if (id === "top") { window.scrollTo({ top: 0, behavior: smooth && !calm ? "smooth" : "auto" }); return true; }
+    const t = document.getElementById(id);
+    if (!t) return false;
+    t.scrollIntoView({ behavior: smooth && !calm ? "smooth" : "auto", block: "start" });
+    return true;
+  };
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    const id = decodeURIComponent(a.getAttribute("href").slice(1));
+    if (id && go(id, true)) e.preventDefault();
+  });
+  let back = null;
+  try { back = sessionStorage.getItem("return-to"); sessionStorage.removeItem("return-to"); } catch (err) {}
+  const arrived = location.hash ? decodeURIComponent(location.hash.slice(1)) : back;
+  if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+  if (arrived) {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    addEventListener("load", () => requestAnimationFrame(() => go(arrived, false)), { once: true });
+  }
+})();
+
+/* the "back to work" link: the homepage reads this and opens on the grid */
+document.addEventListener("click", (e) => {
+  const a = e.target.closest && e.target.closest("a[data-back]");
+  if (a) try { sessionStorage.setItem("return-to", a.dataset.back); } catch (err) {}
+});
