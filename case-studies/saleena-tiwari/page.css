@@ -1,0 +1,188 @@
+/* Saleena Tiwari case study: the figures. Built on study.css; nothing here
+   changes a shared component, it only lays out this page's own figures. */
+
+.saleena-void { background: #3f5140; }
+
+/* ---------- Fig. 1, the staircase: pinned while you scroll through it ---------- */
+.st-pin { position: relative; height: 290vh; height: 290svh; }
+.st-hero {
+  position: sticky; top: 0;
+  height: 100vh; height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 16px 0 12px;
+}
+.st-canvas {
+  height: min(560px, calc(100svh - 200px));
+  min-height: 300px;
+  display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  align-items: center; column-gap: clamp(16px, 3vw, 40px);
+  cursor: grab;
+}
+.st-canvas:active { cursor: grabbing; }
+.st-canvas > canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.st-ov { position: relative; height: 100%; outline-offset: -2px; }
+.st-cam { position: relative; aspect-ratio: 16 / 9; width: 100%; pointer-events: none; }
+.st-cam-label, .st-cam-note, .st-key {
+  position: absolute; margin: 0; white-space: nowrap;
+  color: var(--ink-2); font: 500 12px/1.3 var(--font); letter-spacing: 0.01em;
+}
+.st-cam-label { left: 0; bottom: calc(100% + 8px); color: var(--ink); }
+.st-cam-note { left: 0; top: calc(100% + 8px); font: 500 12px/1.3 var(--mono); }
+.st-key { left: 0; top: 0; will-change: transform; }
+.st-tag {
+  position: absolute; left: 0; top: 0; transform: translate(-50%, -150%);
+  padding: 0; color: var(--tint-ink); font: 600 12px/1 var(--font); white-space: nowrap;
+  pointer-events: none; will-change: transform;
+}
+.st-fallback[hidden] { display: none; }
+.st-fallback { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--ink-2); font-size: 15px; text-align: center; }
+.st-hero .stage-bar { margin-top: 18px; }
+.st-scrub { width: min(100%, 420px); margin: 0; }
+.st-read { display: flex; justify-content: center; margin-top: 8px; }
+.st-hero figcaption { margin-top: 10px; }
+.st-rules { margin-top: 8px; }
+
+@media (max-width: 900px) {
+  .st-pin { height: 240vh; height: 240svh; }
+  .st-hero { padding: 8px 0; }
+  .st-canvas {
+    grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto;
+    height: calc(100svh - 236px); min-height: 380px; row-gap: 30px;
+  }
+  .st-cam { align-self: end; }
+  .st-cam-label { bottom: calc(100% + 6px); }
+  .st-cam-note { display: none; }
+  .st-hero .stage-bar { margin-top: 12px; gap: 6px 18px; }
+  .st-hero .tabs button { font-size: 14px; padding: 4px 0; }
+  .st-read { gap: 2px 12px; font-size: 11.5px; }
+  .st-hero figcaption { font-size: 12.5px; line-height: 1.45; margin-top: 6px; }
+}
+@media (max-height: 700px) and (max-width: 900px) {
+  .st-hero figcaption { display: none; }
+  .st-canvas { height: calc(100svh - 170px); min-height: 340px; }
+}
+
+/* ---------- reel: on a phone, show the whole frame and put the words under it ---------- */
+@media (max-width: 760px) {
+  .reel { height: auto; min-height: 0; max-height: none; }
+  .reel video { position: relative; inset: auto; height: auto; aspect-ratio: 1280 / 710; object-fit: cover; }
+  .reel-cap { position: relative; padding-top: 16px; text-shadow: none; }
+  .reel-cap b { font-size: 24px; }
+}
+
+/* ---------- Fig. 3, five failures and a success ---------- */
+.fl-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px clamp(16px, 2.4vw, 32px);
+  width: min(100%, 1120px); margin-left: auto; margin-right: auto;
+}
+.fl canvas { width: 100%; height: auto; aspect-ratio: 16 / 11; }
+.fl figcaption { max-width: none; margin: 8px 0 0; text-align: left; text-wrap: pretty; font-size: 14px; line-height: 1.5; }
+.fl figcaption b { margin-right: 4px; }
+.fl-n { display: inline-block; margin-right: 8px; color: var(--ink-3); font-variant-numeric: tabular-nums; font-size: 12.5px; }
+.fl--ok figcaption b { color: var(--tint-ink); }
+.fl-foot { margin-top: 26px; text-align: center; }
+.fl-foot .link-btn { margin-bottom: 10px; }
+.fl-cap { max-width: 72ch; margin: 0 auto; color: var(--ink-2); font-size: 14px; line-height: 1.55; text-wrap: balance; }
+.fl-cap b { margin-right: 10px; color: var(--ink); font-weight: 600; }
+@media (max-width: 860px) { .fl-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .fl-grid { gap: 28px 14px; } .fl figcaption { font-size: 13px; } }
+
+/* ---------- Fig. 4, one card first ---------- */
+.one-svgwrap { width: 100%; }
+.one-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.one-read { display: flex; justify-content: center; margin-top: 10px; min-height: 2.2em; }
+.one-scrub { margin-top: 6px; }
+.one-fig figcaption { min-height: 3.1em; }
+@media (max-width: 860px) {
+  .one-fig .one-svg { max-height: 36vh; }
+  .one-read { min-height: 0; margin-top: 4px; font-size: 11.5px; }
+  .one-scrub { margin-top: 0; }
+  .one-fig figcaption { display: none; }
+}
+
+/* ---------- Fig. 5, static vs sweep ---------- */
+.mv-pair { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 4vw, 56px); }
+.mv-one { min-width: 0; }
+.mv-h { margin-bottom: 10px; color: var(--ink-2); text-align: center; }
+.mv-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.mv-read { display: flex; justify-content: center; margin-top: 10px; }
+.mv-scrub { margin-top: 22px; }
+@media (max-width: 640px) { .mv-pair { grid-template-columns: 1fr; gap: 30px; } }
+
+/* ---------- Fig. 6, camera curves ---------- */
+.cam-plots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 40px); touch-action: pan-y; }
+.cam-plots svg { display: block; width: 100%; height: auto; overflow: visible; cursor: ew-resize; }
+.cam-fig .stage-bar { margin-top: 18px; }
+.cam-scrub { margin-top: 8px; }
+@media (max-width: 760px) { .cam-plots { grid-template-columns: 1fr; gap: 18px; } }
+
+/* ---------- Fig. 7, the light and the fog ---------- */
+.lt-pair { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: clamp(20px, 3.4vw, 48px); align-items: center; }
+.lt-canvas { aspect-ratio: 16 / 9; min-height: 0; touch-action: pan-y; cursor: crosshair; }
+.lt-canvas canvas { position: absolute; inset: 0; }
+.lt-hint { position: absolute; left: 12px; bottom: 10px; color: rgba(255, 255, 255, 0.82); font: 500 12px/1.3 var(--mono); pointer-events: none; }
+.lt-side { min-width: 0; }
+.lt-curve { display: block; width: 100%; height: auto; overflow: visible; }
+.lt-table { width: 100%; margin-top: 18px; border-collapse: collapse; font: 500 13px/1.4 var(--mono); font-variant-numeric: tabular-nums; }
+.lt-table caption { margin-bottom: 6px; text-align: left; color: var(--ink-2); font: 600 12px/1.3 var(--font); letter-spacing: 0.08em; text-transform: uppercase; }
+.lt-table th, .lt-table td { padding: 6px 8px 6px 0; border-bottom: 1px solid var(--rule); text-align: right; }
+.lt-table th:first-child { text-align: left; }
+.lt-table thead th { color: var(--ink-2); font: 600 12px/1.3 var(--font); border-bottom-color: var(--ink); }
+.lt-table tbody th { font-weight: 600; }
+.lt-table tr.is-on th, .lt-table tr.is-on td { color: var(--tint-ink); }
+.lt-fig .stage-bar { margin-top: 18px; }
+@media (max-width: 760px) { .lt-pair { grid-template-columns: 1fr; } }
+
+/* ---------- Fig. 8, the flex ---------- */
+.fx-canvas { height: clamp(260px, 34vw, 420px); }
+.fx-trace { display: block; width: min(100%, 600px); height: auto; margin: 6px auto 0; overflow: visible; }
+.fx-fig .stage-bar { margin-top: 14px; flex-direction: column; gap: 8px; }
+.fx-scrub { width: min(100%, 460px); }
+.fx-scrub input:disabled { cursor: default; opacity: 0.55; }
+.fx-read { display: flex; justify-content: center; margin-top: 8px; }
+
+/* ---------- Fig. 9, the media frame ---------- */
+.md-row { display: grid; grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 56px); align-items: end; width: min(100%, 900px); margin: 0 auto; }
+.md-src, .md-out { min-width: 0; }
+.md-row canvas { display: block; width: 100%; height: auto; }
+.md-l { margin-top: 10px; color: var(--ink-2); text-align: center; }
+.md-fig .stage-bar { margin-top: 18px; }
+.md-read { display: flex; justify-content: center; margin-top: 8px; }
+
+
+/* ---------- plot marks, shared by Figs. 4 to 8 ---------- */
+.one-svg { aspect-ratio: 16 / 11; }
+.mv-svg { aspect-ratio: 4 / 3.3; }
+.cam-svg { display: block; width: 100%; aspect-ratio: 4 / 3; }
+.lt-curve { aspect-ratio: 16 / 11; }
+.fx-trace { aspect-ratio: 600 / 110; min-height: 92px; }
+.pl-grid { stroke: var(--rule); stroke-width: 1; fill: none; }
+.pl-axis { stroke: var(--ink-3); stroke-width: 1; fill: none; }
+.pl-dash { stroke-dasharray: 4 4; }
+.pl-frame { fill: none; stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 6 5; }
+.pl-line { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+.pl-line.pl-thin { stroke: var(--ink-3); stroke-width: 1; }
+.pl-line.pl-ghost { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 2 3; }
+.pl-line--tint { stroke: var(--tint-ink); stroke-width: 2.25; }
+.pl-ring { fill: none; stroke: var(--ink-3); stroke-width: 1; }
+.pl-cull { fill: var(--ink-3); opacity: 0.6; }
+.pl-dot { fill: var(--tint-ink); }
+.pl-dot--ink { fill: var(--ink); }
+.pl-dot.is-off { fill: none; stroke: var(--tint-ink); stroke-width: 1.5; }
+.pl-dot.is-behind { fill: var(--paper); stroke: var(--tint-ink); stroke-width: 2; }
+.pl-band { fill: var(--tint); opacity: 0.16; }
+.pl-her { fill: #d6dccf; stroke: var(--ink-3); stroke-width: 1; }
+.pl-play-line { stroke: var(--tint-ink); stroke-width: 1; opacity: 0.6; }
+.pl-title { fill: var(--ink); font-weight: 600; }
+.pl-was { color: var(--ink-3); }
+.pl-play { display: block; margin: 10px auto 0; }
+.pl-play[hidden] { display: none; }
+
+/* Fig. 7 overlays */
+.lt-tag { position: absolute; top: 10px; color: rgba(255, 255, 255, 0.86); font: 600 12px/1.3 var(--mono); pointer-events: none; }
+.lt-tag--l { left: 12px; }
+.lt-tag--r { right: 12px; }
+.lt-split { position: absolute; top: 0; bottom: 0; left: 50%; width: 0; border-left: 1px solid rgba(255, 255, 255, 0.75); pointer-events: none; }
+.lt-scrub { margin-top: 16px; }
+.lt-scrub span { font: 600 12.5px/1 var(--mono); color: var(--ink-2); }
+.lt-read { display: flex; justify-content: center; margin-top: 10px; }

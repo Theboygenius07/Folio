@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Building the Saleena Tiwari showcase · Seyi Ogundipe</title>
+  <meta name="description" content="How a scroll-driven 3D birthday gift was built: a statue in a green void, with 21 memories winding round her like a spiral staircase. The card motion, the camera, the fog and the flex, shown live on the project's own numbers." />
+  <meta name="author" content="Seyi Ogundipe" />
+  <meta name="theme-color" content="#f3f1ea" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building the Saleena Tiwari showcase: memories in orbit" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
+  <link rel="stylesheet" href="study.css" />
+  <link rel="stylesheet" href="saleena-tiwari/page.css" />
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }
+  </script>
+</head>
+<body style="--tint:#7a9c6f; --tint-ink:#46623d">
+  <div class="page">
+    <header class="bar">
+      <a class="bar-home" href="../index.html#work"><i aria-hidden="true">←</i> Seyi Ogundipe</a>
+      <a href="https://saleena-3dshowcase.vercel.app/" target="_blank" rel="noopener">Open the showcase ↗</a>
+    </header>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="label">Contents</p>
+    <ol>
+      <li><a href="#intro"><span>01</span> Intro</a></li>
+      <li><a href="#brief"><span>02</span> The brief</a></li>
+      <li><a href="#failed"><span>03</span> Five ways it failed</a></li>
+      <li><a href="#one"><span>04</span> One card first</a></li>
+      <li><a href="#move"><span>05</span> Why the cards move</a></li>
+      <li><a href="#camera"><span>06</span> The camera</a></li>
+      <li><a href="#light"><span>07</span> Her, and the light</a></li>
+      <li><a href="#flex"><span>08</span> Like card</a></li>
+      <li><a href="#media"><span>09</span> The memories</a></li>
+      <li><a href="#live"><span>10</span> Try it</a></li>
+      <li><a href="#end"><span>11</span> Conclusion</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <article>
+      <div class="page">
+        <header class="a-head">
+          <p class="eyebrow"><i></i> Case study / 006</p>
+          <h1>Building the Saleena Tiwari showcase: memories in orbit</h1>
+          <p class="stand">A birthday gift for my partner. A pale statue of her stands on a rock in a green void, and 21 memories wind round her as you scroll, like the steps of a spiral staircase round its column.</p>
+          <p class="meta"><b>2026</b><span></span>3D, motion and code</p>
+        </header>
+
+        <!-- Fig. 1: the staircase, live. Pinned while you scroll through it. -->
+        <div class="st-pin" id="stair-pin">
+          <figure class="stage st-hero" id="stair" aria-label="A live 3D diagram of the showcase: an abstract column on a rock, 21 numbered cards winding round it, and the camera on its path, with the camera's own view beside it">
+            <div class="stage-canvas st-canvas">
+              <canvas aria-hidden="true"></canvas>
+              <div class="st-ov" data-overlay tabindex="0" role="img" aria-label="The drawing of the scene. Drag, or use the left and right arrow keys, to turn it.">
+                <span class="st-tag st-tag--cam" aria-hidden="true">camera</span>
+                <span class="st-key" aria-hidden="true">Camera path at 0.4 of its real distance</span>
+              </div>
+              <div class="st-cam" data-overlay>
+                <span class="st-cam-label" aria-hidden="true">What the camera sees</span>
+                <span class="st-cam-note" aria-hidden="true"></span>
+              </div>
+              <p class="st-fallback" data-overlay hidden>This drawing needs WebGL, which this browser has turned off.</p>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs" role="tablist" aria-label="Which version of the card motion">
+                <button type="button" role="tab" aria-selected="true" data-mode="ship">What shipped</button>
+                <button type="button" role="tab" aria-selected="false" data-mode="v1">First version</button>
+              </div>
+              <label class="scrub st-scrub"><span>Scroll</span><input type="range" min="0" max="1000" step="1" value="0" aria-label="Scroll progress through the showcase, 0 to 1" /><output>0.000</output></label>
+            </div>
+            <ul class="readout st-read" aria-live="off">
+              <li>orbit <b data-r="orbit">60.0°</b></li>
+              <li>distance <b data-r="dist">10.77 m</b></li>
+              <li>lens <b data-r="lens">60 mm</b></li>
+              <li>cards alive <b data-r="alive">0</b></li>
+              <li>featured <b data-r="feat">none</b></li>
+            </ul>
+            <figcaption><b>Fig. 1</b> The showcase with her photos taken out: an abstract column for her, 21 numbered cards for the memories, and the camera on its measured path, drawn at 0.4 of its real distance. <span class="hover-only">Scroll or drag the slider to walk the camera round, and drag the drawing to turn it.</span><span class="touch-only">Scroll or drag the slider to walk the camera round.</span></figcaption>
+          </figure>
+        </div>
+
+        <section class="g s" id="intro" aria-labelledby="intro-h">
+          <p class="num">01</p>
+          <h2 id="intro-h">Intro</h2>
+          <div class="col">
+            <p>This was the last stop of a bigger gift. For her birthday on 3 August 2026 I built Project Tiwari, a small 3D world you walk through. At the end of the walk there's a gate, and the gate opens the showcase. The gate went live that evening.</p>
+            <p>The idea is easy to say. She stands still in the middle, and the memories go round her. The camera, the cards and the light all exist to make that one sentence feel true as you scroll.</p>
+            <p>Fig. 1 is the whole system with her photos taken out. Scroll through it and the camera walks once round her, the way the real page does. The green frame shows what that camera sees.</p>
+          </div>
+          <p class="note"><b>The reference.</b> The look was modelled on <a href="https://theyearofgreta.com" target="_blank" rel="noopener">theyearofgreta.com</a>. The camera path was measured against it, so it's credited here.</p>
+        </section>
+
+        <section class="g s" id="brief" aria-labelledby="brief-h">
+          <p class="num">02</p>
+          <h2 id="brief-h">The brief</h2>
+          <div class="col">
+            <p>I knew how the cards should move long before I knew how to build it. I wrote it down the way I'd say it:</p>
+          </div>
+          <p class="quote">Like a spiral stair design, with a model in the middle.</p>
+          <div class="col">
+            <p>Then the rules that came out of that picture. Each one is something you can check by eye, which is what made them useful.</p>
+          </div>
+          <ol class="rows rows--n st-rules">
+            <li><div><b>Start at the bottom left.</b><p>Wrap behind her, come round the front, leave at the top right.</p></div></li>
+            <li><div><b>Nothing off the screen.</b><p>Except while it's arriving or leaving.</p></div></li>
+            <li><div><b>Closer to her than to the camera.</b></div></li>
+            <li><div><b>Move like a rope.</b><p>One after another, in sequence. Never stacked.</p></div></li>
+            <li><div><b>Small, then big, then small.</b><p>Grow near the middle of the screen, shrink on the way out.</p></div></li>
+            <li><div><b>Nothing fades.</b><p>The motion does the revealing.</p></div></li>
+            <li><div><b>Flexible, like card.</b><p>Not too much bending. Subtle.</p></div></li>
+          </ol>
+        </section>
+
+        <section class="reel" id="reel" aria-label="The showcase, recorded" data-chapters='[{"title":"The push in","at":0},{"title":"Round her back","at":6.5},{"title":"Back to the front","at":10.5},{"title":"The hold","at":17.5}]'>
+          <video data-src="../videos/saleena-tiwari.mp4" width="1280" height="710" muted loop playsinline preload="none" poster="media/saleena-tiwari/hero.webp" aria-label="A screen recording of one scroll through the showcase: the camera pushes in on the statue, circles behind her and back round the front while the memory cards wind past, then holds on her alone"></video>
+          <div class="reel-cap">
+            <b>Fig. 2 &nbsp;The real thing</b>
+            <span>One scroll through the showcase, recorded. 20 seconds.</span>
+            <ol class="reel-chapters" aria-label="Chapters"></ol>
+          </div>
+        </section>
+
+        <section class="g s" id="failed" aria-labelledby="failed-h">
+          <p class="num">03</p>
+          <h2 id="failed-h">Five ways it failed</h2>
+          <div class="col">
+            <p>The cards were the hard part. Five approaches looked reasonable and each failed in its own way.</p>
+            <p>Each loop below rebuilds one of them on the scene's own camera path, so you can watch the failure instead of reading about it. The dashed line is the edge of the screen. The sixth loop runs the code that shipped.</p>
+          </div>
+          <div class="wide fl-grid" id="fails">
+            <figure class="fl" data-fail="1"><canvas aria-label="Loop: cards on their own flight paths pop in, bounce and leave the frame, then come back into it" role="img"></canvas><figcaption><span class="fl-n">01</span><b>Each card its own flight path.</b> Cards popped, bounced, and left the frame only to come back.</figcaption></figure>
+            <figure class="fl" data-fail="2"><canvas aria-label="Loop: cards placed flat on the screen slide along a perfect line, like a carousel laid over the scene" role="img"></canvas><figcaption><span class="fl-n">02</span><b>Place them on the screen first.</b> Perfect size and spacing, and they read as interface, not objects.</figcaption></figure>
+            <figure class="fl" data-fail="3"><canvas aria-label="Loop: as the camera pushes in, cards scaled to cancel distance balloon past the frame" role="img"></canvas><figcaption><span class="fl-n">03</span><b>Scale them to cancel distance.</b> When the camera pushed in, the cards ballooned.</figcaption></figure>
+            <figure class="fl" data-fail="4"><canvas aria-label="Loop: every card at the same height, so the spiral becomes a flat ring round her waist" role="img"></canvas><figcaption><span class="fl-n">04</span><b>Give every card the same height.</b> The brief meant the same size. The spiral flattened into a ring.</figcaption></figure>
+            <figure class="fl" data-fail="5"><canvas aria-label="Loop: cards fade in and out at fixed places instead of moving" role="img"></canvas><figcaption><span class="fl-n">05</span><b>Fade them in and out.</b> Against the brief. Nothing should fade.</figcaption></figure>
+            <figure class="fl fl--ok" data-fail="6"><canvas aria-label="Loop: the shipped motion. Cards rise from the bottom left, wind behind and round the front of the column, and leave at the top right" role="img"></canvas><figcaption><span class="fl-n">06</span><b>What shipped.</b> Each card walks the spiral in its own turn. Nothing bounces, nothing fades.</figcaption></figure>
+          </div>
+          <div class="wide fl-foot">
+            <button type="button" class="link-btn" id="fails-play" hidden>Play the loops</button>
+            <p class="fl-cap"><b>Fig. 3</b> Five rejected approaches and the one that shipped. Rebuilt here as diagrams on the real camera path; the sixth runs the shipped card code.</p>
+          </div>
+        </section>
+
+        <section class="g s" id="one" aria-labelledby="one-h">
+          <p class="num">04</p>
+          <h2 id="one-h">One card first</h2>
+          <div class="col">
+            <p>The rule that finally got it working was about order, not maths. Tuning every card at once, and fixing path and size together, kept moving the problem around. So the work went in a fixed order:</p>
+          </div>
+          <p class="quote">One card, path only. Then its size. Then all 21, on the same rules.</p>
+          <div class="scrolly" id="oneScrolly">
+            <figure class="scrolly-fig one-fig" aria-label="A plot that changes with each step: card 10's measured path on screen, then its size over its life, then all 21 cards' sizes over the scroll">
+              <div class="one-svgwrap"><svg class="one-svg" viewBox="0 0 640 400" role="img" aria-label="Plot for the current step"></svg></div>
+              <ul class="readout one-read"></ul>
+              <label class="scrub one-scrub"><span>Scroll</span><input type="range" min="0" max="1000" step="1" value="0" aria-label="Scroll progress, 0 to 1" /><output>0.000</output></label>
+              <figcaption><b>Fig. 4</b> <span class="one-cap">Card 10's path across the screen, as measured. Dot size is its size on screen; the dashed box is the edge of the frame.</span></figcaption>
+            </figure>
+            <ol class="scrolly-steps" data-wide>
+              <li class="step">
+                <h3>1. One card, path only</h3>
+                <p>Card 10 on its own, isolated by adding <code>?only=10</code> to the address. A test harness drove the scroll in a headless browser and recorded where the card landed on screen at 41 points along the scroll. This is that recording, taken while the path was still being tuned.</p>
+              </li>
+              <li class="step">
+                <h3>2. Then its size</h3>
+                <p>Size is decided on the screen, not in the world. A card's height runs from 15% of the frame to 40%, peaking the first time it comes square-on across her front, then falling away and staying down. The camera's push in is divided back out, so the curve depends only on the card's own life.</p>
+              </li>
+              <li class="step">
+                <h3>3. Then all 21</h3>
+                <p>The same rules, staggered. The cards run on their own clock, the rope's, which the readout shows. Each card's big moment comes 0.0295 after the last on that clock, from 0.19 to 0.78, and each card lives for 0.24 of it. So about 8 are alive at once: one featured, the rest small. The last card is gone by 0.953, and she holds the screen alone after that.</p>
+              </li>
+              <li class="step">
+                <h3>4. And a spring at the start</h3>
+                <p>For the first 5.5% of the scroll the rope runs fast and lands with card 0 already in focus, then settles to the page's pace. The camera never speeds up; only the cards do. You can see it as the squeezed curves on the left edge.</p>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="g s" id="move" aria-labelledby="move-h">
+          <p class="num">05</p>
+          <h2 id="move-h">Why the cards had to move</h2>
+          <div class="col">
+            <p>In the first version the cards didn't move at all. They hung on a fixed spiral 1.8 metres out from her, one full turn from below her feet to over her head, and the camera's orbit made the rope flow past. It looked like the right model. Nothing could bounce, because nothing could double back.</p>
+            <p>Then I measured it. A card that stands still can only cross the screen in the direction the camera turns, and this camera only turns one way. Across both window widths and both directions of life, cards entered on the right every time, at x +0.47 to +0.48. Bottom left was out of reach, however it was tuned.</p>
+            <p>So in what shipped, each card has its own path, but not a flight path. Every card is born behind her and below the frame, then turns 800 degrees round her, 2.2 turns, while it climbs from 0.05 to 2.75 metres. The spiral draws in from 1.55 metres at her ankles to 1.00 over her head, and swings out to 2.05 while a card is low enough to hit the rock. Its angle and its height only ever move one way, which is exactly what the flight paths got wrong.</p>
+          </div>
+          <figure class="stage mv-fig" id="moveFig" aria-label="Card 10's path across the camera frame under the static staircase and under the shipped sweep, side by side">
+            <div class="mv-pair">
+              <div class="mv-one"><p class="label mv-h">First version</p><svg class="mv-svg" data-model="v1" viewBox="0 0 400 260" role="img" aria-label="Card 10 under the static staircase: it appears behind her, swings right, crosses her front to the left, and goes back behind her"></svg><ul class="readout mv-read" data-model="v1"></ul></div>
+              <div class="mv-one"><p class="label mv-h">What shipped</p><svg class="mv-svg" data-model="ship" viewBox="0 0 400 260" role="img" aria-label="Card 10 under the shipped sweep: it rises from below the bottom left, winds behind and round the front, and leaves over the top"></svg><ul class="readout mv-read" data-model="ship"></ul></div>
+            </div>
+            <label class="scrub mv-scrub"><span>Card 10's life</span><input type="range" min="0" max="1000" step="1" value="300" aria-label="How far through its life card 10 is, 0 to 1" /><output>0.300</output></label>
+            <figcaption><b>Fig. 5</b> Card 10's centre across the camera frame, computed from both versions of the code at 16:9. Dot size is its size on screen. Drag along its life; the faint dots are the rest of it.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="camera" aria-labelledby="camera-h">
+          <p class="num">06</p>
+          <h2 id="camera-h">The camera was measured, not set by eye</h2>
+          <div class="col">
+            <p>The camera is a table of keyframes, solved against frames of the reference by measurement. Over the whole scroll it orbits from 60 to 420 degrees, because her face points along 60, not 0. It moves in from 10.77 to 7.56 metres and lengthens its lens from 60 to 92 millimetres, so she grows from 55% of the frame to 95%.</p>
+            <p>The first version turned from the very start. What shipped spends the first 12% of the scroll on a push instead: 10.77 to 9.95 metres, a quarter of the whole push in, against only 12 degrees of turn. Then the orbit speeds up to make up the arc, and both ends stay where they were.</p>
+          </div>
+          <figure class="stage cam-fig" id="camFig" aria-label="The camera's orbit, distance and lens plotted over the scroll, what shipped against the first version">
+            <div class="cam-plots"></div>
+            <div class="stage-bar">
+              <ul class="readout cam-read"></ul>
+            </div>
+            <label class="scrub cam-scrub"><span>Scroll</span><input type="range" min="0" max="1000" step="1" value="0" aria-label="Scroll progress, 0 to 1" /><output>0.000</output></label>
+            <figcaption><b>Fig. 6</b> The keyframe tables from <code>camera-path.js</code>, plotted. Solid is what shipped, dashed is the first version; dots are keyframes. <span class="hover-only">Drag across a plot</span><span class="touch-only">Drag the slider</span> to move the camera. It's the same scroll as Fig. 1.</figcaption>
+          </figure>
+          <p class="note"><b>On a phone.</b> The lens is set vertically, so her framing survives any screen shape. The spiral doesn't: on narrow screens it draws in, down to 0.46 of its radius, and no card is ever wider than 82% of the screen.</p>
+        </section>
+
+        <section class="g s" id="light" aria-labelledby="light-h">
+          <p class="num">07</p>
+          <h2 id="light-h">Her, and the light</h2>
+          <div class="col">
+            <p>The statue isn't sculpted by hand. It came from one photograph through Tripo's image-to-3D model, and I decimated it and compressed it with Draco in Blender: 89,999 triangles for her, 60,000 for the rock, 1.73 MB for the whole scene.</p>
+            <p>What I made is the surface. A pale green marble with veins drawn procedurally on a canvas, a clearcoat of 0.18, a little sheen, and a fresnel rim so her edge lifts off the green. Point at her and the rim rises from 1.00 to 1.26 while the camera eases in by 1% of its distance. Testing the pointer against 89,999 triangles took 8.4 ms, so it marches a 4 cm grid of her baked at load instead.</p>
+            <p>The biggest single fix was the fog. At a density of 0.062 it lifted the rock's darkest tones by 14 and greyed everything evenly, because fog works on distance and the rock sits at the same depth as she does. It couldn't fade the base without fading her. At 0.012 the rock measures within half a point of where it sat with no fog at all.</p>
+          </div>
+          <figure class="stage lt-fig" id="lightFig" aria-label="A live render of an abstract column on a rock in the green void, with the fog density switchable and the rim responding to the pointer">
+            <div class="lt-pair">
+              <div class="stage-canvas lt-canvas"><canvas aria-hidden="true"></canvas><span class="lt-tag lt-tag--l" aria-hidden="true">fog 0.062</span><span class="lt-tag lt-tag--r" aria-hidden="true">fog 0.012</span><span class="lt-split" aria-hidden="true"></span></div>
+              <div class="lt-side">
+                <svg class="lt-curve" viewBox="0 0 320 220" role="img" aria-label="How much fog covers an object at each distance, for the current density, with the camera's distance to her marked"></svg>
+                <table class="lt-table">
+                  <caption>Measured</caption>
+                  <thead><tr><th scope="col">Fog</th><th scope="col">Rock L</th><th scope="col">Rock p5</th><th scope="col">Her L</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">0.000</th><td>42.4</td><td>30.1</td><td>129.3</td></tr>
+                    <tr data-d="0.062"><th scope="row">0.062</th><td>52.4</td><td>44.2</td><td>117.7</td></tr>
+                    <tr data-d="0.012"><th scope="row">0.012</th><td>42.9</td><td>31.1</td><td>128.8</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <label class="scrub lt-scrub"><span>0.062</span><input type="range" min="0" max="1000" step="1" value="500" aria-label="Where the before and after views meet: fog 0.062 on the left, 0.012 on the right" /><span>0.012</span></label>
+            <ul class="readout lt-read"></ul>
+            <figcaption><b>Fig. 7</b> The light rig, marble and fog from the source, on an abstract column, at 0.107 of the scroll. Left of the line is fog 0.062, right is 0.012. <span class="hover-only">Drag across it to compare, and point at the column to lift the rim.</span><span class="touch-only">Drag across it to compare, and tap the column to lift the rim.</span> The cards' shader ignores fog, so only the column and the rock change.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="flex" aria-labelledby="flex-h">
+          <p class="num">08</p>
+          <h2 id="flex-h">Like card, not cloth</h2>
+          <div class="col">
+            <p>The cards bend with how fast you scroll. One vertex shader bows a card along its width, twists its corners a little and adds a slow ripple, all scaled by one number, <code>uFlex</code>, which comes from your scroll speed.</p>
+            <p>That speed is damped twice before it reaches the card. The scroll position glides toward where you are, and the bend eases toward that speed, so a flick becomes a swell instead of a snap. When you stop, it settles to a faint ripple. The card itself already hangs with a slight bow, an arc of 4.3 times the spiral's tightest radius, so it reads as a panel on a curve, not a moulded shell.</p>
+          </div>
+          <figure class="stage fx-fig" id="flexFig" aria-label="One card running the showcase's flex shader, bent by scroll speed">
+            <div class="stage-canvas fx-canvas"><canvas aria-hidden="true"></canvas></div>
+            <svg class="fx-trace" viewBox="0 0 600 90" role="img" aria-label="The last 4 seconds: the raw speed signal and the damped bend that reaches the card"></svg>
+            <div class="stage-bar">
+              <div class="tabs" role="tablist" aria-label="What drives the card">
+                <button type="button" role="tab" aria-selected="true" data-src="page">Your scroll</button>
+                <button type="button" role="tab" aria-selected="false" data-src="slider">The slider</button>
+              </div>
+              <label class="scrub fx-scrub"><span>Speed</span><input type="range" min="-300" max="300" step="1" value="0" aria-label="Scroll speed in scroll units per second" disabled /><output>0.000/s</output></label>
+            </div>
+            <ul class="readout fx-read"></ul>
+            <figcaption><b>Fig. 8</b> Card 10 with the shipped bow and the flex shader from <code>materials.js</code>, verbatim. Scroll this page and it bends as it would in the showcase, where the scene is a 600vh track. Thin line: speed. Thick line: the bend that reaches the card.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="media" aria-labelledby="media-h">
+          <p class="num">09</p>
+          <h2 id="media-h">The memories</h2>
+          <div class="col">
+            <p>Real photos from real phones are messy, and each problem needed its own answer. The filenames are the captions: I named each file the way I wanted it read, and the prep script turns the name into the caption instead of inventing text.</p>
+          </div>
+          <ol class="rows">
+            <li><div><b>Most of them are portrait.</b><p>15 of the 21 are tall, and every frame is 1440 by 1080. A centre crop was tried first and rejected, because it cut out what the photo was about. So each one is shown whole, over a blurred, darkened copy of itself.</p></div></li>
+            <li><div><b>Phones store rotation in odd places.</b><p>6 clips are stored landscape with a rotation of −90 in their side data. iPhone photos keep it in a HEIC tag that some tools read past. Both are applied before anything reaches the browser.</p></div></li>
+            <li><div><b>They share one green world.</b><p>At rest each card is near mono, 16% colour, pulled 13% toward the world's green, with its shadows lifted, so 21 photos sit together without fighting. Point at the featured card and colour sweeps across it on a diagonal; a video memory starts playing as the sweep begins.</p></div></li>
+          </ol>
+          <figure class="stage md-fig" id="mediaFig" aria-label="A test image put through the frame treatments: centre crop, or fit whole over a blurred fill">
+            <div class="md-row">
+              <div class="md-src"><canvas class="md-srcc" aria-hidden="true"></canvas><p class="label md-l">Source</p></div>
+              <div class="md-out"><canvas class="md-outc" role="img" aria-label="The test image in the 1440 by 1080 frame"></canvas><p class="label md-l">Frame, 1440 × 1080</p></div>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs" role="tablist" aria-label="Frame treatment">
+                <button type="button" role="tab" aria-selected="false" data-fit="crop">Centre crop</button>
+                <button type="button" role="tab" aria-selected="true" data-fit="blur">Fit whole, blurred fill</button>
+              </div>
+              <div class="tabs tabs--small" role="group" aria-label="Source shape">
+                <button type="button" aria-pressed="true" data-shape="portrait">Portrait photo</button>
+                <button type="button" aria-pressed="false" data-shape="landscape">Landscape photo</button>
+                <button type="button" aria-pressed="false" data-shape="video">16:9 video</button>
+              </div>
+              <div class="tabs tabs--small" role="group" aria-label="Overlays">
+                <button type="button" aria-pressed="false" data-win="1">What the card shows</button>
+              </div>
+            </div>
+            <ul class="readout md-read"></ul>
+            <figcaption><b>Fig. 9</b> A made-up test image, not one of hers, through the frame treatments from <code>prep_media.py</code>, rebuilt here. A and B mark its top and bottom edges. "What the card shows" outlines the 16:9 window the card shader takes from the middle of each 4:3 frame.</figcaption>
+          </figure>
+          <p class="note"><b>Before the statue.</b> An earlier gift, For Saleena, was a scrapbook: a 7-spread flipbook that turned on scroll, keys or a click, with 8 easter eggs hidden in it, and a ring of 11 photos and videos round a low-poly voxel figure of 1,895 triangles.</p>
+        </section>
+
+        <section class="g s" id="live" aria-labelledby="live-h">
+          <p class="num">10</p>
+          <h2 id="live-h">Try it</h2>
+          <div class="col">
+            <p>The real thing, running in this page. Scroll inside it to walk round her. On a computer, point at her, or at the card in front of her.</p>
+          </div>
+          <div class="live" data-src="https://saleena-3dshowcase.vercel.app/" data-title="The Saleena Tiwari showcase, live">
+            <div class="frame live-frame">
+              <img src="media/saleena-tiwari/close.webp" width="2000" height="947" alt="" loading="lazy" />
+              <button class="live-go" type="button">Load the showcase here</button>
+            </div>
+            <figcaption><b>Fig. 10</b> Loads the live site in place. It's heavier than the rest of this page, so it waits until you ask.</figcaption>
+          </div>
+          <dl class="facts">
+            <div><dt>Memories</dt><dd>21</dd></div>
+            <div><dt>Photos and videos</dt><dd>14 and 7</dd></div>
+            <div><dt>Triangles in her</dt><dd>89,999</dd></div>
+            <div><dt>Triangles in the rock</dt><dd>60,000</dd></div>
+            <div><dt>Whole scene, compressed</dt><dd>1.73 MB</dd></div>
+            <div><dt>Cards alive at once, at most</dt><dd>9</dd></div>
+          </dl>
+        </section>
+
+        <section class="g s end" id="end" aria-labelledby="end-h">
+          <p class="num">11</p>
+          <h2 id="end-h">Conclusion</h2>
+          <div class="col">
+            <p>At the start I thought the answer was to hold the cards still and walk the camera round them, the way you'd walk round a staircase. That gave a rope that couldn't bounce, and it could only ever cross the screen one way.</p>
+            <p>What shipped keeps the staircase and lets each card walk it. Every card climbs the same spiral in its own turn, born low behind her on the left, and its angle and its height only ever move forward. Once that held, what was left was making her look like she was worth walking round.</p>
+          </div>
+          <div class="actions"><a class="button" href="https://saleena-3dshowcase.vercel.app/" target="_blank" rel="noopener">Open the showcase</a></div>
+        </section>
+
+        <a class="next" href="subtitles.html">
+          <span class="label">Next case study</span>
+          <span class="next-t">Subtitles</span>
+          <span class="next-d">A year of photos, each with a line burned in like a film subtitle, and five ways to look through them.</span>
+        </a>
+
+        <footer>
+          <span>Saleena Tiwari showcase, a case study</span>
+          <a href="../index.html#work">All work</a>
+        </footer>
+      </div>
+    </article>
+  </main>
+  <script src="study.js" defer></script>
+  <script type="module" src="saleena-tiwari/page.js"></script>
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Building Wire · Seyi Ogundipe</title>
+  <meta name="description" content="How Wire works: a payment page from one sentence, and any API turned into tools an AI agent can use. With live ports of its compiler, prompt, dashboard and dot grids." />
+  <meta name="author" content="Seyi Ogundipe" />
+  <meta name="theme-color" content="#f3f1ea" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building Wire: a payment page from one sentence" />
+  <meta property="og:description" content="Two products on one engine, built for APIConf 2026." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
+  <link rel="stylesheet" href="study.css" />
+  <link rel="stylesheet" href="wire/page.css" />
+</head>
+<body style="--tint:#e4f222; --tint-ink:#5c6400">
+  <div class="page">
+    <header class="bar">
+      <a class="bar-home" href="../index.html#work"><i aria-hidden="true">←</i> Seyi Ogundipe</a>
+      <a href="https://usewire.vercel.app/" target="_blank" rel="noopener">Open Wire ↗</a>
+    </header>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="label">Contents</p>
+    <ol>
+      <li><a href="#intro"><span>01</span> Intro</a></li>
+      <li><a href="#engine"><span>02</span> One shape</a></li>
+      <li><a href="#flow"><span>03</span> The prompt</a></li>
+      <li><a href="#shapes"><span>04</span> 4 shapes</a></li>
+      <li><a href="#dashboard"><span>05</span> The dashboard</a></li>
+      <li><a href="#relay"><span>06</span> Relay</a></li>
+      <li><a href="#look"><span>07</span> The dots</a></li>
+      <li><a href="#changed"><span>08</span> What changed</a></li>
+      <li><a href="#end"><span>09</span> Conclusion</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <article>
+      <div class="page">
+        <header class="a-head">
+          <p class="eyebrow"><i></i> Case study / 003</p>
+          <h1>Building Wire: a payment page from one sentence</h1>
+          <p class="stand">Type what you're selling and get back a checkout link, a QR code and a live sales dashboard. Paste any API and an AI agent can use it. Built in one hackathon sprint for APIConf 2026.</p>
+          <p class="meta"><b>2026</b><span></span>Product design and front end</p>
+        </header>
+
+        <!-- Fig. 1: Wire's home page, live. Port of app/page.tsx with RepelDotGrid behind and inside the cards. -->
+        <figure class="stage w-hero" id="hero" aria-label="Wire's home page, rebuilt: two product cards on a field of dots that move away from the pointer">
+          <div class="stage-canvas w-hero-field" data-overlay>
+            <canvas class="w-hero-canvas" aria-hidden="true"></canvas>
+            <div class="w-home">
+              <p class="w-home-eye">Wire</p>
+              <p class="w-home-h">We build <mark>developer and consumer</mark> infrastructure, powered by AI.</p>
+              <div class="w-hero-cards">
+              <a class="w-card" href="#flow">
+                <canvas aria-hidden="true"></canvas>
+                <span class="w-card-tag">FOR SELLING <i aria-hidden="true">→</i></span>
+                <span class="w-card-name">Flow</span>
+                <span class="w-card-line">Turn a sentence into a payment page.</span>
+              </a>
+              <a class="w-card" href="#relay">
+                <canvas aria-hidden="true"></canvas>
+                <span class="w-card-tag">FOR BUILDING <i aria-hidden="true">→</i></span>
+                <span class="w-card-name">Relay</span>
+                <span class="w-card-line">Turn any REST API into real MCP tools.</span>
+              </a>
+              </div>
+              <a class="w-home-dev" href="#engine">Building on top of Wire? Start here →</a>
+            </div>
+          </div>
+          <div class="stage-bar">
+            <ul class="readout" aria-live="off">
+              <li>spacing <b>16px</b></li>
+              <li>repel <b>130px</b></li>
+              <li>push <b>60px</b></li>
+              <li>ease <b>0.12</b></li>
+              <li>largest push <b data-hero-off>0.0px</b></li>
+            </ul>
+            <button type="button" class="link-btn" data-hero-play hidden>Play</button>
+          </div>
+          <figcaption><b>Fig. 1</b> Wire's front door, rebuilt here with the original's numbers. <span class="hover-only">Move across it and the dots part around the pointer, then spring back.</span><span class="touch-only">Drag sideways across it and the dots part around your finger, then spring back.</span> Pick a card to jump to that half of the story.</figcaption>
+        </figure>
+
+        <section class="g s" id="intro" aria-labelledby="intro-h">
+          <p class="num">01</p>
+          <h2 id="intro-h">Intro</h2>
+          <div class="col">
+            <p>Wire is 2 products on one engine. <b>Flow</b> is for people selling something: describe the sale in a sentence, on the web or over WhatsApp, and Wire builds the payment page. <b>Relay</b> is for people building AI agents: paste a raw <code>curl</code> command or an OpenAPI spec and get back tools an agent can call straight away.</p>
+            <p>Wire was built for the APIConf 2026 hackathon. The result: a seller goes from one sentence to a live checkout link with no code and no invoice setup, and a developer hands an agent a new API without writing a tool schema by hand.</p>
+            <p>Each section below takes one piece of Wire apart and puts the working version on the page, ported from the repo with its own numbers.</p>
+          </div>
+          <p class="note"><b>Where it works.</b> On the web and over WhatsApp for sellers, and in any MCP client for developers, Claude Desktop and Cursor included.</p>
+        </section>
+
+        <section class="g s" id="engine" aria-labelledby="engine-h">
+          <p class="num">02</p>
+          <h2 id="engine-h">Every API becomes the same shape</h2>
+          <div class="col">
+            <p>Wire rests on one type, 48 lines long. It says what a tool is: a name, a description, a typed input schema, and a handler that makes the real HTTP call. Everything else in Wire either makes that shape or uses it.</p>
+            <p>Paystack's 6 operations are written in that shape by hand. Relay's compiler writes it for you, from a <code>curl</code> command or an OpenAPI spec. On the other side, 2 things consume it: an MCP server that any agent can connect to, and one agent loop, <code>runAgent</code>, which hands the tools to OpenAI's Responses API and calls whatever the model asks for, for up to 6 turns.</p>
+            <p>Flow is that loop pointed at Paystack. Connect is the same loop pointed at a seller's own Airtable or Notion, run once after each sale with 4 turns and a prompt that says "doing nothing is a correct outcome."</p>
+          </div>
+          <figure class="stage fe" id="fe" aria-label="Diagram of Wire's engine: where tools come from, the shared tool shape, and what calls it">
+            <div class="fe-map" data-overlay>
+              <svg class="fe-wires" aria-hidden="true"></svg>
+              <div class="fe-heads" aria-hidden="true"><span>Where tools come from</span><span>One shape</span><span>What calls them</span><span>Where you meet it</span></div>
+              <div class="fe-col fe-col--src">
+                <p class="fe-h">Where tools come from</p>
+                <div class="fe-node" data-n="paystack"><b>lib/paystack/tools.ts</b><span>6 Paystack tools, written by hand</span></div>
+                <div class="fe-node" data-n="wa"><b>lib/whatsapp/agent.ts</b><span>create_flow and edit_flow, by hand</span></div>
+                <div class="fe-node" data-n="curl"><b>parseCurl.ts</b><span>a pasted <code>curl</code> command</span></div>
+                <div class="fe-node" data-n="openapi"><b>parseOpenApi.ts</b><span>an OpenAPI 3 spec, as JSON</span></div>
+              </div>
+              <div class="fe-col fe-col--mid">
+                <div class="fe-node fe-node--small" data-n="compile"><b>compileSpec</b><span>Zod schema plus a fetch handler</span></div>
+                <div class="fe-node fe-shape" data-n="shape">
+                  <b>GatewayTool</b>
+                  <pre><code>name: string
+description: string
+schema: Record&lt;string, ZodType&gt;
+handler: (args) =&gt; Promise</code></pre>
+                </div>
+              </div>
+              <div class="fe-col fe-col--use">
+                <p class="fe-h">What calls them</p>
+                <div class="fe-node" data-n="agent"><b>runAgent</b><span>OpenAI Responses API, up to 6 turns</span></div>
+                <div class="fe-node" data-n="mcp"><b>createMcpServer</b><span>MCP, at /api/mcp and /api/gateway/[id]/mcp</span></div>
+              </div>
+              <div class="fe-col fe-col--out">
+                <p class="fe-h">Where you meet it</p>
+                <div class="fe-node fe-out" data-n="flow"><b>Flow</b><span>answers in JSON, becomes a page</span></div>
+                <div class="fe-node fe-out" data-n="whatsapp"><b>WhatsApp</b><span>answers in plain text</span></div>
+                <div class="fe-node fe-out" data-n="connect"><b>Connect</b><span>runs after a sale, 4 turns</span></div>
+                <div class="fe-node fe-out" data-n="playground"><b>Playground</b><span>streams every step</span></div>
+                <div class="fe-node fe-out" data-n="relay"><b>Relay</b><span>Claude Desktop, Cursor, your agent</span></div>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs" role="tablist" aria-label="Choose a surface">
+                <button type="button" role="tab" aria-selected="true" data-path="flow">Flow</button>
+                <button type="button" role="tab" aria-selected="false" data-path="whatsapp">WhatsApp</button>
+                <button type="button" role="tab" aria-selected="false" data-path="connect">Connect</button>
+                <button type="button" role="tab" aria-selected="false" data-path="playground">Playground</button>
+                <button type="button" role="tab" aria-selected="false" data-path="relay">Relay</button>
+              </div>
+            </div>
+            <p class="fe-say" aria-live="polite" data-fe-say></p>
+            <figcaption><b>Fig. 2</b> The engine, drawn from the imports. Pick a surface, or point at one, to light the path its tools take from where they're written to whatever calls them.</figcaption>
+          </figure>
+          <p class="note"><b>Where it lives.</b> <code>lib/gateway/types.ts</code> holds the shape, <code>compile.ts</code> builds it, <code>lib/openai/agent.ts</code> runs it, and <code>lib/mcp/server.ts</code> serves it. None of them knows whether a tool was compiled or written by hand.</p>
+        </section>
+
+        <section class="g s" id="flow" aria-labelledby="flow-h">
+          <p class="num">03</p>
+          <h2 id="flow-h">Say what you're selling</h2>
+          <div class="col">
+            <p>Flow's page asks one question: what are you selling? The box answers it for you while you think. It types an example at 35 milliseconds a character, holds it for 1.8 seconds, deletes it at 18 milliseconds a character, waits 0.4 seconds, and starts the next. There are 5 examples, from a party with 2 ticket tiers to a single ebook.</p>
+            <p>A placeholder can't animate, so the box doesn't swap one. It runs a chain of timeouts that sets the placeholder text a character at a time, and the chain stops the moment you type, because the placeholder isn't visible then and there's nothing left to show. Enter sends what you wrote.</p>
+          </div>
+          <figure class="stage ft" id="ft" aria-label="Flow's prompt box typing its examples, with a timing diagram of each example">
+            <div class="ft-card w-ui">
+              <label class="ft-label" for="ft-input">What are you selling?</label>
+              <textarea id="ft-input" class="ft-input" rows="3" spellcheck="false" aria-describedby="ft-said"></textarea>
+              <button type="button" class="ft-go" disabled>Create my payment page</button>
+              <p class="ft-said" id="ft-said" aria-live="polite"></p>
+            </div>
+            <div class="ft-time" data-overlay>
+              <svg class="ft-svg" role="img" aria-label="Characters on screen over time for the current example: typing, holding, deleting, waiting"></svg>
+            </div>
+            <div class="stage-bar">
+              <ul class="readout" aria-live="off">
+                <li>example <b data-ft="ex">1 of 5</b></li>
+                <li><b data-ft="ch">0/82</b> characters</li>
+                <li><b data-ft="ph">typing</b></li>
+                <li>next tick in <b data-ft="next">35ms</b></li>
+              </ul>
+              <button type="button" class="link-btn" data-ft-play hidden>Play</button>
+            </div>
+            <figcaption><b>Fig. 3</b> The prompt box, ported from <code>FlowCreator.tsx</code> with its exact timings. The line under it is the current example's life: type, hold, delete, wait. The 5 marks below are the whole loop; pick one to jump there. Type in the box and it stops, as the real one does.</figcaption>
+          </figure>
+          <p class="note"><b>The arithmetic.</b> An example of <i>n</i> characters lasts (<i>n</i> − 1) × 53 + 2,200 milliseconds. The longest has <span class="n">82</span> characters and lasts <span class="n">6.5</span> seconds. The loop of 5 takes <span class="n">24.3</span> seconds.</p>
+        </section>
+
+        <section class="g s" id="shapes" aria-labelledby="shapes-h">
+          <p class="num">04</p>
+          <h2 id="shapes-h">One of 4 shapes</h2>
+          <div class="col">
+            <p>Behind the box, the agent has one decision to make before it touches Paystack: which of 4 shapes the sentence describes. One price. Several named tiers. A subscription, if the words say so. Or none of them, because the price is missing, in which case it has to ask rather than guess.</p>
+            <p>Each shape has its own script. One price creates an invoice, plus a reserved bank account for transfers if Paystack will give one. Tiers call nothing at all: each tier's payment link is made later, when a buyer picks it. A subscription skips the bank account, because recurring billing only works off a card. A missing cap is fine and becomes 100. A missing price is not.</p>
+            <p>One decision never goes to the model. The comment in the code says it plainly: "a seller's payout routing isn't something an LLM should decide". Neither tool's schema mentions the split. It's spliced onto the call in code, after the model has chosen what to make.</p>
+          </div>
+          <figure class="stage fs" id="fs" aria-label="Walkthrough of how a sentence becomes one of Flow's 4 shapes">
+            <div class="fs-pick">
+              <div class="tabs tabs--small" role="tablist" aria-label="Choose a sentence">
+                <button type="button" role="tab" aria-selected="true" data-s="0">Party, 2 tiers</button>
+                <button type="button" role="tab" aria-selected="false" data-s="1">Hackathon</button>
+                <button type="button" role="tab" aria-selected="false" data-s="2">Ebook</button>
+                <button type="button" role="tab" aria-selected="false" data-s="3">Workshop</button>
+                <button type="button" role="tab" aria-selected="false" data-s="4">Sneakers</button>
+                <button type="button" role="tab" aria-selected="false" data-s="5">Book club</button>
+                <button type="button" role="tab" aria-selected="false" data-s="6">No price</button>
+              </div>
+              <p class="fs-quote" data-fs-quote aria-live="polite"></p>
+              <p class="fs-src" data-fs-src></p>
+            </div>
+            <div class="fs-map" data-overlay>
+              <svg class="fs-wires" aria-hidden="true"></svg>
+              <div class="fs-head" aria-hidden="true"><span>The model picks one</span><span>It calls</span><span>Code adds</span><span>You get</span></div>
+              <div class="fs-lanes" data-fs-lanes></div>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs tabs--small" role="group" aria-label="Seller's payout account">
+                <button type="button" aria-pressed="true" data-payout="1">Seller has a payout account</button>
+                <button type="button" aria-pressed="false" data-payout="0">No payout account</button>
+              </div>
+            </div>
+            <figcaption><b>Fig. 4</b> A walkthrough of <code>lib/flow/create.ts</code>, not a live model call. Pick a sentence to see which shape the prompt's rules point to, what gets called, and where the payout split joins in code. The first 5 sentences are Flow's own examples.</figcaption>
+          </figure>
+          <p class="note"><b>Uniqueness.</b> The page's reference and its customer email are made in code as well, because, in the code's words, "an LLM is not a reliable source of uniqueness."</p>
+        </section>
+
+        <section class="g s" id="dashboard" aria-labelledby="dash-h">
+          <p class="num">05</p>
+          <h2 id="dash-h">A dashboard that ticks</h2>
+          <div class="col">
+            <p>What comes back is a checkout link, a QR code that points at it, and a dashboard. The dashboard asks the server for the record every 3 seconds and says so at the top. It shows sold against cap, revenue in naira, and the share of the cap, over a lime bar.</p>
+            <p>The numbers swap in place. The bar slides: Tailwind's <code>transition-all</code> at 500 milliseconds, so each new sale moves it along instead of jumping. Wire's design guide has a line for it: "Nothing snaps instantly."</p>
+            <p>The last line on the card closes the loop. If the seller has connected their own system, a small agent acts on it after each sale, and the dashboard says what it did, like "Reduced stock count by 1." The seller sees their stock sheet change from the same page that shows the money.</p>
+          </div>
+          <figure class="stage fd" id="fd" aria-label="Wire's sales dashboard, rebuilt, with simulated sales">
+            <div class="fd-board w-ui" data-overlay>
+              <canvas class="fd-canvas" aria-hidden="true"></canvas>
+              <div class="fd-top">
+                <p class="fd-live"><i></i>Live — updates every 3s</p>
+                <p class="fd-created" data-fd="created"></p>
+              </div>
+              <div class="fd-title-row">
+                <p class="fd-title" data-fd="title">Hackathon tickets</p>
+                <span class="fd-link">View checkout page →</span>
+              </div>
+              <div class="fd-grid">
+                <div class="fd-panel">
+                  <div class="fd-stats">
+                    <div><p class="fd-big" data-fd="sold">0/100</p><p class="fd-small" data-fd="soldlabel">sold</p></div>
+                    <div><p class="fd-big" data-fd="rev">₦0</p><p class="fd-small">revenue</p></div>
+                    <div><p class="fd-big" data-fd="pct">0%</p><p class="fd-small">of cap</p></div>
+                  </div>
+                  <div class="fd-barwrap">
+                    <div class="fd-bar"><div class="fd-fill" data-fd="fill"></div></div>
+                    <div class="fd-ends"><span>0</span><span data-fd="cap">100</span></div>
+                    <p class="fd-empty" data-fd="empty">No sales yet — share the checkout link to get started.</p>
+                    <p class="fd-action" data-fd="action" hidden><i></i><span>Last sale, in your connected system: Reduced stock count by 1.</span></p>
+                  </div>
+                </div>
+                <div class="fd-side" data-fd="side"></div>
+              </div>
+            </div>
+            <div class="fd-inst" data-overlay>
+              <div class="fd-poll">
+                <p class="fd-h">The poll, last 30 seconds</p>
+                <svg class="fd-poll-svg" aria-hidden="true"></svg>
+              </div>
+              <div class="fd-ease">
+                <p class="fd-h">The bar's 500ms ease</p>
+                <svg class="fd-ease-svg" viewBox="0 0 160 120" aria-hidden="true"></svg>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs tabs--small" role="tablist" aria-label="Kind of sale">
+                <button type="button" role="tab" aria-selected="true" data-kind="one">One price</button>
+                <button type="button" role="tab" aria-selected="false" data-kind="tiers">Tiers</button>
+                <button type="button" role="tab" aria-selected="false" data-kind="sub">Subscription</button>
+              </div>
+              <button type="button" class="button button--line fd-sell" data-fd-sell>Sell one</button>
+              <ul class="readout" aria-live="off">
+                <li>poll <b data-fd="n">0</b></li>
+                <li>next in <b data-fd="next">3.0s</b></li>
+                <li>bar <b data-fd="bar">0% → 0%</b></li>
+              </ul>
+              <button type="button" class="link-btn" data-fd-play hidden>Play</button>
+            </div>
+            <figcaption><b>Fig. 5</b> The dashboard from <code>app/dashboard/[slug]/page.tsx</code>, rebuilt with its 3-second poll and 500ms bar. Sales here are simulated. A sale lands at a random moment (hollow mark) but the page only learns of it at the next poll (filled). Press Sell one to make your own.</figcaption>
+          </figure>
+          <ol class="rows">
+            <li><div><b>It works in WhatsApp.</b><p>Messages arrive through Twilio. Each one is signature-checked and de-duplicated by its message ID, then the same engine runs with 3 tools: create a sale, edit one, or refund a payment. It replies in plain words, and the prompt sets the tone with one line: "Sold 12/100 so far, ₦60,000 in." A new sale's QR code follows as an image captioned "Scan to pay".</p></div></li>
+            <li><div><b>It talks to what you already use.</b><p>On Connect, paste the address of your stock sheet or database and Wire compiles it into tools. After each sale it updates your system, and it's fine if nothing applies.</p></div></li>
+          </ol>
+        </section>
+
+        <section class="reel" id="reel" aria-label="Wire as it was demoed" data-chapters='[{"title":"The home page","at":0},{"title":"Flow&#39;s prompt","at":5.5},{"title":"3 steps","at":11.5},{"title":"Connect, Relay, the Flow API","at":13},{"title":"Typing a sale","at":17.5}]'>
+          <video data-src="../videos/wire.mp4" muted loop playsinline preload="none" poster="media/wire/poster.webp" aria-label="A screen recording of Wire: the home page, then Flow's prompt, then the sections under it"></video>
+          <div class="reel-cap">
+            <b>Wire, as it was demoed</b>
+            <span>Fig. 6 · The hackathon build, 20 seconds. Pick a chapter to jump.</span>
+            <ol class="reel-chapters"></ol>
+          </div>
+        </section>
+
+        <section class="g s" id="relay" aria-labelledby="relay-h">
+          <p class="num">06</p>
+          <h2 id="relay-h">Paste a curl, get a tool</h2>
+          <div class="col">
+            <p>Relay is the compiler with the lid off. Paste a <code>curl</code> command and it reads the flags people actually paste: the method, each header, the body, a user for basic auth, and the URL. Anything else is ignored rather than rejected. The parser's own comment states the goal: "paste what you copied from devtools".</p>
+            <p>An Authorization header becomes the auth kind: bearer, basic, or a raw API key. Other headers, apart from Content-Type, become required inputs. Each field of a JSON body becomes a typed input, numbers as numbers, true and false as booleans, anything else as a string. The tool is named from the method and the path, so a POST to <code>/v1/things</code> becomes <code>post_v1_things</code>. Paste OpenAPI JSON instead and the same box notices. There's no toggle.</p>
+            <p>The figure below runs the parser line for line. Whatever it makes is served as an MCP server, so Claude Desktop, Cursor or your own agent can call it. The playground streams the agent at work as server-sent events: <code>reasoning</code>, <code>tool_call</code>, <code>tool_result</code>, then <code>done</code> or <code>error</code>.</p>
+          </div>
+          <figure class="stage fc" id="fc" aria-label="A live port of Relay's curl compiler: edit the command and see the tool it produces">
+            <div class="fc-wrap" data-overlay>
+              <svg class="fc-wire" aria-hidden="true"><path d=""/></svg>
+              <div class="fc-in">
+                <p class="fc-h">You paste</p>
+                <div class="fc-editor w-ui">
+                  <pre class="fc-mirror" aria-hidden="true"></pre>
+                  <textarea class="fc-ta" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="A curl command or OpenAPI JSON to compile"></textarea>
+                </div>
+              </div>
+              <div class="fc-out">
+                <p class="fc-h">Relay makes</p>
+                <div class="fc-tool" aria-live="polite"></div>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs tabs--small" role="tablist" aria-label="Example commands">
+                <button type="button" role="tab" aria-selected="true" data-p="paystack">Paystack</button>
+                <button type="button" role="tab" aria-selected="false" data-p="airtable">Airtable</button>
+                <button type="button" role="tab" aria-selected="false" data-p="notion">Notion</button>
+                <button type="button" role="tab" aria-selected="false" data-p="basic">Basic auth and a query</button>
+                <button type="button" role="tab" aria-selected="false" data-p="openapi">OpenAPI JSON</button>
+              </div>
+              <ul class="readout" aria-live="off"><li data-fc-sum></li></ul>
+            </div>
+            <figcaption><b>Fig. 7</b> <code>parseCurl.ts</code> and <code>parseOpenApi.ts</code>, ported line for line and running in your browser. Edit the command and the tool rebuilds as you type. Point at any line on the right, or any part of the command, to see what made what.</figcaption>
+          </figure>
+          <p class="note"><b>Where the secret goes.</b> The token from an Authorization header never enters the schema. It's kept as <code>authValue</code> and added to each request by the handler, so the model never sees it.</p>
+        </section>
+
+        <section class="g s" id="look" aria-labelledby="look-h">
+          <p class="num">07</p>
+          <h2 id="look-h">Dots that notice the pointer</h2>
+          <div class="col">
+            <p>The design rules fit in one short guide. One loud colour per view. Dotted grids behind anything that's product. Hairline borders, no shadows. Light mode only, on purpose. The lime only appears where it means something: the main button, a live dot, the progress bar, the highlighted words in a headline. Headings are PP Neue Montreal and body text is Saans.</p>
+            <p>The dots come in 2 behaviours. On Relay's hero they brighten. Each dot breathes on its own sine between 0.05 and 0.28 opacity, and within 160 pixels of the pointer it rises toward 0.85 and grows to 1.6 times its size. The pointer itself is eased, 12% of the way each frame, so the bright patch trails behind it. Dots behind the headline are held at 70%, fading back to full over 48 pixels.</p>
+            <p>On the home page, inside the product cards and behind the dashboard, they repel: anything within 130 pixels is pushed up to 60 pixels away and springs back. It replaced the particle and spotlight hover cards of the first version. With reduced motion on, the breathing stops and the repel switches off.</p>
+          </div>
+          <figure class="stage fg" id="fg" aria-label="The two dot grids, live, with their radii drawn">
+            <div class="stage-canvas fg-canvas" role="application" aria-label="The dot field. Use the arrow keys to move a pointer through it; hold Shift for bigger steps.">
+              <canvas aria-hidden="true"></canvas>
+              <p class="fg-copy" data-fg-copy><span>Any API. Every AI agent.</span><br><span class="fg-dim">One gateway.</span></p>
+            </div>
+            <div class="fg-plots" data-overlay>
+              <div><p class="fg-h" data-fg-h1>Opacity by distance</p><svg class="fg-fall" viewBox="0 0 320 130" aria-hidden="true"></svg></div>
+              <div><p class="fg-h" data-fg-h2>Pointer lag, last 2 seconds</p><svg class="fg-lag" viewBox="0 0 320 130" aria-hidden="true"></svg></div>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs" role="tablist" aria-label="Behaviour">
+                <button type="button" role="tab" aria-selected="true" data-mode="brighten">Brighten, Relay's hero</button>
+                <button type="button" role="tab" aria-selected="false" data-mode="repel">Repel, cards and dashboard</button>
+              </div>
+              <ul class="readout" aria-live="off" data-fg-read></ul>
+              <button type="button" class="link-btn" data-fg-play hidden>Play</button>
+            </div>
+            <figcaption><b>Fig. 8</b> <code>HeroParticles.tsx</code> and <code>RepelDotGrid.tsx</code>, ported with their constants. <span class="hover-only">Move across the field, or focus it and use the arrow keys.</span><span class="touch-only">Drag sideways across the field.</span> The rings are the 160 and 130 pixel radii. The cross is your pointer; in Brighten, the ring's centre is the eased pointer the dots actually measure from. Under it: the falloff by distance, and the easing over the last 2 seconds.</figcaption>
+          </figure>
+          <p class="note"><b>Where they run.</b> Brighten on Relay's hero and the developer page. Repel on the home page, inside product cards, and behind checkout, Connect and the dashboard.</p>
+        </section>
+
+        <section class="g s" id="changed" aria-labelledby="changed-h">
+          <p class="num">08</p>
+          <h2 id="changed-h">What changed on the way</h2>
+          <div class="col">
+            <p>Hackathons are mostly changing your mind quickly. Here is what changed between the first version and what runs now.</p>
+          </div>
+          <table class="ba">
+            <thead><tr><th scope="col"></th><th scope="col">First version</th><th scope="col">Now</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">The product</th><td>One product, FlowPay</td><td>2 products on one engine, Flow and Relay</td></tr>
+              <tr><th scope="row">Storage</th><td>A flat JSON file on one server</td><td>Upstash Redis</td></tr>
+              <tr><th scope="row">The cards</th><td>Particle and spotlight hover effects</td><td>A dot grid that moves out of your way</td></tr>
+            </tbody>
+          </table>
+          <p class="note"><b>The storage note.</b> The first version's store was "deliberately a flat JSON file, not a database: this only needs to survive a single demo session on one running server." Upstash Redis is what lets Wire run on serverless, where each request can land on a different machine.</p>
+        </section>
+
+        <section class="g s end" id="end" aria-labelledby="end-h">
+          <p class="num">09</p>
+          <h2 id="end-h">Conclusion</h2>
+          <div class="col">
+            <p>Wire was built in a day and a half, but the idea underneath it is simple enough to outlast the sprint: describe an API once, and both a seller and an agent can use it. Flow is that idea for people who'll never read an API doc. Relay is the same idea for people who write them.</p>
+          </div>
+          <figure class="live" data-src="https://usewire.vercel.app/relay" data-title="Wire's Relay page, live">
+            <div class="frame live-frame">
+              <img src="media/wire/f24.webp" width="2000" height="1112" alt="Relay's page: Any API. Every AI agent. One gateway." loading="lazy" />
+              <button type="button" class="live-go">Load the live site</button>
+            </div>
+            <figcaption><b>Fig. 9</b> The hackathon build, live. This is Relay's page, with the brightening dots from Fig. 8 running for real. Load it in place.</figcaption>
+          </figure>
+          <div class="actions"><a class="button" href="https://usewire.vercel.app/" target="_blank" rel="noopener">Open Wire</a></div>
+        </section>
+
+        <a class="next" href="cohort.html">
+          <span class="label">Next case study</span>
+          <span class="next-t">Cohort</span>
+          <span class="next-d">A waitlist page for an AI assistant that lives in iMessage, written like a letter.</span>
+        </a>
+
+        <footer>
+          <span>Wire, a case study</span>
+          <a href="../index.html#work">All work</a>
+        </footer>
+      </div>
+    </article>
+  </main>
+  <script src="study.js" defer></script>
+  <script type="module" src="wire/page.js"></script>
+</body>
+</html>

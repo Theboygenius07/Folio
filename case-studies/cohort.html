@@ -1,168 +1,493 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-vibe="day">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cohort — Case Study · Seyi Ogundipe</title>
-  <meta name="description" content="Two scroll-driven pages for Cohort — a proactive AI assistant and social network for university students." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
-  <link rel="stylesheet" href="case-study.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Building Cohort · Seyi Ogundipe</title>
+  <meta name="description" content="How the Cohort waitlist page was built: a short letter whose words open up, four times of day, a lamp you can pull, and a phone that burns in." />
+  <meta name="author" content="Seyi Ogundipe" />
+  <meta name="theme-color" content="#EDE8DC" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building Cohort: a waitlist page that reads like a letter" />
+  <link rel="icon" href="../images/cohort-work-icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="study.css" />
+  <link rel="stylesheet" href="cohort/page.css" />
 </head>
-<body>
-  <div class="grain" aria-hidden="true"></div>
+<body style="--tint:#1c34f5; --tint-ink:#1c34f5">
+  <div class="page">
+    <header class="bar">
+      <a class="bar-home" href="../index.html#work"><i aria-hidden="true">←</i> Seyi Ogundipe</a>
+      <a href="https://www.trycohort.xyz/" target="_blank" rel="noopener">Open Cohort ↗</a>
+    </header>
+  </div>
 
-  <nav class="cs-nav">
-    <a href="../index.html#work" class="cs-nav__back" data-magnetic><span class="arrow">←</span><span>All work</span></a>
-    <span class="cs-nav__mark"><img class="cs-nav__icon" src="../images/cohort-work-icon.svg" alt="" /><span>Cohort</span></span>
-    <div class="cs-nav__actions">
-      <a class="cs-btn cs-btn--ghost" href="https://www.trycohort.xyz/" target="_blank" rel="noopener">Visit site <span class="arrow">↗</span></a>
-    </div>
+  <nav class="toc" aria-label="Contents">
+    <p class="label">Contents</p>
+    <ol>
+      <li><a href="#intro"><span>01</span> Intro</a></li>
+      <li><a href="#chapters"><span>02</span> 10 chapters, 4 paragraphs</a></li>
+      <li><a href="#light"><span>03</span> The light</a></li>
+      <li><a href="#open"><span>04</span> Words that open</a></li>
+      <li><a href="#words"><span>05</span> Words that act</a></li>
+      <li><a href="#burn-s"><span>06</span> The burn</a></li>
+      <li><a href="#hidden"><span>07</span> Hidden things</a></li>
+      <li><a href="#sky"><span>08</span> The sky</a></li>
+      <li><a href="#sound"><span>09</span> Sound</a></li>
+      <li><a href="#end"><span>10</span> Conclusion</a></li>
+    </ol>
   </nav>
 
-  <header class="cs-hero">
-    <div class="cs-hero__meta" data-reveal>
-      <span>Case Study</span>
-      <span class="cs-hero__pill">2025</span>
-      <span>Product · Web · Motion</span>
-    </div>
-    <h1 class="cs-hero__title" data-reveal>Cohort</h1>
-    <p class="cs-hero__lede" data-reveal>Two scroll-driven pages — one for students, one for investors — around a proactive AI assistant that coordinates university life across a shared network.</p>
-    <div class="cs-hero__by" data-reveal>
-      <span class="dot"><img src="../images/cohort-work-icon.svg" alt="" /></span>
-      <span>Seyi Ogundipe</span>
-      <span class="role">— Design &amp; front-end</span>
-    </div>
-  </header>
+  <main>
+    <article>
+      <div class="page">
+        <header class="a-head">
+          <p class="eyebrow"><i></i> Case study / 004</p>
+          <h1>Building Cohort: a waitlist page that reads like a letter</h1>
+          <p class="stand">Cohort is an AI assistant for university students that lives in iMessage. Before it existed, this page had to make students feel the overload and leave their email. It does it in 4 paragraphs.</p>
+          <p class="meta"><b>2026</b><span></span>Design and front end</p>
+        </header>
 
-  <div class="cs-cover" data-reveal>
-    <div class="cs-frame">
-      <div class="cs-frame__bar"><span></span><span></span><span></span></div>
-      <div class="cs-frame__screen">
-        <img src="../images/cohort-web.png" alt="Cohort — customer page, dark scroll-driven narrative" loading="lazy" />
+        <!-- Fig. 1: the phone burn-in, ported from Cohort/js/main.js:1987-2171 -->
+        <figure class="stage burn" id="burn">
+          <div class="stage-canvas burn-stage">
+            <div class="burn-wrap">
+              <canvas class="burn-gl" role="img" aria-label="The Cohort conversation on a phone held in a hand, dissolving into place through noise with a copper edge"></canvas>
+              <img class="burn-still" src="media/cohort/phone.webp" width="1400" height="1687" alt="The Cohort conversation on a phone held in a hand" hidden />
+            </div>
+          </div>
+          <div class="stage-bar burn-scrubs">
+            <label class="scrub"><span>Reveal</span><input type="range" min="0" max="1000" step="1" value="0" data-burn-prog aria-label="Reveal threshold" /><output data-burn-prog-out>−0.35</output></label>
+            <label class="scrub"><span>Edge</span><input type="range" min="0" max="150" step="1" value="55" data-burn-edge aria-label="Width of the ember edge" /><output data-burn-edge-out>0.055</output></label>
+          </div>
+          <div class="stage-bar">
+            <ul class="readout">
+              <li>uProg <b data-burn-r="prog">−0.35</b></li>
+              <li>edge <b data-burn-r="edge">0.055</b></li>
+              <li>lerp <b>0.016</b> a frame</li>
+              <li>rotateY <b data-burn-r="ry">0.0°</b> · rotateX <b data-burn-r="rx">0.0°</b> · perspective <b>900px</b></li>
+            </ul>
+            <span class="ctl"><button type="button" class="link-btn" aria-pressed="false" data-burn-noise>Show the noise</button><button type="button" class="link-btn" data-burn-replay>Replay</button></span>
+          </div>
+          <figcaption><b>Fig. 1</b> The phone from the top of trycohort.xyz, burning in through the site's own shader. Drag Reveal to scrub it, widen the edge, or point at the phone to tilt it.</figcaption>
+        </figure>
+
+        <section class="g s" id="intro" aria-labelledby="intro-h">
+          <p class="num">01</p>
+          <h2 id="intro-h">Intro</h2>
+          <div class="col">
+            <p>Cohort is, in the page's own words, "the friend who knows you and everyone, remembers everything, and handles the parts of university you shouldn't have to think about." It lives in your messages. It stays ahead of deadlines, books office hours before they fill up, and makes the right introductions.</p>
+            <p>When this page went up in June 2026, the product wasn't ready to show. So the page couldn't demo features. It had to sell a feeling, and then ask for one thing: your university email.</p>
+            <p>Every email that comes in is checked and saved once, however many times someone presses the button.</p>
+          </div>
+          <p class="note"><b>The waitlist.</b> Cohort's waitlist reached <span class="n">2,083</span> students.</p>
+        </section>
+
+        <section class="g s" id="chapters" aria-labelledby="chapters-h">
+          <p class="num">02</p>
+          <h2 id="chapters-h">10 chapters, 4 paragraphs</h2>
+          <div class="col">
+            <p>The original brief planned a 10 chapter scroll story. Each chapter got its own screen. The colour moved from near black to Cohort blue and back, like the lights changing in a theatre. The centrepiece was a pinned "Tuesday timeline": one second year's morning, told as 5 notification cards piling up over a scroll track 5 to 6 screens long.</p>
+            <p>What shipped is 4 paragraphs. Almost every chapter survived, but as a phrase, and the detail moved inside the words, so you only get the depth you reach for. Scroll through the chapters and watch where each one ended up.</p>
+          </div>
+
+          <div class="scrolly chapters-scrolly">
+            <figure class="scrolly-fig ch-fig" aria-label="The four paragraphs of the Cohort page, with the words each chapter became highlighted">
+              <ol class="ch-index" aria-hidden="true">
+                <li data-k="1">1</li><li data-k="2">2</li><li data-k="3">3</li><li data-k="4">4</li><li data-k="5">5</li><li data-k="6">6</li><li data-k="7">7</li><li data-k="8" class="is-cut">8</li><li data-k="9">9</li><li data-k="10">10</li>
+              </ol>
+              <div class="ch-letter letter">
+                <p><span data-ch="1">They said University would be some of the <span class="chip-s">best years</span> of your life</span><span class="ch-x" data-ch="1"> - the people you'd meet, the memories you'd create, and the opportunities you'd find</span>. <span data-ch="2">But nobody spoke about how</span> <span class="chip-s" data-ch="2 3">overwhelming</span> <span data-ch="2">it is</span><span class="ch-dot">.</span><span class="ch-x" data-ch="3 4"> - <span data-ch="3">Deadlines, Apps, Emails, Events, Group chats, Calendars, Classes</span> - all scattered across systems that were never designed to work together. <span data-ch="4">Not anymore.</span></span></p>
+                <p><span data-ch="5">Meet <span class="chip-s">Cohort</span>, the friend who knows you and everyone, remembers everything, and handles the parts of university you shouldn't have to think about.</span> <span data-ch="7">It lives in your <span class="imsg-s">messages</span>,</span> <span data-ch="6">helping you stay ahead of deadlines, book office hours before they fill up, coordinate meetings,</span> <span data-ch="7">discover <span class="chip-s">opportunities</span>, and connect with the right <span class="chip-s">people</span> at the right time.</span></p>
+                <p><span data-ch="9"><span class="chip-s">Built by students</span></span><span class="ch-x" data-ch="9"> - two students, Seyi and Saleena, who wanted a better way to manage university and find the right people along the way -</span> <span data-ch="9">for students.</span></p>
+                <p><span data-ch="10">Join <span class="chip-s">2000+</span> students already on the list. Launching at <span class="blank-s">your campus</span> this Fall.</span></p>
+              </div>
+              <p class="ch-state" aria-live="polite"><b data-ch-name>Ch 1 · The Promise</b> <span data-ch-fate>kept</span></p>
+              <figcaption><b>Fig. 2</b> The 4 paragraphs as shipped, with their chips. Scroll the chapters and the words each one became light up. Chapter 8 lights nothing.</figcaption>
+            </figure>
+            <ol class="scrolly-steps" data-wide>
+              <li class="step"><h3>Ch 1 · The Promise</h3><p>Brief: "they said this would be the best years of your life." Now the first sentence, and "best years" is a chip that opens into the people, the memories and the opportunities.</p></li>
+              <li class="step"><h3>Ch 2 · The Truth</h3><p>Brief: "nobody tells you that you can be surrounded by people and still feel alone." Its first word stayed. The rest became "nobody spoke about how overwhelming it is."</p></li>
+              <li class="step"><h3>Ch 3 · The Tuesday Morning</h3><p>Brief: a pinned track where 5 notification cards pile up, from Canvas at 8am to a watch party you'd miss. Now one chip. Open "overwhelming" and 7 words appear, each with its own effect.</p></li>
+              <li class="step"><h3>Ch 4 · The Turn</h3><p>Brief: "not anymore." on a blue panel wiping up over the dark. Now the last 2 words of that reveal. No wipe.</p></li>
+              <li class="step"><h3>Ch 5 · Introducing Cohort</h3><p>Brief: "meet cohort. the friend who knows everyone, remembers everything, and actually has your back." Kept nearly word for word, with a chip on the name.</p></li>
+              <li class="step"><h3>Ch 6 · It Handles the Boring Stuff</h3><p>Brief: a phone streaming office hours and an overdue assignment. Now one clause about deadlines, office hours and meetings. The phone moved to the top of the page.</p></li>
+              <li class="step"><h3>Ch 7 · It Connects You</h3><p>Brief: friends who are into gaming, a hackathon team, an internship. The gaming request now scrolls inside "messages", and opportunities and people are chips.</p></li>
+              <li class="step"><h3>Ch 8 · The Feeling</h3><p>Brief: "nobody should have to do this alone." Cut.</p></li>
+              <li class="step"><h3>Ch 9 · The Founders</h3><p>Brief: 2 founder cards. Now a chip, "Built by students", that opens into 2 names with photos.</p></li>
+              <li class="step"><h3>Ch 10 · CTA</h3><p>Brief: "join 2,083 students already on the list. launching at 5 campuses this autumn." Now 2000+, and the 5 campuses became a blank you fill in.</p></li>
+            </ol>
+          </div>
+
+          <p class="note"><b>Also cut.</b> The dark to blue act changes, the deck's yellow, and the DM Serif and Syne pairing the brief suggested. The letter is set in Century Old Style instead, with PP Neue Montreal for the small UI and Caveat on the sticky notes.</p>
+        </section>
+
+        <section class="g s" id="light" aria-labelledby="light-h">
+          <p class="num">03</p>
+          <h2 id="light-h">The light follows your clock</h2>
+          <div class="col">
+            <p>The page reads your clock and picks one of 4 times of day: morning from 5am, day from 10am, evening from 5pm and night from 9pm. Each one is a set of colour variables on the html element, so changing one attribute re-themes the paper, the ink, the chips and the particles together, over 1.1 seconds.</p>
+            <p>The lamp in the top corner changes it by hand. It's an SVG pendulum: a shade, a cord drawn as one curve, and a ball on the end. Click the ball and the bulb switches on, with a click made from noise. Drag it down more than 26 units and let go, and the page moves to the next time of day and throws 28 sparks.</p>
+            <p>The lamp below runs the site's code with its numbers. Pull it and this page changes with it.</p>
+          </div>
+
+          <!-- Fig. 3: the pull-cord lamp, ported from Cohort/js/main.js:1200-1394 and 1458-1480 -->
+          <figure class="stage lamp-fig" id="lamp-fig">
+            <div class="stage-canvas lamp-stage">
+              <div class="lamp-hang">
+                <svg class="lamp-svg" viewBox="0 0 80 160" tabindex="0" role="button" aria-label="The lamp. Press Enter to switch the bulb, the down arrow to pull the cord and change the time of day, and the left and right arrows to swing it." aria-describedby="lamp-cap">
+                  <line class="lamp-trig" x1="2" x2="78" y1="130" y2="130" />
+                  <text class="lamp-trig-t" x="78" y="127" text-anchor="end">26</text>
+                  <rect x="36" y="0" width="8" height="4" rx="2" class="lamp-plate" />
+                  <line x1="40" y1="4" x2="40" y2="25" class="lamp-fixed" />
+                  <g class="lp-shade">
+                    <path class="lp-cone" d="M 22 58 L 2 130 Q 40 138 78 130 L 58 58 Z" />
+                    <path class="lp-body" d="M 34 25 Q 24 27 19 44 Q 17 57 40 59 Q 63 57 61 44 Q 56 27 46 25 Z" />
+                    <path class="lp-spec" d="M 27 40 Q 29 31 35 28 Q 31 35 30 43 Z" />
+                    <path class="lp-rim" d="M 34 25 Q 40 23 46 25" />
+                    <ellipse class="lp-open" cx="40" cy="58" rx="21.5" ry="5.2" />
+                    <circle class="lp-bulb" cx="40" cy="51" r="5" />
+                  </g>
+                  <path class="lp-cord" d="M 40 59 Q 40 82 40 104" />
+                  <circle class="lp-ball" cx="40" cy="104" r="5" />
+                  <circle class="lp-ring" cx="40" cy="104" r="9" />
+                </svg>
+                <canvas class="lamp-burst" aria-hidden="true"></canvas>
+              </div>
+              <div class="lamp-plot">
+                <svg class="swing-svg" viewBox="0 0 560 230" role="img" aria-label="The lamp's angle over the last 8 seconds, with the decay envelope">
+                  <g class="swing-grid"></g>
+                  <path class="swing-env" d="" />
+                  <path class="swing-line" d="" />
+                  <circle class="swing-dot" r="3.5" cx="540" cy="115" />
+                </svg>
+                <ul class="readout lamp-readout">
+                  <li>θ <b data-lamp-r="a">0.0°</b></li>
+                  <li>ω <b data-lamp-r="v">0.00</b> rad/s</li>
+                  <li>pull <b data-lamp-r="p">0.0</b> / 26</li>
+                  <li>GRAV <b>220</b></li>
+                  <li>L <b>45</b></li>
+                  <li>DAMP <b>0.984</b></li>
+                  <li>bulb <b data-lamp-r="bulb">off</b></li>
+                </ul>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs vibe-tabs" role="group" aria-label="Time of day for this page">
+                <button type="button" data-vibe="morning" aria-pressed="false">Morning</button>
+                <button type="button" data-vibe="day" aria-pressed="true">Day</button>
+                <button type="button" data-vibe="evening" aria-pressed="false">Evening</button>
+                <button type="button" data-vibe="night" aria-pressed="false">Night</button>
+              </div>
+              <button type="button" class="link-btn" data-vibe-clock>Follow my clock</button>
+            </div>
+            <div class="clock-strip" aria-hidden="true">
+              <div class="clock-bar"></div>
+              <ol class="clock-labels"></ol>
+            </div>
+            <figcaption id="lamp-cap"><b>Fig. 3</b> The lamp, ported with its own constants. Click the ball to switch the bulb, swing it to draw the curve, or pull it below the line and let go to change this page's time of day. The strip is your 24 hours, split the way the site splits them.</figcaption>
+          </figure>
+          <p class="note"><b>The swing.</b> With gravity at 220 and a cord 45 units long, a full swing takes about <span class="n">2.9</span> seconds. Damping of <span class="n">0.984</span> a frame makes each swing about half as wide as the one before.</p>
+        </section>
+
+        <section class="reel" aria-label="trycohort.xyz in 18 seconds" data-chapters='[{"title":"The phone burns in","at":0},{"title":"The letter at night","at":4},{"title":"A pull to morning","at":8},{"title":"Evening, from the menu","at":12.5},{"title":"Back to the phone","at":16.5}]'>
+          <video data-src="../videos/cohort.mp4" muted loop playsinline preload="none" poster="media/cohort/poster.webp" aria-label="A screen recording of trycohort.xyz: the phone burns in, the letter at night, the lamp pulled to morning, the menu switched to evening, and back to the phone"></video>
+          <div class="reel-cap">
+            <b>trycohort.xyz, start to finish</b>
+            One letter, 3 times of day, 18 seconds.
+            <ol class="reel-chapters" aria-label="Chapters"></ol>
+          </div>
+        </section>
+
+        <section class="g s" id="open" aria-labelledby="open-h">
+          <p class="num">04</p>
+          <h2 id="open-h">Words that open</h2>
+          <div class="col">
+            <p>The grey pills in the letter are chips. Click one and it opens into more of the sentence. Opening text in the middle of a paragraph makes everything under it jump, so the page measures the paragraph's height before and after, pins it at the first number, and animates it to the second while the new words fade in. The text reflows once, in one movement.</p>
+            <p>How long that takes depends on how far it has to go: 0.32 seconds, plus a second for every 1,500 pixels, capped at 0.6. Opening eases out. Closing eases in and out, and keeps the words on screen until the height has finished shrinking.</p>
+          </div>
+
+          <!-- Fig. 4: the first two paragraphs with their chips, ported from Cohort/index.html:180-235 and main.js:215-269 -->
+          <figure class="stage chips-fig" id="chips-fig">
+            <div class="stage-canvas chips-stage">
+              <div class="letter chips-letter">
+                <p>They said University would be some of the <button type="button" class="chip" data-for="x-best"><span class="best-word">best years</span></button> of your life<span class="ix" id="x-best"> - the people you'd meet, the memories you'd create, and the opportunities you'd find</span>. But nobody spoke about how <button type="button" class="chip" data-for="x-overwhelm">overwhelming</button> it is<span class="ovr-dot">.</span><span class="ix scatter-line" id="x-overwhelm"> - <span class="nw"><span class="sw" data-fx="deadlines" tabindex="0" role="button" style="--d:0">Deadlines</span>,</span> <span class="nw"><button type="button" class="chip chip-apps" data-apps>Apps</button>,</span> <span class="nw"><span class="sw" data-fx="mail" tabindex="0" role="button" style="--d:1">Emails</span>,</span> <span class="nw"><span class="sw" style="--d:2">Events</span>,</span> <span class="nw"><span class="sw" data-fx="bubble" tabindex="0" role="button" style="--d:3">Group&nbsp;chats</span>,</span> <span class="nw"><span class="sw" data-fx="dates" tabindex="0" role="button" style="--d:4">Calendars</span>,</span> <span class="sw" style="--d:5">Classes</span> - all scattered across systems that were never designed to work together. Not anymore.</span></p>
+                <p>Meet <button type="button" class="chip cohort-chip" data-for="x-cohort"><img class="cohort-inline-logo" src="cohort/logo.webp" alt="" width="40" height="40" /><span class="cohort-word">Cohort</span></button><span class="ix" id="x-cohort"> - a proactive AI assistant that coordinates student life across a shared network</span>, the friend who knows you and everyone, remembers everything, and handles the parts of university you shouldn't have to think about. It lives in your <button type="button" class="imsg" data-imsg><span class="imsg-track">messages</span></button>, helping you stay ahead of deadlines, book office hours before they fill up, coordinate meetings, discover <button type="button" class="chip" data-for="x-opp">opportunities</button><span class="ix" id="x-opp"> - internships, events, and communities that fit you show up in your DMs, not buried in emails; it finds you the right rooms, projects, and <button type="button" class="chip" data-people>people</button>, from hackathon teams to <span class="happy" data-happy="friends" tabindex="0" role="button">friends</span> and <span class="happy" data-happy="roommates" tabindex="0" role="button">roommates</span> - just by asking</span><span class="opp-tail">, and connect with the right <button type="button" class="chip" data-people>people</button> at the right time</span>.</p>
+              </div>
+              <div class="fx-layer" aria-hidden="true">
+                <div class="fx-icons"><img src="cohort/canvas.webp" alt="" /><img src="cohort/mail.webp" alt="" /><img src="cohort/calendar.webp" alt="" /><img src="cohort/imessage.webp" alt="" /><img src="cohort/notion.webp" alt="" /><img src="cohort/discord.svg" alt="" /></div>
+                <div class="fx-avatars"><img src="cohort/avatar-1.webp" alt="" /><img src="cohort/avatar-2.webp" alt="" /><img src="cohort/avatar-3.webp" alt="" /></div>
+                <img class="fx-logo" src="cohort/logo.webp" alt="" />
+                <div class="fx-clip"></div>
+              </div>
+            </div>
+            <div class="stage-bar tween-bar">
+              <svg class="tween-svg" viewBox="0 0 300 120" role="img" aria-label="The paragraph's height before and after, and the easing curve it animates along">
+                <g class="tw-bars"></g>
+                <g class="tw-curve"></g>
+              </svg>
+              <ul class="readout tween-readout">
+                <li>h0 <b data-tw="h0">0px</b></li>
+                <li>h1 <b data-tw="h1">0px</b></li>
+                <li>Δ <b data-tw="d">0px</b></li>
+                <li>dur <b data-tw="dur">0.000s</b></li>
+                <li>ease <b data-tw="ease">power3.out</b></li>
+              </ul>
+            </div>
+            <div class="stage-bar"><button type="button" class="link-btn" data-sound aria-pressed="true">Sound on</button></div>
+            <figcaption><b>Fig. 4</b> The first 2 paragraphs of the letter, live, with the site's chips. Click "overwhelming" or "Cohort" and watch the 2 heights and the curve. The words inside the reveals do things too.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="words" aria-labelledby="words-h">
+          <p class="num">05</p>
+          <h2 id="words-h">Each word does what it says</h2>
+          <div class="col">
+            <p>Inside "overwhelming" are 7 words, and most of them act out what they name. Deadlines throws sticky notes at you. Emails and Group chats burst into emoji. Calendars rains dates. Apps fans out 6 app icons. Further down, "messages" turns into a ticker of things you might ask it, and "Cohort" lifts its logo out of the sentence with a chord.</p>
+            <p>Each one is a small piece of motion with its own numbers. Pick one below to take it apart.</p>
+          </div>
+
+          <!-- Fig. 5: four effects, ported from Cohort/js/main.js:271-487, 634-725, 893-948 -->
+          <figure class="stage fx-fig" id="fx-fig">
+            <div class="stage-bar fx-tabs-bar">
+              <div class="tabs" role="tablist" aria-label="Pick an effect">
+                <button type="button" role="tab" id="fxt-apps" aria-controls="fxp-apps" aria-selected="true">Apps</button>
+                <button type="button" role="tab" id="fxt-dead" aria-controls="fxp-dead" aria-selected="false" tabindex="-1">Deadlines</button>
+                <button type="button" role="tab" id="fxt-msg" aria-controls="fxp-msg" aria-selected="false" tabindex="-1">messages</button>
+                <button type="button" role="tab" id="fxt-coh" aria-controls="fxp-coh" aria-selected="false" tabindex="-1">Cohort</button>
+              </div>
+            </div>
+
+            <div class="fx-panel" role="tabpanel" id="fxp-apps" aria-labelledby="fxt-apps">
+              <div class="stage-canvas fx-row">
+                <div class="fan-area" data-fan>
+                  <svg class="fan-svg" aria-hidden="true"></svg>
+                  <div class="fan-icons" aria-hidden="true"><img src="cohort/canvas.webp" alt="" /><img src="cohort/mail.webp" alt="" /><img src="cohort/calendar.webp" alt="" /><img src="cohort/imessage.webp" alt="" /><img src="cohort/notion.webp" alt="" /><img src="cohort/discord.svg" alt="" /></div>
+                  <span class="letter fan-word"><button type="button" class="chip" data-fan-chip aria-label="Apps. Point at it, or press and hold, to fan out the icons; then move sideways to turn them">Apps</button></span>
+                </div>
+                <div class="fx-plot">
+                  <svg class="clamp-svg" viewBox="0 0 320 200" role="img" aria-label="The fan's turn against the pointer's distance from the chip, clamped at 30 degrees"></svg>
+                  <ul class="readout">
+                    <li>dx <b data-fan-r="dx">0px</b></li>
+                    <li>rotOffset <b data-fan-r="rot">0.0°</b></li>
+                    <li>RADIUS <b>120px</b></li>
+                    <li>angles <b>−75 −45 −15 15 45 75</b></li>
+                  </ul>
+                </div>
+              </div>
+              <p class="fx-say">rotOffset = clamp(dx ÷ (chip width × 2.5) × 60, −30°, 30°). Here the whole area follows your pointer, so you can push the fan all the way to the clamp.</p>
+            </div>
+
+            <div class="fx-panel" role="tabpanel" id="fxp-dead" aria-labelledby="fxt-dead" hidden>
+              <div class="stage-canvas storm-area" data-storm>
+                <span class="letter storm-word"><span class="sw sw-big" tabindex="0" role="button" data-storm-word aria-label="Deadlines. Point at it or press Enter to throw the sticky notes">Deadlines</span></span>
+                <div class="storm-layer" aria-hidden="true"></div>
+              </div>
+              <svg class="gantt-svg" role="img" aria-label="Timing of every sticky note in the last storm: when it popped in and when it fell"></svg>
+              <ul class="readout">
+                <li>notes <b data-storm-r="n">44</b></li>
+                <li>pop <b>0.32 to 0.54s</b> back.out(1.7)</li>
+                <li>fall at <b>1.9s</b> + up to 0.5s</li>
+                <li>fall <b>0.9 to 1.6s</b> power2.in</li>
+                <li>t <b data-storm-r="t">0.00s</b></li>
+              </ul>
+            </div>
+
+            <div class="fx-panel" role="tabpanel" id="fxp-msg" aria-labelledby="fxt-msg" hidden>
+              <div class="stage-canvas msg-area">
+                <span class="letter msg-word">It lives in your <button type="button" class="imsg" data-imsg2 aria-label="messages. Point at it or tap it to start the ticker"><span class="imsg-track">messages</span></button>,</span>
+              </div>
+              <svg class="tape-svg" role="img" aria-label="The ticker's track drawn to scale, the pill's window sliding along it, and each keystroke sound as a tick"></svg>
+              <ul class="readout">
+                <li>x <b data-msg-r="x">0px</b></li>
+                <li>lap <b data-msg-r="lap">0px</b></li>
+                <li>SPEED <b>70px/s</b></li>
+                <li>lap time <b data-msg-r="lt">0.0s</b></li>
+                <li>last gap <b data-msg-r="gap">0ms</b></li>
+              </ul>
+            </div>
+
+            <div class="fx-panel" role="tabpanel" id="fxp-coh" aria-labelledby="fxt-coh" hidden>
+              <div class="stage-canvas coh-area">
+                <img class="coh-fly" src="cohort/logo.webp" alt="" aria-hidden="true" />
+                <span class="letter coh-word">Meet <button type="button" class="chip cohort-chip" data-coh aria-label="Cohort. Point at it or tap it to lift the logo"><img class="cohort-inline-logo" src="cohort/logo.webp" alt="" width="40" height="40" /><span class="cohort-word">Cohort</span></button></span>
+              </div>
+              <svg class="roll-svg" role="img" aria-label="The Cohort chord drawn as notes in time: C E G C E with octaves above, then a high G"></svg>
+              <ul class="readout">
+                <li>logo x <b data-coh-r="x">0px</b></li>
+                <li>rotate <b data-coh-r="r">0.0°</b></li>
+                <li>inline logo <b data-coh-r="w">0px</b></li>
+                <li>quickTo <b>0.5s</b> power3.out</li>
+                <li>W <b>160px</b></li>
+              </ul>
+            </div>
+
+            <div class="stage-bar"><button type="button" class="link-btn" data-sound aria-pressed="true">Sound on</button></div>
+            <figcaption><b>Fig. 5</b> 4 of the effects, rebuilt here with the original's numbers. Pick a word, then point at it, or tap it on a phone.</figcaption>
+          </figure>
+          <p class="note"><b>On a phone.</b> There's no hover, so Apps opens on a <span class="n">500</span> millisecond press and buzzes for <span class="n">14</span> milliseconds when it does. Slide your finger to turn the fan.</p>
+        </section>
+
+        <section class="g s" id="burn-s" aria-labelledby="burn-h">
+          <p class="num">06</p>
+          <h2 id="burn-h">The phone burns in</h2>
+          <div class="col">
+            <p>The site opens on the line "the social layer for student life." and the phone in Fig. 1. It doesn't fade in. A WebGL shader compares every pixel with a field of noise. As a threshold climbs, pixels whose noise is under it are drawn and the rest are thrown away. The pixels just under the threshold, a band 0.055 wide, are tinted from pale gold to deep copper, so the edge looks like paper catching.</p>
+            <p>The noise is tilted by 0.3 from top to bottom, so the bottom of the phone comes through first. The threshold closes 1.6% of the remaining distance every frame, so it moves fast at the start and slows as it arrives. Once the phone is there, it tilts toward your mouse: up to 9 degrees sideways and 5 up or down.</p>
+          </div>
+
+          <!-- Fig. 6: the shader's noise and threshold, run on the CPU. Same functions as Cohort/js/main.js:2026-2067 -->
+          <figure class="stage noise-fig" id="noise-fig">
+            <div class="stage-canvas noise-row">
+              <div class="noise-field">
+                <canvas class="noise-cv" tabindex="0" role="slider" aria-label="Pick a row of pixels. Drag on the field, or use the up and down arrows." aria-valuemin="0" aria-valuemax="100" aria-valuenow="62"></canvas>
+              </div>
+              <div class="noise-plot">
+                <svg class="xsec-svg" viewBox="0 0 520 300" role="img" aria-label="The noise along the chosen row, the threshold line, and the ember band under it"></svg>
+                <ul class="readout">
+                  <li>row <b data-nz-r="v">0.62</b></li>
+                  <li>bias <b data-nz-r="b">−0.186</b></li>
+                  <li>uProg <b data-nz-r="p">0.40</b></li>
+                  <li>drawn <b data-nz-r="d">0%</b> of this row</li>
+                  <li>t <b data-nz-r="t">0.00s</b></li>
+                </ul>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <label class="scrub"><span>Threshold</span><input type="range" min="-350" max="1150" step="1" value="400" data-nz-prog aria-label="Threshold, uProg" /><output data-nz-prog-out>0.40</output></label>
+              <button type="button" class="link-btn" data-nz-play>Play the lerp</button>
+            </div>
+            <figcaption><b>Fig. 6</b> The shader's noise function, worked out on the CPU so you can see inside it. Drag on the field to pick a row, then move the threshold. Graphics cards round differently, so the pattern isn't Fig. 1's, but the rule is the same.</figcaption>
+          </figure>
+          <p class="note"><b>The rule, in one line.</b> <code>if (n &gt; prog) discard;</code> Everything else in the shader is the colour of the edge.</p>
+        </section>
+
+        <section class="g s" id="hidden" aria-labelledby="hidden-h">
+          <p class="num">07</p>
+          <h2 id="hidden-h">Things hidden on the page</h2>
+          <div class="col">
+            <p>Some of the page only shows itself if you go looking. The greeting at the top is a button. It changes language every 5 seconds, through 16 of them, or whenever you click it.</p>
+            <p>The last paragraph is the form, written as a sentence. The counter rolls to 2000+ like a station board when it comes into view, each digit on its own timing, and rolls again if you click it. The campus field grows as you type. Type Georgia Tech or Liverpool and it winks: a small card with Saleena's or Seyi's photo, and where they built it.</p>
+            <p>The button leans toward your cursor. When you join, confetti goes off twice from the button, in the colours of whatever time of day you're in.</p>
+          </div>
+
+          <!-- Fig. 7: the end of the letter, ported from Cohort/js/main.js:164-193, 489-615, 2173-2332 -->
+          <figure class="stage eggs-fig" id="eggs-fig">
+            <div class="stage-canvas eggs-stage">
+              <div class="letter eggs-letter">
+                <p class="eggs-hello"><button type="button" class="greeting" data-greet aria-label="Greeting. Click to change the language">Hello</button>,</p>
+                <p class="join-line">Join <button type="button" class="flip-counter" data-flip aria-label="2000+. Click to recount"><span class="flip-digit"></span><span class="flip-digit"></span><span class="flip-digit"></span><span class="flip-digit"></span><span class="flip-digit"></span></button> students already on the list. Launching at <span class="campus-wrap"><input type="text" class="campus-in" placeholder="your campus" autocomplete="off" spellcheck="false" maxlength="28" aria-label="Your campus" /><span class="campus-wink" aria-hidden="true"></span></span> this Fall.</p>
+              </div>
+              <form class="egg-form" novalidate>
+                <input type="email" class="email-in" placeholder="your@university.edu" autocomplete="off" aria-label="University email address" />
+                <button type="submit" class="submit-btn"><span class="btn-label">Get early access</span><span class="btn-done" aria-hidden="true">You're on the list ✓</span></button>
+              </form>
+              <p class="egg-status" aria-live="polite"></p>
+            </div>
+            <div class="odo">
+              <svg class="odo-svg" role="img" aria-label="Each digit's strip of numbers and how long it takes to roll, with the easing curve"></svg>
+            </div>
+            <div class="stage-bar">
+              <ul class="readout">
+                <li>TARGETS <b>[2, 0, 0, 0, '+']</b></li>
+                <li>CYCLES <b>2</b></li>
+                <li>campus width <b data-egg-r="w">14ch</b></li>
+                <li>magnet <b data-egg-r="m">0, 0</b> × 0.38</li>
+                <li>greeting <b data-egg-r="g">1 of 16</b></li>
+              </ul>
+            </div>
+            <figcaption><b>Fig. 7</b> The end of the letter, rebuilt with the original's numbers. Click the counter or the greeting, type a campus, and press the button. Nothing is sent from here.</figcaption>
+          </figure>
+          <p class="note"><b>Behind the form.</b> On the real page the email goes to a serverless function that checks the address, turns away duplicates, and saves it to Postgres.</p>
+        </section>
+
+        <section class="g s" id="sky" aria-labelledby="sky-h">
+          <p class="num">08</p>
+          <h2 id="sky-h">Stars, embers and dust</h2>
+          <div class="col">
+            <p>Behind the letter is a single canvas. At night it draws 72 stars that twinkle at their own speeds, leaves sparks behind your cursor, and now and then sends a shooting star across the top of the screen. In the evening it switches to 8 embers drifting up. In the morning and the day, 11 specks of dust. In daylight hours it also lays faint bands of light across the page, tilted by the real time.</p>
+            <p>The shooting star isn't on a fixed beat. Each time one launches, the next is set for 15 seconds plus a random share of 20 more, so you can't predict it, but you never wait more than 35 seconds.</p>
+          </div>
+
+          <!-- Fig. 8: the ambient layer, ported from Cohort/js/main.js:1396-1713 -->
+          <figure class="stage sky-fig" id="sky-fig">
+            <div class="stage-bar sky-tabs">
+              <div class="tabs" role="group" aria-label="Pick a layer">
+                <button type="button" data-layer="stars" aria-pressed="true">Stars</button>
+                <button type="button" data-layer="embers" aria-pressed="false">Embers</button>
+                <button type="button" data-layer="dust" aria-pressed="false">Dust</button>
+              </div>
+            </div>
+            <div class="stage-canvas sky-stage">
+              <canvas class="sky-cv" role="img" aria-label="The ambient layer: stars and shooting stars, embers, or dust"></canvas>
+            </div>
+            <svg class="sky-line" role="img" aria-label="Shooting star schedule: each tick is a star, each bracket the 15 to 35 second window the next one falls in"></svg>
+            <div class="stage-bar">
+              <ul class="readout">
+                <li>layer <b data-sky-r="layer">dust</b></li>
+                <li>particles <b data-sky-r="n">11</b></li>
+                <li>next star <b data-sky-r="next">night only</b></li>
+                <li>delay <b>15000 + random() × 20000 ms</b></li>
+              </ul>
+              <span class="ctl"><button type="button" class="link-btn" data-sky-shoot>Launch one now</button><button type="button" class="link-btn" data-sky-night>Turn this page to night</button></span>
+            </div>
+            <figcaption><b>Fig. 8</b> The site's ambient layer, rebuilt with its numbers. Pick a layer, and point at the sky to leave a trail. The stars are drawn in this page's ink, so they're dark by day. The line under them is the shooting star schedule: each tick is a star, each bracket the window the next one falls in. Embers and dust also trace their last 4 seconds of path, which the site doesn't.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="sound" aria-labelledby="sound-h">
+          <p class="num">09</p>
+          <h2 id="sound-h">Sounds with no files</h2>
+          <div class="col">
+            <p>Every sound on the page is made in the browser with Web Audio. There are no audio files. The everyday ones, hover, tick and pop, are 1 or 2 short sine tones. The Cohort chord is 5 notes, C E G C E, each with a quiet octave above it, and a high G at the end.</p>
+            <p>The keyboard clicks behind "messages" are bursts of filtered noise with a low thump under them, fired at random gaps of 55 to 145 milliseconds, with a longer pause about 1 time in 8. The lamp's switch is the same trick: a 28 millisecond crack of noise around 1,900 hertz, a low thud, and when it turns on, a 120 hertz hum that dies away in 0.2 seconds.</p>
+          </div>
+
+          <!-- Fig. 9: the sound kit, ported from Cohort/js/main.js:23-162 and 2270-2274 -->
+          <figure class="stage sound-fig" id="sound-fig">
+            <div class="stage-bar">
+              <div class="tabs sound-keys" role="group" aria-label="Play a sound">
+                <button type="button" data-snd="hover">hover</button>
+                <button type="button" data-snd="tick">tick</button>
+                <button type="button" data-snd="pop">pop</button>
+                <button type="button" data-snd="party">party</button>
+                <button type="button" data-snd="heaven">Cohort</button>
+                <button type="button" data-snd="key">key</button>
+                <button type="button" data-snd="on">light on</button>
+                <button type="button" data-snd="off">light off</button>
+                <button type="button" data-snd="joined">joined</button>
+              </div>
+            </div>
+            <div class="stage-canvas sound-stage">
+              <svg class="sound-svg" role="img" aria-label="The last sound played, drawn as notes and noise bursts against time and pitch"></svg>
+            </div>
+            <div class="stage-bar"><p class="sound-say" aria-live="polite">Press a sound. Nothing plays until you do.</p></div>
+            <figcaption><b>Fig. 9</b> The page's whole sound kit, each note drawn where it falls in time and pitch. Press a sound to play it and draw it. Turn your volume down first.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s end" id="end" aria-labelledby="end-h">
+          <p class="num">10</p>
+          <h2 id="end-h">Conclusion</h2>
+          <div class="col">
+            <p>Most waitlist pages try to explain the product. This one couldn't, so it did the more useful thing: it described a feeling every student already has, in 4 paragraphs, and let anyone who wanted more open the words for it. Everything else on the page, the times of day, the lamp, the sounds, is there so it feels like it was written by a person.</p>
+          </div>
+          <div class="actions"><a class="button" href="https://www.trycohort.xyz/" target="_blank" rel="noopener">Open Cohort</a></div>
+        </section>
+
+        <a class="next" href="tiwari-town.html">
+          <span class="label">Next case study</span>
+          <span class="next-t">Tiwari Town</span>
+          <span class="next-d">A walkable 3D world built as a birthday gift, ending at a gate that opens the next case study.</span>
+        </a>
+
+        <footer>
+          <span>Cohort, a case study</span>
+          <a href="../index.html#work">All work</a>
+        </footer>
       </div>
-    </div>
-  </div>
-
-  <section class="cs-section" id="overview">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">01</span><span class="cs-section__label">Overview</span></div>
-    <h2 class="cs-section__title" data-reveal>Two pages, <em>one spine</em></h2>
-    <div class="prose" data-reveal>
-      <p>Cohort needed two distinct sites that couldn't feel like different products. The customer page sells relief — a student drowning in six apps finally getting help. The investor page sells momentum — a network that compounds with every new campus.</p>
-      <p>The same design tokens, particle system, and pill interaction pattern serve both. The difference is voice: lowercase-confident for students, sentence-case precise for investors. The animation philosophy is identical — things arrive, they don't pop.</p>
-    </div>
-    <blockquote class="cs-pull" data-reveal>The only way in is to be handed the URL.</blockquote>
-  </section>
-
-  <section class="cs-section cs-section--alt" id="highlights">
-    <p class="cs-eyebrow" data-reveal>Elements</p>
-    <h2 class="cs-section__title" data-reveal>See the highlights <em>of this project</em></h2>
-    <div class="cs-highlights" data-stagger style="margin-top:2.5rem">
-      <article class="cs-highlight">
-        <div class="cs-highlight__card"><div class="cs-highlight__media">
-          <img src="../images/cohort-phone.png" alt="Cohort — iMessage-style assistant interface on phone" loading="lazy" />
-          <span class="cs-highlight__kicker">Element</span>
-          <span class="cs-highlight__bm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z"/></svg></span>
-        </div></div>
-        <div class="cs-highlight__foot"><span class="cs-highlight__t">The assistant</span><span class="cs-highlight__from">from</span><span class="cs-highlight__k">Interaction</span></div>
-      </article>
-      <article class="cs-highlight">
-        <div class="cs-highlight__card"><div class="cs-highlight__media">
-          <img src="../images/cohort-screenshot.png" alt="Cohort — product screenshot" loading="lazy" />
-          <span class="cs-highlight__kicker">Element</span>
-          <span class="cs-highlight__bm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z"/></svg></span>
-        </div></div>
-        <div class="cs-highlight__foot"><span class="cs-highlight__t">Waitlist page</span><span class="cs-highlight__from">from</span><span class="cs-highlight__k">Conversion</span></div>
-      </article>
-    </div>
-  </section>
-
-  <section class="cs-section">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">02</span><span class="cs-section__label">Process</span></div>
-    <h2 class="cs-section__title" data-reveal>Narrative before <em>interface</em></h2>
-    <div class="cs-steps" data-stagger>
-      <div class="cs-step"><span class="cs-step__n">1</span><div><p class="cs-step__t">Define the two emotional gradients</p><p class="cs-step__d">Customer page: dark problem → electric blue solution → dark CTA. Investor page: mounting momentum toward a single ask. Colour transitions are events, not background swaps.</p></div></div>
-      <div class="cs-step"><span class="cs-step__n">2</span><div><p class="cs-step__t">Build the pill system</p><p class="cs-step__d">Tappable phrases that expand inline — no modal, no new page. Stats, quotes, app stacks, and traction data all live inside pills. The reader stays in the flow.</p></div></div>
-      <div class="cs-step"><span class="cs-step__n">3</span><div><p class="cs-step__t">Chapter the investor narrative</p><p class="cs-step__d">Broke the thesis into escalating beats — problem, product, network moat, business model, traction, team, ask. Each beat owns its own viewport.</p></div></div>
-      <div class="cs-step"><span class="cs-step__n">4</span><div><p class="cs-step__t">Close on restraint</p><p class="cs-step__d">The investor page ends on white space and two email addresses. No CTA button. The absence of friction is the message.</p></div></div>
-    </div>
-    <div class="cs-chips" data-reveal style="margin-top:1.75rem">
-      <span class="cs-chip">Next.js</span>
-      <span class="cs-chip">GSAP ScrollTrigger</span>
-      <span class="cs-chip">Lenis</span>
-      <span class="cs-chip">Framer Motion</span>
-      <span class="cs-chip">Vercel</span>
-    </div>
-  </section>
-
-  <section class="cs-section cs-section--alt">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">03</span><span class="cs-section__label">Outcome</span></div>
-    <h2 class="cs-section__title" data-reveal>Where it <em>landed</em></h2>
-    <dl class="cs-stats" data-stagger>
-      <div class="cs-stat"><dd class="cs-stat__n" data-count="2083">2,083</dd><dt class="cs-stat__l">Waitlist students</dt></div>
-      <div class="cs-stat"><dd class="cs-stat__n">3</dd><dt class="cs-stat__l">Schools</dt></div>
-      <div class="cs-stat"><dd class="cs-stat__n">0</dd><dt class="cs-stat__l">Paid acquisition</dt></div>
-      <div class="cs-stat"><dd class="cs-stat__n">2</dd><dt class="cs-stat__l">Pages · 1 brand</dt></div>
-    </dl>
-  </section>
-
-  <section class="cs-section">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">04</span><span class="cs-section__label">Walkthrough</span></div>
-    <div class="cs-video" data-reveal>
-      <video muted playsinline preload="none" poster="../images/cohort-web.png">
-        <source src="../videos/cohort.mp4" type="video/mp4">
-      </video>
-      <button class="cs-video__play" aria-label="Play Cohort walkthrough">
-        <span class="cs-video__play-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </span>
-      </button>
-    </div>
-  </section>
-
-  <section class="cs-section cs-section--alt" id="palette">
-    <p class="cs-eyebrow" data-reveal>Colour Palette</p>
-    <hr class="cs-rule-dotted" data-reveal />
-    <p class="cs-palette-lead" data-reveal>This project uses a colour palette of <strong>3</strong> colours</p>
-    <div class="cs-palette" data-reveal role="button" tabindex="0" aria-label="Expand colour palette">
-      <div class="cs-swatch" style="background:#f0ede8;color:#090909">
-        <div class="cs-swatch__top"><span class="cs-swatch__hex">HEX <b>#F0EDE8</b></span>
-          <svg class="cs-swatch__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
-        <span class="cs-swatch__aa">Aa</span>
-      </div>
-      <div class="cs-swatch" style="background:#1c34f5;color:#fff">
-        <div class="cs-swatch__top"><span class="cs-swatch__hex">HEX <b>#1C34F5</b></span>
-          <svg class="cs-swatch__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
-        <span class="cs-swatch__aa">Aa</span>
-      </div>
-      <div class="cs-swatch" style="background:#090909;color:#f0ede8">
-        <div class="cs-swatch__top"><span class="cs-swatch__hex">HEX <b>#090909</b></span>
-          <svg class="cs-swatch__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
-        <span class="cs-swatch__aa">Aa</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="cs-next">
-    <div class="cs-next__inner">
-      <p class="cs-next__label" data-reveal>Next case study</p>
-      <a href="raise.html" class="cs-next__link" data-reveal data-magnetic>Cohort / Raise <span class="arrow">→</span></a>
-      <p class="cs-next__desc" data-reveal>The investor cut — a pitch that reads like conviction.</p>
-      <div class="cs-foot">
-        <span>Seyi Ogundipe — Design Engineer</span>
-        <span><span id="cs-clock">--:--:--</span> local</span>
-        <a href="../index.html#work">All work ↑</a>
-      </div>
-    </div>
-  </section>
-
-  <div class="cs-dock">
-    <span class="cs-dock__mark">Cohort</span>
-    <a class="cs-dock__link" href="#overview">Overview</a>
-    <a class="cs-dock__link" href="#highlights">Highlights</a>
-    <a class="cs-dock__link" href="#palette">Palette</a>
-    <a class="cs-dock__visit" href="https://www.trycohort.xyz/" target="_blank" rel="noopener">Visit Site</a>
-  </div>
-
-  <script src="case-study.js"></script>
+    </article>
+  </main>
+  <script src="study.js" defer></script>
+  <script type="module" src="cohort/page.js"></script>
 </body>
 </html>

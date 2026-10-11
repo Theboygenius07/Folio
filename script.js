@@ -139,7 +139,7 @@ window.Sound = {
   const projectsList = document.getElementById("projects");
 
   /* ---------------------------------------------------------
-     2b. Glass cursor note — "Case study being developed" label
+     2b. Glass cursor note: tells you where each project card goes
      that trails the pointer while hovering an individual project
      card. Tracking is bound per-card (not the shared list), so it
      can only ever be live while the pointer is actually over a
@@ -148,6 +148,8 @@ window.Sound = {
   const cursorNote = document.getElementById("cursor-note");
   if (cursorNote && projectsList && canHover && !prefersReduced) {
     const cards = projectsList.querySelectorAll(".project");
+    const noteText = cursorNote.querySelector(".cursor-note__text");
+    const noteArrow = cursorNote.querySelector(".cursor-note__arrow");
     let noteTargetX = 0, noteTargetY = 0, noteCurX = 0, noteCurY = 0;
     let noteVisible = false, noteRaf = null;
 
@@ -171,6 +173,12 @@ window.Sound = {
     cards.forEach((card) => {
       card.addEventListener("mouseenter", (e) => {
         noteVisible = true;
+        // each card says where it goes: its case study here, or one that lives on its own site
+        const link = card.querySelector(".project__card");
+        if (noteText && link) {
+          noteText.textContent = link.dataset.note || "Read the case study";
+          noteArrow.textContent = link.target === "_blank" || link.protocol === "mailto:" ? "↗" : "→";
+        }
         // snap the start point to the entry position so it doesn't fly in
         // from wherever it last was over a different card.
         noteTargetX = noteCurX = e.clientX;
@@ -1487,4 +1495,69 @@ const Sound = window.Sound || { switchLight() {}, pop() {} };
 
   physics();
   setTimeout(() => { angVel = 0.55; }, 1200);       // auto-swing on load
+})();
+
+/* ---------------------------------------------------------
+   The open slot: an envelope with a brief inside.
+   - "Your project could be ___" finishes itself while the card is on screen.
+   - The envelope leans toward the pointer.
+   - On touch screens it opens when it comes into view.
+   - Click: the brief tucks in, the flap seals, the envelope flies off,
+     then the mail app opens.
+--------------------------------------------------------- */
+(() => {
+  const card = document.querySelector(".project--open");
+  const el = card && card.querySelector(".brief__typed");
+  if (!el) return;
+  const lines = [
+    "a world someone can walk through.",
+    "a ticket people play with before they buy.",
+    "a waitlist page people read to the end.",
+    "an AI tool that feels obvious.",
+    "something nobody has made yet.",
+  ];
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches || new URLSearchParams(location.search).has("still");
+  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  el.textContent = lines[0];
+
+  // typing, only while on screen
+  let i = 0, n = lines[0].length, dir = -1, timer = null;
+  const step = () => {
+    n += dir;
+    el.textContent = lines[i].slice(0, Math.max(0, n));
+    let wait = dir > 0 ? 46 + Math.random() * 30 : 18;
+    if (dir > 0 && n >= lines[i].length) { dir = -1; wait = 2400; }
+    else if (dir < 0 && n <= 0) { dir = 1; i = (i + 1) % lines.length; wait = 420; }
+    timer = setTimeout(step, wait);
+  };
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([e]) => {
+      clearTimeout(timer);
+      if (!fine) card.classList.toggle("is-open", e.isIntersecting);
+      if (e.isIntersecting && !calm) timer = setTimeout(step, dir < 0 && n === lines[i].length ? 2200 : 300);
+    }, { threshold: 0.45 }).observe(card);
+  }
+
+  // the envelope leans toward the pointer
+  const env = card.querySelector(".env");
+  if (fine && !calm && env) {
+    card.addEventListener("pointermove", (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      env.style.setProperty("--ry", `${(x * 14).toFixed(2)}deg`);
+      env.style.setProperty("--rx", `${(-y * 10).toFixed(2)}deg`);
+    });
+    card.addEventListener("pointerleave", () => { env.style.setProperty("--ry", "0deg"); env.style.setProperty("--rx", "0deg"); });
+  }
+
+  // click: seal it and send it, then open the mail app
+  const link = card.querySelector("a");
+  link.addEventListener("click", (e) => {
+    if (calm || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault();
+    if (card.classList.contains("is-sending")) return;
+    card.classList.add("is-sending");
+    setTimeout(() => { location.href = link.href; }, 1250);
+    setTimeout(() => { card.classList.remove("is-sending", "is-open"); }, 2100);
+  });
 })();

@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Designing Clark · Seyi Ogundipe</title>
+  <meta name="description" content="How Clark was designed: an AI study workspace where context comes from your materials, a composer that answers with objects, onboarding that teaches one command per step, and a streak worth keeping." />
+  <meta name="author" content="Seyi Ogundipe" />
+  <meta name="theme-color" content="#f3f1ea" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Designing Clark: a study workspace that knows what you're studying" />
+  <link rel="icon" href="../clark-logo.png" type="image/png" />
+  <link rel="stylesheet" href="study.css" />
+  <link rel="stylesheet" href="clark/page.css" />
+</head>
+<body class="ck" style="--tint:#ff5b1f; --tint-ink:#c23c0a">
+  <!-- one icon set for the rebuilt Clark UI, drawn to match the designs' line icons -->
+  <svg class="ck-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+    <symbol id="i-clip" viewBox="0 0 24 24"><path d="M20 11.5l-7.8 7.8a5 5 0 0 1-7.1-7.1l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.5a1.7 1.7 0 0 1-2.4-2.4l7.8-7.8"/></symbol>
+    <symbol id="i-voice" viewBox="0 0 24 24"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 10v4"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-plussq" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8.5v7M8.5 12h7"/></symbol>
+    <symbol id="i-cards" viewBox="0 0 24 24"><rect x="7.5" y="7.5" width="13" height="13" rx="2.5"/><path d="M16.5 4.5H6.5a3 3 0 0 0-3 3v10"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M9.5 8H7.5a4 4 0 0 0 0 8h2M14.5 8h2a4 4 0 0 1 0 8h-2M8.5 12h7"/></symbol>
+    <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L12 18V6L7.5 9.5H4z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.8 7.8 0 0 1 0 11"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6.5a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2"/></symbol>
+    <symbol id="i-thumb" viewBox="0 0 24 24"><path d="M7.5 10.5v9H4.5v-9h3zM7.5 10.5l3.6-6.3a1.9 1.9 0 0 1 3.4 1.6l-1 3.7h5.2a2 2 0 0 1 2 2.3l-1.1 6.4a2 2 0 0 1-2 1.8H7.5"/></symbol>
+    <symbol id="i-thumbdown" viewBox="0 0 24 24"><g transform="matrix(1 0 0 -1 0 24)"><path d="M7.5 10.5v9H4.5v-9h3zM7.5 10.5l3.6-6.3a1.9 1.9 0 0 1 3.4 1.6l-1 3.7h5.2a2 2 0 0 1 2 2.3l-1.1 6.4a2 2 0 0 1-2 1.8H7.5"/></g></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4.5 19.5h3.6L18.7 8.9l-3.6-3.6L4.5 15.9v3.6zM13.4 7l3.6 3.6"/></symbol>
+    <symbol id="i-regen" viewBox="0 0 24 24"><path d="M19.5 11a7.5 7.5 0 0 0-13.4-4.3M4.5 4.5v3.8h3.8M4.5 13a7.5 7.5 0 0 0 13.4 4.3M19.5 19.5v-3.8h-3.8"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.6l2.6 5.2 5.8.9-4.2 4.1 1 5.7L12 16.8l-5.2 2.7 1-5.7-4.2-4.1 5.8-.9z"/></symbol>
+    <symbol id="i-open" viewBox="0 0 24 24"><path d="M14 4.5h5.5V10M19.5 4.5L11 13M17.5 14v3.5a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2H10"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M13.5 5.5l6.5 5.8-6.5 5.8v-3.4c-4.6 0-7.4 1.3-9.5 4.8 0-5.8 2.8-9.6 9.5-10.1V5.5z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M10 11v5.5M14 11v5.5M6.5 7l.9 12.5h9.2L17.5 7M9.5 7V4.5h5V7"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4.5" y="5.5" width="15" height="14" rx="2"/><path d="M4.5 10h15M9 3.5v4M15 3.5v4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M13.5 3.5H7.5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8.5l-5-5z"/><path d="M13.5 3.5v5h5"/></symbol>
+    <symbol id="i-quiz" viewBox="0 0 24 24"><path d="M4 20.5c1.8-1.7 3.3-1.8 4.8-.9s2.9.9 4-.8M14.6 4.4l3.9 3.9-9 9-4.4.5.5-4.4 9-9z"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.8v.4"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M14.5 6l-6 6 6 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></symbol>
+    <symbol id="i-canvas" viewBox="0 0 24 24"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><path d="M9 15.5l.8-2.8 5.4-5.4 2 2-5.4 5.4-2.8.8z"/></symbol>
+    <symbol id="i-blob" viewBox="0 0 24 24"><circle cx="9.5" cy="10" r="5"/><circle cx="14.5" cy="10" r="5"/><circle cx="12" cy="14.5" r="5"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="18.5" r="1.8"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+  </svg>
+
+  <div class="page">
+    <header class="bar">
+      <a class="bar-home" href="../index.html#work"><i aria-hidden="true">←</i> Seyi Ogundipe</a>
+      <a href="https://clarkai-fe.vercel.app/" target="_blank" rel="noopener">Open Clark ↗</a>
+    </header>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="label">Contents</p>
+    <ol>
+      <li><a href="#intro"><span>01</span> Intro</a></li>
+      <li><a href="#idea"><span>02</span> One idea</a></li>
+      <li><a href="#composer"><span>03</span> The composer</a></li>
+      <li><a href="#onboarding"><span>04</span> Onboarding</a></li>
+      <li><a href="#flashcards"><span>05</span> Flashcards</a></li>
+      <li><a href="#quiet"><span>06</span> Empty and full</a></li>
+      <li><a href="#streak"><span>07</span> The streak</a></li>
+      <li><a href="#brand"><span>08</span> The badge</a></li>
+      <li><a href="#end"><span>09</span> Conclusion</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <article>
+      <div class="page">
+        <header class="a-head ck-head">
+          <figure class="ck-hero" id="badge-fig" data-wide>
+            <div class="stage-canvas ck-badge" data-rig="hero" tabindex="0" role="img" aria-label="The Clark badge: the wordmark on a black tag, hanging from an orange lanyard. Drag it or flick it to swing it. The left and right arrow keys push it.">
+              <canvas aria-hidden="true"></canvas>
+            </div>
+            <ul class="readout ck-rig-read" data-rig-read="hero" aria-live="off">
+              <li>tag <b data-r="theta">−2.4°</b></li>
+              <li>swing <b data-r="omega">0°/s</b></li>
+              <li>cords <b data-r="taut">taut, taut</b></li>
+              <li>damping <b data-r="damp">0.9975</b>/step</li>
+            </ul>
+            <button type="button" class="link-btn ck-play" data-rig-play="hero" hidden>Play</button>
+            <figcaption><b>Fig. 1</b> <span>The Clark badge, rebuilt here from my designs as a tag on two cords. <span class="hover-only">Drag it, or flick it and let go.</span><span class="touch-only">Drag it sideways and let go.</span></span></figcaption>
+          </figure>
+
+          <p class="eyebrow"><i></i> Case study / 009</p>
+          <h1>Designing Clark: a study workspace that knows what you're studying</h1>
+          <p class="stand">An AI-native study workspace, built by students for students. A student brings their materials in once, and chat, flashcards, quizzes, a shared board and a daily streak all work from them.</p>
+          <p class="meta"><b>Dec 2024 to May 2025</b><span></span>Lead product designer</p>
+        </header>
+
+        <!-- 01 -->
+        <section class="g s" id="intro" aria-labelledby="intro-h">
+          <p class="num">01</p>
+          <h2 id="intro-h">Intro</h2>
+          <div class="col">
+            <p>Clark puts a student's notes, slides and PDFs in one workspace and lets the AI work from them. From that one place they can ask questions about their own material, turn it into flashcards and quizzes, study on a shared board, and keep a streak going.</p>
+            <p>The problem it answers fits in two sentences:</p>
+          </div>
+          <p class="quote">Students now use 7 different apps to study. None of them talk to each other.</p>
+          <div class="col">
+            <p>Three things go wrong with the way students study now:</p>
+          </div>
+          <ol class="rows rows--n">
+            <li><div><b>Fragmentation</b><p>Students switch between 5 to 7 apps. Context is lost, and the AI isn't aware of what they're studying. Years of notes sit in Drive, Notion and the downloads folder, and no study tool connects to any of it.</p></div></li>
+            <li><div><b>Passive learning</b><p>Most study tools deliver content. Almost none test whether students actually understood it, or adapt when they didn't.</p></div></li>
+            <li><div><b>Isolation</b><p>Students learn better together, yet every study tool is built for one person.</p></div></li>
+          </ol>
+          <p class="note"><b>The badge.</b> The tag hanging at the top of this page is Clark's logo, built as a small physics model. Section 08 takes it apart.</p>
+        </section>
+
+        <!-- 02 -->
+        <section class="g s" id="idea" aria-labelledby="idea-h">
+          <p class="num">02</p>
+          <h2 id="idea-h">Context comes from your workspace</h2>
+          <div class="col">
+            <p>Clark's line was "Not a chatbot. Not a note-taking app. Not a flashcard tool. All three, connected." The connection is the product. You bring your materials into a workspace once, and the AI works from them, not from whatever you managed to paste into a prompt.</p>
+            <p>It works in three steps: connect and upload your materials, Clark understands your context, then you study actively. When you ask a question, you choose which materials it answers from.</p>
+            <p>So the home screen is one input with your work around it: the workspaces you were in last, the streak, the calendar, and a sidebar of chats and workspaces that folds away.</p>
+          </div>
+          <figure class="fig ck-map-fig" id="home-fig">
+            <div class="ck-home">
+              <div class="frame"><img src="media/clark/home.webp" width="2000" height="1423" alt="Clark's home screen in the dark theme: the badge hanging from the top edge, a sidebar of chats and workspaces, a greeting, the composer, recently visited workspace tiles, a streak card and a Clarlender card" loading="lazy" /></div>
+              <div class="ck-pins" data-overlay>
+                <button type="button" class="ck-pin" data-pin="1" style="--x:63.8%; --y:4.4%" aria-label="1: the badge">1</button>
+                <button type="button" class="ck-pin" data-pin="2" style="--x:31%; --y:25%" aria-label="2: the composer">2</button>
+                <button type="button" class="ck-pin" data-pin="3" style="--x:31%; --y:46%" aria-label="3: recently visited">3</button>
+                <button type="button" class="ck-pin" data-pin="4" style="--x:31%; --y:69%" aria-label="4: the streak card">4</button>
+                <button type="button" class="ck-pin" data-pin="5" style="--x:86.5%; --y:69%" aria-label="5: Clarlender">5</button>
+                <button type="button" class="ck-pin" data-pin="6" style="--x:17.5%; --y:46%" aria-label="6: the sidebar">6</button>
+                <button type="button" class="ck-pin" data-pin="7" style="--x:82%; --y:3.5%" aria-label="7: Create">7</button>
+                <button type="button" class="ck-pin" data-pin="8" style="--x:95%; --y:3.5%" aria-label="8: light and dark">8</button>
+              </div>
+            </div>
+            <ol class="ck-legend">
+              <li data-pin="1"><b>The badge</b>, hanging from the top edge of the screen.</li>
+              <li data-pin="2"><b>The composer.</b> “Ask anything… or type @ to see Clark's magic commands…” (<a href="#composer">Fig. 3</a>)</li>
+              <li data-pin="3"><b>Recently visited</b> workspaces, as two-tone tiles, with New Workspace first.</li>
+              <li data-pin="4"><b>The streak card.</b> “5-day streak!!” (<a href="#streak">Fig. 8</a>)</li>
+              <li data-pin="5"><b>Clarlender</b>, the calendar: “Keep track of your studies and stay Organized with Clarlender.”</li>
+              <li data-pin="6"><b>The sidebar</b>: search, inbox, recent chats, workspaces and the Workspace Hub. It collapses.</li>
+              <li data-pin="7"><b>Create</b>: Workspace, Chat, Flashcard, Canvas or Material.</li>
+              <li data-pin="8"><b>Light and dark</b>, one tap.</li>
+            </ol>
+            <figcaption><b>Fig. 2</b> The home screen. <span class="hover-only">Point at a number, or at a line of the key, to match them up.</span><span class="touch-only">Tap a number to find it in the key.</span></figcaption>
+          </figure>
+        </section>
+
+        <!-- 03 -->
+        <section class="g s" id="composer" aria-labelledby="composer-h">
+          <p class="num">03</p>
+          <h2 id="composer-h">The composer answers with objects</h2>
+          <div class="col">
+            <p>The input box does more than take questions. A switch under it sets the mode: Ask, Research or Create. Type @ and Clark offers its magic commands, and the one you pick lands in your sentence as an orange chip: <b>@ask</b>, <b>@update</b>, <b>@materials</b>, <b>@board</b>, <b>@track</b>, <b>@quiz</b>, <b>@flashcard</b>.</p>
+            <p>Results come back as objects, not paragraphs. Ask for flashcards and the chat hands you a card that says the pack is ready, with a button to open it. Ask for a quiz and a panel beside the chat builds one, then gives you its card: the topic, the source file, the date, “Score - Not taken yet.” and Start Quiz. Every reply carries the same row of actions: read aloud, copy, thumbs up, thumbs down, edit, regenerate.</p>
+            <p>Switch the mode to Create and a menu opens over the input with the 5 things you can start from scratch: a workspace, a chat, a flashcard set, a canvas or a material.</p>
+          </div>
+          <figure class="stage ck-comp" id="composer-fig" aria-label="A working rebuild of Clark's composer">
+            <div class="ck-convo" aria-live="polite" data-convo></div>
+            <div class="ck-composer" data-composer>
+              <div class="ck-input-wrap">
+                <div class="ck-input" contenteditable="true" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="ck-cmds" aria-haspopup="listbox" aria-label="Message Clark. Type @ for commands, Enter to send." spellcheck="false" data-input></div>
+                <span class="ck-ph" aria-hidden="true" data-overlay data-ph>Ask anything… or type <i>@</i> to see Clark's magic commands…</span>
+              </div>
+              <div class="ck-pop ck-cmds" id="ck-cmds" role="listbox" aria-label="Clark's magic commands" data-overlay data-menu hidden></div>
+              <div class="ck-pop ck-create" role="menu" aria-label="Create" data-overlay data-create hidden>
+                <button type="button" role="menuitem" data-make="workspace"><svg><use href="#i-plus"/></svg>Workspace</button>
+                <button type="button" role="menuitem" data-make="chat"><svg><use href="#i-plus"/></svg>Chat</button>
+                <button type="button" role="menuitem" data-make="flashcard"><svg><use href="#i-blob"/></svg>Flashcard</button>
+                <button type="button" role="menuitem" data-make="canvas"><svg><use href="#i-canvas"/></svg>Canvas</button>
+                <button type="button" role="menuitem" data-make="material"><svg><use href="#i-file"/></svg>Material</button>
+              </div>
+              <div class="ck-row">
+                <div class="ck-modes" role="radiogroup" aria-label="Mode" data-modes>
+                  <button type="button" role="radio" aria-checked="true" data-mode="Ask">Ask<svg class="ck-chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
+                  <button type="button" role="radio" aria-checked="false" data-mode="Research" tabindex="-1">Research</button>
+                  <button type="button" role="radio" aria-checked="false" data-mode="Create" tabindex="-1">Create</button>
+                </div>
+                <div class="ck-tools">
+                  <span class="ck-tool" aria-hidden="true"><svg><use href="#i-clip"/></svg></span>
+                  <button type="button" class="ck-tool ck-at" aria-label="Insert a command" data-at>@</button>
+                  <span class="ck-tool" aria-hidden="true"><svg><use href="#i-voice"/></svg></span>
+                  <button type="button" class="ck-tool ck-send" aria-label="Send" data-send><svg><use href="#i-up"/></svg></button>
+                </div>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <ul class="tabs tabs--small ck-quick" aria-label="Insert a command" data-quick></ul>
+            </div>
+            <ul class="readout ck-comp-read" aria-live="off">
+              <li>mode <b data-cr="mode">Ask</b></li>
+              <li>command <b data-cr="cmd">@flashcard</b></li>
+              <li>returns <b data-cr="ret">Flashcard Pack Generated</b></li>
+            </ul>
+            <figcaption><b>Fig. 3</b> The composer, rebuilt here from my designs. Type @ to open the commands, pick one with the arrow keys and Enter, then press Enter to send. Each command answers with the object it makes, and its button jumps to that object further down this page. The replies are built from the designs' own cards.</figcaption>
+          </figure>
+          <p class="note"><b>The placeholder teaches.</b> Every empty composer in Clark says the same thing: “Ask anything… or type @ to see Clark's magic commands…”, with the @ in orange.</p>
+        </section>
+
+        <!-- 04 -->
+        <section class="g s" id="onboarding" aria-labelledby="onboarding-h">
+          <p class="num">04</p>
+          <h2 id="onboarding-h">Onboarding: one command per step</h2>
+          <div class="col">
+            <p>Commands are powerful and invisible, which is a bad combination for a new user. So onboarding is 5 steps, and each one teaches exactly one command.</p>
+            <p>The card is split. On the left: a headline, a short paragraph, 3 benefits, a tip that says “Type @command”, and an orange Continue. On the right: the preview, with Prev and Next above it and a pager from 1 to 5, the current step in orange.</p>
+            <p>The card changes colour as you go. Steps 1, 2 and 5 are dark with a light preview; steps 3 and 4 turn it round, light with a dark preview.</p>
+          </div>
+          <figure class="stage ck-onb" id="onb-fig" aria-label="A working rebuild of Clark's 5-step onboarding">
+            <div class="ck-modal" data-modal data-theme="dark" role="group" aria-roledescription="onboarding step" aria-label="Step 1 of 5">
+              <div class="ck-modal-l">
+                <h3 class="ck-mh" data-o="title">Talk to your materials. Get instant clarity.</h3>
+                <p class="ck-mb" data-o="body"></p>
+                <ul class="ck-ben" data-o="ben"></ul>
+                <p class="ck-tip" data-o="tip"></p>
+                <button type="button" class="ck-continue" data-o-continue>Continue</button>
+              </div>
+              <div class="ck-modal-r">
+                <div class="ck-pn">
+                  <button type="button" data-o-prev>Prev</button>
+                  <button type="button" data-o-next>Next</button>
+                  <span class="ck-readfull" aria-hidden="true" data-o-readfull>Read Full</span>
+                </div>
+                <div class="ck-preview" data-o-preview aria-hidden="true"></div>
+                <p class="ck-pager" aria-hidden="true" data-o-pager><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></p>
+              </div>
+            </div>
+            <ol class="ck-steps" aria-label="The 5 steps and their commands" data-o-map></ol>
+            <figcaption><b>Fig. 4</b> The onboarding, rebuilt here from my designs with their copy; the preview shows each step's command. Press Continue or Next, or pick a step from the map under the card. The map pairs each step with its command and its two colours.</figcaption>
+          </figure>
+        </section>
+
+        <!-- 05 -->
+        <section class="g s" id="flashcards" aria-labelledby="flashcards-h">
+          <p class="num">05</p>
+          <h2 id="flashcards-h">A card that turns over</h2>
+          <div class="col">
+            <p>@flashcard turns your material into a set, and the chat hands you a card: Flashcard Pack Generated, Open Flashcards. The set opens in a panel beside the conversation.</p>
+            <p>One card at a time. The word Click sits in the corner, and clicking turns the card over. Under it, a counter and a label, “1/6 Show Back”, between two arrows. Below that, Preview Set (6 Cards) opens the whole list, and Delete Set clears it. A tip at the bottom points at the next move: just type @quiz.</p>
+            <p>The designs are still frames, so the motion here is mine. A flip is a half turn, and the card shows its other face at 90°, the moment it's edge-on. The curve decides when that moment comes. On the ease-out used here the new face arrives 73 ms into a 560 ms turn, and the rest is the card settling while you read it. On a linear turn you wait 280 ms for it.</p>
+          </div>
+          <figure class="stage ck-fc" id="flashcards-fig" aria-label="A working rebuild of Clark's flashcard viewer">
+            <div class="ck-fc-wrap">
+              <div class="ck-fc-viewer">
+                <div class="ck-card3d" data-overlay>
+                  <div class="ck-flip" role="button" tabindex="0" aria-label="Flashcard 1 of 6, front. Press to turn it over." data-fc-card>
+                    <div class="ck-face ck-front" data-fc-front></div>
+                    <div class="ck-face ck-back" data-fc-back aria-hidden="true"></div>
+                  </div>
+                </div>
+                <div class="ck-fc-nav">
+                  <button type="button" class="ck-sq" aria-label="Previous card" data-fc-prev><svg><use href="#i-left"/></svg></button>
+                  <button type="button" class="ck-showbtn" data-fc-show><span data-fc-count>1/6</span> <span data-fc-label>Show Back</span></button>
+                  <button type="button" class="ck-sq" aria-label="Next card" data-fc-next><svg><use href="#i-right"/></svg></button>
+                </div>
+                <div class="ck-fc-set">
+                  <button type="button" class="ck-setbtn" aria-expanded="false" data-fc-preview>Preview Set (6 Cards)<svg><use href="#i-chev"/></svg></button>
+                  <span class="ck-setbtn ck-del" aria-hidden="true">Delete Set<svg><use href="#i-x"/></svg></span>
+                </div>
+                <ol class="ck-fc-list" data-fc-list hidden></ol>
+                <p class="ck-fc-tip"><span>You can also generate a quiz based on this set, just type @quiz or generate another Flashcard set using @flashcard</span><svg aria-hidden="true"><use href="#i-info"/></svg></p>
+              </div>
+              <div class="ck-fc-plot">
+                <svg class="ck-curve" viewBox="0 0 420 300" role="img" aria-label="The flip's rotation over time, with the moment the face swaps marked at 90 degrees" data-fc-svg></svg>
+                <ul class="tabs tabs--small" role="tablist" aria-label="Easing curve" data-fc-ease>
+                  <li><button type="button" role="tab" aria-selected="true" data-ease="out">Ease out</button></li>
+                  <li><button type="button" role="tab" aria-selected="false" data-ease="inout" tabindex="-1">Ease in-out</button></li>
+                  <li><button type="button" role="tab" aria-selected="false" data-ease="linear" tabindex="-1">Linear</button></li>
+                </ul>
+                <ul class="readout" aria-live="off">
+                  <li>rotateY <b data-fr="deg">0°</b></li>
+                  <li>t <b data-fr="t">0</b>/<span data-fr="dur">560</span> ms</li>
+                  <li>face swaps at <b data-fr="swap">0 ms</b></li>
+                </ul>
+                <p class="ck-fc-bez" data-fr="bez">cubic-bezier(0.22, 1, 0.36, 1)</p>
+              </div>
+            </div>
+            <figcaption><b>Fig. 5</b> A flashcard set, rebuilt here from my designs: 6 cards I wrote from this page. Click the card or Show Back to turn it. The plot is the turn over time; switch curves and flip again to see where the face swaps.</figcaption>
+          </figure>
+        </section>
+
+        <!-- 06 -->
+        <section class="g s" id="quiet" aria-labelledby="quiet-h">
+          <p class="num">06</p>
+          <h2 id="quiet-h">What empty looks like</h2>
+          <div class="col">
+            <p>Everything you make in Clark becomes a card, and the cards answer the same questions: where it came from, when, and how you did. Workspaces are tab-shaped folders with a star to pin them and a count of the files inside. Quizzes list their source, their date and your score, with open, edit, share and delete down the right.</p>
+            <p>Empty screens got as much attention as full ones, because a new user sees them first. They talk like a person: “Looks a little quiet in here…”, “Nothing to answer here… yet”. Each one explains the feature, shows a ghost of the card that will fill it, and ends with the one button that does.</p>
+          </div>
+          <figure class="stage ck-ef" id="ef-fig" aria-label="Workspaces and quizzes, empty and full, rebuilt">
+            <div class="ck-ef-stage" data-ef-stage></div>
+            <div class="stage-bar">
+              <ul class="tabs" role="tablist" aria-label="Screen" data-ef-screen>
+                <li><button type="button" role="tab" aria-selected="true" data-screen="workspaces">Workspaces</button></li>
+                <li><button type="button" role="tab" aria-selected="false" data-screen="quizzes" tabindex="-1">Quizzes</button></li>
+              </ul>
+              <ul class="tabs tabs--small" aria-label="State" data-ef-state>
+                <li><button type="button" aria-pressed="true" data-state="empty">Empty</button></li>
+                <li><button type="button" aria-pressed="false" data-state="full">Full</button></li>
+              </ul>
+            </div>
+            <figcaption><b>Fig. 6</b> Workspaces and quizzes, empty and full, rebuilt here from my designs. Press the orange button to fill a screen, or switch with the tabs. Star a workspace to pin it.</figcaption>
+          </figure>
+        </section>
+
+        <section class="reel reel--band" style="--ar: 1280 / 712" aria-label="The Clark landing page" data-chapters='[{"title":"Learning made easy","at":0},{"title":"The story","at":3},{"title":"Everything in one place","at":14},{"title":"Imagine one day","at":24},{"title":"Share the vibe","at":28.5},{"title":"Sign it","at":30.5}]'>
+          <video data-src="../videos/clark.mp4" width="1280" height="712" muted loop playsinline preload="none" poster="media/clark/poster.webp" aria-label="A 40 second scroll through the Clark landing page"></video>
+          <div class="reel-cap">
+            <b>The landing page</b>
+            <span>Fig. 7 · 40 seconds of the landing page: the story first, then the features, then the sign-up.</span>
+            <ol class="reel-chapters"></ol>
+          </div>
+        </section>
+
+        <!-- 07 -->
+        <section class="g s" id="streak" aria-labelledby="streak-h">
+          <p class="num">07</p>
+          <h2 id="streak-h">The streak</h2>
+          <div class="col">
+            <p>The streak card sits on the home screen. It's a grid of 31 rounded squares, about a month. Days you studied fill orange; the rest stay charcoal. The label is excited on purpose, “5-day streak!!”, with View Full Stats in orange under it.</p>
+            <p>Before you've started, it doesn't show an empty grid and a zero. It says “No streak yet. Study today to ignite your first flame!” On the landing page the same card turns light, lays the 31 days out 7 to a row, and reads “05 Days In! Halfway to 10! Stay consistent!”</p>
+            <p>A streak only counts days in a row. In this rebuild it counts back from the latest day you studied and stops at the first gap, so a day studied before the gap stays orange but no longer counts.</p>
+          </div>
+          <figure class="stage ck-streak" id="streak-fig" aria-label="A working rebuild of Clark's streak card">
+            <div class="ck-st-wrap">
+              <div class="ck-st-card" data-st-card>
+                <div class="ck-st-grid" role="group" aria-label="31 days. Press a day to mark it studied." data-st-grid></div>
+                <div class="ck-st-foot">
+                  <div>
+                    <p class="ck-st-label" data-st-label>5-day streak!!</p>
+                    <p class="ck-st-sub" data-st-sub>View Full Stats</p>
+                  </div>
+                  <svg class="ck-st-more" aria-hidden="true"><use href="#i-more"/></svg>
+                </div>
+              </div>
+              <div class="ck-st-land" data-st-land aria-label="The landing page version of the same card">
+                <div class="ck-st-lgrid" data-st-lgrid aria-hidden="true"></div>
+                <div class="ck-st-lfoot">
+                  <div class="ck-st-lrow"><i class="ck-st-dot" aria-hidden="true"></i><span class="ck-st-view">View</span></div>
+                  <p class="ck-st-lbig" data-st-lbig>⚡05 Days In!</p>
+                  <p class="ck-st-lsmall" data-st-lsmall>Halfway to 10! Stay consistent! 💪</p>
+                </div>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <ul class="readout" aria-live="polite">
+                <li>latest day <b data-sr="latest">05</b></li>
+                <li>walk back <b data-sr="walk">05 04 03 02 01</b></li>
+                <li>stops at <b data-sr="gap">start of month</b></li>
+                <li>streak <b data-sr="n">5</b></li>
+              </ul>
+              <span class="ck-links"><button type="button" class="link-btn" data-st-clear>Clear</button> <button type="button" class="link-btn" data-st-reset>As designed</button></span>
+            </div>
+            <figcaption><b>Fig. 8</b> The streak card, rebuilt here from my designs with its real states, beside the landing page's version of the same days. Tap days to mark them studied. The count walks back from your latest day; the numbers in the squares are the order it counted them.</figcaption>
+          </figure>
+          <p class="note"><b>Two voices, one number.</b> The app says “5-day streak!!”. The landing page pads the same 5 to 05 and holds it up against 10. Here the “Halfway” line shows only when you are exactly halfway to the next 10.</p>
+        </section>
+
+        <!-- 08 -->
+        <section class="g s" id="brand" aria-labelledby="brand-h">
+          <p class="num">08</p>
+          <h2 id="brand-h">The badge</h2>
+          <div class="col">
+            <p>The brand is a student ID on a lanyard: the Clark wordmark in orange on a black tag, tilted, hanging from an orange cord. The idea carries into every surface: section titles become small tags with a punch hole. Orange #ff3d00 on charcoal #262626, with a fine dot grid behind.</p>
+            <p>On this page the badge is a small physics model. The tag is 5 points held rigid: 4 corners and the punch hole. Each cord is a line from a fixed point above to the hole that can go slack but can't stretch, so the hole can only be where both cords reach. Gravity pulls, a little damping takes energy out every step, and the hole sits just off centre so the tag rests tilted, as drawn.</p>
+          </div>
+          <figure class="stage ck-xray" id="xray-fig" aria-label="The badge's physics model, drawn with its workings">
+            <div class="ck-xray-wrap">
+              <div class="stage-canvas ck-xray-canvas" data-rig="xray" tabindex="0" role="img" aria-label="The badge drawn as its model: two fixed points, the two cords, the circles the hole can reach, the tag's corners, its centre of mass and its angle. Drag or flick it; the arrow keys push it.">
+                <canvas aria-hidden="true"></canvas>
+              </div>
+              <div class="ck-trace">
+                <svg viewBox="0 0 360 220" role="img" aria-label="The tag's angle over the last 8 seconds" data-trace></svg>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <label class="scrub">Damping <input type="range" min="0.990" max="0.9995" step="0.0005" value="0.9975" data-damp aria-label="Damping per step" /> <output data-damp-out>0.9975</output></label>
+              <button type="button" class="link-btn" data-flick>Flick it</button>
+            </div>
+            <ul class="readout ck-rig-read" data-rig-read="xray" aria-live="off">
+              <li>tag <b data-r="theta">−2.4°</b></li>
+              <li>swing <b data-r="omega">0°/s</b></li>
+              <li>cords <b data-r="taut">taut, taut</b></li>
+              <li>period <b data-r="period">not yet</b></li>
+              <li>each swing keeps <b data-r="keep">not yet</b></li>
+            </ul>
+            <button type="button" class="link-btn ck-play" data-rig-play="xray" hidden>Play</button>
+            <figcaption><b>Fig. 9</b> The badge from Fig. 1 with its workings drawn: the 2 fixed points, the circles the hole can reach on each cord, the 5 points of the tag, its centre of mass and its angle. The plot is that angle over the last 8 seconds, each turning point marked. Flick it, then lower the damping and flick it again.</figcaption>
+          </figure>
+          <div class="col col--gap">
+            <p>And the name earns a joke, which we used:</p>
+          </div>
+          <figure class="fig fig--w">
+            <div class="frame ck-bare"><img src="media/clark/header.webp" width="1800" height="600" alt="Superman saves the day, Clark saves your Grades, with the Clark badge hanging from an orange cord" loading="lazy" /></div>
+            <figcaption><b>Fig. 10</b> Superman saves the day, Clark saves your Grades. A Twitter header, with the badge doing the joke.</figcaption>
+          </figure>
+        </section>
+
+        <!-- 09 -->
+        <section class="g s end" id="end" aria-labelledby="end-h">
+          <p class="num">09</p>
+          <h2 id="end-h">Conclusion</h2>
+          <div class="col">
+            <p>Clark's design comes down to one decision: the workspace is the context. Because of it, a student types one line and gets an answer from their own files, a flashcard set or a quiz they can start right away. A new student learns the commands in 5 steps, an empty screen always shows the one button that fills it, and the streak gives them a reason to come back tomorrow. Something that powerful ends up with almost nothing to learn.</p>
+          </div>
+          <div class="actions"><a class="button" href="https://clarkai-fe.vercel.app/" target="_blank" rel="noopener">Open Clark</a></div>
+        </section>
+
+        <a class="next" href="raise.html">
+          <span class="label">Next case study</span>
+          <span class="next-t">Cohort / Raise</span>
+          <span class="next-d">An investor page that isn't a deck, with a network graph that grows when you ask it to.</span>
+        </a>
+
+        <footer>
+          <span>Clark, a case study</span>
+          <a href="../index.html#work">All work</a>
+        </footer>
+      </div>
+    </article>
+  </main>
+  <script src="study.js" defer></script>
+  <script type="module" src="clark/page.js"></script>
+</body>
+</html>

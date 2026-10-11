@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Building Tiwari Town: a birthday you can walk through · Seyi Ogundipe</title>
+  <meta name="description" content="How a walkable 3D world was built as a birthday gift: the map drawn by the game's own ground function, a dog made of spheres that plants its feet, four kinds of light, captions that talk like a vlog, a Connect 4 engine and live boat racing. Shown live on the project's own code." />
+  <meta name="author" content="Seyi Ogundipe" />
+  <meta name="theme-color" content="#f3f1ea" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building Tiwari Town: a birthday you can walk through" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
+  <link rel="stylesheet" href="study.css" />
+  <link rel="stylesheet" href="tiwari-town/page.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body style="--tint:#4a9fe0; --tint-ink:#2a6db0">
+  <div class="page">
+    <header class="bar">
+      <a class="bar-home" href="../index.html#work"><i aria-hidden="true">←</i> Seyi Ogundipe</a>
+      <a href="https://tiwari-nine.vercel.app/" target="_blank" rel="noopener">Open Tiwari Town ↗</a>
+    </header>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="label">Contents</p>
+    <ol>
+      <li><a href="#intro"><span>01</span> Intro</a></li>
+      <li><a href="#code"><span>02</span> Every shape is code</a></li>
+      <li><a href="#dog"><span>03</span> The dog</a></li>
+      <li><a href="#light"><span>04</span> Light</a></li>
+      <li><a href="#voice"><span>05</span> The voice</a></li>
+      <li><a href="#c4"><span>06</span> Connect 4</a></li>
+      <li><a href="#race"><span>07</span> The race</a></li>
+      <li><a href="#tests"><span>08</span> Tests</a></li>
+      <li><a href="#gate"><span>09</span> The gate</a></li>
+      <li><a href="#live"><span>10</span> Walk it</a></li>
+      <li><a href="#end"><span>11</span> Conclusion</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <article>
+      <div class="page">
+        <header class="a-head">
+          <p class="eyebrow"><i></i> Case study / 005</p>
+          <h1>Building Tiwari Town: a birthday you can walk through</h1>
+          <p class="stand">For my partner's birthday I built her a small world that runs in a browser tab. You walk it in first person: a town square, a momo shop, a harbour, a mountain overlook, a museum, and a door under a tower. Every shape in it is made by code.</p>
+          <p class="meta"><b>2026</b><span></span>3D world, interaction and code</p>
+        </header>
+
+        <!-- Fig. 1: the world's own map, baked live from the ported heightAt + surfaceColor -->
+        <figure class="stage mp-fig" id="mapFig" aria-label="The map of Tiwari Town, drawn from the game's own ground function, with a pin for each place">
+          <div class="stage-canvas mp-stage">
+            <div class="mp-plate" data-overlay>
+              <canvas class="mp-ground" width="352" height="352" aria-hidden="true"></canvas>
+              <svg class="mp-svg" viewBox="-110 -110 220 220" aria-hidden="true"></svg>
+              <div class="mp-pins" role="group" aria-label="Places on the map. Tab to a pin, then use the arrow keys to move between them."></div>
+              <span class="mp-n" aria-hidden="true">N</span>
+              <span class="mp-scale" aria-hidden="true"><i></i>50 m</span>
+            </div>
+            <div class="mp-card" data-overlay aria-live="polite">
+              <div class="frame mp-shot"><img alt="" width="960" height="540" decoding="async" /></div>
+              <p class="mp-title"></p>
+              <p class="mp-note"></p>
+              <p class="mp-line"></p>
+              <ul class="readout mp-read"></ul>
+            </div>
+          </div>
+          <ul class="readout mp-bake" aria-live="off">
+            <li>ground <b data-r="bake">baking…</b></li>
+            <li><b>220 m</b> across</li>
+            <li>north up</li>
+          </ul>
+          <figcaption><b>Fig. 1</b> The world's map, redrawn here by the game's own ground function and palette. Point at a pin, or focus the map and use the arrow keys, to see where the map lands you and what you face when you arrive. 2 pins stay a question mark until you've been near them.</figcaption>
+        </figure>
+
+        <section class="g s" id="intro" aria-labelledby="intro-h">
+          <p class="num">01</p>
+          <h2 id="intro-h">Intro</h2>
+          <div class="col">
+            <p>Her birthday was 3 August 2026, and that was the deadline. The gift is published as Project Tiwari. I call it Tiwari Town.</p>
+            <p>The shape comes from Pallet Town, the first town in the old Pokémon games: a small square, a few houses, roads out to somewhere. I kept the shape and put places from her life at the ends of the roads. Kiel's harbour is to the west, a Nepal overlook to the north-east, the Tech Tower due north. At the end of the walk, the door under the tower opens the next present.</p>
+            <p>It was walkable by her birthday, and it kept growing for 18 days after: phone support, a boat race in the harbour, an observatory with a lift up the outside, and racing a friend live.</p>
+          </div>
+          <p class="note"><b>Where it runs.</b> In any modern browser, on a laptop or on a phone turned sideways, which gets its own thumbstick. Nothing to install.</p>
+        </section>
+
+        <section class="reel" id="reel" aria-label="The walk, recorded" data-chapters='[{"title":"Boot","at":0},{"title":"Nepal Overlook","at":3.5},{"title":"Kiel Harbour","at":7.5},{"title":"The Museum","at":12},{"title":"Tech Tower","at":16.5}]'>
+          <video data-src="../videos/tiwari-town.mp4" width="1280" height="712" muted loop playsinline preload="none" poster="media/tiwari-town/reel-poster.webp" aria-label="A screen recording of Tiwari Town: the pixel boot screen reading Project Tiwari, then the Nepal overlook under prayer flags, the Kiel jetty, the glass pyramid of the museum, and the arch of the Tech Tower"></video>
+          <div class="reel-cap">
+            <b>Fig. 2 &nbsp;The walk</b>
+            <span>The boot screen, then 4 places from the map, recorded on the live site. 20 seconds.</span>
+            <ol class="reel-chapters" aria-label="Chapters"></ol>
+          </div>
+        </section>
+
+        <section class="g s" id="code" aria-labelledby="code-h">
+          <p class="num">02</p>
+          <h2 id="code-h">Every shape is code</h2>
+          <div class="col">
+            <p>One rule holds throughout: no art files. The ground is a heightfield. Buildings and props are boxes with rounded edges. Anything organic is a pile of spheres melted into a single skin by marching cubes. Every random number hangs off a single seed, 20260803, her birthday, so the world is the same on every load.</p>
+            <p>That last part is what made it buildable. Each model was tuned by a script that photographs it and saves the pictures, about 10 seconds a round. If the ground shifted between runs, no picture could tell you whether an edit helped.</p>
+            <p>The dog is the clearest case. Fig. 3 builds it the way the game does, in your browser. Drag the resolution and watch the triangle count. Turn the weld off and you get the faceted dog the weld fixed.</p>
+          </div>
+          <figure class="stage db-fig" id="dogBuild" aria-label="The dog, built live from metaballs by marching cubes">
+            <div class="stage-canvas db-stage" tabindex="0" role="img" aria-label="The dog on a turntable. Drag, or use the left and right arrow keys, to turn it.">
+              <canvas aria-hidden="true"></canvas>
+              <p class="tw-fallback" data-overlay hidden>This figure needs WebGL, which this browser has turned off.</p>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs" role="tablist" aria-label="What to show">
+                <button type="button" role="tab" aria-selected="true" data-view="welded">Welded</button>
+                <button type="button" role="tab" aria-selected="false" data-view="soup">Unwelded</button>
+                <button type="button" role="tab" aria-selected="false" data-view="balls">The spheres</button>
+              </div>
+              <div class="tabs tabs--small" role="tablist" aria-label="Coat">
+                <button type="button" role="tab" aria-selected="true" data-coat="cream">Cream</button>
+                <button type="button" role="tab" aria-selected="false" data-coat="charcoal">Charcoal</button>
+                <button type="button" role="tab" aria-selected="false" data-coat="ginger">Ginger</button>
+                <button type="button" role="tab" aria-selected="false" data-coat="cocoa">Cocoa</button>
+              </div>
+            </div>
+            <label class="scrub db-scrub"><span>Resolution</span><input type="range" min="16" max="96" step="4" value="64" aria-label="Marching cubes resolution, grid cells across the whole dog" /><output>64</output></label>
+            <ul class="readout db-read" aria-live="off">
+              <li>parts <b data-r="parts">7</b></li>
+              <li>spheres <b data-r="balls">57</b></li>
+              <li>cell <b data-r="cell">24 mm</b></li>
+              <li>triangles <b data-r="tris">0</b></li>
+              <li>vertices <b data-r="verts">0</b></li>
+              <li>built in <b data-r="ms">0 ms</b></li>
+            </ul>
+            <figcaption><b>Fig. 3</b> The dog from Dog.ts and Sculpt.ts, ported and built live: spheres, a falloff field, marching cubes, then a weld. Drag to turn it. “The spheres” shows what it's made of; the 2 red ones are negative and carve the brow.</figcaption>
+          </figure>
+          <p class="note"><b>No audio files either.</b> Footsteps, wind and the sound of each place are synthesised in the browser as she walks. The whole soundscape downloads 0 bytes of audio.</p>
+        </section>
+
+        <section class="g s" id="dog" aria-labelledby="dog-h">
+          <p class="num">03</p>
+          <h2 id="dog-h">A dog that plants its feet</h2>
+          <div class="col">
+            <p>A walk cycle built on sine waves never plants a foot: the paw moves fastest exactly when it should be standing still on the ground, and the dog looks dragged rather than walking.</p>
+            <p>So each leg's cycle here has 2 halves. On the ground, the hip sweeps back at a constant rate, which holds the paw still while the body passes over it. In the air, it eases forward with the knee tucked. The stride rate isn't tuned at all. It falls out of the geometry:</p>
+          </div>
+          <p class="tw-eq">stride rate = speed × duty ÷ (2 × hip height × sin swing)</p>
+          <div class="col">
+            <p>Walk, trot and gallop are all worked out and blended by speed, because a dog changes which feet land together as it speeds up. In Fig. 4, drag the speed and watch the bars: they're the paws on the ground.</p>
+          </div>
+          <figure class="stage dg-fig" id="dogGait" aria-label="The dog walking in place, with its footfall pattern and one hip's angle through a stride">
+            <div class="stage-canvas dg-stage">
+              <canvas aria-hidden="true"></canvas>
+              <p class="tw-fallback" data-overlay hidden>This figure needs WebGL, which this browser has turned off.</p>
+            </div>
+            <div class="dg-plots">
+              <svg class="dg-feet" viewBox="0 0 520 132" role="img" aria-label="Footfall diagram: when each paw is on the ground through one stride"></svg>
+              <svg class="dg-hip" viewBox="0 0 520 132" role="img" aria-label="One front leg's hip angle through one stride"></svg>
+            </div>
+            <div class="stage-bar">
+              <label class="scrub dg-scrub"><span>Speed</span><input type="range" min="0" max="7" step="0.05" value="1" aria-label="Dog speed in metres per second" /><output>1.00 m/s</output></label>
+              <div class="tabs tabs--small" role="tablist" aria-label="Posture">
+                <button type="button" role="tab" aria-selected="true" data-posture="stand">Stand</button>
+                <button type="button" role="tab" aria-selected="false" data-posture="sit">Sit</button>
+                <button type="button" role="tab" aria-selected="false" data-posture="lie">Lie</button>
+                <button type="button" role="tab" aria-selected="false" data-posture="sniff">Sniff</button>
+              </div>
+              <button class="link-btn dg-play" type="button" hidden>Play</button>
+            </div>
+            <ul class="readout dg-read" aria-live="off">
+              <li>walk <b data-r="walk">0%</b></li>
+              <li>trot <b data-r="trot">0%</b></li>
+              <li>gallop <b data-r="gallop">0%</b></li>
+              <li>swing <b data-r="swing">0°</b></li>
+              <li>duty <b data-r="duty">0</b></li>
+              <li>stride <b data-r="hz">0 Hz</b></li>
+            </ul>
+            <figcaption><b>Fig. 4</b> DogRig.ts, ported. The ground ticks move at the dog's speed, so a planted paw should keep pace with them. The bars show which paws are down through a stride; the curve is the left front hip, straight while the paw is planted.</figcaption>
+          </figure>
+          <p class="note"><b>8 dogs, no starter.</b> Nothing in the world asks her to decide anything, so there's no starter to pick. 8 dogs wander the town, the picnic, the harbour and the vistas, and she meets them wherever she happens to be.</p>
+        </section>
+
+        <section class="g s" id="light" aria-labelledby="light-h">
+          <p class="num">04</p>
+          <h2 id="light-h">4 kinds of light</h2>
+          <div class="col">
+            <p>The world has a morning, a day, an evening and a night, plus Auto, which reads your clock. The idea came from Cohort's website, which changes mood with the time of day.</p>
+            <p>A mood is a table of numbers: where the sun is and its colour, the sky from horizon to zenith, fog, exposure, how hard the lamps burn, stars, the tint of the water. Changing mood blends between 2 tables over 1.1 seconds on a smoothstep. Everything it drives is a shader uniform or a light setting, so the blend adds no render pass. The one exception came later: bloom on the lamps, which only evening and night pay for.</p>
+            <p>Day is the original hard-coded palette, to the digit. Every model had been tuned against that noon sky, and if day drifted, every one of those judgements would quietly be wrong.</p>
+          </div>
+          <figure class="stage lt-fig" id="lightFig" aria-label="The town square in four moods, with the sky shader drawn across the dome and the blend curve">
+            <div class="frame lt-shot">
+              <img data-mode="morning" src="media/tiwari-town/light-morning.webp" width="1440" height="810" alt="The town square at morning: low sun from the left, long shadows, a warm horizon" loading="lazy" decoding="async" />
+              <img data-mode="day" src="media/tiwari-town/light-day.webp" width="1440" height="810" alt="The town square at noon: blue sky, short shadows" loading="lazy" decoding="async" />
+              <img data-mode="evening" src="media/tiwari-town/light-evening.webp" width="1440" height="810" alt="The town square in the evening: pink and orange sky, lamps lit" loading="lazy" decoding="async" />
+              <img data-mode="night" src="media/tiwari-town/light-night.webp" width="1440" height="810" alt="The town square at night: dark blue sky with stars, lamps glowing at the momo shop" loading="lazy" decoding="async" />
+            </div>
+            <div class="lt-dome">
+              <canvas width="720" height="120" aria-hidden="true"></canvas>
+              <svg class="lt-dome-ann" viewBox="0 0 720 120" preserveAspectRatio="none" aria-hidden="true"></svg>
+              <div class="lt-dome-lab" aria-hidden="true">
+                <span style="left:0%">N</span><span style="left:25%">E</span><span style="left:50%">S</span><span style="left:75%">W</span><span style="left:100%">N</span>
+              </div>
+            </div>
+            <div class="lt-row">
+              <svg class="lt-clock" viewBox="0 0 520 76" role="img" aria-label="The 24 hours of a day, split into the four moods Auto picks from"></svg>
+              <svg class="lt-curve" viewBox="0 0 220 120" role="img" aria-label="The blend curve, a smoothstep over 1.1 seconds"></svg>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs" role="tablist" aria-label="Mood">
+                <button type="button" role="tab" aria-selected="false" data-set="auto">Auto</button>
+                <button type="button" role="tab" aria-selected="false" data-set="morning">Morning</button>
+                <button type="button" role="tab" aria-selected="true" data-set="day">Day</button>
+                <button type="button" role="tab" aria-selected="false" data-set="evening">Evening</button>
+                <button type="button" role="tab" aria-selected="false" data-set="night">Night</button>
+              </div>
+            </div>
+            <ul class="readout lt-read" aria-live="off">
+              <li>sun <b data-r="sun">49°</b> up</li>
+              <li>intensity <b data-r="int">2.70</b></li>
+              <li>exposure <b data-r="exp">1.00</b></li>
+              <li>fog <b data-r="fog">70 to 320 m</b></li>
+              <li>lamps <b data-r="lamps">×1.00</b></li>
+              <li>stars <b data-r="stars">0.00</b></li>
+              <li>bloom <b data-r="bloom">0.00</b></li>
+            </ul>
+            <figcaption><b>Fig. 5</b> The town square in each mood, captured from the live site. The strip under it is the sky shader from Atmosphere.ts, run across the whole dome with the horizon at the bottom, on the same 1.1 second blend as the game. Pick a mood. Auto uses your own clock.</figcaption>
+          </figure>
+          <p class="note"><b>8 lamps, always.</b> three.js lights every pixel with every point light in the scene, however far away. With 45 in the world, lighting only the 8 nearest, re-picked 4 times a second, took a frame in the perf test from 764.8 ms to 48.3 ms. Always exactly 8: if the count changed, every shader in the world would recompile.</p>
+        </section>
+
+        <section class="g s" id="voice" aria-labelledby="voice-h">
+          <p class="num">05</p>
+          <h2 id="voice-h">It talks like a vlog</h2>
+          <div class="col">
+            <p>There's no dialogue and there are no menus. The world speaks in captions, as if she were narrating her own vlog: “Walking. This is the walking part of the video.”</p>
+            <p>Every line belongs to a circle on the ground. Walk into one and its lines join a queue. 2 rules run the whole system: nothing cuts anything off, and what's on screen depends only on elapsed time, so a screenshot taken at 0.12 seconds always looks the same.</p>
+            <p>A line fades in over 0.34 seconds and holds for 1.5 seconds plus 1 for every 14 characters, kept between 2.2 and 7.5. Then it fades out over 0.42, with 0.24 before the next. When 2 or more lines are waiting, the hold is cut to 60%. Walk through the town in Fig. 6.</p>
+          </div>
+          <figure class="stage vc-fig" id="voiceFig" aria-label="The town from above with the narration trigger circles, a walker you can drag, the caption and its timing">
+            <div class="stage-canvas vc-stage">
+              <div class="vc-plate" data-overlay>
+                <canvas class="vc-ground" aria-hidden="true"></canvas>
+                <svg class="vc-svg" aria-hidden="true"></svg>
+                <button class="vc-walker" type="button" aria-label="The walker. Drag it, or use the arrow keys to walk."></button>
+                <div class="vc-screen" aria-live="polite"><p class="vc-cap"></p></div>
+              </div>
+              <div class="vc-side" data-overlay>
+                <svg class="vc-plot" viewBox="0 0 440 150" role="img" aria-label="The caption's opacity over the last 12 seconds"></svg>
+                <ol class="vc-queue" aria-label="Lines waiting"></ol>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <button class="link-btn vc-walk" type="button">Walk the opening</button>
+              <button class="link-btn vc-reset" type="button">Start again</button>
+            </div>
+            <ul class="readout vc-read" aria-live="off">
+              <li>phase <b data-r="phase">idle</b></li>
+              <li>opacity <b data-r="alpha">0.00</b></li>
+              <li>queued <b data-r="queued">0</b></li>
+              <li>dropped <b data-r="dropped">0</b></li>
+              <li>silence <b data-r="silence">0.0 s</b></li>
+              <li>walked <b data-r="walked">0 m</b></li>
+            </ul>
+            <figcaption><b>Fig. 6</b> Narration.ts and the town's trigger circles from NarrationScript.ts, ported with their real lines. Drag the walker, or focus it and use the arrow keys. Grey circles have spoken; the dashed one repeats. The plot is the caption's opacity over the last 12 seconds.</figcaption>
+          </figure>
+          <p class="note"><b>Its opening line.</b> The moment the world appears, before she has taken a step, it says “Willkommen. Welcome. स्वागतम्.” in German, English and Nepali.</p>
+        </section>
+
+        <section class="g s" id="c4" aria-labelledby="c4-h">
+          <p class="num">06</p>
+          <h2 id="c4-h">A Connect 4 board the size of a barn</h2>
+          <div class="col">
+            <p>Off the main path, south-east of town, there's a pond with an island, and on the island a Connect 4 board. The grid is 4.3 m wide and its top row is about 4.7 m up. Nothing leads there. The map shows a question mark until you've been within 34 m.</p>
+            <p>An opponent that follows a few rules (take a win, block a loss, lean to the middle) can't see a double threat coming. This one is a negamax search with alpha-beta pruning, given a time budget instead of a depth. It searches 1 move ahead, then 2, then 3, and plays the best move from the last depth it finished.</p>
+            <p>The default is Hard, 150 ms a move, because the 2 people it was built for are good at Connect 4. Fig. 7 is that engine, running in this page. You're red.</p>
+          </div>
+          <figure class="stage c4-fig" id="c4Fig" aria-label="A playable Connect 4 board against the game's engine">
+            <div class="stage-canvas c4-stage">
+              <svg class="c4-board" viewBox="0 0 560 560" role="group" aria-label="Connect 4 board. Use the left and right arrow keys to choose a column, and Space or Enter to drop." tabindex="0"></svg>
+            </div>
+            <p class="c4-status" aria-live="polite">Your move.</p>
+            <div class="stage-bar">
+              <div class="tabs" role="tablist" aria-label="Opponent">
+                <button type="button" role="tab" aria-selected="false" data-level="easy">Easy</button>
+                <button type="button" role="tab" aria-selected="false" data-level="medium">Medium</button>
+                <button type="button" role="tab" aria-selected="true" data-level="hard">Hard</button>
+                <button type="button" role="tab" aria-selected="false" data-level="ruthless">Ruthless</button>
+              </div>
+              <button class="link-btn c4-new" type="button">New game</button>
+            </div>
+            <ul class="readout c4-read" aria-live="off">
+              <li>depth <b data-r="depth">0</b></li>
+              <li>positions <b data-r="nodes">0</b></li>
+              <li>score <b data-r="score">0</b></li>
+              <li>thought for <b data-r="ms">0 ms</b></li>
+            </ul>
+            <ul class="readout c4-match" aria-live="off">
+              <li>the match <b data-r="list">[]</b></li>
+              <li><b data-r="bytes">2</b> bytes</li>
+            </ul>
+            <figcaption><b>Fig. 7</b> ConnectFourGame.ts and ConnectFourAI.ts, ported whole. Click a column, or focus the board and use ← → and Space, the keys the board uses in the world. The bars over the columns are the engine's score for each move at the last depth it finished.</figcaption>
+          </figure>
+          <p class="note"><b>A match is a list of column numbers.</b> 2 people can play the same board from different countries. Replaying the list rebuilds the board, the turn and the winner exactly, so 2 screens can't disagree, and a whole game is at most 42 small numbers. A Cloudflare Durable Object keeps it, so either player can close the tab and come back to the same position.</p>
+        </section>
+
+        <section class="g s" id="race" aria-labelledby="race-h">
+          <p class="num">07</p>
+          <h2 id="race-h">Racing a friend, live</h2>
+          <div class="col">
+            <p>After the birthday, Kiel got a boat race. Since the harbour was built, 5 boats had sat frozen on the water, heeled over in a race that never started. They became the opposition, on a single 660 m run out to sea through 5 gates, with nothing to go round.</p>
+            <p>Then friends, on the water at the same time. A remote boat's newest known position is 211 to 336 ms old at the median, so it's drawn 250 ms in the past, between 2 positions that have already arrived, and that delay rises with measured jitter up to 600 ms. Your own boat never waits for the network. The countdown is an absolute time on the server's clock, so the gun fires within a few milliseconds everywhere.</p>
+            <p>Starting together is a handshake. Picking a boat sends <code>ready</code>, and the relay fires the start the moment everyone connected is ready, so no clock starts while a friend is still choosing. If a friend never readies up, your client starts anyway after 15 seconds. Fig. 8 runs it beside the simpler rule, start on pick, so you can see the difference.</p>
+          </div>
+          <figure class="stage rc-fig" id="raceFig" aria-label="The race start handshake between two players and the relay, and the race on the offshore course">
+            <div class="stage-bar rc-bar">
+              <div class="tabs" role="tablist" aria-label="Which version of the start">
+                <button type="button" role="tab" aria-selected="true" data-mode="ready">Wait for everyone</button>
+                <button type="button" role="tab" aria-selected="false" data-mode="arm">Start on pick</button>
+              </div>
+            </div>
+            <div class="stage-canvas rc-stage">
+              <svg class="rc-seq" viewBox="0 0 960 320" role="img" aria-label="Sequence diagram of the messages between her, the relay and a friend"></svg>
+            </div>
+            <div class="rc-actions">
+              <button class="button button--line" type="button" data-act="her">She picks a boat</button>
+              <button class="button button--line" type="button" data-act="friend">Her friend picks a boat</button>
+              <button class="link-btn" type="button" data-act="reset">Reset</button>
+            </div>
+            <ul class="readout rc-read" aria-live="off">
+              <li>room <b data-r="phase">open</b></li>
+              <li>her <b data-r="her">choosing</b></li>
+              <li>friend <b data-r="friend">choosing</b></li>
+              <li>gun <b data-r="gun">not set</b></li>
+            </ul>
+            <svg class="rc-course" viewBox="0 0 960 300" role="img" aria-label="The offshore course from the start line through 5 gates, with the boats"></svg>
+            <figcaption><b>Fig. 8</b> The start handshake from RaceProtocol.ts and the Worker's race room, rebuilt with their constants, then the race on the real course from KielOffshore.ts. Press the 2 buttons in any order, or press one and wait. The boats follow the gates on a simple path, not the game's physics, at 4× speed.</figcaption>
+          </figure>
+          <p class="note"><b>Measured, not assumed.</b> One request at a time against the deployed relay, the round trip settled near 200 ms, and the relay itself took 0.6 ms of it. That's what makes racing live possible. When nobody else is online, you race a recording of a friend's run instead.</p>
+        </section>
+
+        <section class="g s" id="tests" aria-labelledby="tests-h">
+          <p class="num">08</p>
+          <h2 id="tests-h">Tested like a product</h2>
+          <div class="col">
+            <p>A screenshot can show that something is there. It can't show that it works. So the world is checked the way a product is: scripts that drive a real browser with real keys and real touches, and fail loudly.</p>
+            <p>Movement is the clearest case. W has to mean forward at every heading, and a basis that turns the input the wrong way is still right at 0° and 180°, where the sine is zero, so a screenshot facing north or south would never catch it. <code>check:movement</code> holds each key at 8 headings and compares where she went with where the camera faced. Turn the dial in Fig. 9 and set the shipped basis beside a wrong one.</p>
+          </div>
+          <figure class="stage mv-fig" id="moveFig" aria-label="A compass dial showing where the W key sends her at a heading, under the shipped movement and a wrong one, and the 32 cases of the movement check">
+            <div class="stage-canvas mv-stage">
+              <svg class="mv-dial" viewBox="-160 -168 320 352" role="slider" tabindex="0" aria-label="Heading. Drag, or use the left and right arrow keys." aria-valuemin="0" aria-valuemax="359" aria-valuenow="45"></svg>
+              <div class="mv-side" data-overlay>
+                <svg class="mv-grid" viewBox="0 0 400 200" role="img" aria-label="The 32 cases: 8 headings by 4 keys, passed or failed"></svg>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs" role="tablist" aria-label="Which code the check runs against">
+                <button type="button" role="tab" aria-selected="true" data-code="old">A wrong basis</button>
+                <button type="button" role="tab" aria-selected="false" data-code="new">The shipped basis</button>
+              </div>
+            </div>
+            <ul class="readout mv-read" aria-live="off">
+              <li>heading <b data-r="hd">45°</b></li>
+              <li>W goes <b data-r="w">0°</b></li>
+              <li>off by <b data-r="err">0°</b></li>
+              <li>failed <b data-r="fail">0 of 32</b></li>
+            </ul>
+            <figcaption><b>Fig. 9</b> The check from check-movement.mjs, run in this page against the movement basis from PlayerController.ts and against one turned the wrong way, rebuilt here. Drag the dial, or focus it and use the arrow keys. A case passes when she moves in the expected direction to within the check's tolerance, a cosine of 0.985.</figcaption>
+          </figure>
+          <h3 class="sub">What each check proves</h3>
+          <ul class="rows tw-checks">
+            <li><div><b><code>check:landmarks</code></b><p>Every place the map sends her is a place she can walk away from. It stands her at each arrival point and holds every key in turn.</p></div></li>
+            <li><div><b><code>check:light</code></b><p>The mood picker shows itself, leaves on its own, comes back on L, changes the world and survives a reload. 8 of 8.</p></div></li>
+            <li><div><b><code>check:bloom</code></b><p>Switching to night never shows a blank frame. It measures each frame's JPEG size rather than its brightness, because night is meant to be dark: a blank frame compresses to about 3 KB and a drawn one to about 60 KB.</p></div></li>
+            <li><div><b><code>check:playmode</code> and <code>check:boardfocus</code></b><p>The Connect 4 cursor with real keys, end to end. E squares her up to the board, walking stops, Escape gives it back. The play mode passes 9 of 9.</p></div></li>
+            <li><div><b><code>check:ai</code></b><p>The stronger engine must not lose the series. Hard against a 3 rule opponent: 6 wins, 0 losses, 4 draws.</p></div></li>
+            <li><div><b><code>check:touch</code></b><p>Real touch events: walk with the thumbstick, turn with a second thumb while walking, let go and stop. 30 assertions.</p></div></li>
+            <li><div><b><code>check:race</code></b><p>The course is sailable and nothing on it is aground. It probes the ground under all 30 course points. 34 of 34.</p></div></li>
+            <li><div><b><code>check:sounds</code></b><p>Pressing things makes sound, measured at the last node before the speakers, and the sound page downloads 0 bytes of audio. There isn't an audio file in the project.</p></div></li>
+          </ul>
+          <p class="note"><b>And the relay.</b> The Cloudflare Worker that carries Connect 4 and the races has its own suites: 87 of 87 across 4, run against a live Worker.</p>
+        </section>
+
+        <section class="g s" id="gate" aria-labelledby="gate-h">
+          <p class="num">09</p>
+          <h2 id="gate-h">The door under the tower</h2>
+          <div class="col">
+            <p>The walk ends at the Tech Tower. Under its 1888 arch is a door, and within 9 m of it the world says: “The door under the tower goes somewhere I built for you. [E] to step through.” Press E and the next present opens in a new tab: the Saleena Tiwari showcase.</p>
+            <p>The door has one job: open the next present without taking the world away. That rules out the obvious call. <code>window.open</code> with <code>noopener</code> returns null by design, and the usual popup-blocked fallback reads that null as a failure and sends the current tab away as well.</p>
+            <p>So the door clicks a hidden link instead: the same new tab, the same <code>noopener</code>, and nothing returned to misread. Fig. 10 runs both.</p>
+          </div>
+          <figure class="stage gt-fig" id="gateFig" aria-label="2 ways to open the next present, and what each does to the browser's tabs">
+            <div class="stage-canvas gt-stage">
+              <pre class="gt-code" data-overlay aria-label="The gate's interact method"></pre>
+              <svg class="gt-tabs" viewBox="0 0 440 300" role="img" aria-label="The browser's tabs when she presses E at the door"></svg>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs" role="tablist" aria-label="Which version">
+                <button type="button" role="tab" aria-selected="true" data-ver="before">window.open</button>
+                <button type="button" role="tab" aria-selected="false" data-ver="after">A hidden link</button>
+              </div>
+              <button class="button button--line gt-press" type="button">Press E at the door</button>
+            </div>
+            <figcaption><b>Fig. 10</b> The gate's <code>interact()</code> from TechTower.ts, written with <code>window.open</code> and with a hidden link. Press E to run each and watch the tabs.</figcaption>
+          </figure>
+          <p class="note"><b>2 tabs, on purpose.</b> The world takes real seconds to build and she is standing in it. Opening the next present in a new tab means she can come back to the world without waiting for it again.</p>
+        </section>
+
+        <section class="g s" id="live" aria-labelledby="live-h">
+          <p class="num">10</p>
+          <h2 id="live-h">Walk it</h2>
+          <div class="col">
+            <p>The real thing, in this page. Click into it to look around. On a phone it has its own thumbstick.</p>
+          </div>
+          <div class="live" data-src="https://tiwari-nine.vercel.app/" data-title="Tiwari Town, live">
+            <div class="frame live-frame">
+              <img src="media/tiwari-town/cover.webp" width="1600" height="889" alt="" loading="lazy" />
+              <button class="live-go" type="button">Load Tiwari Town here</button>
+            </div>
+            <figcaption><b>Fig. 11</b> Loads the live site in place. It builds the whole world in your browser before you see it, so it waits until you ask.</figcaption>
+          </div>
+          <dl class="keys">
+            <div><dt><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></dt><dd>Walk. Shift to jog.</dd></div>
+            <div><dt>Mouse</dt><dd>Look around, once you've clicked in</dd></div>
+            <div><dt><kbd>M</kbd></dt><dd>The map. Every pin is a place you can travel to.</dd></div>
+            <div><dt><kbd>E</kbd></dt><dd>Take, play, take the helm, step through</dd></div>
+            <div><dt><kbd>L</kbd></dt><dd>Change the light</dd></div>
+            <div><dt><kbd>P</kbd></dt><dd>Photo mode</dd></div>
+            <div><dt><kbd>N</kbd></dt><dd>Sound on and off</dd></div>
+          </dl>
+          <dl class="facts">
+            <div><dt>Dogs wandering the world</dt><dd>8</dd></div>
+            <div><dt>World seed</dt><dd>20260803</dd></div>
+            <div><dt>Places on the map</dt><dd>9</dd></div>
+            <div><dt>Point lights lit at once, on the live site</dt><dd>8 of 54</dd></div>
+            <div><dt>Lines of TypeScript written for it</dt><dd>60,203</dd></div>
+            <div><dt>Audio files</dt><dd>0</dd></div>
+          </dl>
+        </section>
+
+        <section class="g s end" id="end" aria-labelledby="end-h">
+          <p class="num">11</p>
+          <h2 id="end-h">Conclusion</h2>
+          <div class="col">
+            <p>Tiwari Town gave her a world to walk on her birthday: a town, a harbour, a mountain overlook, a museum, a board to play on and a door at the end that opens the next present. Then it let her bring friends into it, racing live across the bay.</p>
+            <p>Every model in it was tuned the same way: edit, take the pictures, read them, adjust, about 10 seconds a round. What a picture can't show, a check that drives a real browser does.</p>
+          </div>
+          <div class="actions"><a class="button" href="https://tiwari-nine.vercel.app/" target="_blank" rel="noopener">Open Tiwari Town</a></div>
+        </section>
+
+        <a class="next" href="saleena-tiwari.html">
+          <span class="label">Next case study</span>
+          <span class="next-t">Saleena Tiwari</span>
+          <span class="next-d">The showcase its gate opens: a statue in a green void, with memories spiralling around her as you scroll.</span>
+        </a>
+
+        <footer>
+          <span>Tiwari Town</span>
+          <a href="../index.html#work">All work</a>
+        </footer>
+      </div>
+    </article>
+  </main>
+  <script src="study.js" defer></script>
+  <script type="module" src="tiwari-town/page.js"></script>
+</body>
+</html>

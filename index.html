@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20261011g" />
 
   <!-- Set the time-of-day theme before first paint (no flash). ?vibe=night overrides. -->
   <script>
@@ -115,14 +115,56 @@
     <section class="work" id="work">
       <div class="section-head">
         <span class="section-head__label">(Selected Work)</span>
-        <span class="section-head__count">Ten projects</span>
+        <span class="section-head__count">Thirteen projects</span>
       </div>
 
       <ol class="projects" id="projects">
 
-        <!-- 1. Wire -->
+        <!-- 1. Redbrick (case study: its own about page) -->
+        <li class="project" style="--tint:#a3381d">
+          <a class="project__card" href="https://redbrick.ink/about" target="_blank" rel="noopener" data-note="Read the case study">
+            <div class="project__cover">
+              <img src="images/redbrick-web.png" alt="Redbrick" loading="lazy" />
+              <video class="project__reel" data-src="videos/redbrick.mp4" muted loop playsinline preload="none"></video>
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:transparent"><img src="images/redbrick-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" /></span>
+                <p class="project__title">Redbrick</p>
+                <span class="project__type">3D</span>
+                <span class="project__year">2026</span>
+              </div>
+              <div class="project__track" aria-hidden="true">
+                <span class="project__track-inner">Three.js, TypeScript, Vite, OpenStreetMap, LIDAR, Open Data, WebGL, Three.js, TypeScript, Vite, OpenStreetMap, LIDAR, Open Data, WebGL, </span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 2. Interfaze redesign (case study: /redesign) -->
+        <li class="project" style="--tint:#00bfa6">
+          <a class="project__card" href="https://interfaze-redesign.vercel.app/redesign" target="_blank" rel="noopener" data-note="Read the case study">
+            <div class="project__cover">
+              <img src="images/interfaze-web.png" alt="Interfaze redesign" loading="lazy" />
+              <video class="project__reel" data-src="videos/interfaze.mp4" muted loop playsinline preload="none"></video>
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:transparent"><img src="images/interfaze-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" /></span>
+                <p class="project__title">Interfaze</p>
+                <span class="project__type">Redesign</span>
+                <span class="project__year">2026</span>
+              </div>
+              <div class="project__track" aria-hidden="true">
+                <span class="project__track-inner">Next.js, React, Tailwind, Motion, Design Systems, Lighthouse, Next.js, React, Tailwind, Motion, Design Systems, Lighthouse, </span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 3. Wire -->
         <li class="project" style="--tint:#e0f61c">
-          <a class="project__card" href="https://usewire.vercel.app/" target="_blank" rel="noopener">
+          <a class="project__card" href="case-studies/wire.html" data-note="Read the case study">
             <div class="project__cover">
               <img src="images/wire-web.png" alt="Wire" loading="lazy" />
               <video class="project__reel" data-src="videos/wire.mp4" muted loop playsinline preload="none"></video>
@@ -141,9 +183,9 @@
           </a>
         </li>
 
-        <!-- 2. Cohort -->
+        <!-- 4. Cohort -->
         <li class="project" style="--tint:#3358ff">
-          <a class="project__card" href="https://www.trycohort.xyz/" target="_blank" rel="noopener">
+          <a class="project__card" href="case-studies/cohort.html" data-note="Read the case study">
             <div class="project__cover">
               <img src="images/cohort-web.png" alt="Cohort" loading="lazy" />
               <video class="project__reel" data-src="videos/cohort.mp4" muted loop playsinline preload="none"></video>
@@ -153,18 +195,39 @@
                 <span class="project__dot" style="background:#161616"><img src="images/cohort-work-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" /></span>
                 <p class="project__title">Cohort</p>
                 <span class="project__type">Product</span>
-                <span class="project__year">2025</span>
+                <span class="project__year">2026</span>
               </div>
               <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">Next.js, GSAP, Lenis, Framer Motion, TypeScript, Vercel, App Router, Scroll Animations, Next.js, GSAP, Lenis, Framer Motion, TypeScript, Vercel, App Router, Scroll Animations,</span>
+                <span class="project__track-inner">GSAP, Lenis, WebGL, Web Audio, Canvas, Vanilla JS, Vercel, Postgres, GSAP, Lenis, WebGL, Web Audio, Canvas, Vanilla JS, Vercel, Postgres,</span>
               </div>
             </div>
           </a>
         </li>
 
-        <!-- 3. Saleena Tiwari (3D showcase) -->
+        <!-- 5. Tiwari Town (Project Tiwari) -->
+        <li class="project" style="--tint:#4a9fe0">
+          <a class="project__card" href="case-studies/tiwari-town.html" data-note="Read the case study">
+            <div class="project__cover">
+              <img src="images/tiwari-town-web.png" alt="Tiwari Town" loading="lazy" />
+              <video class="project__reel" data-src="videos/tiwari-town.mp4" muted loop playsinline preload="none"></video>
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:#4a9fe0">T</span>
+                <p class="project__title">Tiwari Town</p>
+                <span class="project__type">3D</span>
+                <span class="project__year">2026</span>
+              </div>
+              <div class="project__track" aria-hidden="true">
+                <span class="project__track-inner">Three.js, TypeScript, Vite, Procedural, Multiplayer, Web Audio, Vercel, Three.js, TypeScript, Vite, Procedural, Multiplayer, Web Audio, Vercel, </span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 6. Saleena Tiwari (3D showcase) -->
         <li class="project" style="--tint:#7a9c6f">
-          <a class="project__card" href="https://saleena-3dshowcase.vercel.app/" target="_blank" rel="noopener">
+          <a class="project__card" href="case-studies/saleena-tiwari.html" data-note="Read the case study">
             <div class="project__cover">
               <img src="images/saleena-tiwari-web.png" alt="Saleena Tiwari" loading="lazy" />
               <video class="project__reel" data-src="videos/saleena-tiwari.mp4" muted loop playsinline preload="none"></video>
@@ -177,15 +240,15 @@
                 <span class="project__year">2026</span>
               </div>
               <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">Three.js, WebGL, 3D Modeling, Personal, Vercel, Three.js, WebGL, 3D Modeling, Personal, Vercel,</span>
+                <span class="project__track-inner">Three.js, Vite, Shaders, Blender, Scroll, Personal, Vercel, Three.js, Vite, Shaders, Blender, Scroll, Personal, Vercel,</span>
               </div>
             </div>
           </a>
         </li>
 
-        <!-- 4. Subtitles -->
+        <!-- 7. Subtitles -->
         <li class="project" style="--tint:#6c5ce7">
-          <a class="project__card" href="https://subtitles.vercel.app/" target="_blank" rel="noopener">
+          <a class="project__card" href="case-studies/subtitles.html" data-note="Read the case study">
             <div class="project__cover">
               <img src="images/subtitles-web.png" alt="Subtitles" loading="lazy" />
               <video class="project__reel" data-src="videos/subtitles.mp4" muted loop playsinline preload="none"></video>
@@ -195,18 +258,18 @@
                 <span class="project__dot" style="background:transparent"><img src="images/subtitles-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" /></span>
                 <p class="project__title">Subtitles</p>
                 <span class="project__type">Motion</span>
-                <span class="project__year">2024</span>
+                <span class="project__year">2026</span>
               </div>
               <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">JavaScript, CSS Transitions, requestAnimationFrame, Typography, Motion Design, Vercel, JavaScript, CSS Transitions, requestAnimationFrame, Typography, Motion Design, Vercel,</span>
+                <span class="project__track-inner">JavaScript, Three.js, MediaPipe, GSAP, Cloudinary, Typography, Vercel, JavaScript, Three.js, MediaPipe, GSAP, Cloudinary, Typography, Vercel,</span>
               </div>
             </div>
           </a>
         </li>
 
-        <!-- 5. Kulture -->
+        <!-- 8. Kulture -->
         <li class="project" style="--tint:#c8a94a">
-          <a class="project__card" href="https://kulture-event.vercel.app/" target="_blank" rel="noopener">
+          <a class="project__card" href="case-studies/kulture.html" data-note="Read the case study">
             <div class="project__cover">
               <img src="images/kulture-web.png" alt="KULTURE*" loading="lazy" />
               <video class="project__reel" data-src="videos/kulture.mp4" muted loop playsinline preload="none"></video>
@@ -221,15 +284,15 @@
                 <span class="project__year">2025</span>
               </div>
               <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">HTML, CSS, JavaScript, Paystack, OpenStreetMap, @font-face, Vanilla Build, Vercel, HTML, CSS, JavaScript, Paystack, OpenStreetMap, @font-face, Vanilla Build, Vercel,</span>
+                <span class="project__track-inner">HTML, CSS, JavaScript, GSAP, Brand, Print, Puppeteer, OpenStreetMap, HTML, CSS, JavaScript, GSAP, Brand, Print, Puppeteer, OpenStreetMap,</span>
               </div>
             </div>
           </a>
         </li>
 
-        <!-- 6. Clark -->
+        <!-- 9. Clark -->
         <li class="project" style="--tint:#ff5b1f">
-          <a class="project__card" href="https://clarkai-fe.vercel.app/" target="_blank" rel="noopener">
+          <a class="project__card" href="case-studies/clark.html" data-note="Read the case study">
             <div class="project__cover">
               <img src="images/clark.png" alt="Clark" loading="lazy" />
               <video class="project__reel" data-src="videos/clark.mp4" muted loop playsinline preload="none"></video>
@@ -248,9 +311,9 @@
           </a>
         </li>
 
-        <!-- 7. Raise -->
+        <!-- 10. Raise -->
         <li class="project" style="--tint:#4b63ff">
-          <a class="project__card" href="https://www.trycohort.xyz/raise" target="_blank" rel="noopener">
+          <a class="project__card" href="case-studies/raise.html" data-note="Read the case study">
             <div class="project__cover">
               <img src="images/raise-web.png" alt="Cohort / Raise" loading="lazy" />
               <video class="project__reel" data-src="videos/raise.mp4" muted loop playsinline preload="none"></video>
@@ -260,18 +323,18 @@
                 <span class="project__dot" style="background:#161616"><img src="images/cohort-work-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" /></span>
                 <p class="project__title">Cohort / Raise</p>
                 <span class="project__type">Pitch</span>
-                <span class="project__year">2025</span>
+                <span class="project__year">2026</span>
               </div>
               <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">GSAP, ScrollTrigger, Lenis, Narrative Design, Next.js, CSS Variables, Motion Design, GSAP, ScrollTrigger, Lenis, Narrative Design, Next.js, CSS Variables, Motion Design,</span>
+                <span class="project__track-inner">GSAP, Lenis, Canvas, SVG, Narrative Design, CSS Variables, Motion Design, GSAP, Lenis, Canvas, SVG, Narrative Design, CSS Variables, Motion Design,</span>
               </div>
             </div>
           </a>
         </li>
 
-        <!-- 8. Seyi's Park (3D case study) -->
+        <!-- 11. Seyi's Park (3D case study) -->
         <li class="project" style="--tint:#3a8f3a">
-          <a class="project__card" href="https://seyi3d-park.vercel.app/" target="_blank" rel="noopener">
+          <a class="project__card" href="case-studies/seyis-park.html" data-note="Read the case study">
             <div class="project__cover">
               <img src="images/seyispark-web.png" alt="Seyi's Park" loading="lazy" />
               <video class="project__reel" data-src="videos/seyispark.mp4" muted loop playsinline preload="none"></video>
@@ -281,18 +344,18 @@
                 <span class="project__dot" style="background:transparent"><img src="images/seyispark-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" /></span>
                 <p class="project__title">Seyi's Park</p>
                 <span class="project__type">Creative</span>
-                <span class="project__year">2025</span>
+                <span class="project__year">2026</span>
               </div>
               <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">Three.js, WebGL, GLSL, 3D Modeling, requestAnimationFrame, Vercel, Creative Dev, Three.js, WebGL, GLSL, 3D Modeling, requestAnimationFrame, Vercel, Creative Dev,</span>
+                <span class="project__track-inner">Three.js, Blender, GSAP, Howler, Isometric 3D, Creative Dev, Vercel, Three.js, Blender, GSAP, Howler, Isometric 3D, Creative Dev, Vercel,</span>
               </div>
             </div>
           </a>
         </li>
 
-        <!-- 9. Saleena -->
+        <!-- 12. Saleena -->
         <li class="project" style="--tint:#e07ba0">
-          <a class="project__card" href="https://saleena.framer.website/" target="_blank" rel="noopener">
+          <a class="project__card" href="case-studies/saleena.html" data-note="Read the case study">
             <div class="project__cover">
               <img src="images/saleena-web.png" alt="Saleena" loading="lazy" />
               <video class="project__reel" data-src="videos/saleena.mp4" muted loop playsinline preload="none"></video>
@@ -311,9 +374,9 @@
           </a>
         </li>
 
-        <!-- 10. Fragments -->
+        <!-- 13. Fragments -->
         <li class="project" style="--tint:#c8a94a">
-          <a class="project__card" href="https://www.notion.so/theboygenius/Hello-I-m-Seyi-I-build-cool-Stuff-1086f532ebdc8047ba3efd26f28c9331?pvs=18" target="_blank" rel="noopener">
+          <a class="project__card" href="https://www.notion.so/theboygenius/Hello-I-m-Seyi-I-build-cool-Stuff-1086f532ebdc8047ba3efd26f28c9331?pvs=18" target="_blank" rel="noopener" data-note="Open the archive">
             <div class="project__cover">
               <img src="images/fragments-web.png" alt="Fragments" loading="lazy" />
             </div>
@@ -331,12 +394,55 @@
           </a>
         </li>
 
+
+        <!-- 14. Your project: an envelope with a brief inside. Hover opens it, click sends it. -->
+        <li class="project project--open">
+          <a class="project__card" href="mailto:ogemgoldsmith07@gmail.com?subject=Your%20project" data-note="Send it" aria-label="Your project. Email Seyi at ogemgoldsmith07@gmail.com">
+            <div class="project__cover project__cover--open">
+              <div class="env-shadow" aria-hidden="true"></div>
+              <div class="env" aria-hidden="true">
+                <div class="env__back"></div>
+                <div class="env__letter">
+                  <p class="env__brief"><span>✸</span> Brief no. 14</p>
+                  <p class="env__lead">Your project could be</p>
+                  <p class="env__blank"><span class="env__line"><span class="brief__typed">a world someone can walk through.</span><i class="env__caret"></i></span></p>
+                </div>
+                <div class="env__flap"><span class="env__seal">✸</span></div>
+                <div class="env__pocket">
+                  <p class="env__to">For Seyi,</p>
+                  <p class="env__about">about your project</p>
+                  <p class="env__addr">ogemgoldsmith07@gmail.com</p>
+                  <div class="env__stamp"><span>✸</span><b>2026</b></div>
+                  <svg class="env__postmark" viewBox="0 0 120 60">
+                    <defs><path id="pm-ring" d="M30 30 m-22 0 a22 22 0 1 1 44 0 a22 22 0 1 1 -44 0" /></defs>
+                    <circle cx="30" cy="30" r="27" />
+                    <text><textPath href="#pm-ring" textLength="136" lengthAdjust="spacing">SEYI ✸ ANYWHERE ✸ </textPath></text>
+                    <text class="pm-mid" x="30" y="30">✸</text>
+                    <path d="M60 18 q7 -5 14 0 t14 0 t14 0 t14 0" /><path d="M60 26 q7 -5 14 0 t14 0 t14 0 t14 0" /><path d="M60 34 q7 -5 14 0 t14 0 t14 0 t14 0" /><path d="M60 42 q7 -5 14 0 t14 0 t14 0 t14 0" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot project__dot--open" aria-hidden="true">✸</span>
+                <p class="project__title">Your project</p>
+                <span class="project__type">Let's talk</span>
+                <span class="project__year">Next</span>
+              </div>
+              <div class="project__track" aria-hidden="true">
+                <span class="project__track-inner">A launch, A product, A 3D world, An identity, An AI tool, A story worth telling, A launch, A product, A 3D world, An identity, An AI tool, A story worth telling, </span>
+              </div>
+            </div>
+          </a>
+        </li>
+
       </ol>
 
       <!-- Cursor note (desktop): follows the pointer over any project card -->
       <div class="cursor-note" id="cursor-note" aria-hidden="true">
         <span class="cursor-note__pill">
-          Case study in progress &mdash; visit live site
+          <span class="cursor-note__text">Read the case study</span>
           <span class="cursor-note__arrow">↗</span>
         </span>
       </div>
@@ -528,6 +634,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js?v=20261011g"></script>
 </body>
 </html>

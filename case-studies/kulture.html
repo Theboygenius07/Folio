@@ -1,151 +1,496 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KULTURE* — Case Study · Seyi Ogundipe</title>
-  <meta name="description" content="Brand identity and event web build for KULTURE* — a Lagos street culture party." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="case-study.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Building KULTURE* · Seyi Ogundipe</title>
+  <meta name="description" content="How the KULTURE* party site was built: a night out framed as a flight, with a boarding pass you can tilt, sign and switch, a departures board, and print made from code." />
+  <meta name="author" content="Seyi Ogundipe" />
+  <meta name="theme-color" content="#f3f1ea" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building KULTURE*: a party with a boarding pass" />
+  <meta property="og:description" content="A one-night street-culture party in Ojo, Lagos, and the ticket people played with before they bought one." />
+  <link rel="icon" href="../images/kulture-icon.svg" type="image/svg+xml" />
+  <link rel="preload" href="fonts-kulture/FuturaCyrillicHeavy.woff" as="font" type="font/woff" crossorigin />
+  <link rel="stylesheet" href="study.css" />
+  <link rel="stylesheet" href="kulture/page.css" />
 </head>
-<body>
-  <div class="grain" aria-hidden="true"></div>
-
-  <div class="cs-marquee" aria-hidden="true">
-    <div class="cs-marquee__track">
-      <span>KULTURE* <span class="dot">·</span> Design &amp; front-end <span class="dot">·</span> Brand · Web · Event <span class="dot">·</span> 2025 <span class="dot">·</span> Lagos, Nigeria <span class="dot">·</span></span><span>KULTURE* <span class="dot">·</span> Design &amp; front-end <span class="dot">·</span> Brand · Web · Event <span class="dot">·</span> 2025 <span class="dot">·</span> Lagos, Nigeria <span class="dot">·</span></span>
-    </div>
+<body style="--tint:#c8a94a; --tint-ink:#7d6118">
+  <div class="page">
+    <header class="bar">
+      <a class="bar-home" href="../index.html#work"><i aria-hidden="true">←</i> Seyi Ogundipe</a>
+      <a href="../index.html#work">All work</a>
+    </header>
   </div>
 
-  <nav class="cs-nav">
-    <a href="../index.html#work" class="cs-nav__back" data-magnetic><span class="arrow">←</span><span>All work</span></a>
-    <span class="cs-nav__mark"><img class="cs-nav__icon" src="../images/kulture-icon.svg" alt="" /><span>KULTURE<span class="ast">*</span></span></span>
+  <nav class="toc" aria-label="Contents">
+    <p class="label">Contents</p>
+    <ol>
+      <li><a href="#intro"><span>01</span> Intro</a></li>
+      <li><a href="#flight"><span>02</span> The night is a flight</a></li>
+      <li><a href="#tilt"><span>03</span> A ticket you can hold</a></li>
+      <li><a href="#sideways"><span>04</span> Sideways first</a></li>
+      <li><a href="#type"><span>05</span> Restless type</a></li>
+      <li><a href="#board"><span>06</span> Departures board</a></li>
+      <li><a href="#marquee"><span>07</span> The marquee</a></li>
+      <li><a href="#lineup"><span>08</span> The lineup</a></li>
+      <li><a href="#print"><span>09</span> Off the screen</a></li>
+      <li><a href="#end"><span>10</span> Conclusion</a></li>
+    </ol>
   </nav>
 
-  <div class="cs-cover" data-reveal="clip">
-    <img src="../images/kulture-2.png" alt="KULTURE* event flyer" loading="lazy" />
-  </div>
+  <main>
+    <article>
+      <div class="page">
+        <header class="a-head">
+          <p class="eyebrow"><i></i> Case study / 008</p>
+          <h1>Building KULTURE*: a&nbsp;party with a boarding pass</h1>
+          <p class="stand">A one-night street-culture party in Ojo, Lagos, for students coming off exams. The site opens on a ticket you can tilt, sign and switch, and everything after it follows a single idea: the night is a flight.</p>
+          <p class="meta"><b>2025</b><span></span>Brand, web and print</p>
+        </header>
 
-  <header class="cs-hero">
-    <div class="cs-hero__main">
-      <p class="cs-hero__eyebrow" data-reveal><span class="idx">04</span><span class="sep"></span><span>Case Study</span></p>
-      <h1 class="cs-hero__title" data-reveal>An event brand, <em>built to move</em></h1>
-      <p class="cs-hero__lede" data-reveal>Brand identity and event web build for KULTURE* — a Lagos street culture party. Design system, ticket tiers, and a site engineered to convert before the early bird closes.</p>
-      <div class="cs-tags" data-reveal>
-        <span class="cs-tags__pill">Brand Identity</span>
-        <span class="cs-tags__pill">Event Design</span>
-        <span class="cs-tags__pill">Ticketing</span>
-        <span class="cs-tags__pill">Nightlife</span>
-        <span class="cs-tags__pill">Paystack Checkout</span>
+        <!-- Fig. 1: the real pass, floating on the paper. Markup from Kulture/index.html, tilt from js/main.js:219-243. -->
+        <figure class="stage k k-hero" id="kHero">
+          <div class="stage-canvas k-hero-canvas" data-overlay>
+            <div class="k-float">
+              <div class="k-shadow" aria-hidden="true"></div>
+              <div class="ticket-card" id="ticketCard" tabindex="0" role="group" aria-label="A KULTURE* boarding pass. Point at it or drag it to tilt it. Arrow keys tilt it too. Type your name on it.">
+                <div class="ticket-main">
+                  <div class="ticket-header">
+                    <span class="ticket-brand">KULTURE<em>*</em></span>
+                    <div class="ticket-route" aria-hidden="true">
+                      <div class="ticket-city"><span class="ticket-city-code">OJO</span><span class="ticket-city-name">Lagos</span></div>
+                      <svg class="ticket-arrow-svg" viewBox="0 0 40 12" fill="none"><line x1="0" y1="6" x2="34" y2="6" stroke="currentColor" stroke-width="1.2"/><polyline points="28,1 36,6 28,11" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+                      <div class="ticket-city"><span class="ticket-city-code">PTY</span><span class="ticket-city-name">Party</span></div>
+                    </div>
+                  </div>
+                  <div class="ticket-rule"></div>
+                  <div class="ticket-passenger">
+                    <span class="ticket-field-label">Passenger</span>
+                    <span class="ticket-name" id="ticketName" contenteditable="true" spellcheck="false" role="textbox" aria-label="Your name on the ticket">YOUR NAME</span>
+                  </div>
+                  <div class="ticket-info-row">
+                    <div class="ticket-field"><span class="ticket-field-label">Gate</span><span class="ticket-field-val">A1</span></div>
+                    <div class="ticket-field"><span class="ticket-field-label">Departs</span><span class="ticket-field-val">21:00</span></div>
+                    <div class="ticket-field"><span class="ticket-field-label">Date</span><span class="ticket-field-val">JUL 2025</span></div>
+                    <div class="ticket-field"><span class="ticket-field-label">Class</span><span class="ticket-field-val ticket-tier-val" id="ticketTierVal">VIP</span></div>
+                  </div>
+                  <div class="ticket-barcode">
+                    <svg class="ticket-qr-svg" viewBox="0 0 21 21" shape-rendering="crispEdges" aria-hidden="true"><g fill="currentColor"><rect x="0" y="0" width="7" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="10" y="0" width="1" height="1"/><rect x="14" y="0" width="7" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="10" y="1" width="2" height="1"/><rect x="14" y="1" width="1" height="1"/><rect x="20" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="2" y="2" width="3" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="14" y="2" width="1" height="1"/><rect x="16" y="2" width="3" height="1"/><rect x="20" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="2" y="3" width="3" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="14" y="3" width="1" height="1"/><rect x="16" y="3" width="3" height="1"/><rect x="20" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="2" y="4" width="3" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="14" y="4" width="1" height="1"/><rect x="16" y="4" width="3" height="1"/><rect x="20" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="9" y="5" width="1" height="1"/><rect x="11" y="5" width="2" height="1"/><rect x="14" y="5" width="1" height="1"/><rect x="20" y="5" width="1" height="1"/><rect x="0" y="6" width="7" height="1"/><rect x="8" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="14" y="6" width="7" height="1"/><rect x="9" y="7" width="1" height="1"/><rect x="11" y="7" width="1" height="1"/><rect x="1" y="8" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="6" y="8" width="1" height="1"/><rect x="8" y="8" width="1" height="1"/><rect x="10" y="8" width="1" height="1"/><rect x="15" y="8" width="1" height="1"/><rect x="17" y="8" width="1" height="1"/><rect x="20" y="8" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="4" y="9" width="1" height="1"/><rect x="9" y="9" width="1" height="1"/><rect x="12" y="9" width="1" height="1"/><rect x="14" y="9" width="1" height="1"/><rect x="16" y="9" width="1" height="1"/><rect x="19" y="9" width="1" height="1"/><rect x="0" y="10" width="1" height="1"/><rect x="3" y="10" width="1" height="1"/><rect x="5" y="10" width="2" height="1"/><rect x="8" y="10" width="1" height="1"/><rect x="10" y="10" width="1" height="1"/><rect x="15" y="10" width="1" height="1"/><rect x="18" y="10" width="1" height="1"/><rect x="1" y="11" width="1" height="1"/><rect x="4" y="11" width="1" height="1"/><rect x="9" y="11" width="1" height="1"/><rect x="11" y="11" width="1" height="1"/><rect x="14" y="11" width="1" height="1"/><rect x="17" y="11" width="1" height="1"/><rect x="19" y="11" width="1" height="1"/><rect x="0" y="12" width="1" height="1"/><rect x="2" y="12" width="1" height="1"/><rect x="5" y="12" width="2" height="1"/><rect x="8" y="12" width="1" height="1"/><rect x="12" y="12" width="1" height="1"/><rect x="15" y="12" width="2" height="1"/><rect x="20" y="12" width="1" height="1"/><rect x="8" y="13" width="1" height="1"/><rect x="10" y="13" width="1" height="1"/><rect x="13" y="13" width="1" height="1"/><rect x="17" y="13" width="1" height="1"/><rect x="0" y="14" width="7" height="1"/><rect x="9" y="14" width="1" height="1"/><rect x="12" y="14" width="1" height="1"/><rect x="14" y="14" width="1" height="1"/><rect x="18" y="14" width="1" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="6" y="15" width="1" height="1"/><rect x="8" y="15" width="1" height="1"/><rect x="10" y="15" width="1" height="1"/><rect x="15" y="15" width="1" height="1"/><rect x="17" y="15" width="1" height="1"/><rect x="20" y="15" width="1" height="1"/><rect x="0" y="16" width="1" height="1"/><rect x="2" y="16" width="3" height="1"/><rect x="6" y="16" width="1" height="1"/><rect x="11" y="16" width="1" height="1"/><rect x="14" y="16" width="1" height="1"/><rect x="19" y="16" width="1" height="1"/><rect x="0" y="17" width="1" height="1"/><rect x="2" y="17" width="3" height="1"/><rect x="6" y="17" width="1" height="1"/><rect x="8" y="17" width="1" height="1"/><rect x="12" y="17" width="1" height="1"/><rect x="15" y="17" width="1" height="1"/><rect x="17" y="17" width="1" height="1"/><rect x="20" y="17" width="1" height="1"/><rect x="0" y="18" width="1" height="1"/><rect x="2" y="18" width="3" height="1"/><rect x="6" y="18" width="1" height="1"/><rect x="9" y="18" width="1" height="1"/><rect x="11" y="18" width="1" height="1"/><rect x="14" y="18" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/><rect x="0" y="19" width="1" height="1"/><rect x="6" y="19" width="1" height="1"/><rect x="8" y="19" width="1" height="1"/><rect x="10" y="19" width="1" height="1"/><rect x="16" y="19" width="1" height="1"/><rect x="19" y="19" width="1" height="1"/><rect x="0" y="20" width="7" height="1"/><rect x="11" y="20" width="1" height="1"/><rect x="14" y="20" width="1" height="1"/><rect x="17" y="20" width="1" height="1"/><rect x="20" y="20" width="1" height="1"/></g></svg>
+                    <div class="ticket-barcode-info">
+                      <span class="ticket-barcode-num" id="ticketCode">KULTURE25 · VIP · OJO · JUL 2025</span>
+                      <span class="ticket-barcode-scan">Scan to verify</span>
+                    </div>
+                  </div>
+                  <span class="ticket-buy-btn" aria-hidden="true">Secure your ticket →</span>
+                </div>
+                <div class="ticket-perf" aria-hidden="true"></div>
+                <div class="ticket-stub" aria-hidden="true">
+                  <span class="stub-brand">K<em>*</em></span>
+                  <span class="stub-label">Boarding<br />pass</span>
+                  <span class="stub-tier" id="stubTier">VIP</span>
+                  <span class="stub-name" id="stubName">YOUR NAME</span>
+                  <span class="stub-date">JUL 2025</span>
+                  <div class="stub-qr"><svg viewBox="0 0 36 28" width="36" height="28" preserveAspectRatio="none"><g fill="currentColor"><rect x="0" width="2" height="28"/><rect x="3" width="1" height="28"/><rect x="5" width="2" height="28"/><rect x="9" width="3" height="28"/><rect x="13" width="1" height="28"/><rect x="16" width="2" height="28"/><rect x="20" width="3" height="28"/><rect x="24" width="1" height="28"/><rect x="27" width="2" height="28"/><rect x="30" width="2" height="28"/><rect x="33" width="1" height="28"/><rect x="35" width="2" height="28"/></g></svg></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="stage-bar">
+            <div class="tabs" role="group" aria-label="Ticket class">
+              <button type="button" data-tier="earlybird" aria-pressed="false">Early Bird ₦3,000</button>
+              <button type="button" data-tier="vip" aria-pressed="true">VIP ₦5,000</button>
+              <button type="button" data-tier="table" aria-pressed="false">Table from ₦100,000</button>
+            </div>
+            <ul class="readout" aria-label="Tilt, live">
+              <li>rotateX <b data-rx>0.0°</b></li>
+              <li>rotateY <b data-ry>0.0°</b></li>
+              <li>perspective <b>900px</b></li>
+            </ul>
+            <button type="button" class="link-btn k-rm-only" data-tilt-on>Let it tilt</button>
+          </div>
+          <figcaption><b>Fig. 1</b> The pass from the site's first screen, on its own markup and the original's numbers. <span class="hover-only">Point at it to tilt it,</span><span class="touch-only">Drag it to tilt it,</span> click the name to put yours on it, and switch the class. The tilt follows the mouse; this version follows a finger too.</figcaption>
+        </figure>
+
+        <section class="g s" id="intro" aria-labelledby="intro-h">
+          <p class="num">01</p>
+          <h2 id="intro-h">Intro</h2>
+          <div class="col">
+            <p>KULTURE* was a single night in Ojo, on the Lagos mainland, for students who had just finished exams. Doors at 9PM, 18 and over, room for about 500.</p>
+            <p>I did the brand, the website and the print. The website was the part that had to turn interest into tickets, and 430 went in 5 days.</p>
+            <p>The brief gave the site 3 jobs:</p>
+          </div>
+          <p class="quote">Inform guests about the event. Sell tickets. Capture the brand energy and get people hyped.</p>
+          <div class="col">
+            <p>The page had to sell before every detail was settled, so it leans on what was certain: the name, the look, the prices and the time the doors opened.</p>
+          </div>
+          <p class="note"><b>The tiers.</b> Early Bird at <span class="n">₦3,000</span> for the first week, VIP at <span class="n">₦5,000</span>, and tables from <span class="n">₦100,000</span>.</p>
+        </section>
+
+        <section class="g s" id="flight" aria-labelledby="flight-h">
+          <p class="num">02</p>
+          <h2 id="flight-h">The night is a flight</h2>
+          <div class="col">
+            <p>The brand document asked for bold, maximalist streetwear, the asterisk as the mark, and red used only as an accent. It asked for a countdown and a scrolling marquee. It never mentions flights. That idea came in the build.</p>
+            <p>So buying a ticket became boarding. The pass runs from OJO to PTY, Lagos to Party, and the same pass turns up 3 times: on the first screen, in the footer, and in the print files.</p>
+          </div>
+
+          <!-- Fig. 2: the pass drawn on the print generator's grid (tickets/generate.js, buildSVG: W 850, H 350, PERF_X 645, STUB_X 668, PAD 38). -->
+          <div class="scrolly k k-anat" id="kAnat">
+            <figure class="scrolly-fig">
+              <div class="k-anat-fig" data-overlay role="img" aria-label="A line drawing of the boarding pass that fills in one part at a time as you scroll"></div>
+              <figcaption><b>Fig. 2</b> The pass, drawn on the print script's own 850 by 350 grid. Scroll and it fills in a part at a time.</figcaption>
+            </figure>
+            <ol class="scrolly-steps">
+              <li class="step"><h3>A body and a stub</h3><p>A single card, split by a perforation with a notch at each end. On screen it's HTML. In print it's an SVG, 8.5 by 3.5 inches.</p></li>
+              <li class="step"><h3>OJO to PTY</h3><p>Lagos to Party. The 2 codes sit top right, each with its city spelled small underneath.</p></li>
+              <li class="step"><h3>The passenger</h3><p>On the site it reads YOUR NAME until you type yours. The printed pass reads ADMITS ONE.</p></li>
+              <li class="step"><h3>Gate A1, departs 21:00</h3><p>The doors opened at 9PM, so that's when the flight leaves.</p></li>
+              <li class="step"><h3>Class is the tier</h3><p>Early Bird, VIP or Table on the site, where the class is printed in red. Regular, VIP or Table in print.</p></li>
+              <li class="step"><h3>The code</h3><p>A QR and a booking code, KULTURE25 · VIP · OJO, over SCAN TO VERIFY.</p></li>
+              <li class="step"><h3>The stub</h3><p>K*, BOARDING PASS, your class and your name. On the site the stub repeats each letter as you type it.</p></li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="g s" id="tilt" aria-labelledby="tilt-h">
+          <p class="num">03</p>
+          <h2 id="tilt-h">A ticket you can hold</h2>
+          <div class="col">
+            <p>The pass leans toward your cursor on 2 axes. Where the pointer sits on the card runs from −0.5 to 0.5 each way, and that is multiplied by 12, so the most it ever leans is 6 degrees, seen through a perspective of 900 pixels.</p>
+            <p>Every mouse move starts a new 0.35 second tween with power2.out, quick at first and gentle at the end. When the cursor leaves, a 0.55 second elastic.out(1, 0.5) brings it back flat. It swings past flat and settles.</p>
+            <p>Then it lets you make it yours. Click the name and type, and the stub repeats it as you go. Switch the tier and the class, the stub and the code along the bottom change with it. Nothing is saved.</p>
+          </div>
+
+          <!-- Fig. 3: the tilt with its numbers drawn out. js/main.js:219-243. -->
+          <figure class="stage k k-tilt" id="kTilt">
+            <div class="stage-canvas k-tilt-grid" data-overlay>
+              <div class="k-pad-wrap">
+                <div class="k-pad-shadow" aria-hidden="true"></div>
+                <div class="k-pad" tabindex="0" role="group" aria-label="A test card with the tilt's coordinates printed on it. Point at it or drag it; arrow keys work too.">
+                  <svg class="k-pad-svg" aria-hidden="true"></svg>
+                </div>
+              </div>
+              <div class="k-plots">
+                <svg class="k-trace" aria-label="rotateX and rotateY over the last 3 seconds, inside the 6 degree limits" role="img"></svg>
+                <div class="k-eases">
+                  <svg class="k-ease" data-ease="follow" role="img" aria-label="The follow curve, power2.out over 0.35 seconds"></svg>
+                  <svg class="k-ease" data-ease="return" role="img" aria-label="The return curve, elastic.out(1, 0.5) over 0.55 seconds"></svg>
+                </div>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <ul class="readout" aria-label="Tilt maths, live">
+                <li>x <b data-px>0.00</b></li>
+                <li>y <b data-py>0.00</b></li>
+                <li>rotateX = −y × 12 = <b data-rx>0.0°</b></li>
+                <li>rotateY = x × 12 = <b data-ry>0.0°</b></li>
+                <li>tweens started <b data-n>0</b></li>
+              </ul>
+              <button type="button" class="link-btn k-rm-only" data-tilt-on>Let it tilt</button>
+            </div>
+            <figcaption><b>Fig. 3</b> The same tilt with its numbers drawn out. <span class="hover-only">Point at the card</span><span class="touch-only">Drag on the card</span> and the trace stays inside the 6 degree lines. Let go and the red dot runs the curve the card is following back to flat.</figcaption>
+          </figure>
+          <p class="note"><b>Touch.</b> The tilt follows the mouse. Both figures here follow a finger too, with the same numbers.</p>
+        </section>
+
+        <section class="g s" id="sideways" aria-labelledby="sideways-h">
+          <p class="num">04</p>
+          <h2 id="sideways-h">The first screen goes sideways</h2>
+          <div class="col">
+            <p>The first screen is 3 panels side by side on a track 300vw wide, each panel the width of the window: the ticket, then FOR THE KULTURE, then the countdown.</p>
+            <p>While the page sits at the very top, the scroll wheel moves the track sideways instead of down. At the last panel it lets go and the page scrolls on. On a phone, a vertical swipe moves the track 2.5 times as far as your finger, and a swipe of 15% of a panel is enough to snap to the next one.</p>
+          </div>
+
+          <!-- Fig. 4: the hero in miniature. Wheel and touch handlers from js/main.js:36-98. Cursor from js/main.js:101-119. -->
+          <figure class="stage k k-side" id="kSide">
+            <div class="stage-canvas k-side-canvas" data-overlay>
+              <div class="k-side-view" tabindex="0" role="region" aria-label="The three hero panels in miniature. Scroll, swipe or drag up and down over it to move sideways. Arrow keys move one panel.">
+                <div class="k-side-track" aria-hidden="true">
+                  <div class="k-p k-p1">
+                    <div class="k-p1-tiers"><span>Early Bird</span><span class="on" data-hot>VIP</span><span>Table</span></div>
+                    <div class="k-p1-ticket" data-hot><b>KULTURE<em>*</em></b><i></i><i></i><i></i><s></s></div>
+                    <div class="k-p1-info"><span>Ojo, Lagos · July 2025</span><span>9PM · 18+ only</span></div>
+                    <div class="k-p1-title">KULTURE</div>
+                  </div>
+                  <div class="k-p k-p2">
+                    <div class="k-p2-lines"><span>FOR</span><span>THE</span><span class="in">KULTURE</span></div>
+                    <div class="k-p2-foot">Red Carpet · Photo Activation · DJ Sets · VIP Section · Limited Entry</div>
+                  </div>
+                  <div class="k-p k-p3">
+                    <div class="k-p3-eye">Counting down to</div>
+                    <div class="k-p3-title">JULY<em>*</em></div>
+                    <div class="k-p3-clock"><span data-d>00</span><i>:</i><span data-h>00</span><i>:</i><span data-m>00</span><i>:</i><span data-s>00</span></div>
+                    <div class="k-p3-btn" data-hot>Get your ticket →</div>
+                  </div>
+                </div>
+              </div>
+              <i class="k-cur-dot" aria-hidden="true"></i><i class="k-cur-ring" aria-hidden="true"></i>
+              <svg class="k-side-track-svg" aria-hidden="true"></svg>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs tabs--small" role="group" aria-label="Go to a panel">
+                <button type="button" data-panel="0" aria-pressed="true">01 Ticket</button>
+                <button type="button" data-panel="1" aria-pressed="false">02 For the Kulture</button>
+                <button type="button" data-panel="2" aria-pressed="false">03 Countdown</button>
+              </div>
+              <ul class="readout" aria-label="Track position, live">
+                <li>scrollLeft <b data-sl>0</b> of <b data-max>0</b>px</li>
+                <li>last swipe <b data-swipe>none</b></li>
+              </ul>
+            </div>
+            <figcaption><b>Fig. 4</b> The 3 panels in miniature, rebuilt here with the original's handlers and numbers. As on the site, it only takes over the wheel while it's wholly in view. <span class="hover-only">Scroll over it, or drag it up and down like a swipe.</span><span class="touch-only">Swipe up and down on it.</span> The strip underneath is the 300vw track, and the outline is your window onto it.</figcaption>
+          </figure>
+          <p class="note"><b>The cursor.</b> With a mouse, the site drew its own pointer: a dot, and a ring that catches up with it over 0.55 seconds, inverting whatever it passes over and growing 1.65 times over anything you can click. It's switched back on over the miniature.</p>
+        </section>
+
+        <section class="g s" id="type" aria-labelledby="type-h">
+          <p class="num">05</p>
+          <h2 id="type-h">Words that won't sit still</h2>
+          <div class="col">
+            <p>The second panel says FOR THE KULTURE on 3 lines, and none of them keeps its typeface. Each line steps through a list of 10 font stacks on its own timer: the first every 120 milliseconds, and 23 more for each line after it, so 143 and 166. Each line also starts 40 milliseconds after the one above.</p>
+            <p>Because the timers differ, the lines drift in and out of step. The cycle runs only while the panel is at least 30% on screen, and when it stops every line goes back to Futura.</p>
+                      </div>
+
+          <!-- Fig. 5: js/main.js:376-430, same list, same timers, same 30% threshold. -->
+          <figure class="stage k k-cycle" id="kCycle">
+            <div class="stage-canvas k-cycle-canvas" data-overlay>
+              <p class="k-cycle-words" aria-label="FOR THE KULTURE"><span class="font-cycle-el">FOR</span><span class="font-cycle-el">THE</span><span class="font-cycle-el k-in">KULTURE</span></p>
+              <svg class="k-cycle-svg" role="img" aria-label="Timing diagram: when each line changes face over the next 2 seconds"></svg>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs tabs--small" role="group" aria-label="Speed">
+                <button type="button" data-speed="1" aria-pressed="true">Real time</button>
+                <button type="button" data-speed="0.1" aria-pressed="false">10 times slower</button>
+              </div>
+              <ul class="readout" aria-label="Current faces, live">
+                <li>FOR <b data-f="0">Futura</b></li>
+                <li>THE <b data-f="1">Futura</b></li>
+                <li>KULTURE <b data-f="2">Futura</b></li>
+              </ul>
+              <button type="button" class="link-btn" data-play>Pause</button>
+            </div>
+            <figcaption><b>Fig. 5</b> The cycle on the original's timers. The diagram is 2 seconds of swaps, a row per line, and the red line is now. Slow it down to watch the rows drift.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="board" aria-labelledby="board-h">
+          <p class="num">06</p>
+          <h2 id="board-h">A departures board</h2>
+          <div class="col">
+            <p>The third panel counts down on 8 tiles, 2 each for days, hours, minutes and seconds. Every tile keeps track of its own digit, so only the tiles that change ever move.</p>
+            <p>Each tile is half a split-flap. When its digit changes, the new number is printed underneath straight away, top half and bottom half. A single flap, still showing the old number, folds down from 0 to −90 degrees in 0.28 seconds with power2.in, slow and then fast, until it's edge-on to you and disappears.</p>
+            <p>This board counts down to the next 9PM in Lagos, the time the doors opened.</p>
+          </div>
+
+          <!-- Fig. 6: js/main.js:553-608, flipDigit() with rotateX -90, 0.28s, power2.in. -->
+          <figure class="stage k k-board" id="kBoard">
+            <div class="stage-canvas k-board-canvas" data-overlay>
+              <p class="k-board-eye">Next departure · 21:00 Lagos</p>
+              <div class="k-clock" role="timer" aria-label="Countdown to the next 9PM in Lagos">
+                <div class="flip-group"><div class="fd-pair"><div class="flip-digit" data-u="d0"></div><div class="flip-digit" data-u="d1"></div></div><span class="fd-label">Days</span></div>
+                <span class="fd-sep" aria-hidden="true">:</span>
+                <div class="flip-group"><div class="fd-pair"><div class="flip-digit" data-u="h0"></div><div class="flip-digit" data-u="h1"></div></div><span class="fd-label">Hrs</span></div>
+                <span class="fd-sep" aria-hidden="true">:</span>
+                <div class="flip-group"><div class="fd-pair"><div class="flip-digit" data-u="m0"></div><div class="flip-digit" data-u="m1"></div></div><span class="fd-label">Mins</span></div>
+                <span class="fd-sep" aria-hidden="true">:</span>
+                <div class="flip-group"><div class="fd-pair"><div class="flip-digit" data-u="s0"></div><div class="flip-digit" data-u="s1"></div></div><span class="fd-label">Secs</span></div>
+              </div>
+              <div class="k-flap-plots">
+                <svg class="k-flap-side" role="img" aria-label="Side view of one tile: the flap swings from upright to edge-on"></svg>
+                <svg class="k-flap-ease" role="img" aria-label="The flap's angle over time, power2.in over 0.28 seconds"></svg>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs tabs--small" role="group" aria-label="Speed">
+                <button type="button" data-speed="1" aria-pressed="true">Real time</button>
+                <button type="button" data-speed="0.1" aria-pressed="false">Slow motion, 10 times</button>
+              </div>
+              <ul class="readout" aria-label="Flap, live">
+                <li>rotateX <b data-angle>0.0°</b></li>
+                <li>duration <b data-dur>0.28s</b></li>
+                <li>ease <b>power2.in</b></li>
+              </ul>
+              <button type="button" class="link-btn k-rm-only" data-play>Play</button>
+            </div>
+            <figcaption><b>Fig. 6</b> The board with the original flap timing. Switch to slow motion and the clock, the side view and the curve all run 10 times slower, so you can watch a flap fall away from the number it covers.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="marquee" aria-labelledby="marquee-h">
+          <p class="num">07</p>
+          <h2 id="marquee-h">A marquee that hears you scroll</h2>
+          <div class="col">
+            <p>Under the first screen, 3 bands cross the page at −6, 5 and −6 degrees: OJO, LAGOS, DJ SETS, VIP SECTION, AMAPIANO, AGBADA OR SNEAKERS. They move every frame, by 1.4, 1.1 and 1.7 pixels, and the middle one goes the other way.</p>
+            <p>Scrolling pushes them. On each scroll event the site divides how far the page moved by the time since the last one, and sets a boost of 1 + min(speed × 6, 8). Every frame the boost then loses 5% of whatever is left above 1.</p>
+                      </div>
+
+          <!-- Fig. 7: js/main.js:324-373, driven by scrolling on this page. -->
+          <figure class="stage k k-mq" id="kMq">
+            <div class="k-mq-bands" aria-hidden="true">
+              <div class="mq-row mq-row--red"><div class="mq-track"><span class="mq-content">For The Kulture <i class="mq-star"></i> Ojo, Lagos <span class="mq-illus">🔥</span> Street Culture <i class="mq-star"></i> Red Carpet <span class="mq-illus">🎟️</span> 18+ Only <i class="mq-star"></i> Post-Exam Party <span class="mq-illus">🔥</span> 500 Guests <i class="mq-star"></i></span><span class="mq-content">For The Kulture <i class="mq-star"></i> Ojo, Lagos <span class="mq-illus">🔥</span> Street Culture <i class="mq-star"></i> Red Carpet <span class="mq-illus">🎟️</span> 18+ Only <i class="mq-star"></i> Post-Exam Party <span class="mq-illus">🔥</span> 500 Guests <i class="mq-star"></i></span></div></div>
+              <div class="mq-row mq-row--cream"><div class="mq-track"><span class="mq-content mq-content--dark">KULTURE* <i class="mq-star mq-star--dark"></i> Lagos Mainland <span class="mq-illus">🎵</span> DJ Sets <i class="mq-star mq-star--dark"></i> VIP Section <span class="mq-illus">🥂</span> Dress Like Lagos <i class="mq-star mq-star--dark"></i> LASU Vibes <span class="mq-illus">🎵</span> Limited Entry <i class="mq-star mq-star--dark"></i></span><span class="mq-content mq-content--dark">KULTURE* <i class="mq-star mq-star--dark"></i> Lagos Mainland <span class="mq-illus">🎵</span> DJ Sets <i class="mq-star mq-star--dark"></i> VIP Section <span class="mq-illus">🥂</span> Dress Like Lagos <i class="mq-star mq-star--dark"></i> LASU Vibes <span class="mq-illus">🎵</span> Limited Entry <i class="mq-star mq-star--dark"></i></span></div></div>
+              <div class="mq-row mq-row--black"><div class="mq-track"><span class="mq-content">One Night <i class="mq-star"></i> Afrobeats <span class="mq-illus">🎉</span> Amapiano <i class="mq-star"></i> Agbada or Sneakers <span class="mq-illus">🎉</span> Presale Only <i class="mq-star"></i> The Energy Is Non-Negotiable <i class="mq-star"></i></span><span class="mq-content">One Night <i class="mq-star"></i> Afrobeats <span class="mq-illus">🎉</span> Amapiano <i class="mq-star"></i> Agbada or Sneakers <span class="mq-illus">🎉</span> Presale Only <i class="mq-star"></i> The Energy Is Non-Negotiable <i class="mq-star"></i></span></div></div>
+            </div>
+            <div class="k-mq-meter" data-overlay>
+              <p class="k-mq-big" aria-live="off"><span>boost</span> <b data-boost>×1.0</b></p>
+              <svg class="k-mq-spark" role="img" aria-label="The boost over the last 4 seconds, between 1 and its ceiling of 9"></svg>
+              <p class="k-mq-formula"><code>boost = 1 + min(px/ms × 6, 8)</code> <code>boost += (1 − boost) × 0.05</code></p>
+            </div>
+            <div class="stage-bar">
+              <ul class="readout" aria-label="Scroll speed, live">
+                <li>scroll speed <b data-speed>0.00</b> px/ms</li>
+                <li>band 1 <b data-b1>1.4</b> px/frame</li>
+                <li>band 2 <b data-b2>1.1</b></li>
+                <li>band 3 <b data-b3>1.7</b></li>
+              </ul>
+              <button type="button" class="link-btn k-rm-only" data-play>Play</button>
+            </div>
+            <figcaption><b>Fig. 7</b> The bands, live, pushed by your scrolling on this page with the original's formula and decay. Scroll hard and watch the boost hit its ceiling of 9, then fall away.</figcaption>
+          </figure>
+        </section>
+
+        <section class="reel" aria-label="A 30 second screen recording of the KULTURE* site" data-chapters='[{"title":"The ticket","at":0},{"title":"For the Kulture","at":13},{"title":"Countdown","at":16},{"title":"Marquee","at":20.5},{"title":"The experience","at":22.2},{"title":"Tickets and venue","at":24.2}]'>
+          <video data-src="../videos/kulture.mp4" muted loop playsinline preload="none" poster="media/kulture/reel-poster.webp" aria-label="A screen recording of the KULTURE* site: the ticket, the panels, the countdown, the marquee, the cards and the menu"></video>
+          <div class="reel-cap"><b>The whole site in 30 seconds</b>Recorded on a desktop, top to bottom.<ol class="reel-chapters"></ol></div>
+        </section>
+
+        <section class="g s" id="lineup" aria-labelledby="lineup-h">
+          <p class="num">08</p>
+          <h2 id="lineup-h">The lineup flies in</h2>
+          <div class="col">
+            <p>THE EXPERIENCE is 6 cards: red carpet, photo activation, DJ sets, VIP section, Lagos vibes and limited entry. On a desktop the section pins to the screen, and the cards fly in from alternate sides as you scroll.</p>
+            <p>Each card starts shifted 130% of its own width to one side, turned 14 degrees. On a timeline 5.5 units long, a new card sets off every 0.9 and takes 1 to land, so each one is still arriving when the next leaves. Each lands a little more turned than the last, 1.5 degrees plus 0.4 for every card before it, so the pile ends up uneven.</p>
+            <p>The timeline is tied to the scrollbar with a scrub of 1.5, so the cards take a second and a half to catch up with the page. Under 768 pixels none of this runs. The cards stack and fade in.</p>
+          </div>
+
+          <!-- Fig. 8: js/main.js:500-545, the desktop branch, on a paused timeline. -->
+          <figure class="stage k k-exp" id="kExp">
+            <div class="stage-canvas k-exp-stage" data-overlay>
+              <div class="k-exp-scene" aria-hidden="true">
+                <div class="exp-scene-card exp-sc--1" data-from="left"><p class="exp-sc-tag">01 · Arrival</p><p class="exp-sc-title">Red<br />Carpet</p><p class="exp-sc-body">The night starts before the night.</p><span class="exp-sc-num">01</span></div>
+                <div class="exp-scene-card exp-sc--2" data-from="right"><p class="exp-sc-tag">02 · Content</p><p class="exp-sc-title">Photo<br />Activation</p><p class="exp-sc-body">Leave with content that does the talking.</p><span class="exp-sc-num">02</span></div>
+                <div class="exp-scene-card exp-sc--3" data-from="left"><p class="exp-sc-tag">03 · Sound</p><p class="exp-sc-title">DJ<br />Sets</p><p class="exp-sc-body">Afrobeats, Amapiano, Hip-hop.</p><span class="exp-sc-num">03</span></div>
+                <div class="exp-scene-card exp-sc--4" data-from="right"><p class="exp-sc-tag">04 · Premium</p><p class="exp-sc-title">VIP<br />Section</p><p class="exp-sc-body">Upgrade your night.</p><span class="exp-sc-num">04</span></div>
+                <div class="exp-scene-card exp-sc--5" data-from="left"><p class="exp-sc-tag">05 · The Vibe</p><p class="exp-sc-title">Lagos<br />Vibes</p><p class="exp-sc-body">If you know, you know.</p><span class="exp-sc-num">05</span></div>
+                <div class="exp-scene-card exp-sc--6" data-from="right"><p class="exp-sc-tag">06 · Exclusive</p><p class="exp-sc-title">Limited<br />Entry</p><p class="exp-sc-body">Strictly 500 guests.</p><span class="exp-sc-num">06</span></div>
+              </div>
+            </div>
+            <svg class="k-exp-gantt" role="img" aria-label="The scroll timeline: when each card flies, the scroll position, and where the cards have got to"></svg>
+            <div class="scrub">
+              <label for="kExpRange">Scroll</label>
+              <input id="kExpRange" type="range" min="0" max="1000" value="600" aria-label="Scroll position through the experience section" />
+              <output for="kExpRange" data-out>60%</output>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs tabs--small" role="group" aria-label="Scrub smoothing">
+                <button type="button" data-scrub="1.5" aria-pressed="true">scrub: 1.5</button>
+                <button type="button" data-scrub="0" aria-pressed="false">scrub: off</button>
+              </div>
+              <ul class="readout" aria-label="Newest card, live">
+                <li>card <b data-card>4</b></li>
+                <li>xPercent <b data-xp>0</b></li>
+                <li>rotation <b data-rot>0.0°</b></li>
+              </ul>
+            </div>
+            <figcaption><b>Fig. 8</b> The cards' timeline, rebuilt with the original's numbers and GSAP. Drag the slider as if you were scrolling. Each bar is a card's flight; the red line is your scroll and the square is where the cards have got to.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="print" aria-labelledby="print-h">
+          <p class="num">09</p>
+          <h2 id="print-h">Off the screen</h2>
+          <div class="col">
+            <p>The pass also went to print, as code. A Node script draws each tier as an SVG 8.5 by 3.5 inches, then Puppeteer exports a PNG at 3 times the size, 2550 by 1050, and a single PDF with a page per tier.</p>
+            <p>Regular is cream, VIP is black and Table is red. In print the passenger line reads ADMITS ONE, and the stub carries a barcode instead of a name.</p>
+          </div>
+
+          <!-- Fig. 9: tickets/generate.js buildSVG(), run in the browser. -->
+          <figure class="stage k k-print" id="kPrint">
+            <div class="stage-canvas k-print-stack" data-overlay></div>
+            <div class="stage-bar">
+              <div class="tabs tabs--small" role="group" aria-label="Bring a pass to the front">
+                <button type="button" data-tier="0" aria-pressed="false">Regular</button>
+                <button type="button" data-tier="1" aria-pressed="false">VIP</button>
+                <button type="button" data-tier="2" aria-pressed="true">Table</button>
+              </div>
+              <ul class="readout" aria-label="The pass in front">
+                <li>background <b data-bg>#C01920</b></li>
+                <li>code <b data-code>KULTURE25 · TBL · OJO</b></li>
+              </ul>
+            </div>
+            <figcaption><b>Fig. 9</b> The 3 printed passes, drawn in your browser by the print script's own function. <span class="hover-only">Point at one to lift it.</span><span class="touch-only">Tap one to lift it.</span></figcaption>
+          </figure>
+
+          <h3 class="sub">A backdrop from code</h3>
+          <div class="col">
+            <p>The step-and-repeat was code too. A Python script takes the 7 partner logos, strips their backgrounds and turns them white. A Node script lays them out: rows of logos offset like brickwork, a thin strip of repeating text over each row, and an oval fade behind the wordmark. Any logo that lands in a box round the middle, 72% wide and 28% tall, drops to 7% opacity.</p>
+            <p>It writes 3 colourways at 3 sizes, 8 by 8, 8 by 10 and 10 by 8 feet, as SVG, a PNG at twice the size, and a PDF at full size. Changing a logo or a size is a rerun.</p>
+          </div>
+
+          <!-- Fig. 10: backdrop/generate.js buildBackdrop(), drawn to a canvas with the processed logos. -->
+          <figure class="stage k k-bd" id="kBd">
+            <div class="stage-canvas k-bd-canvas" data-overlay>
+              <div class="k-bd-sheet">
+                <div class="k-bd-shadow" aria-hidden="true"></div>
+                <canvas role="img" aria-label="The step-and-repeat backdrop, generated in your browser"></canvas>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs tabs--small" role="group" aria-label="Colourway">
+                <button type="button" data-variant="0" aria-pressed="false">Dark</button>
+                <button type="button" data-variant="1" aria-pressed="false">Red</button>
+                <button type="button" data-variant="2" aria-pressed="true">Green</button>
+              </div>
+              <div class="tabs tabs--small" role="group" aria-label="Size in feet">
+                <button type="button" data-size="0" aria-pressed="false">8 × 8</button>
+                <button type="button" data-size="1" aria-pressed="false">8 × 10</button>
+                <button type="button" data-size="2" aria-pressed="true">10 × 8</button>
+              </div>
+              <button type="button" class="link-btn" data-layout aria-pressed="false">Show the layout</button>
+            </div>
+            <ul class="readout k-bd-readout" aria-label="Layout numbers">
+              <li>viewBox <b data-wh>3000 × 2400</b></li>
+              <li>cell <b data-cell>600</b></li>
+              <li>logo row <b data-lr>240</b></li>
+              <li>text row <b data-tr>82</b></li>
+              <li>logos <b data-logos>0</b>, faded <b data-faded>0</b></li>
+            </ul>
+            <figcaption><b>Fig. 10</b> The backdrop script, ported to run here with the real white logos. Pick a colourway and a size, or show the layout to see the grid underneath: the brick offset, and the safe zone where logos fade out.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s end" id="end" aria-labelledby="end-h">
+          <p class="num">10</p>
+          <h2 id="end-h">Conclusion</h2>
+          <div class="col">
+            <p>What holds KULTURE* together is a single idea, used everywhere. The night is a flight, so the ticket is a boarding pass, the countdown is a departures board, and the tiers are classes. The site didn't describe the party. It handed you a ticket and let you put your name on it.</p>
+            <p>The pass at the top of this page runs on the site's own markup and numbers.</p>
+          </div>
+          <ol class="process">
+            <li><b>Brand</b>The 3 jobs and the visual system.<span>&gt; Type, colour, the asterisk</span></li>
+            <li><b>Build</b>A single page, with motion on scroll and on the cursor.<span>&gt; HTML, CSS, JavaScript, GSAP</span></li>
+            <li><b>Port</b>The same site rebuilt as components.<span>&gt; Next.js, React, TypeScript</span></li>
+            <li><b>Print</b>Passes and backdrops rendered from code.<span>&gt; Node, Puppeteer, Python</span></li>
+          </ol>
+        </section>
+
+        <a class="next" href="clark.html">
+          <span class="label">Next case study</span>
+          <span class="next-t">Clark</span>
+          <span class="next-d">An AI study companion, designed around a streak you don't want to break.</span>
+        </a>
+
+        <footer>
+          <span>KULTURE*, a case study</span>
+          <a href="../index.html#work">All work</a>
+        </footer>
       </div>
-    </div>
-    <aside class="cs-hero__aside" data-reveal>
-      <a class="cs-visit" href="https://kulture-event.vercel.app/" target="_blank" rel="noopener">Visit site <span class="arrow">↗</span></a>
-      <dl class="cs-meta">
-        <div><dt>Role</dt><dd>Design &amp; front-end</dd></div>
-        <div><dt>Scope</dt><dd>Brand · Web · Event</dd></div>
-        <div><dt>Year</dt><dd>2025</dd></div>
-        <div><dt>Stack</dt><dd>HTML · CSS · JS · Paystack</dd></div>
-      </dl>
-    </aside>
-  </header>
+    </article>
+  </main>
 
-  <section class="cs-section">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">01</span><span class="cs-section__label">Overview</span></div>
-    <h2 class="cs-section__title" data-reveal>Lagos street culture, <em>designed to sell</em></h2>
-    <div class="prose" data-reveal>
-      <p>KULTURE* is a post-exam, one-night celebration targeting LASU students in Ojo, Lagos Mainland. The brief was dual: build a brand strong enough to make the event feel inevitable before it happened, and a site that moves people from discovery to purchase in one scroll.</p>
-      <p>Every decision — the custom display typeface, the three-tier ticket layout, the red accent used sparingly — was made to feel specifically Lagos without falling into generic streetwear tropes.</p>
-    </div>
-    <blockquote class="cs-pull" data-reveal><em>The asterisk is not decoration. It is the point.</em></blockquote>
-  </section>
-
-  <section class="cs-section" style="padding-bottom:0">
-    <div class="cs-section__head" data-reveal><span class="cs-section__label">Highlights</span></div>
-    <div class="cs-highlights" data-stagger>
-      <div class="cs-highlight">
-        <figure><img src="../images/kulture-web.png" alt="KULTURE* hero section" loading="lazy" /></figure>
-        <div class="cs-highlight__meta"><span class="cs-highlight__t">Hero section</span><span class="cs-highlight__k">Brand</span></div>
-      </div>
-      <div class="cs-highlight">
-        <figure><img src="../images/kulture-nav.png" alt="KULTURE* navigation" loading="lazy" /></figure>
-        <div class="cs-highlight__meta"><span class="cs-highlight__t">Navigation</span><span class="cs-highlight__k">System</span></div>
-      </div>
-      <div class="cs-highlight">
-        <figure><img src="../images/kulture-event.png" alt="KULTURE* — the night itself" loading="lazy" /></figure>
-        <div class="cs-highlight__meta"><span class="cs-highlight__t">The night itself</span><span class="cs-highlight__k">Photography</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cs-section">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">02</span><span class="cs-section__label">Process</span></div>
-    <h2 class="cs-section__title" data-reveal>From brand mark <em>to buy button</em></h2>
-    <div class="cs-steps" data-stagger>
-      <div class="cs-step"><span class="cs-step__n">1</span><div><p class="cs-step__t">Brand system</p><p class="cs-step__d">Three-font system — DynamicDisplay for display, Yapari for labels, Helvetica for body. Four-colour palette: black, green, cream, red. The asterisk anchors the whole identity.</p></div></div>
-      <div class="cs-step"><span class="cs-step__n">2</span><div><p class="cs-step__t">Ticket architecture</p><p class="cs-step__d">Three tiers — Early Bird, VIP, Table. Designed for urgency: live countdown, blinking early-bird indicator, limited availability language baked into the layout.</p></div></div>
-      <div class="cs-step"><span class="cs-step__n">3</span><div><p class="cs-step__t">Scroll narrative</p><p class="cs-step__d">Energy first (hero, marquee, flyer), then information (about, experience, venue), then conversion (tickets). The page has one job per section.</p></div></div>
-      <div class="cs-step"><span class="cs-step__n">4</span><div><p class="cs-step__t">Paystack integration</p><p class="cs-step__d">Ticket cards wired to Paystack inline checkout — no redirect. Gate-ticket notice and sold-out state ready to toggle on the night.</p></div></div>
-    </div>
-    <div class="cs-chips" data-reveal style="margin-top:1.75rem">
-      <span class="cs-chip">DynamicDisplay</span>
-      <span class="cs-chip">YapariTrial</span>
-      <span class="cs-chip">Paystack</span>
-      <span class="cs-chip">CSS animation</span>
-      <span class="cs-chip">Vercel</span>
-    </div>
-  </section>
-
-  <section class="cs-section">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">03</span><span class="cs-section__label">Outcome</span></div>
-    <h2 class="cs-section__title" data-reveal>Where it <em>landed</em></h2>
-    <dl class="cs-stats" data-reveal>
-      <div class="cs-stat"><dd class="cs-stat__n">500</dd><dt class="cs-stat__l">Capacity</dt></div>
-      <div class="cs-stat"><dd class="cs-stat__n">3</dd><dt class="cs-stat__l">Ticket tiers</dt></div>
-      <div class="cs-stat"><dd class="cs-stat__n">1</dd><dt class="cs-stat__l">Night · Lagos</dt></div>
-      <div class="cs-stat"><dd class="cs-stat__n">Live</dd><dt class="cs-stat__l">Event site</dt></div>
-    </dl>
-  </section>
-
-  <section class="cs-section">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">04</span><span class="cs-section__label">Walkthrough</span></div>
-    <div class="cs-video" data-reveal>
-      <video muted playsinline preload="none" poster="../images/kulture-web.png">
-        <source src="../videos/kulture.mp4" type="video/mp4">
-      </video>
-      <button class="cs-video__play" aria-label="Play KULTURE* walkthrough">
-        <span class="cs-video__play-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </span>
-      </button>
-    </div>
-  </section>
-
-  <section class="cs-section">
-    <p class="cs-palette__head" data-reveal>This project uses a colour palette of <strong>3</strong> colours</p>
-    <div class="cs-palette" data-stagger>
-      <div class="cs-swatch" style="background:#0c0d09"><span class="cs-swatch__aa" style="color:#f0ead8">Aa</span><span class="cs-swatch__hex" style="color:#f0ead8">#0C0D09</span></div>
-      <div class="cs-swatch" style="background:#c8192a"><span class="cs-swatch__aa" style="color:#fff">Aa</span><span class="cs-swatch__hex" style="color:#fff">#C8192A</span></div>
-      <div class="cs-swatch" style="background:#f0ead8"><span class="cs-swatch__aa" style="color:#0c0d09">Aa</span><span class="cs-swatch__hex" style="color:#0c0d09">#F0EAD8</span></div>
-    </div>
-  </section>
-
-  <section class="cs-next">
-    <div class="cs-next__inner">
-      <p class="cs-next__label" data-reveal>Next case study</p>
-      <a href="subtitles.html" class="cs-next__link" data-reveal data-magnetic>Subtitles <span class="arrow">→</span></a>
-      <p class="cs-next__desc" data-reveal>54 weeks, archived four ways.</p>
-      <div class="cs-foot">
-        <span>Seyi Ogundipe — Design Engineer</span>
-        <span><span id="cs-clock">--:--:--</span> local</span>
-        <a href="../index.html#work">All work ↑</a>
-      </div>
-    </div>
-  </section>
-
-  <script src="case-study.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="study.js" defer></script>
+  <script type="module" src="kulture/page.js"></script>
 </body>
 </html>

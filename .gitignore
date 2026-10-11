@@ -19,10 +19,10 @@ Screenshot *.png
 Screen Recording *.mov
 
 # ── Source / reference material (not served by the site) ─────
-Cohort/
-Kulture/
-Subtitles/
-Seyi's 3d Park/
+/Cohort/
+/Kulture/
+/Subtitles/
+/Seyi's 3d Park/
 
 # ── Duplicate font folder (fonts/ is the canonical one) ──────
 saans-font-family/

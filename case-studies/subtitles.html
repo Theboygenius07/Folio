@@ -1,141 +1,408 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Subtitles — Case Study · Seyi Ogundipe</title>
-  <meta name="description" content="A 54-week photo and conversation archive with four distinct ways to view the same moments." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="case-study.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Building Subtitles · Seyi Ogundipe</title>
+  <meta name="description" content="How Subtitles was built: 42 photos, each with a line burned in like a film subtitle, 5 ways to look through them, and one of them with your hand." />
+  <meta name="author" content="Seyi Ogundipe" />
+  <meta name="theme-color" content="#f3f1ea" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building Subtitles: a year of photos, captioned like film" />
+  <link rel="icon" href="../images/subtitles-icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+  <link rel="stylesheet" href="study.css" />
+  <link rel="stylesheet" href="subtitles/page.css" />
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }
+  </script>
 </head>
-<body>
-  <div class="grain" aria-hidden="true"></div>
-
-  <div class="cs-marquee" aria-hidden="true">
-    <div class="cs-marquee__track">
-      <span>Subtitles <span class="dot">·</span> Design &amp; development <span class="dot">·</span> Archive · Interaction <span class="dot">·</span> 2024 <span class="dot">·</span> Next.js · Three.js · Supabase <span class="dot">·</span></span><span>Subtitles <span class="dot">·</span> Design &amp; development <span class="dot">·</span> Archive · Interaction <span class="dot">·</span> 2024 <span class="dot">·</span> Next.js · Three.js · Supabase <span class="dot">·</span></span>
-    </div>
+<body style="--tint:#6c5ce7; --tint-ink:#4d3fc4">
+  <div class="page">
+    <header class="bar">
+      <a class="bar-home" href="../index.html#work"><i aria-hidden="true">←</i> Seyi Ogundipe</a>
+      <a href="../index.html#work">All work</a>
+    </header>
   </div>
 
-  <nav class="cs-nav">
-    <a href="../index.html#work" class="cs-nav__back" data-magnetic><span class="arrow">←</span><span>All work</span></a>
-    <span class="cs-nav__mark"><img class="cs-nav__icon" src="../images/subtitles-icon.svg" alt="" /><span>Subtitles<span class="ast">✸</span></span></span>
+  <nav class="toc" aria-label="Contents">
+    <p class="label">Contents</p>
+    <ol>
+      <li><a href="#intro"><span>01</span> Intro</a></li>
+      <li><a href="#idea"><span>02</span> In the picture</a></li>
+      <li><a href="#views"><span>03</span> 5 ways to look</a></li>
+      <li><a href="#hands"><span>04</span> With your hand</a></li>
+      <li><a href="#strip"><span>05</span> The strip</a></li>
+      <li><a href="#canvas"><span>06</span> The canvas</a></li>
+      <li><a href="#globe"><span>07</span> The globe</a></li>
+      <li><a href="#gallery"><span>08</span> The corridor</a></li>
+      <li><a href="#under"><span>09</span> Underneath</a></li>
+      <li><a href="#cut"><span>10</span> What I cut</a></li>
+      <li><a href="#end"><span>11</span> Conclusion</a></li>
+    </ol>
   </nav>
 
-  <div class="cs-cover" data-reveal="clip">
-    <img src="../images/subtitles-web.png" alt="Subtitles — strip view, 54 weeks of photos" loading="lazy" />
-  </div>
+  <main>
+    <article>
+      <div class="page">
+        <header class="a-head">
+          <p class="eyebrow"><i></i> Case study / 007</p>
+          <h1>Building Subtitles: a year of photos, captioned like film</h1>
+          <p class="stand">42 photos, each with a yellow subtitle burned in: something I said or overheard that week. 5 ways to look through them, and a camera mode that lets your hand do the steering. This page has it too.</p>
+          <p class="meta"><b>2026</b><span></span>Design and code<span></span>A birthday project</p>
+        </header>
 
-  <header class="cs-hero">
-    <div class="cs-hero__main">
-      <p class="cs-hero__eyebrow" data-reveal><span class="idx">05</span><span class="sep"></span><span>Case Study</span></p>
-      <h1 class="cs-hero__title" data-reveal>54 weeks. <em>In photos.</em></h1>
-      <p class="cs-hero__lede" data-reveal>A personal photo and conversation archive, built for longevity. The same 54 weeks of moments rendered four different ways — strip, feed, gallery, globe.</p>
-      <div class="cs-tags" data-reveal>
-        <span class="cs-tags__pill">Personal Archive</span>
-        <span class="cs-tags__pill">Multi-View</span>
-        <span class="cs-tags__pill">Three.js Globe</span>
-        <span class="cs-tags__pill">Longform Photography</span>
-        <span class="cs-tags__pill">Supabase</span>
+        <figure class="stage hero" id="globe-fig" data-hand>
+          <div class="stage-canvas" tabindex="0" role="application" aria-label="The globe: 80 photos on a sphere. Drag or use the arrow keys to spin it, plus and minus to zoom, Enter to open the photo in front."></div>
+          <div class="stage-bar">
+            <div class="tabs" role="group" aria-label="Show">
+              <button type="button" data-globe-mode="photos" aria-pressed="true">Photos</button>
+              <button type="button" data-globe-mode="spiral" aria-pressed="false">The spiral</button>
+            </div>
+            <ul class="readout" data-globe-readout aria-label="Live numbers"></ul>
+          </div>
+          <figcaption><b>Fig. 1</b> The globe view, running here on the site's own numbers: 80 planes on a sphere of radius 6, flying in from z&nbsp;=&nbsp;55. <span class="hover-only">Drag to spin it, ctrl-scroll to zoom, and click a photo to open it.</span><span class="touch-only">Swipe sideways to spin it, pinch to zoom, and tap a photo to open it.</span> The spiral shows where the planes sit.</figcaption>
+        </figure>
+
+        <div class="hand-cta">
+          <button type="button" class="button button--line" data-hand-toggle aria-pressed="false">Control this page with your hand</button>
+          <p>Uses your camera. The picture stays in this browser and nothing is uploaded. An open hand near the top or bottom of the frame scrolls; a pinch held for a second presses.</p>
+          <p class="hand-msg" data-hand-msg hidden></p>
+        </div>
+
+        <section class="g s" id="intro" aria-labelledby="intro-h">
+          <p class="num">01</p>
+          <h2 id="intro-h">Intro</h2>
+          <div class="col">
+            <p>For a year I kept a habit: 1 photo a week and 1 line that belonged to that week. A thing I said, a thing someone said to me, a thing I overheard. For my birthday I put them all in one place and called it Subtitles.</p>
+            <p>1,000 people came by in the first 2 days. They could flip through the year as a film strip, scroll it as a feed, drag it around as a table, spin it as a globe, walk it as a gallery, or do all of that with a hand in front of the camera.</p>
+          </div>
+          <dl class="facts">
+            <div><dt>Visitors in the first 2 days</dt><dd>1,000</dd></div>
+            <div><dt>Photos</dt><dd>42</dd></div>
+            <div><dt>Ways to look</dt><dd>5</dd></div>
+            <div><dt>Metres of gallery to walk</dt><dd>110</dd></div>
+          </dl>
+        </section>
+
+        <section class="g s" id="idea" aria-labelledby="idea-h">
+          <p class="num">02</p>
+          <h2 id="idea-h">The words are in the picture</h2>
+          <div class="col">
+            <p>Most photo sites put the caption under the photo. Here the line sits inside the frame, where a film puts its subtitle, burned into the image file in pure #ffff00 yellow. Save a photo and its sentence comes with it.</p>
+            <p>The data file keeps every line as text as well, and the site has a small function for setting it. If a line starts with a dash, it's a conversation: it splits at each line break and every speaker gets a row of their own in Courier New. Anything else stays one paragraph in Satoshi, the site's typeface.</p>
+            <p>The stylesheet carries the yellow too, as a subtitle colour for each theme: #ffff00 on the dark page and #d4a800 on the light one.</p>
+          </div>
+          <figure class="stage type-fig" id="type-fig">
+            <div class="type-grid">
+              <div class="type-photo">
+                <p class="type-k">the photo, line burned in</p>
+                <img data-type-img alt="" width="560" height="315" />
+              </div>
+              <div class="type-data">
+                <p class="type-k">data.json</p>
+                <p class="type-raw" data-type-raw></p>
+                <p class="type-rule" data-type-rule></p>
+              </div>
+              <div class="type-set" data-theme="dark">
+                <p class="type-k">set by formatSubtitle(), utils.js</p>
+                <div class="type-screen" data-type-out></div>
+                <p class="type-spec" data-type-spec></p>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs" role="group" aria-label="Week">
+                <button type="button" data-week="3" aria-pressed="true">Week 3</button>
+                <button type="button" data-week="16" aria-pressed="false">Week 16</button>
+                <button type="button" data-week="1" aria-pressed="false">Week 1</button>
+                <button type="button" data-week="35" aria-pressed="false">Week 35</button>
+              </div>
+              <div class="tabs tabs--small" role="group" aria-label="Theme">
+                <button type="button" data-theme-set="dark" aria-pressed="true">Dark</button>
+                <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+              </div>
+            </div>
+            <figcaption><b>Fig. 2</b> A week as the data file stores it, and as the site sets it. Pick a week and switch the theme. Weeks 1 and 35 are conversations.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="views" aria-labelledby="views-h">
+          <p class="num">03</p>
+          <h2 id="views-h">5 ways to look</h2>
+          <div class="col">
+            <p>The same photos, 5 ways. A view builds itself the first time you open it and stays built after that. Switching fades the old view out over 0.1 seconds, waits 2 frames so the new one has its layout, then fades it in over 0.2.</p>
+          </div>
+          <div class="scrolly" data-wide>
+            <figure class="scrolly-fig" id="views-fig">
+              <div class="vw-screen" role="img" aria-label="A small copy of the site's dark page, showing the view for the step you are reading">
+                <div class="vw-layer" data-vw="horizontal" data-overlay></div>
+                <div class="vw-layer" data-vw="vertical" data-overlay></div>
+                <div class="vw-layer" data-vw="canvas" data-overlay></div>
+                <div class="vw-layer" data-vw="globe" data-overlay></div>
+                <div class="vw-layer" data-vw="gallery" data-overlay></div>
+                <p class="vw-name" data-vw-label data-overlay>Horizontal</p>
+              </div>
+              <svg class="vw-timing" viewBox="-70 -6 450 64" aria-hidden="true">
+                <rect class="tm-gap" x="100" y="0" width="33" height="44" />
+                <line class="tm-axis" x1="0" x2="360" y1="44" y2="44" />
+                <path class="tm-lane" d="M0 4 C 25 5.6, 25 20, 100 20 L 360 20" />
+                <path class="tm-lane tm-lane--in" d="M0 40 L 133 40 C 183 38.4, 183 24, 333 24 L 360 24" />
+                <text class="tm-l" x="-6" y="8" text-anchor="end">old view</text>
+                <text class="tm-l" x="-6" y="34" text-anchor="end">new view</text>
+                <line class="tm-tick" x1="0" x2="0" y1="44" y2="48" /><text class="tm-t" x="0" y="57" text-anchor="middle">0</text>
+                <line class="tm-tick" x1="100" x2="100" y1="44" y2="48" /><text class="tm-t" x="100" y="57" text-anchor="middle">100</text>
+                <line class="tm-tick" x1="133" x2="133" y1="44" y2="48" /><text class="tm-t" x="137" y="57" text-anchor="start">+2 frames</text>
+                <line class="tm-tick" x1="333" x2="333" y1="44" y2="48" /><text class="tm-t" x="333" y="57" text-anchor="middle">333 ms</text>
+                <g class="tm-head" style="opacity:0.35"><line x1="0" x2="0" y1="0" y2="44" /></g>
+              </svg>
+              <ul class="vw-built" aria-label="Which views have been built">
+                <li data-built="horizontal">Horizontal<span>not yet</span></li>
+                <li data-built="vertical">Vertical<span>not yet</span></li>
+                <li data-built="canvas">Canvas<span>not yet</span></li>
+                <li data-built="globe">Globe<span>not yet</span></li>
+                <li data-built="gallery">Gallery<span>not yet</span></li>
+              </ul>
+              <figcaption><b>Fig. 3</b> Each view, laid out by its own code and scaled down. Scroll to switch: out in 0.1 s, 2 frames, in over 0.2 s.</figcaption>
+            </figure>
+            <ol class="scrolly-steps">
+              <li class="step"><h3>Horizontal</h3><p>A film strip, and where the site opens. The photo in focus is in colour at 70% of the screen's width, up to 960 pixels; its neighbours wait in grey at half that. A ticker underneath marks your place in the year.</p></li>
+              <li class="step"><h3>Vertical</h3><p>The same strip stood on end, with the ticker down the left. It runs on the same spring.</p></li>
+              <li class="step"><h3>Canvas</h3><p>Every photo on a surface with no edges: 7 to a row, 280 pixel cards with 200 pixel gaps. Drag it in any direction for as long as you like.</p></li>
+              <li class="step"><h3>Globe</h3><p>80 planes on a sphere. It flies in when you open it, keeps turning when you let go, and zooms from outside the sphere to inside it.</p></li>
+              <li class="step"><h3>Gallery</h3><p>A corridor 110 metres long with the photos on both walls. Walk it with the keys, or swipe and pinch on a phone.</p></li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="reel" aria-label="A screen recording of Subtitles" data-chapters='[{"title":"Horizontal","at":0},{"title":"Vertical","at":4},{"title":"Canvas","at":8},{"title":"A photo opened","at":10},{"title":"Gallery","at":20},{"title":"Globe","at":34}]'>
+          <video data-src="../videos/subtitles.mp4" muted loop playsinline preload="none" poster="media/subtitles/horizontal.webp" aria-label="A screen recording of Subtitles moving through its views"></video>
+          <div class="reel-cap">
+            <b>The real thing, recorded</b>
+            Subtitles in its dark theme, moving through the views in the order of its controls.
+            <ol class="reel-chapters"></ol>
+          </div>
+        </section>
+
+        <section class="g s" id="hands" aria-labelledby="hands-h">
+          <p class="num">04</p>
+          <h2 id="hands-h">With your hand</h2>
+          <div class="col">
+            <p>Turn on the camera and MediaPipe's hand landmarker finds 21 points on a hand, every frame, in the browser. The site reads 4 of them. The index fingertip is the pointer. The thumb tip against the index tip is the pinch. The wrist and the base of the little finger give a rough sense of how close the hand is.</p>
+            <p>A pinch is those 2 tips closer than 0.06, in the camera's own units, where the frame is 1 wide and 1 tall. Hold a pinch for a second without moving more than 60 pixels and it counts as a click. The fingertip is smoothed first, 35% new position to 65% old, to take the shake out.</p>
+            <p>Your hand's place in the frame also works like a joystick, with a dead zone of 0.07 either side of the middle. On the globe, pushing your hand toward the screen widens the span from wrist to little finger, and that moves you in.</p>
+          </div>
+          <figure class="stage hf-fig" id="hand-fig">
+            <div class="hf-canvas"><canvas tabindex="0" aria-label="A drawn hand with MediaPipe's 21 points. Arrow keys move it, P pinches."></canvas></div>
+            <svg class="hf-meter" data-hf-meter viewBox="0 0 300 34" aria-hidden="true">
+              <line class="hf-track" x1="6" x2="294" y1="14" y2="14" />
+              <line class="hf-tick" x1="6" x2="6" y1="10" y2="18" /><line class="hf-tick" x1="78" x2="78" y1="10" y2="18" /><line class="hf-tick" x1="150" x2="150" y1="10" y2="18" /><line class="hf-tick" x1="222" x2="222" y1="10" y2="18" /><line class="hf-tick" x1="294" x2="294" y1="10" y2="18" />
+              <rect class="hf-bar" x="6" y="12.5" width="0" height="3" />
+              <line class="hf-th" x1="92.4" x2="92.4" y1="4" y2="24" />
+              <circle class="hf-dot" cx="6" cy="14" r="4.5" />
+              <text x="6" y="33" text-anchor="middle">0</text><text x="150" y="33" text-anchor="middle">0.10</text><text x="294" y="33" text-anchor="middle">0.20</text>
+              <text class="hf-th-t" x="92.4" y="33" text-anchor="middle">pinch 0.06</text>
+            </svg>
+            <p class="hf-state" data-hf-state aria-live="polite"></p>
+            <div class="stage-bar">
+              <ul class="readout" data-hf-readout aria-label="Live numbers"></ul>
+            </div>
+            <div class="stage-bar">
+              <button type="button" class="link-btn" data-hf-pinch aria-pressed="false">Pinch</button>
+              <label class="scrub">Distance <input type="range" min="0.36" max="0.95" step="0.01" value="0.55" data-hf-depth aria-label="How close the hand is to the camera" /><output data-hf-depth-out>0.48</output></label>
+              <button type="button" class="link-btn" data-hf-reset>Reset</button>
+              <button type="button" class="link-btn" data-hand-toggle aria-pressed="false">Control this page with your hand</button>
+            </div>
+            <p class="hand-msg center" data-hand-msg hidden></p>
+            <figcaption><b>Fig. 4</b> What the tracker reads off a hand. Drag the hand to move the pointer, drag the thumb or index tip to pinch, and change the distance to change the depth. With hand control on, this is your hand.</figcaption>
+          </figure>
+          <p class="note"><b>On this page.</b> Scrolling uses a dead zone of 0.22 instead of the site's 0.07, so you can point at something without the page moving. A held pinch presses whatever is under the cursor.</p>
+        </section>
+
+        <section class="g s" id="strip" aria-labelledby="strip-h">
+          <p class="num">05</p>
+          <h2 id="strip-h">A strip that settles</h2>
+          <div class="col">
+            <p>The horizontal view never comes to rest between photos. While the wheel is turning, the strip chases where the wheel says it should be, closing 15% of the gap every frame. 150 milliseconds after the wheel stops, a spring takes over and pulls it onto the nearest photo.</p>
+            <p>The whole spring is a line of code: <code>vel += (dx * 240 - vel * 30) / 60</code>. 240 is how hard it pulls, 30 is how much it holds back, and 60 is the steps a second it runs at. Those 2 numbers put it just under critical damping, at a ratio of 0.97, so it lands without a bounce you can see.</p>
+            <p>The ticker under it is a bell curve. Ticks within 4.5 places of where you are grow, from 21.5 pixels to 68.8.</p>
+          </div>
+          <figure class="stage" id="strip-fig" data-hand>
+            <div class="stage-canvas strip-stage" tabindex="0" role="application" aria-label="The horizontal view. Left and right arrow keys move one photo.">
+              <div class="strip-track"></div>
+            </div>
+            <div class="strip-ticker" aria-hidden="true"></div>
+            <div class="strip-plot"><canvas aria-label="Position and velocity over the last 4 seconds"></canvas></div>
+            <div class="stage-bar">
+              <button type="button" class="link-btn" data-strip-prev>Previous</button>
+              <button type="button" class="link-btn" data-strip-nudge>Pull it off and let go</button>
+              <button type="button" class="link-btn" data-strip-next>Next</button>
+              <ul class="readout" data-strip-readout aria-label="Live numbers"></ul>
+            </div>
+            <figcaption><b>Fig. 5</b> The horizontal view with its motion plotted: position in ink, velocity in purple, shaded while the lerp is in charge. Drag the strip, scroll it sideways or use the arrow keys, then watch the spring settle. Drag is added here, alongside the wheel, the keys and the swipe.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="canvas" aria-labelledby="canvas-h">
+          <p class="num">06</p>
+          <h2 id="canvas-h">A table with no edges</h2>
+          <div class="col">
+            <p>The canvas lays the photos out 7 to a row, 280 pixel cards with 200 pixel gaps, or 220 and 70 on a phone. Then it draws the whole grid 9 times over, 3 by 3.</p>
+            <p>You only ever look at the middle copy. Drift far enough into an outer one and the canvas jumps back by exactly 1 grid. Every copy is the same, so the jump can't be seen. Let go mid-drag and it coasts, keeping 93% of its speed each frame.</p>
+          </div>
+          <figure class="stage" id="canvas-fig" data-hand>
+            <div class="stage-canvas cv-stage" tabindex="0" role="application" aria-label="The canvas view. Arrow keys pan, Enter opens the photo nearest the middle."></div>
+            <div class="cv-mapwrap">
+              <svg class="cv-map" data-cv-map role="img" aria-label="Map of the 9 copies of the grid, with the part you can see"></svg>
+              <ul class="readout" data-cv-readout aria-label="Live numbers"></ul>
+              <button type="button" class="link-btn" data-cv-glide>Glide past the edge</button>
+            </div>
+            <figcaption><b>Fig. 6</b> The canvas view, live, and a map of its 9 copies. Drag in any direction, or glide past the edge, and watch your frame on the map jump back into the middle copy. <span class="hover-only">Click</span><span class="touch-only">Tap</span> a photo to open it.</figcaption>
+          </figure>
+
+          <h3 class="sub">Opening a photo</h3>
+          <div class="col">
+            <p>Click a photo, on the canvas or the globe, and it lifts out of its place. The card starts at the exact rectangle the photo had on screen, measured from the page on the canvas and projected from the plane's 4 corners on the globe. It grows to 90% of the width over 0.7 seconds, its corners rounding from 3 pixels to 22, and tips back 5 degrees as it arrives.</p>
+            <p>Once open, it leans toward your pointer, up to 10 degrees one way and 9 the other. Move off it and it swings back on an elastic ease.</p>
+          </div>
+          <figure class="stage" id="card-fig">
+            <div class="cf-wrap">
+              <div class="cf-area">
+                <div class="cf-card" tabindex="0" role="img" aria-label="A focus card. Point at it to tilt it; arrow keys tilt it too."><img alt="" /></div>
+              </div>
+              <div class="cf-plots">
+                <div class="cf-plot">
+                  <p><b>Open</b><span>expo.inOut, 0.7 s</span></p>
+                  <svg data-cf-plot="open" aria-hidden="true"><line class="cf-zero" x1="0" x2="240" /><line class="cf-one" x1="0" x2="240" /><path class="cf-curve" /><line class="cf-head" y1="-8" y2="128" /><circle class="cf-dot" r="4.5" /></svg>
+                </div>
+                <div class="cf-plot">
+                  <p><b>Swing back</b><span>elastic.out(1, 0.55), 0.8 s</span></p>
+                  <svg data-cf-plot="back" aria-hidden="true"><line class="cf-zero" x1="0" x2="240" /><line class="cf-one" x1="0" x2="240" /><path class="cf-curve" /><line class="cf-head" y1="-8" y2="128" /><circle class="cf-dot" r="4.5" /></svg>
+                </div>
+              </div>
+            </div>
+            <div class="stage-bar">
+              <button type="button" class="link-btn" data-cf-replay>Replay the open</button>
+              <button type="button" class="link-btn" data-cf-shake>Tilt it and let go</button>
+              <ul class="readout" data-cf-readout aria-label="Live numbers"></ul>
+            </div>
+            <figcaption><b>Fig. 7</b> The card and its 2 curves, with the live value on each. <span class="hover-only">Point at the card to tilt it and move off to let it swing back,</span><span class="touch-only">Drag on the card to tilt it and lift off to let it swing back,</span> or replay the open.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="globe" aria-labelledby="globe-h">
+          <p class="num">07</p>
+          <h2 id="globe-h">A sphere from a spiral</h2>
+          <div class="col">
+            <p>There are 42 photos and 80 planes, so the globe shuffles the photos, uses them all, shuffles again, and stops at 80.</p>
+            <p>Each plane's place comes from 2 lines. <code>phi = acos(-1 + 2i/80)</code> moves up the sphere in even steps of height, from one pole to the other. <code>theta = sqrt(80 * PI) * phi</code> winds round it on the way. Even steps in height give every point the same share of the surface, and the winding keeps neighbours apart, like seeds in a sunflower. Switch Fig. 1 to the spiral to see the path.</p>
+            <p>On the way in, the camera travels from z&nbsp;=&nbsp;55 to just outside the sphere in 125 frames, at a steady speed, while the globe grows from 30% to full size. After a drag it keeps 92% of its spin each frame. Zoom runs from z&nbsp;=&nbsp;30 all the way to 0.5, which is inside the sphere, looking at the photos from behind.</p>
+          </div>
+          <figure class="stage" id="side-fig">
+            <svg class="side-svg" role="img" aria-label="The globe seen from the side, with the camera on its axis and the distances that matter marked"></svg>
+            <div class="stage-bar">
+              <label class="scrub">Camera z <input type="range" min="0.5" max="55" step="0.1" value="9" aria-label="Camera distance from the centre of the globe" /><output>9.0</output></label>
+              <button type="button" class="link-btn" data-side-fly>Fly in</button>
+            </div>
+            <div class="stage-bar"><ul class="readout" data-side-readout aria-label="Live numbers"></ul></div>
+            <figcaption><b>Fig. 8</b> The globe from the side, with its 80 planes edge on and the camera on its axis. Slide the camera along it, or fly in at the site's speed: 0.008 of the way each frame.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="gallery" aria-labelledby="gallery-h">
+          <p class="num">08</p>
+          <h2 id="gallery-h">A corridor 110 metres long</h2>
+          <div class="col">
+            <p>The gallery is a room 14 metres wide, 5.5 high and 110 long, with concrete on the walls and wood on the floor, both textures from Poly Haven. The ceiling is the same wood, flipped, a mirror of the floor. 24 lights hang down the middle.</p>
+            <p>The photos alternate walls. Their sizes come from a sine of each photo's place in the list, 5 heights from 0.68 to 1.95 metres, so the hang is uneven but the same on every visit. A photo's texture loads only once you're within 22 metres of it.</p>
+            <p>Click a photo and you walk over and turn to face it from 2.2 metres back, with its line underneath.</p>
+          </div>
+          <figure class="stage" id="museum-fig" data-hand>
+            <div class="stage-canvas mu-stage" tabindex="0" role="application" aria-label="The gallery. W A S D or the arrow keys walk, drag to look, Enter walks to the photo in the middle of the view, Escape steps back.">
+              <div class="mu-panel" data-overlay hidden>
+                <div class="mu-panel-top">
+                  <p class="mu-week"></p>
+                  <button type="button" class="link-btn" data-mu-prev>Previous</button>
+                  <button type="button" class="link-btn" data-mu-next>Next</button>
+                  <button type="button" class="link-btn" data-mu-back>Back</button>
+                </div>
+                <div class="mu-sub"></div>
+              </div>
+            </div>
+            <svg class="mu-plan" data-plan role="img" aria-label="Plan of the corridor, with where you are and which way you face. Click it to walk there."></svg>
+            <div class="stage-bar"><ul class="readout" data-mu-readout aria-label="Live numbers"></ul></div>
+            <figcaption><b>Fig. 9</b> The gallery view, live, over its plan. <span class="hover-only">Click it, then walk with W A S D or the arrow keys and drag to look. Click a photo to walk to it, or click the plan to go anywhere.</span><span class="touch-only">Swipe sideways to turn, pinch to walk, tap a photo to walk to it, or tap the plan to go anywhere.</span> The textures here are 512 pixel copies.</figcaption>
+          </figure>
+          <p class="note"><b>Why 110.</b> Each wall is spaced on its own, and the corridor runs to 110 metres so every photo has room on its wall.</p>
+        </section>
+
+        <section class="g s" id="under" aria-labelledby="under-h">
+          <p class="num">09</p>
+          <h2 id="under-h">Underneath</h2>
+          <div class="col">
+            <p>There's no framework and no build step. Every view reads from a single data file that lists the weeks. The originals are 16:9 PNGs, 1280 or 2560 pixels wide and 136 MB together, so they live on Cloudinary.</p>
+            <p>A small upload script finds every entry in the data file without a cloudinary_url, uploads its image under its own id with overwrite turned off, and writes the address it gets back into the file. The page then asks Cloudinary for each photo at the width it's drawn, times the screen's pixel density, up to 3.</p>
+            <p>Images are cached for 7 days. The scripts, the styles and the data file are never cached.</p>
+          </div>
+          <figure class="stage" id="pipe-fig">
+            <ol class="pipe-flow">
+              <li><b>data.json</b><p>A week with no address yet.</p><code>{ "id": "Subtiles30",
+  "cloudinary_url": "" }</code></li>
+              <li><b>upload.js</b><p>Finds it, then finds its image on disk.</p><code>content/images/Subtiles30.png
+public_id: "Subtiles30"
+overwrite: false</code></li>
+              <li><b>Cloudinary</b><p>Stores the original and answers with an address, written back into data.json.</p><code>secure_url → cloudinary_url</code></li>
+              <li><b>The page</b><p>Asks for the width it needs, never the original.</p><code>cloudinaryUrl(url, width)
+w = width × min(dpr, 3)</code></li>
+            </ol>
+            <div class="pipe-try">
+              <div class="pipe-img"><img alt="" width="480" height="270" /></div>
+              <div class="pipe-ctl">
+                <label class="scrub">Drawn at <input type="range" min="120" max="1600" step="20" value="280" aria-label="The width the photo is drawn at, in CSS pixels" /><output>280 px</output></label>
+                <div class="tabs tabs--small" role="group" aria-label="Screen density">
+                  <button type="button" data-dpr="1" aria-pressed="false">1× screen</button>
+                  <button type="button" data-dpr="2" aria-pressed="false">2×</button>
+                  <button type="button" data-dpr="3" aria-pressed="false">3×</button>
+                  <button type="button" data-dpr="4" aria-pressed="false">4×</button>
+                </div>
+                <p class="pipe-url" data-pipe-url></p>
+                <ul class="readout" data-pipe-readout aria-live="polite"></ul>
+              </div>
+            </div>
+            <figcaption><b>Fig. 10</b> From a photo on disk to the pixels on your screen. Change how wide week 16 is drawn and how dense the screen is, and the page asks Cloudinary for a different file. Its original is 1280 pixels wide.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="cut" aria-labelledby="cut-h">
+          <p class="num">10</p>
+          <h2 id="cut-h">What I cut</h2>
+          <div class="col">
+            <p>The plan was 4 views and 54 photos. What shipped was 5 views, hand tracking and 42 photos.</p>
+            <p>The biggest thing I cut was a visitor card: you could sign the site with a drawn signature, on a card in metal or glass, and see how many people were looking at the same time. I redesigned it twice and then took it out, along with a background image toggle and a gradient accent bar. What's left is only about the year.</p>
+          </div>
+        </section>
+
+        <section class="g s end" id="end" aria-labelledby="end-h">
+          <p class="num">11</p>
+          <h2 id="end-h">Conclusion</h2>
+          <div class="col">
+            <p>Subtitles is a small thing with a lot of ways in. Under the 5 views and the hand tracking it's still a year, a photo and a sentence at a time. The work was in making every way of looking fit those photos, and in deleting the parts that were about something else.</p>
+          </div>
+        </section>
+
+        <a class="next" href="kulture.html">
+          <span class="label">Next case study</span>
+          <span class="next-t">KULTURE*</span>
+          <span class="next-d">A party in Lagos, sold as a flight, with a boarding pass you can sign before you buy.</span>
+        </a>
+
+        <footer>
+          <span>Subtitles, a case study</span>
+          <a href="../index.html#work">All work</a>
+        </footer>
       </div>
-    </div>
-    <aside class="cs-hero__aside" data-reveal>
-      <a class="cs-visit" href="https://subtitles.vercel.app/" target="_blank" rel="noopener">Visit site <span class="arrow">↗</span></a>
-      <dl class="cs-meta">
-        <div><dt>Role</dt><dd>Design &amp; development</dd></div>
-        <div><dt>Scope</dt><dd>Archive · Interaction · Personal</dd></div>
-        <div><dt>Year</dt><dd>2024</dd></div>
-        <div><dt>Stack</dt><dd>Next.js · Three.js · Supabase</dd></div>
-      </dl>
-    </aside>
-  </header>
-
-  <section class="cs-section">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">01</span><span class="cs-section__label">Overview</span></div>
-    <h2 class="cs-section__title" data-reveal>Four views, <em>one archive</em></h2>
-    <div class="prose" data-reveal>
-      <p>Subtitles started as a question: what's the right shape for a personal archive? A photo dump loses context. A timeline loses feel. A chat log loses the images. The answer was to build all four and let the mood decide.</p>
-      <p>Strip view shows the weeks in sequence. Feed surfaces individual moments. Gallery puts the photos first. Globe maps them in three-dimensional space via a Three.js sphere. The data is the same — only the perspective changes.</p>
-    </div>
-    <blockquote class="cs-pull" data-reveal><em>The shape of memory depends on how you're looking for it.</em></blockquote>
-  </section>
-
-  <section class="cs-section" style="padding-bottom:0">
-    <div class="cs-section__head" data-reveal><span class="cs-section__label">Highlights</span></div>
-    <div class="cs-highlights" data-stagger>
-      <div class="cs-highlight">
-        <figure><img src="../images/subtitles-web.png" alt="Strip view" loading="lazy" /></figure>
-        <div class="cs-highlight__meta"><span class="cs-highlight__t">Strip view</span><span class="cs-highlight__k">Sequence</span></div>
-      </div>
-      <div class="cs-highlight">
-        <figure><img src="../images/seyispark-video.png" alt="Subtitle player view" loading="lazy" /></figure>
-        <div class="cs-highlight__meta"><span class="cs-highlight__t">Feed view</span><span class="cs-highlight__k">Moments</span></div>
-      </div>
-      <div class="cs-highlight">
-        <figure><img src="../images/seyispark-gallery.png" alt="Gallery view" loading="lazy" /></figure>
-        <div class="cs-highlight__meta"><span class="cs-highlight__t">Gallery view</span><span class="cs-highlight__k">Images</span></div>
-      </div>
-      <div class="cs-highlight">
-        <figure><img src="../images/seyispark-sphere.png" alt="Globe view" loading="lazy" /></figure>
-        <div class="cs-highlight__meta"><span class="cs-highlight__t">Globe view</span><span class="cs-highlight__k">Spatial</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cs-section">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">02</span><span class="cs-section__label">Design decisions</span></div>
-    <h2 class="cs-section__title" data-reveal>Same data, <em>different lenses</em></h2>
-    <div class="cs-cols" data-stagger>
-      <div class="cs-card"><p class="cs-card__k">Strip</p><p class="cs-card__t">Sequence as default</p><p class="cs-card__d">Weeks as horizontal rows, photos and conversations interleaved. Context preserved — you see what led to what.</p></div>
-      <div class="cs-card"><p class="cs-card__k">Feed</p><p class="cs-card__t">Moments surfaced</p><p class="cs-card__d">Photos re-ranked by signal. Surfaces the moments that would stay buried inside a week in strip view.</p></div>
-      <div class="cs-card"><p class="cs-card__k">Gallery</p><p class="cs-card__t">Images only</p><p class="cs-card__d">Text stripped away. The photos fill the screen — for when you want to look at faces, not read words.</p></div>
-      <div class="cs-card"><p class="cs-card__k">Globe</p><p class="cs-card__t">Space as index</p><p class="cs-card__d">A Three.js sphere maps each week to a point. Navigate by spinning — works well for random access.</p></div>
-    </div>
-  </section>
-
-  <section class="cs-section">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">03</span><span class="cs-section__label">Outcome</span></div>
-    <h2 class="cs-section__title" data-reveal>Where it <em>landed</em></h2>
-    <dl class="cs-stats" data-reveal>
-      <div class="cs-stat"><dd class="cs-stat__n" data-count="1000">1,000</dd><dt class="cs-stat__l">Visitors</dt></div>
-      <div class="cs-stat"><dd class="cs-stat__n">54</dd><dt class="cs-stat__l">Weeks archived</dt></div>
-      <div class="cs-stat"><dd class="cs-stat__n">4</dd><dt class="cs-stat__l">View modes</dt></div>
-      <div class="cs-stat"><dd class="cs-stat__n">Live</dd><dt class="cs-stat__l">Still running</dt></div>
-    </dl>
-    <div class="cs-chips" data-reveal style="margin-top:1.75rem">
-      <span class="cs-chip">Next.js</span>
-      <span class="cs-chip">Three.js</span>
-      <span class="cs-chip">Supabase</span>
-      <span class="cs-chip">Vercel</span>
-    </div>
-  </section>
-
-  <section class="cs-section">
-    <p class="cs-palette__head" data-reveal>This project uses a colour palette of <strong>4</strong> colours</p>
-    <div class="cs-palette" data-stagger>
-      <div class="cs-swatch" style="background:#f9f8f4"><span class="cs-swatch__aa" style="color:#1a1a18">Aa</span><span class="cs-swatch__hex" style="color:#1a1a18">#F9F8F4</span></div>
-      <div class="cs-swatch" style="background:#b09000"><span class="cs-swatch__aa" style="color:#fff">Aa</span><span class="cs-swatch__hex" style="color:#fff">#B09000</span></div>
-      <div class="cs-swatch" style="background:#f5d800"><span class="cs-swatch__aa" style="color:#1a1a18">Aa</span><span class="cs-swatch__hex" style="color:#1a1a18">#F5D800</span></div>
-      <div class="cs-swatch" style="background:#1a1a18"><span class="cs-swatch__aa" style="color:#f9f8f4">Aa</span><span class="cs-swatch__hex" style="color:#f9f8f4">#1A1A18</span></div>
-    </div>
-  </section>
-
-  <section class="cs-next">
-    <div class="cs-next__inner">
-      <p class="cs-next__label" data-reveal>Next case study</p>
-      <a href="cohort.html" class="cs-next__link" data-reveal data-magnetic>Cohort <span class="arrow">→</span></a>
-      <p class="cs-next__desc" data-reveal>The social layer for student life.</p>
-      <div class="cs-foot">
-        <span>Seyi Ogundipe — Design Engineer</span>
-        <span><span id="cs-clock">--:--:--</span> local</span>
-        <a href="../index.html#work">All work ↑</a>
-      </div>
-    </div>
-  </section>
-
-  <script src="case-study.js"></script>
+    </article>
+  </main>
+  <script src="study.js" defer></script>
+  <script type="module" src="subtitles/page.js"></script>
 </body>
 </html>

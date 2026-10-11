@@ -1,0 +1,197 @@
+/* Tiwari Town case study: this page's own figures. Built on study.css; nothing
+   here changes a shared component, it only lays out the live figures. */
+
+.tw-fallback[hidden] { display: none; }
+.tw-fallback { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--ink-2); font-size: 15px; text-align: center; }
+.tw-eq {
+  grid-column: 3 / span 8; margin: 6px 0 30px; text-align: center;
+  font: 500 clamp(15px, 1.5vw, 18px)/1.5 var(--mono); color: var(--tint-ink); font-variant-numeric: tabular-nums;
+}
+.tw-checks code { font-size: 0.82em; }
+.stage .readout { display: flex; margin-top: 10px; }
+.stage figcaption { margin-top: 12px; }
+
+/* ---------- Fig. 1, the map ---------- */
+.mp-fig { margin-top: 0; }
+.mp-stage {
+  display: grid; grid-template-columns: minmax(0, 600px) minmax(260px, 380px);
+  justify-content: center; align-items: center; column-gap: clamp(28px, 4vw, 64px);
+  touch-action: manipulation;
+}
+.mp-plate { position: relative; aspect-ratio: 1; width: 100%; }
+.mp-ground { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 3px; }
+.mp-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.mp-pins { position: absolute; inset: 0; outline-offset: 4px; }
+.mp-pins:focus-visible { outline: 2px solid var(--tint-ink); }
+.mp-pin {
+  position: absolute; display: flex; align-items: center; gap: 5px;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  transform: translate(-6px, -50%);
+  font: 600 12px/1 var(--font); color: var(--ink); white-space: nowrap;
+}
+.mp-pin i {
+  flex: none; width: 12px; height: 12px; border-radius: 50%;
+  background: #fdfcf9; box-shadow: 0 0 0 1.5px rgba(10, 12, 18, 0.85);
+}
+.mp-pin span { padding: 3px 5px 3px; border-radius: 2px; background: rgba(253, 252, 249, 0.92); }
+.mp-pin.is-left { flex-direction: row-reverse; transform: translate(calc(-100% + 6px), -50%); }
+.mp-pin.is-secret span { color: var(--ink-2); }
+.mp-pin.is-on i { background: var(--tint-ink); box-shadow: 0 0 0 1.5px #fdfcf9, 0 0 0 3px rgba(10, 12, 18, 0.85); }
+.mp-pin.is-on span { background: var(--ink); color: var(--paper); }
+.mp-pin:focus-visible { outline: none; }
+.mp-pin:focus-visible span { outline: 2px solid var(--tint-ink); outline-offset: 1px; }
+.mp-n, .mp-scale { position: absolute; color: #fdfcf9; font: 600 11px/1 var(--font); letter-spacing: 0.04em; pointer-events: none; }
+.mp-n { left: 10px; top: 10px; }
+.mp-scale { left: 10px; bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.mp-scale i { display: block; width: var(--w, 40px); height: 4px; border: 1.5px solid #fdfcf9; border-top: 0; }
+.mp-card { align-self: center; }
+.mp-shot { aspect-ratio: 16 / 9; }
+.mp-shot img { width: 100%; height: 100%; object-fit: cover; }
+.mp-title { margin: 18px 0 0; font: 400 26px/1.2 var(--font); letter-spacing: -0.01em; }
+.mp-note { margin: 6px 0 0; color: var(--ink-2); font-size: 15.5px; line-height: 1.5; }
+.mp-line { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--rule); font-size: 15px; line-height: 1.5; }
+.mp-line:empty { display: none; }
+.mp-line small { display: block; margin-bottom: 2px; color: var(--ink-3); font-size: 12px; letter-spacing: 0.02em; }
+.mp-read { justify-content: flex-start !important; margin-top: 12px !important; }
+.mp-bake { justify-content: center; }
+
+/* ---------- Fig. 3, building the dog ---------- */
+.db-stage { height: clamp(300px, 40vw, 460px); cursor: grab; touch-action: pan-y; outline-offset: 4px; }
+.db-stage:active { cursor: grabbing; }
+.db-stage canvas { position: absolute; inset: 0; }
+.db-scrub { margin-top: 8px; }
+
+/* ---------- Fig. 4, the gait ---------- */
+.dg-stage { height: clamp(220px, 26vw, 320px); }
+.dg-stage canvas { position: absolute; inset: 0; }
+.dg-plots { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; width: min(100%, 960px); margin: 18px auto 0; }
+.dg-plots svg { display: block; width: 100%; height: auto; overflow: visible; }
+.dg-scrub { width: min(100%, 380px); margin: 0; }
+
+/* ---------- Fig. 5, the light ---------- */
+.lt-fig { width: min(100%, 960px); }
+.lt-shot { aspect-ratio: 16 / 9; }
+.lt-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+.lt-shot img[data-mode="day"] { opacity: 1; }
+.lt-dome { position: relative; margin-top: 18px; }
+.lt-dome canvas { width: 100%; height: clamp(70px, 11vw, 118px); border-radius: 2px; }
+.lt-dome-ann { position: absolute; left: 0; top: 0; width: 100%; height: clamp(70px, 11vw, 118px); overflow: visible; pointer-events: none; }
+.lt-dome-lab { position: relative; height: 18px; margin-top: 4px; }
+.lt-dome-lab span { position: absolute; top: 0; transform: translateX(-50%); color: var(--ink-2); font: 500 11.5px/1.4 var(--mono); }
+.lt-dome-lab span:first-child { transform: none; }
+.lt-dome-lab span:last-child { transform: translateX(-100%); }
+.lt-row { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 32px; align-items: end; margin-top: 18px; }
+.lt-row svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* ---------- Fig. 6, the voice ---------- */
+.vc-stage {
+  display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 460px);
+  justify-content: center; align-items: center; column-gap: clamp(28px, 4vw, 56px);
+}
+.vc-plate { position: relative; width: 100%; aspect-ratio: 40 / 45; touch-action: none; cursor: crosshair; }
+.vc-ground { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 3px; }
+.vc-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.vc-walker {
+  position: absolute; left: 0; top: 0; width: 22px; height: 22px; margin: -11px 0 0 -11px; padding: 0;
+  border: 0; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 3px #fdfcf9;
+  cursor: grab; touch-action: none;
+}
+.vc-walker:active { cursor: grabbing; }
+.vc-walker::after { content: ""; position: absolute; left: 50%; top: -9px; margin-left: -5px; border: 5px solid transparent; border-bottom: 7px solid var(--ink); border-top: 0; transform-origin: 5px 20px; transform: rotate(var(--hd, 0deg)); }
+/* the caption, the way the game sets it: a dark plate over the world (narration.css, without the blur) */
+.vc-screen { position: absolute; left: 4%; right: 4%; bottom: 5%; display: flex; justify-content: center; pointer-events: none; }
+.vc-cap {
+  margin: 0; padding: 0.45em 0.85em 0.5em; border-radius: 10px;
+  background: rgba(10, 12, 18, 0.78); color: #fdfcf9;
+  font: 600 clamp(14px, 1.45vw, 17px)/1.34 var(--font); text-align: center; text-wrap: balance;
+  opacity: 0; visibility: hidden;
+}
+.vc-cap[data-tone="aside"] { font-weight: 500; font-style: italic; color: #eae5da; background: rgba(10, 12, 18, 0.66); font-size: clamp(13px, 1.3vw, 15.5px); }
+.vc-cap[data-tone="title"] { font-weight: 700; font-size: clamp(16px, 1.7vw, 20px); }
+.vc-side { align-self: center; }
+.vc-plot { display: block; width: 100%; height: auto; overflow: visible; }
+.vc-queue { margin: 14px 0 0; padding: 0; list-style: none; counter-reset: q; min-height: 7.2em; }
+.vc-queue li { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); padding: 5px 0; border-top: 1px solid var(--rule); color: var(--ink-2); font-size: 13.5px; line-height: 1.4; }
+.vc-queue li::before { counter-increment: q; content: counter(q); color: var(--ink-3); font: 500 12px/1.6 var(--mono); }
+.vc-queue li.is-now { color: var(--ink); }
+.vc-queue li.is-now::before { content: "▸"; color: var(--tint-ink); }
+.vc-queue li.is-empty { color: var(--ink-3); }
+.vc-queue li.is-empty::before { content: ""; }
+
+/* ---------- Fig. 7, Connect 4 ---------- */
+.c4-fig { width: min(100%, 640px); }
+.c4-stage { min-height: 0; touch-action: manipulation; }
+.c4-board { display: block; width: min(100%, 520px); height: auto; margin: 0 auto; overflow: visible; cursor: pointer; outline-offset: 6px; }
+.c4-board:focus-visible { outline: 2px solid var(--tint-ink); }
+.c4-status { margin: 10px 0 0; text-align: center; font-size: 16px; }
+.c4-match { margin-top: 4px !important; }
+.c4-match b[data-r="list"] { display: inline-block; max-width: 34ch; overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; white-space: nowrap; }
+
+/* ---------- Fig. 8, the race ---------- */
+.rc-stage { min-height: 0; }
+.rc-seq, .rc-course { display: block; width: 100%; height: auto; overflow: visible; }
+.rc-course { margin-top: 30px; }
+.rc-bar { margin: 0 0 18px; }
+.rc-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 14px; margin-top: 14px; }
+.rc-actions .button { padding: 10px 16px; font-size: 14px; }
+.rc-actions .button[disabled] { opacity: 0.4; cursor: default; }
+
+/* ---------- Fig. 9, the movement check ---------- */
+.mv-fig { width: min(100%, 960px); }
+.mv-stage { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 440px); justify-content: center; align-items: center; column-gap: clamp(28px, 5vw, 72px); }
+.mv-dial { display: block; width: 100%; height: auto; overflow: visible; cursor: grab; touch-action: none; outline-offset: 6px; padding: 8px 0 0; }
+.mv-dial:focus-visible { outline: 2px solid var(--tint-ink); }
+.mv-grid { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* ---------- Fig. 10, the gate ---------- */
+.gt-fig { width: min(100%, 1040px); }
+.gt-stage { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; column-gap: clamp(24px, 4vw, 56px); min-height: 0; }
+.gt-code {
+  margin: 0; padding: 0; overflow: hidden; white-space: pre-wrap; word-break: break-word;
+  font: 500 12.5px/1.65 var(--mono); color: var(--ink-2); tab-size: 2;
+}
+.gt-code span { display: block; padding: 0 6px; border-left: 2px solid transparent; }
+.gt-code span.c { color: var(--ink-3); }
+.gt-code span.is-on { color: var(--ink); background: var(--hl); border-left-color: var(--tint-ink); }
+.gt-code span.is-bad { color: #8a2d1f; background: rgba(200, 70, 50, 0.1); border-left-color: #b8432f; }
+.gt-tabs { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* ---------- reel: on a phone, show the whole frame and put the words under it ---------- */
+@media (max-width: 760px) {
+  .reel { height: auto; min-height: 0; max-height: none; }
+  .reel video { position: relative; inset: auto; height: auto; aspect-ratio: 1280 / 712; object-fit: cover; }
+  .reel-cap { position: relative; padding-top: 16px; text-shadow: none; }
+  .reel-cap b { font-size: 24px; }
+}
+
+/* ---------- smaller screens ---------- */
+@media (max-width: 1180px) {
+  .tw-eq { grid-column: 2 / span 10; }
+}
+@media (max-width: 860px) {
+  .tw-eq { grid-column: 1 / -1; }
+  .mp-stage { grid-template-columns: minmax(0, 1fr); row-gap: 22px; }
+  .mp-card { width: 100%; max-width: 520px; justify-self: center; }
+  .vc-stage { grid-template-columns: minmax(0, 1fr); row-gap: 20px; }
+  .vc-plate { max-width: 420px; justify-self: center; }
+  .mv-stage { grid-template-columns: minmax(0, 1fr); row-gap: 22px; }
+  .mv-dial { max-width: 300px; margin: 0 auto; }
+  .gt-stage { grid-template-columns: minmax(0, 1fr); row-gap: 22px; }
+  .dg-plots { grid-template-columns: 1fr; gap: 18px; }
+  .lt-row { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .lt-row .lt-curve { max-width: 260px; justify-self: center; }
+}
+@media (max-width: 560px) {
+  .mp-pin { font-size: 10.5px; gap: 3px; }
+  .mp-pin i { width: 10px; height: 10px; }
+  .mp-pin { transform: translate(-5px, -50%); }
+  .mp-pin.is-left { transform: translate(calc(-100% + 5px), -50%); }
+  .mp-pin span { padding: 2px 3px; }
+  .mp-title { font-size: 22px; }
+  .gt-code { font-size: 11.5px; }
+  .rc-actions .button { padding: 9px 12px; font-size: 13.5px; }
+}
+
+/* focus rings for the keyboard only; a click on a figure shouldn't draw a box round it */
+[data-input="mouse"] :is(.mv-dial, .c4-board, .db-stage, .vc-walker, .mp-pin span):focus-visible { outline: none; }
+:is(.mv-dial, .c4-board, .db-stage, .vc-walker, .mp-pin):focus:not(:focus-visible) { outline: none; }

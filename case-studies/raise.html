@@ -1,127 +1,417 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cohort / Raise — Case Study · Seyi Ogundipe</title>
-  <meta name="description" content="The Cohort investor page — an unlisted, scroll-driven pitch engineered for momentum. Every chapter raises the stakes." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
-  <link rel="stylesheet" href="case-study.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Building Cohort / Raise · Seyi Ogundipe</title>
+  <meta name="description" content="How Cohort's investor page was built: a short letter instead of a deck, with a network graph that grows when you ask it to." />
+  <meta name="author" content="Seyi Ogundipe" />
+  <meta name="theme-color" content="#f3f1ea" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building Cohort / Raise: an investor page that isn't a deck" />
+  <link rel="icon" href="../images/cohort-work-icon.svg" type="image/svg+xml" />
+  <link rel="preload" href="raise/centold.woff" as="font" type="font/woff" crossorigin />
+  <link rel="stylesheet" href="study.css" />
+  <link rel="stylesheet" href="raise/page.css" />
 </head>
-<body>
-  <div class="grain" aria-hidden="true"></div>
+<body style="--tint:#4b63ff; --tint-ink:#2f45d6">
+  <div class="page">
+    <header class="bar">
+      <a class="bar-home" href="../index.html#work"><i aria-hidden="true">←</i> Seyi Ogundipe</a>
+      <a href="../index.html#work">All work</a>
+    </header>
+  </div>
 
-  <nav class="cs-nav">
-    <a href="../index.html#work" class="cs-nav__back" data-magnetic><span class="arrow">←</span><span>All work</span></a>
-    <span class="cs-nav__mark"><img class="cs-nav__icon" src="../images/cohort-work-icon.svg" alt="" /><span>Cohort / Raise</span></span>
-    <div class="cs-nav__actions">
-      <a class="cs-btn cs-btn--ghost" href="https://www.trycohort.xyz/raise" target="_blank" rel="noopener">Visit site <span class="arrow">↗</span></a>
-    </div>
+  <nav class="toc" aria-label="Contents">
+    <p class="label">Contents</p>
+    <ol>
+      <li><a href="#intro"><span>01</span> Intro</a></li>
+      <li><a href="#job"><span>02</span> The job</a></li>
+      <li><a href="#system"><span>03</span> The letters</a></li>
+      <li><a href="#network"><span>04</span> The network</a></li>
+      <li><a href="#wall"><span>05</span> The wall</a></li>
+      <li><a href="#strike"><span>06</span> Not ads</a></li>
+      <li><a href="#phone"><span>07</span> One phone</a></li>
+      <li><a href="#ask"><span>08</span> The button</a></li>
+      <li><a href="#process"><span>09</span> Process</a></li>
+      <li><a href="#end"><span>10</span> Conclusion</a></li>
+    </ol>
   </nav>
 
-  <header class="cs-hero">
-    <div class="cs-hero__meta" data-reveal>
-      <span>Case Study</span>
-      <span class="cs-hero__pill">2025</span>
-      <span>Narrative · Web · Motion</span>
-    </div>
-    <h1 class="cs-hero__title" data-reveal>Raise</h1>
-    <p class="cs-hero__lede" data-reveal>The investor cut of Cohort — an unlisted, scroll-driven narrative that builds momentum toward a single ask. The close is two email addresses on white space.</p>
-    <div class="cs-hero__by" data-reveal>
-      <span class="dot"><img src="../images/cohort-work-icon.svg" alt="" /></span>
-      <span>Seyi Ogundipe</span>
-      <span class="role">— Design &amp; front-end</span>
-    </div>
-  </header>
+  <main>
+    <article>
+      <div class="page">
+        <header class="a-head">
+          <p class="eyebrow"><i></i> Case study / 010</p>
+          <h1>Building Cohort / Raise: an investor page that isn't a deck</h1>
+          <p class="stand">An unlisted page Cohort sends to pre-seed investors in place of a pitch deck. The same paper, type and chips as the student site, written for a different reader.</p>
+          <p class="meta"><b>2026</b><span></span>Design and front end</p>
+        </header>
 
-  <div class="cs-cover" data-reveal>
-    <div class="cs-frame">
-      <div class="cs-frame__bar"><span></span><span></span><span></span></div>
-      <div class="cs-frame__screen">
-        <img src="../images/raise-web.png" alt="Cohort Raise — editorial dark text layout with inline pills" loading="lazy" />
+        <!-- Fig. 1: both letters, live. Ports raise.js:34-88 (greeting, corner) and the chip behaviours at raise.js:135-178, 251-269. -->
+        <figure class="stage rz-hero" id="letter" aria-label="The opening of the investor letter and the student letter, rebuilt live">
+          <div class="rz-letter" data-reader="investor">
+            <p class="rz-corner" aria-label="The corner clock"><span class="rz-time">12:00 PM</span><span class="rz-stat">2,083 STUDENTS WAITING</span><svg class="rz-chev" viewBox="0 0 10 6" width="10" height="6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+            <p class="rz-greet"><span class="rz-hello" role="button" tabindex="0" aria-label="Greeting. Press to change language">Good afternoon</span>,</p>
+
+            <div class="rz-copies">
+              <div class="rz-copy" data-for="investor">
+                <p>Every university student is quietly running an operations job they never applied for - <button type="button" class="rz-chip" data-fan="apps">six apps</button> before 9am, deadlines buried where no one sees them, and the <button type="button" class="rz-chip" data-fan="people">right people</button> sitting one building over - never found.</p>
+                <p>So we built <button type="button" class="rz-chip rz-chip--logo" data-logo><img class="rz-chip-img" src="raise/cohort-logo.webp" alt="" width="20" height="20" /><span>Cohort</span></button> - a proactive AI assistant delivered through iMessage, <button type="button" class="rz-chip" data-ix aria-expanded="false">coordinating</button><span class="rz-ix" hidden> - staying ahead of deadlines, booking rooms before they fill, surfacing opportunities before they close, making the right intros before they're missed -</span> student life across a <button type="button" class="rz-chip" data-goto="shared">shared network</button>.</p>
+                <p>Here's what makes it a company, not a feature: <button type="button" class="rz-chip rz-chip--accent" data-goto="compounds">the network compounds</button>. Every student makes the graph <button type="button" class="rz-chip" data-ix aria-expanded="false">denser</button><span class="rz-ix" hidden> - a denser graph means sharper matches, faster intros, and weaker reasons to leave. An AI feature is a line of code. The network is something you can't fork</span>.</p>
+              </div>
+              <div class="rz-copy" data-for="student" aria-hidden="true">
+                <p>They said University would be some of the <button type="button" class="rz-chip" data-ix aria-expanded="false" tabindex="-1">best years</button> of your life<span class="rz-ix" hidden> - the people you'd meet, the memories you'd create, and the opportunities you'd find</span>. But nobody spoke about how <button type="button" class="rz-chip" data-ix aria-expanded="false" tabindex="-1">overwhelming</button> it is<span class="rz-ix" hidden> - Deadlines, <button type="button" class="rz-chip" data-fan="apps" tabindex="-1">Apps</button>, Emails, Events, Group&nbsp;chats, Calendars, Classes - all scattered across systems that were never designed to work together. Not anymore</span>.</p>
+                <p>Meet <button type="button" class="rz-chip rz-chip--logo" data-logo data-ix aria-expanded="false" tabindex="-1"><img class="rz-chip-img" src="raise/cohort-logo.webp" alt="" width="20" height="20" /><span>Cohort</span></button><span class="rz-ix" hidden> - a proactive AI assistant that coordinates student life across a shared network</span>, the friend who knows you and everyone, remembers everything, and handles the parts of university you shouldn't have to think about. It lives in your <span class="rz-imsg">messages</span>, helping you stay ahead of deadlines, book office hours before they fill up, coordinate meetings, discover <button type="button" class="rz-chip" data-ix data-tail aria-expanded="false" tabindex="-1">opportunities</button><span class="rz-ix" hidden> - internships, events, and communities that fit you show up in your DMs, not buried in emails; it finds you the right rooms, projects, and people, just by asking</span><span class="rz-tail">, and connect with the right <button type="button" class="rz-chip" data-fan="people" tabindex="-1">people</button> at the right time</span>.</p>
+                <p><button type="button" class="rz-chip" data-ix aria-expanded="false" tabindex="-1">Built by students</button><span class="rz-ix" hidden> - two students, Seyi and Saleena, who wanted a better way to manage university and find the right people along the way -</span> for students.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rz-fly" data-overlay aria-hidden="true"></div>
+
+          <div class="stage-bar">
+            <div class="tabs" role="group" aria-label="Which letter">
+              <button type="button" aria-pressed="true" data-reader="investor">Investor letter</button>
+              <button type="button" aria-pressed="false" data-reader="student">Student letter</button>
+            </div>
+            <button type="button" class="link-btn rz-play" hidden>Play</button>
+          </div>
+          <figcaption><b>Fig. 1</b> The opening of both letters, rebuilt live in their day colours and Cohort's own typeface. Switch readers with the tabs. The greeting changes language every 5 seconds; the investor corner changes every 4. <span class="hover-only">Point at a chip to open it the way the page does.</span><span class="touch-only">Tap a chip to open it.</span></figcaption>
+        </figure>
+
+        <section class="g s" id="intro" aria-labelledby="intro-h">
+          <p class="num">01</p>
+          <h2 id="intro-h">Intro</h2>
+          <div class="col">
+            <p>This page does a pitch deck's job as a letter. An investor reads 8 short paragraphs in one sitting, opens only the claims they want evidence for, finds straight answers to 13 common investor questions, and replies with one button.</p>
+            <p>It's unlisted and marked noindex, so search engines leave it alone. It only works if it arrives as a link from one of us, so it reads like a letter from one of us.</p>
+          </div>
+          <p class="note"><b>Rebuilt here.</b> Every figure below rebuilds the investor page's mechanics from its own code and constants, with the 3 proof points it shows in its corner.</p>
+        </section>
+
+        <section class="g s" id="job" aria-labelledby="job-h">
+          <p class="num">02</p>
+          <h2 id="job-h">The job</h2>
+          <div class="col">
+            <p>Take an investor from the problem to the opportunity in one sitting, and make them want to reply. The credibility comes from the research, the argument for why a student network compounds, and answers that don't dodge.</p>
+            <p>The brief I wrote for myself had one rule, and it's the reason this isn't a deck:</p>
+          </div>
+          <p class="quote">No sections, no headers, no slide-deck structure. The depth lives inside the pills.</p>
+          <div class="col">
+            <p>So the page is one letter. Every chip in it opens something: app icons fan out of "six apps", sticky notes cover the screen, a graph takes over, the founders' faces grow out of the sentence. You see only the depth you ask for.</p>
+          </div>
+          <figure class="fig fig--w">
+            <div class="frame"><img src="media/raise/evening.webp" width="2000" height="1109" alt="The investor letter in amber on dark brown: short paragraphs with chips such as six apps, 500 students, shared network and the network compounds" loading="lazy" /></div>
+            <figcaption><b>Fig. 2</b> The real page in its evening colours, the way an investor meets it after dark.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="system" aria-labelledby="system-h">
+          <p class="num">03</p>
+          <h2 id="system-h">Same system, different reader</h2>
+          <div class="col">
+            <p>The investor page is a sibling of the student page. Same paper, same ink, same Century Old Style, same chips, same 4 times of day, the same lamp hanging in the corner. Fig. 1 flips between the 2 openings.</p>
+            <p>The case holds: both are in sentence case. What changes is who the sentences are about and what the chips hold.</p>
+          </div>
+          <table class="ba rz-ba">
+            <thead><tr><th scope="col"></th><th scope="col">Student letter</th><th scope="col">Investor letter</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Greeting</th><td>"Hello", in 16 languages, at any hour</td><td>"Good morning", "afternoon" or "evening" by your clock, in 12 languages</td></tr>
+              <tr><th scope="row">Corner</th><td>The time and GOOD MORNING, DAY, EVENING or NIGHT</td><td>The time and a proof point, changed every 4 seconds</td></tr>
+              <tr><th scope="row">Voice</th><td>You: "the best years of your life"</td><td>Them: "Every university student is quietly running an operations job"</td></tr>
+              <tr><th scope="row">Chips open</th><td>Definitions, app icons, faces</td><td>Evidence: research notes, a graph, founder cards</td></tr>
+              <tr><th scope="row">Case</th><td>Sentence case</td><td>Sentence case</td></tr>
+            </tbody>
+          </table>
+          <div class="col col--gap">
+            <p>The corner is the smallest change. On the student page it tells you the time of day. On the investor page it rotates 3 proof points every 4 seconds: 2,083 students waiting, zero paid acquisition, a Fall '26 launch. The greeting changes language every 5 seconds, so the 2 only change together every 20.</p>
+          </div>
+
+          <!-- Fig. 3: the corner and greeting on one timeline. raise.js:39-63 (greeting, 5 s) and raise.js:72, 86-87 (corner, 4 s). -->
+          <figure class="stage rz-clock" id="clockfig" aria-label="The corner clock and the greeting on one timeline">
+            <div class="rz-clock-live">
+              <p class="rz-clock-greet"><span class="rz-hello">Good afternoon</span>,</p>
+              <p class="rz-corner rz-corner--big"><span class="rz-time">12:00 PM</span><span class="rz-stat">2,083 STUDENTS WAITING</span><svg class="rz-chev" viewBox="0 0 10 6" width="10" height="6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+            </div>
+            <div class="rz-clock-grid">
+              <div class="rz-lanes" aria-hidden="true">
+                <div class="rz-lane" data-lane="corner"><span class="rz-lane-name">Corner, every 4 s</span><div class="rz-lane-track"></div></div>
+                <div class="rz-lane" data-lane="greet"><span class="rz-lane-name">Greeting, every 5 s</span><div class="rz-lane-track"></div></div>
+                <div class="rz-axis"></div>
+                <i class="rz-playhead"></i>
+              </div>
+              <svg class="rz-swap" viewBox="0 0 300 190" role="img" aria-label="One swap plotted: opacity against time for the corner and the greeting">
+                <g class="rz-swap-grid"></g>
+                <path class="rz-swap-c" d="" />
+                <path class="rz-swap-g" d="" />
+                <circle class="rz-swap-dot-c" r="4" cx="40" cy="40" />
+                <circle class="rz-swap-dot-g" r="4" cx="40" cy="40" />
+              </svg>
+            </div>
+            <div class="stage-bar">
+              <ul class="readout rz-clock-read" aria-live="off">
+                <li>t <b data-k="t">0.0 s</b></li>
+                <li>corner <b data-k="c">1 / 3</b></li>
+                <li>opacity <b data-k="o">0.70</b></li>
+                <li>greeting <b data-k="g">1 / 12</b></li>
+              </ul>
+              <button type="button" class="link-btn rz-play" hidden>Play</button>
+            </div>
+            <figcaption><b>Fig. 3</b> The corner and the greeting, rebuilt live with the original timings and drawn on one 20 second timeline. The plot is a single swap: the old words leave on power2.in, the new ones arrive on power2.out, and the greeting does it faster.</figcaption>
+          </figure>
+          <p class="note"><b>Two opacities.</b> The corner sits at 50% opacity and the proof point at 70% inside it, so it reads at 35% until you point at it.</p>
+        </section>
+
+        <section class="g s" id="network" aria-labelledby="network-h">
+          <p class="num">04</p>
+          <h2 id="network-h">The network, live</h2>
+          <div class="col">
+            <p>The whole argument rests on one idea: every student who joins makes Cohort better for every other student. That's hard to believe in a sentence. So 2 chips, "shared network" and "the network compounds", don't open text. They fade the letter out and draw a graph across the whole screen.</p>
+            <p>The compounding graph starts as 1 node. Each new node links to up to 3 others within reach and makes each of them 1.4 pixels bigger, up to a radius of 22, so the nodes that keep getting picked turn into hubs. Three lines appear as it grows, at 12%, 42% and 75% of its 32 nodes.</p>
+            <p>Here it floats on the paper instead, with its insides opened up. The forces are the original's: nodes push apart at 700 over distance squared, edges pull like springs towards 40% of the reach, everything drifts to the middle at 0.007 of the distance, and each frame keeps 82% of the velocity. It runs on a plain 2D canvas.</p>
+            <p>Turn the forces on and the shape makes sense. Repulsion is far stronger than the pull to the middle, so nodes slide outwards until a hard clamp stops them, 17% in from the sides and 14% from the top and bottom. Almost every node ends up on that line, so the graph reads as a frame of students with a few hubs pulling links across the middle.</p>
+          </div>
+
+          <!-- Fig. 4: the network overlay as a floating figure. raise.js:497-752 -->
+          <figure class="stage rz-net" id="netfig" aria-label="The network graph, live">
+            <div class="stage-bar rz-net-top">
+              <div class="tabs" role="group" aria-label="Which graph">
+                <button type="button" aria-pressed="false" data-mode="shared">Shared network</button>
+                <button type="button" aria-pressed="true" data-mode="compounds">The network compounds</button>
+              </div>
+            </div>
+            <div class="stage-canvas rz-net-canvas">
+              <canvas tabindex="0" aria-label="Network graph. Use the arrow keys to step through nodes and Escape to clear." aria-describedby="net-read"></canvas>
+            </div>
+            <ol class="rz-net-lines" aria-live="polite">
+              <li data-at="12"><span>12%</span>More students join - the graph gets denser.</li>
+              <li data-at="42"><span>42%</span>Denser graph - every intro faster, every match sharper.</li>
+              <li data-at="75"><span>75%</span>Better matching - harder to leave, impossible to copy.</li>
+            </ol>
+            <div class="scrub rz-scrub">
+              <label for="net-grow">Growth</label>
+              <span class="rz-range">
+                <input id="net-grow" type="range" min="0" max="100" step="1" value="100" aria-valuetext="32 nodes" />
+                <i style="--at:.12"></i><i style="--at:.42"></i><i style="--at:.75"></i>
+              </span>
+              <output for="net-grow">100%</output>
+            </div>
+            <div class="stage-bar">
+              <button type="button" class="link-btn" data-act="grow">Grow it</button>
+              <button type="button" class="link-btn" data-act="forces" aria-pressed="false">Show forces</button>
+            </div>
+            <ul class="readout" id="net-read" aria-live="off">
+              <li>nodes <b data-k="n">32</b></li>
+              <li>edges <b data-k="e">0</b></li>
+              <li>mean degree <b data-k="d">0.0</b></li>
+              <li>growth <b data-k="p">100%</b></li>
+              <li>on the walls <b data-k="w">0</b></li>
+              <li data-k-hover hidden>node <b data-k="h">#0 · 0 links</b></li>
+            </ul>
+            <ul class="rz-legend" hidden>
+              <li><i class="f-rep"></i>repulsion, 700 / d²</li>
+              <li><i class="f-spr"></i>spring, (d − 0.4 reach) × 0.008</li>
+              <li><i class="f-ctr"></i>centre, 0.007 × distance</li>
+              <li><i class="f-wal"></i>the clamp, nodes on it ringed</li>
+            </ul>
+            <figcaption><b>Fig. 4</b> Both graphs, ported with the original forces and growth rule. Press Grow it to watch 1 node become 32 at the original pace, or drag the slider. <span class="hover-only">Point at a node</span><span class="touch-only">Tap a node</span> to light its links. Show forces draws what moves each node; arrow length grows with the square root of the force.</figcaption>
+          </figure>
+          <p class="note"><b>Early nodes become hubs.</b> Each new node picks its parent at index random × random × count, which leans towards the oldest, and links to the first 3 nodes in reach, also oldest first. Across 300 runs of the rule, the biggest hub was one of the first 4 nodes 98% of the time.</p>
+        </section>
+
+        <section class="g s" id="wall" aria-labelledby="wall-h">
+          <p class="num">05</p>
+          <h2 id="wall-h">Research as a wall</h2>
+          <div class="col">
+            <p>We talked to 500 students. On the page that's a chip, and opening it covers the screen in sticky notes, up to 24, or 12 on a phone, before the findings count up inline after the sentence.</p>
+            <p>The notes are blank here, because what they say belongs to the page. What's left is the motion. Every note gets its own random delay inside 0.7 s, a tilt of up to 20° either way, and a back.out(1.7) pop from half size. At 1.1 s the numbers start counting. At 2.2 s the notes fall off the bottom of the screen, each with its own spin, and you're back in the letter.</p>
+          </div>
+
+          <!-- Fig. 5: the sticky-note wall. raise.js:180-249, countUp at raise.js:367-372 -->
+          <figure class="stage rz-wall" id="wallfig" aria-label="The sticky note wall">
+            <div class="stage-canvas rz-wall-canvas">
+              <p class="rz-wall-line">We talked to <button type="button" class="rz-chip" aria-expanded="false">500 students</button> across three countries.<span class="rz-wall-ix" hidden> <b class="n">0</b> notes on this wall.</span> Same story every time: drowning in coordination, starving for connection.</p>
+              <div class="rz-notes" data-overlay aria-hidden="true"></div>
+            </div>
+            <div class="rz-wall-grid">
+              <div class="rz-sched" aria-hidden="true">
+                <svg class="rz-sched-svg" preserveAspectRatio="none"></svg>
+                <div class="rz-sched-axis"></div>
+                <i class="rz-sched-head"></i>
+              </div>
+              <svg class="rz-pop" viewBox="0 0 220 150" role="img" aria-label="The pop: scale from 0.5 to 1 on back.out(1.7), with its overshoot">
+                <g class="rz-pop-grid"></g>
+                <path class="rz-pop-curve" d="" />
+                <circle class="rz-pop-dot" r="4" cx="0" cy="0" />
+              </svg>
+            </div>
+            <div class="stage-bar">
+              <ul class="readout rz-wall-read">
+                <li>notes <b data-k="n">24</b></li>
+                <li>colours <b>6</b></li>
+                <li>pop <b>back.out(1.7)</b></li>
+                <li>count at <b>1.1 s</b></li>
+                <li>fall at <b>2.2 s</b></li>
+                <li>t <b data-k="t">0.00 s</b></li>
+              </ul>
+              <button type="button" class="link-btn" data-act="replay">Replay</button>
+            </div>
+            <figcaption><b>Fig. 5</b> The wall, rebuilt with the original timings and blank notes. Open the chip. The chart is the run's schedule, drawn before it starts, one row per note: the pop in its colour, the fall in grey. The real page counts up 3 findings at 1.1 s; this one counts its notes instead.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="strike" aria-labelledby="strike-h">
+          <p class="num">06</p>
+          <h2 id="strike-h">A word crossed out</h2>
+          <div class="col">
+            <p>The growth plan is one sentence: we grow through experiences, not ads. "Ads" is crossed out rather than argued with. When the sentence is half in view, a pen stroke draws through the word once and stays.</p>
+            <p>The stroke is an SVG path with a 300 unit dash, offset by 300 so it starts hidden, and tweened to 0 over 0.65 s on power2.inOut. The path is only about <span data-strike="len">84</span> units long. So the line is fully drawn <span data-strike="tfull">0.27 s</span> in, while the ease is still speeding up, and it reads as one quick flick of a pen.</p>
+          </div>
+
+          <!-- Fig. 6: the pen strike. raise.js:754-763, path and CSS from raise/index.html:227 and raise.css:343-349 -->
+          <figure class="stage rz-strike" id="strikefig" aria-label="The pen strike through the word ads">
+            <p class="rz-strike-line">And we grow through <span class="rz-chip rz-chip--static">experiences</span>, not <span class="rz-ads">ads<svg viewBox="0 0 80 18" preserveAspectRatio="none" aria-hidden="true"><path d="M-2,9 C10,7 20,11 30,9 C42,7 52,11 62,9 C70,7 76,8 82,9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="300" stroke-dashoffset="300"/></svg></span>. You text Cohort to get in.</p>
+            <div class="rz-strike-grid">
+              <svg class="rz-dash" viewBox="0 0 640 120" role="img" aria-label="The dash sliding into the path window">
+                <g class="rz-dash-axis"></g>
+                <rect class="rz-dash-bar" x="0" y="36" width="10" height="14" />
+                <rect class="rz-dash-win" x="0" y="28" width="10" height="30" />
+                <rect class="rz-dash-on" x="0" y="36" width="0" height="14" />
+                <g class="rz-dash-labels"></g>
+              </svg>
+              <svg class="rz-off" viewBox="0 0 300 190" role="img" aria-label="stroke-dashoffset against time on power2.inOut">
+                <g class="rz-off-grid"></g>
+                <path class="rz-off-curve" d="" />
+                <circle class="rz-off-dot" r="4" cx="0" cy="0" />
+              </svg>
+            </div>
+            <div class="scrub">
+              <label for="strike-t">Tween</label>
+              <input id="strike-t" type="range" min="0" max="650" step="1" value="0" />
+              <output for="strike-t">0.00 s</output>
+            </div>
+            <div class="stage-bar">
+              <ul class="readout rz-strike-read">
+                <li>stroke-dashoffset <b data-k="o">300.0</b></li>
+                <li>drawn <b data-k="d">0.0 / 84.4</b></li>
+                <li>ease <b>power2.inOut</b></li>
+              </ul>
+              <button type="button" class="link-btn" data-act="replay">Replay</button>
+            </div>
+            <figcaption><b>Fig. 6</b> The strike, with the original path and timing. Scroll it into view, press Replay, or drag through the tween. The bar above the plot is the mechanism: a 300 unit dash sliding into a much shorter path.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="phone" aria-labelledby="phone-h">
+          <p class="num">07</p>
+          <h2 id="phone-h">Students and businesses on one phone</h2>
+          <div class="col">
+            <p>Cohort has 2 customers: students, and the businesses that want to reach them. The page closes on one phone that shows both, with a B2C and B2B toggle that crossfades a student's chat into a business's recruiting chat in 0.25 s.</p>
+            <p>Each phone burns in the first time you see it, with the same shader as the student site: 6 octaves of noise, tilted so the bottom of the picture comes in first, and a thin ember edge where pixels are about to appear. The chats keep their own voices. Cohort writes to the student in lower case and to the business in sentence case.</p>
+          </div>
+
+          <!-- Fig. 7: the phone toggle. Shader and easing from raise.js:853-890, toggle from raise.js:892-906 -->
+          <figure class="stage rz-phone" id="phonefig" aria-label="The B2C and B2B phones with the burn-in shader">
+            <div class="rz-phone-grid">
+              <div class="stage-canvas rz-phone-stage">
+                <div class="rz-phone-wrap">
+                  <canvas class="rz-ph" data-side="b2c" role="img" aria-label="A student's chat with Cohort"></canvas>
+                  <canvas class="rz-ph" data-side="b2b" role="img" aria-label="A business's recruiting chat with Cohort" aria-hidden="true"></canvas>
+                </div>
+              </div>
+              <svg class="rz-burn" viewBox="0 0 300 210" role="img" aria-label="Burn progress, uProg, against frames">
+                <g class="rz-burn-grid"></g>
+                <rect class="rz-burn-band" x="0" y="0" width="0" height="0" />
+                <path class="rz-burn-curve" d="" />
+                <circle class="rz-burn-dot" r="4" cx="0" cy="0" />
+              </svg>
+            </div>
+            <div class="stage-bar">
+              <div class="tabs" role="group" aria-label="Which customer">
+                <button type="button" aria-pressed="true" data-side="b2c">B2C</button>
+                <button type="button" aria-pressed="false" data-side="b2b">B2B</button>
+              </div>
+              <button type="button" class="link-btn" data-act="replay">Replay the burn</button>
+            </div>
+            <ul class="readout rz-phone-read">
+              <li>uProg <b data-k="u">-0.350</b></li>
+              <li>frame <b data-k="f">0</b></li>
+              <li>step <b>1.6% of the gap</b></li>
+              <li>edge <b>0.055</b></li>
+            </ul>
+            <figcaption><b>Fig. 7</b> The phone toggle with the original shader. Switch between B2C and B2B. Each side burns in once, the way the page does it; Replay burns the current one again. The curve is the burn's progress frame by frame at 60 Hz, and the band is where the pixels actually appear.</figcaption>
+          </figure>
+          <p class="note"><b>Fast in, slow to settle.</b> The burn closes 1.6% of the remaining gap every frame, so most of the picture is in within about a second and the last edges fade in after.</p>
+        </section>
+
+        <section class="g s" id="ask" aria-labelledby="ask-h">
+          <p class="num">08</p>
+          <h2 id="ask-h">One button to reply</h2>
+          <div class="col">
+            <p>Before the end there's a FAQ: 13 common investor questions, opened one at a time, so a reader goes straight to the doubt they actually have. Then the letter ends on one line and one button: "If you can see it too, let's talk."</p>
+            <p>The button does 3 small things. Point at it and the label swaps to Copy Email, out in 0.15 s and in over 0.18 s, the same move as the corner. Click and it copies the address and says Copied ✓ for 2 seconds; if the clipboard refuses, it opens your mail app. And it leans towards your cursor by 32% of the distance, measured from where the button already is, chasing it on a 0.5 s power3.out.</p>
+          </div>
+
+          <!-- Fig. 8: the email button. raise.js:929-962 -->
+          <figure class="stage rz-ask" id="askfig" aria-label="The email button">
+            <div class="stage-canvas rz-ask-canvas">
+              <svg class="rz-ask-lines" data-overlay aria-hidden="true">
+                <rect class="rz-ask-ghost" x="0" y="0" width="0" height="0" />
+                <line class="rz-ask-reach" x1="0" y1="0" x2="0" y2="0" />
+                <line class="rz-ask-pull" x1="0" y1="0" x2="0" y2="0" />
+                <circle class="rz-ask-rest" r="3.5" cx="0" cy="0" />
+                <circle class="rz-ask-cur" r="3.5" cx="0" cy="0" />
+              </svg>
+              <button type="button" class="rz-cta"><span class="rz-cta-label">ogemgoldsmith07@gmail.com</span></button>
+            </div>
+            <ul class="readout rz-ask-read" aria-live="polite">
+              <li>pull <b>0.32</b></li>
+              <li>x <b data-k="x">0.0 px</b></li>
+              <li>y <b data-k="y">0.0 px</b></li>
+              <li>share of the reach <b data-k="s">0.00</b></li>
+              <li>label <b data-k="l">email</b></li>
+            </ul>
+            <figcaption><b>Fig. 8</b> The button with its original timings, rebuilt as a plain rectangle; the original is a rounded pill with a mail icon. <span class="hover-only">Move across it: the dashed outline is where it rests, the line is the pull. Click to copy.</span><span class="touch-only">Tap it to copy.</span> It copies my email, not Cohort's.</figcaption>
+          </figure>
+        </section>
+
+        <section class="g s" id="process" aria-labelledby="process-h">
+          <p class="num">09</p>
+          <h2 id="process-h">Process</h2>
+          <div class="col">
+            <p>One rule came first, the system came from the student page, and the build went into the 3 mechanics that carry the argument. Anything that made the letter longer without making it clearer was cut.</p>
+          </div>
+          <ol class="process">
+            <li><b>Brief</b>A rule against slides, written down first.<span>&gt; One letter, depth in the chips</span></li>
+            <li><b>Share</b>Palette, type and chips from the student page.<span>&gt; One system</span></li>
+            <li><b>Build</b>The graph, the notes, the pen stroke.<span>&gt; Canvas, SVG, GSAP</span></li>
+            <li><b>Edit</b>The FAQ became a plain list.<span>&gt; One answer open at a time</span></li>
+          </ol>
+        </section>
+
+        <section class="g s end" id="end" aria-labelledby="end-h">
+          <p class="num">10</p>
+          <h2 id="end-h">Conclusion</h2>
+          <div class="col">
+            <p>A deck asks an investor to sit through your structure. This page lets them read at their own pace and open only what they're curious about, and it makes the one claim that matters, that the network compounds, something they can watch happen instead of something they have to take on trust.</p>
+          </div>
+        </section>
+
+        <a class="next" href="seyis-park.html">
+          <span class="label">Next case study</span>
+          <span class="next-t">Seyi's Park</span>
+          <span class="next-d">An isometric park in the browser. Hop around it and click things to find the work.</span>
+        </a>
+
+        <footer>
+          <span>Cohort / Raise, a case study</span>
+          <a href="../index.html#work">All work</a>
+        </footer>
       </div>
-    </div>
-  </div>
-
-  <section class="cs-section" id="overview">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">01</span><span class="cs-section__label">Overview</span></div>
-    <h2 class="cs-section__title" data-reveal>A deck tells. <em>This makes you arrive.</em></h2>
-    <div class="prose" data-reveal>
-      <p>The investor page lives at an unlisted route — not linked from anywhere, not indexed. The only way in is to be handed the URL directly. That constraint became part of the design: a page that earns its exclusivity by being worth the directness.</p>
-      <p>The surface narrative is one continuous scroll — no sections, no headers, no slide-deck structure. The depth lives inside inline pills that expand in context. Readers who go deep stay in the flow. Readers who scan still get the thesis.</p>
-    </div>
-    <blockquote class="cs-pull" data-reveal>The network no one else can build.</blockquote>
-  </section>
-
-  <section class="cs-section cs-section--alt" id="highlights">
-    <p class="cs-eyebrow" data-reveal>Elements</p>
-    <h2 class="cs-section__title" data-reveal>See the highlights <em>of this project</em></h2>
-    <div class="cs-highlights" data-stagger style="margin-top:2.5rem">
-      <article class="cs-highlight">
-        <div class="cs-highlight__card"><div class="cs-highlight__media"><img src="../images/raise-content.png" alt="Raise — investor copy, 500 students across three countries" loading="lazy" /></div></div>
-        <div class="cs-highlight__foot"><span class="cs-highlight__t">Investor copy</span><span class="cs-highlight__from">from</span><span class="cs-highlight__k">Narrative</span></div>
-      </article>
-      <article class="cs-highlight">
-        <div class="cs-highlight__card"><div class="cs-highlight__media"><img src="../images/raise-phone.png" alt="Raise — phone mockup, investor version" loading="lazy" /></div></div>
-        <div class="cs-highlight__foot"><span class="cs-highlight__t">Phone mockup</span><span class="cs-highlight__from">from</span><span class="cs-highlight__k">Responsive</span></div>
-      </article>
-    </div>
-  </section>
-
-  <section class="cs-section">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">02</span><span class="cs-section__label">Process</span></div>
-    <h2 class="cs-section__title" data-reveal>Engineering <em>momentum</em></h2>
-    <div class="cs-steps" data-stagger>
-      <div class="cs-step"><span class="cs-step__n">1</span><div><p class="cs-step__t">Chapter the argument</p><p class="cs-step__d">Broke the thesis into escalating beats — problem, product, moat, business model, traction, team, ask. Each owns its viewport. Nothing feels cramped.</p></div></div>
-      <div class="cs-step"><span class="cs-step__n">2</span><div><p class="cs-step__t">Sentence-case composure</p><p class="cs-step__d">Reused the Cohort token system but shifted voice to sentence case, precise. The reader should feel like they're in a serious room.</p></div></div>
-      <div class="cs-step"><span class="cs-step__n">3</span><div><p class="cs-step__t">Inline pill expansions</p><p class="cs-step__d">Key terms open inline — revealing stats, graphs, demo chat, and traction data in context. No modals. The reader never leaves the narrative.</p></div></div>
-      <div class="cs-step"><span class="cs-step__n">4</span><div><p class="cs-step__t">Land on white space</p><p class="cs-step__d">The close strips everything back to two email addresses. No button, no form. Restraint as confidence — the product is good enough to be worth reaching for.</p></div></div>
-    </div>
-  </section>
-
-  <section class="cs-section cs-section--alt">
-    <div class="cs-section__head" data-reveal><span class="cs-section__num">03</span><span class="cs-section__label">Traction</span></div>
-    <h2 class="cs-section__title" data-reveal>Numbers that <em>do the talking</em></h2>
-    <dl class="cs-stats" data-stagger>
-      <div class="cs-stat"><dd class="cs-stat__n" data-count="2083">2,083</dd><dt class="cs-stat__l">Waitlist students</dt></div>
-      <div class="cs-stat"><dd class="cs-stat__n" data-count="500">500</dd><dt class="cs-stat__l">Students interviewed</dt></div>
-      <div class="cs-stat"><dd class="cs-stat__n">87<span class="plus">%</span></dd><dt class="cs-stat__l">Would use daily</dt></div>
-      <div class="cs-stat"><dd class="cs-stat__n">0</dd><dt class="cs-stat__l">Paid acquisition</dt></div>
-    </dl>
-  </section>
-
-  <section class="cs-section" id="palette">
-    <p class="cs-eyebrow" data-reveal>Colour Palette</p>
-    <hr class="cs-rule-dotted" data-reveal />
-    <p class="cs-palette-lead" data-reveal>This project uses a colour palette of <strong>3</strong> colours</p>
-    <div class="cs-palette" data-reveal role="button" tabindex="0" aria-label="Expand colour palette">
-      <div class="cs-swatch" style="background:#ede9e2;color:#131210"><span class="cs-swatch__hex">HEX <b>#EDE9E2</b></span><span class="cs-swatch__aa">Aa</span></div>
-      <div class="cs-swatch" style="background:#4b63ff;color:#fff"><span class="cs-swatch__hex">HEX <b>#4B63FF</b></span><span class="cs-swatch__aa">Aa</span></div>
-      <div class="cs-swatch" style="background:#131210;color:#ede9e2"><span class="cs-swatch__hex">HEX <b>#131210</b></span><span class="cs-swatch__aa">Aa</span></div>
-    </div>
-  </section>
-
-  <section class="cs-next">
-    <div class="cs-next__inner">
-      <p class="cs-next__label" data-reveal>Next case study</p>
-      <a href="seyis-park.html" class="cs-next__link" data-reveal data-magnetic>Seyi's Park <span class="arrow">→</span></a>
-      <p class="cs-next__desc" data-reveal>A portfolio you walk through.</p>
-      <div class="cs-foot">
-        <span>Seyi Ogundipe — Design Engineer</span>
-        <span><span id="cs-clock">--:--:--</span> local</span>
-        <a href="../index.html#work">All work ↑</a>
-      </div>
-    </div>
-  </section>
-
-  <div class="cs-dock">
-    <span class="cs-dock__mark">Raise</span>
-    <a class="cs-dock__link" href="#overview">Overview</a>
-    <a class="cs-dock__link" href="#highlights">Highlights</a>
-    <a class="cs-dock__link" href="#palette">Palette</a>
-    <a class="cs-dock__visit" href="https://www.trycohort.xyz/raise" target="_blank" rel="noopener">Visit Site</a>
-  </div>
-
-  <script src="case-study.js"></script>
+    </article>
+  </main>
+  <script src="study.js" defer></script>
+  <script type="module" src="raise/page.js"></script>
 </body>
 </html>

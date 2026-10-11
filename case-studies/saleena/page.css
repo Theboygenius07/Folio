@@ -1,0 +1,215 @@
+/* Saleena case study: page styles for the live figures.
+   The project's own faces are used only inside the figures that rebuild its UI:
+   PP NeueBit Bold (headlines, pills, the phone note) and PP Neue Montreal Book
+   (the card text), both served by the live site and copied here. */
+
+@font-face { font-family: "SL NeueBit"; src: url("neuebit-bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "SL Montreal"; src: url("neue-montreal-book.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+
+/* the project's colours, from the live site */
+:root {
+  --sl-pill: #ffd1dc;   /* buttonBg rgb(255, 209, 220) */
+  --sl-cta: #ff5279;
+  --sl-text: #111111;
+  --sl-dur: 220ms;      /* transition: opacity 220ms ease, transform 220ms ease */
+}
+
+/* plots share one look: hairline axes, ink curves, the tint for whatever is live */
+.sl-plot { display: block; width: 100%; overflow: visible; }
+.sl-plot .ax { stroke: var(--rule); stroke-width: 1; fill: none; }
+.sl-plot .ax-ink { stroke: var(--ink-3); stroke-width: 1; fill: none; }
+.sl-plot .curve { stroke: var(--ink); stroke-width: 1.5; fill: none; }
+.sl-plot .curve-2 { stroke: var(--ink-3); stroke-width: 1.5; fill: none; stroke-dasharray: 3 4; }
+.sl-plot .live-line { stroke: var(--tint-ink); stroke-width: 1.5; fill: none; }
+.sl-plot .dot { fill: var(--tint); stroke: var(--paper); stroke-width: 1.5; }
+.sl-plot .dot-ink { fill: var(--ink); }
+.sl-plot .ring-ink { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.sl-plot .val { font: 600 12px/1 var(--mono); fill: var(--ink); font-variant-numeric: tabular-nums; }
+.sl-plot .tick { font: 500 11px/1 var(--mono); fill: var(--ink-3); font-variant-numeric: tabular-nums; }
+.sl-plot .ttl { font: 600 12.5px/1.3 var(--font); fill: var(--ink); }
+
+/* ---------- the reveal, shared by Fig. 1 and Fig. 4 ---------- */
+.sl-item { position: absolute; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+.sl-item.is-open { z-index: 20; }
+.sl-thing {
+  display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+.sl-thing img { width: 100%; height: auto; user-select: none; -webkit-user-select: none; -webkit-user-drag: none; pointer-events: none; }
+.sl-thing:focus-visible { outline-offset: 6px; border-radius: 6px; }
+
+/* animation: hoverRevealSpin ${spinDuration}s linear infinite; paused while hovered */
+@keyframes sl-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.sl-thing img.is-spin { animation: sl-spin 8s linear infinite; transform-origin: center center; }
+.sl-item.is-hover .sl-thing img.is-spin,
+.is-idle .sl-thing img.is-spin,
+.is-still .sl-thing img.is-spin { animation-play-state: paused; }
+
+/* the card: left 50%, bottom -8px, translateY(8px) and opacity 0 until revealed */
+.sl-card {
+  position: absolute; left: 50%; bottom: -8px; z-index: 10;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  transform: translateX(calc(-50% + var(--dx, 0px))) translateY(8px);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity var(--sl-dur) ease, transform var(--sl-dur) ease, visibility 0s linear var(--sl-dur);
+}
+.sl-item.is-open .sl-card {
+  transform: translateX(calc(-50% + var(--dx, 0px))) translateY(0);
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transition: opacity var(--sl-dur) ease, transform var(--sl-dur) ease, visibility 0s;
+}
+.sl-pill {
+  display: inline-flex; align-items: center; padding: 6px 15px; border: 0; border-radius: 9999px; cursor: pointer;
+  background: var(--sl-pill); color: var(--sl-text);
+  font: 700 26px/1.05 "SL NeueBit", var(--font); white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+/* the original card is rgba(255,255,255,0.35) with an 18px backdrop blur on a white page;
+   on this paper it is drawn as the white it reads as there */
+.sl-note {
+  min-width: 307px; max-width: 600px; padding: 10px; border-radius: 18px;
+  background: #fff; color: var(--sl-text);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+.sl-note p { margin: 0; font: 600 19px/1.15 "SL Montreal", var(--font); letter-spacing: -0.02em; }
+
+/* ---------- Fig. 1: the field ---------- */
+.sl-hero { margin-top: 8px; }
+.sl-field { aspect-ratio: 1120 / 600; min-height: 0; }
+.sl-field .sl-item {
+  left: calc(var(--x) * 1%); top: calc(var(--y) * 1%);
+  width: calc(var(--w) / 11.2 * 1%);
+  transform: translate(-50%, -50%);
+}
+.sl-hero .readout { display: flex; margin-top: 10px; }
+.sl-hero .stage-bar { margin-top: 18px; }
+@media (max-width: 640px) {
+  .sl-field { aspect-ratio: auto; height: 720px; }
+  .sl-field .sl-item { left: calc(var(--xm) * 1%); top: calc(var(--ym) * 1%); width: calc(var(--wm) * 1px); }
+}
+
+/* ---------- Fig. 3: the language map ---------- */
+.sl-map-video { width: min(100%, 760px); margin: 0 auto; aspect-ratio: 1280 / 718; }
+.sl-map-video img { width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+.sl-map-canvas { min-height: 0; margin-top: 22px; touch-action: pan-y; }
+.sl-map-svg { display: block; width: 100%; cursor: ew-resize; touch-action: pan-y; overflow: visible; }
+.sl-map-svg:focus-visible { outline: 2px solid var(--tint-ink); outline-offset: 6px; }
+.sl-map-svg .lane { font: 500 12px/1 var(--font); fill: var(--ink-2); }
+.sl-map-svg .bar-DE { fill: var(--ink); }
+.sl-map-svg .bar-NP { fill: var(--tint-ink); }
+.sl-map-svg .bar-EN { fill: var(--ink-2); }
+.sl-map-svg .bar-hidden { fill: none; stroke: var(--ink-2); stroke-width: 1; }
+.sl-map-svg .pic-draw { fill: var(--tint); }
+.sl-map-svg .pic-photo { fill: var(--ink-3); }
+.sl-map-svg .pic-ring { fill: none; stroke: var(--tint-ink); stroke-width: 1.2; }
+.sl-map-svg .win { fill: rgba(29, 27, 24, 0.05); stroke: var(--ink); stroke-width: 1.5; }
+.sl-map-svg .hl-de { font: 700 18px/1 "SL NeueBit", var(--font); fill: var(--ink); }
+.sl-map .stage-bar { margin-top: 12px; }
+
+/* ---------- Fig. 4: one reveal, taken apart ---------- */
+.sl-anat-canvas {
+  display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 32px 56px; align-items: center;
+  min-height: 0;
+}
+.sl-anat-obj { display: flex; justify-content: center; padding: 24px 0 40px; }
+.sl-item--solo { position: relative; width: min(280px, 72vw); }
+.sl-anat-plots { display: grid; gap: 26px; }
+.sl-anat .readout { display: flex; margin-top: 10px; }
+@media (max-width: 860px) {
+  .sl-anat-canvas { grid-template-columns: minmax(0, 1fr); }
+  .sl-anat-obj { padding: 0 0 36px; }
+  .sl-item--solo { width: min(220px, 60vw); }
+}
+
+/* ---------- reel ----------
+   The recording is of a white page, so the caption sits on a solid band of the reel's
+   own dark instead of over the picture. On a phone the 16:9 recording is shown whole. */
+.sl-reel video { object-fit: cover; object-position: center 30%; }
+.sl-reel .reel-cap { padding-top: 22px; background: #1d1b18; text-shadow: none; }
+@media (max-width: 640px) {
+  .sl-reel { height: auto; min-height: 0; max-height: none; }
+  .sl-reel video { position: relative; inset: auto; height: auto; aspect-ratio: 1280 / 718; }
+  .sl-reel .reel-cap { position: relative; padding-top: 18px; }
+}
+
+
+/* ---------- Fig. 5: the phone note ---------- */
+.sl-gate-canvas {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 32px 56px; align-items: center;
+  min-height: 0; width: min(100%, 1000px); margin: 0 auto;
+}
+.sl-phone-wrap { position: relative; justify-self: center; }
+.sl-phone {
+  position: absolute; left: 0; top: 0; width: 390px; height: 844px;
+  transform: scale(var(--s, 1)); transform-origin: 0 0;
+  overflow: hidden; border-radius: 28px; background: var(--sl-pill);
+}
+/* the white sheet: inset 8px at the sides, radius 14, running past the top and bottom */
+.sl-sheet { position: absolute; left: 8px; right: 8px; top: -14px; bottom: -14px; border-radius: 14px; background: #fff; }
+.sl-daisy { position: absolute; left: 214px; top: 23px; width: 177px; height: 177px; pointer-events: none; user-select: none; }
+.sl-phones { position: absolute; left: 28px; top: 781px; width: 108px; height: auto; pointer-events: none; user-select: none; }
+/* Framer loop: y 0 → -32, 1s, ease [0,0,1,1], repeat mirror */
+@keyframes sl-bob { from { transform: translateY(0); } to { transform: translateY(-32px); } }
+.sl-gate .sl-phones { animation: sl-bob 1s linear infinite alternate; }
+.sl-gate.is-idle .sl-phones, .sl-gate.is-still .sl-phones { animation-play-state: paused; }
+.sl-gate-ui {
+  position: absolute; left: 20px; right: 20px; top: 464px; transform: translateY(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 24px;
+}
+.sl-words {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  column-gap: 0.28em; row-gap: 0.1em;
+  width: 100%; max-width: 468px; margin: 0;
+  color: #000; font: 700 50px/normal "SL NeueBit", sans-serif; text-align: center;
+}
+.sl-words > span { display: inline-block; overflow: hidden; vertical-align: top; }
+.sl-words > span > span { display: inline-block; white-space: pre; will-change: transform, opacity; }
+.sl-lang {
+  appearance: none; -webkit-appearance: none; display: inline-flex; align-items: center; gap: 10px;
+  padding: 5px 22px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 999px; cursor: pointer;
+  background: var(--sl-pill); color: #000;
+  font: 700 21px/1 "SL NeueBit", sans-serif; -webkit-tap-highlight-color: transparent;
+}
+.sl-flag { display: inline-flex; font-size: 20px; line-height: 1; }
+.sl-code { display: inline-block; font-weight: 500; }
+.sl-gate .readout { display: flex; margin-top: 10px; }
+.sl-plot-gate .word { font: 500 10.5px/1 var(--mono); fill: var(--ink-2); }
+.sl-plot-gate .bar-bg { fill: var(--paper-2); }
+.sl-plot-gate .bar-fill { fill: var(--tint); fill-opacity: 0.8; }
+@media (max-width: 860px) {
+  .sl-gate-canvas { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- Fig. 6: the image effect ---------- */
+.sl-fx-canvas { display: flex; align-items: center; justify-content: center; height: clamp(300px, 40vw, 470px); min-height: 0; }
+.sl-fx-obj {
+  position: relative; width: min(460px, 86%); aspect-ratio: 640 / 442;
+  overflow: hidden; perspective: 1200px; transform-style: preserve-3d;
+  display: flex; align-items: center; justify-content: center;
+  touch-action: none; cursor: crosshair; outline-offset: 8px;
+}
+.sl-fx-img {
+  display: block; width: 100%; height: 100%; object-fit: contain;
+  transform-style: preserve-3d; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  will-change: transform, filter, opacity; user-select: none; -webkit-user-drag: none; pointer-events: none;
+}
+.sl-fx[data-fx="Distort"] .sl-fx-img { filter: url(#sl-fx-distort); }
+/* the glare is clipped to the drawing's own shape, since the drawing is cut out
+   where the original's photographs fill their frame */
+.sl-fx-glare { pointer-events: none; }
+.sl-fx-glare {
+  position: absolute; inset: -20%; opacity: 0; mix-blend-mode: screen; will-change: transform, opacity;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.12) 22%, rgba(255, 255, 255, 0) 52%);
+}
+.sl-fx-mask {
+  position: absolute; inset: 0; pointer-events: none;
+  -webkit-mask: url("postcard.webp") center / contain no-repeat; mask: url("postcard.webp") center / contain no-repeat;
+}
+.sl-fx-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.sl-fx-bar2 { margin-top: 4px; }
+.sl-fx .readout { display: flex; margin-top: 12px; min-height: 1.5em; }
+
+
+@media (prefers-reduced-motion: reduce) {
+  .sl-gate .sl-phones { animation: none; }
+}

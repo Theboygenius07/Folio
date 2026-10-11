@@ -1,0 +1,339 @@
+/* ============================================================
+   KULTURE* case study: the live figures.
+   Everything here is scoped to this page. The brand pieces (the
+   pass, the flip tiles, the marquee bands, the experience cards)
+   are ported from Kulture/css/main.css; the diagrams around them
+   are drawn in the case study's own ink.
+   ============================================================ */
+
+@font-face { font-family: "FuturaCyrillic"; src: url("../fonts-kulture/FuturaCyrillicHeavy.woff") format("woff"); font-weight: 900; font-display: swap; }
+@font-face { font-family: "FuturaCyrillic"; src: url("../fonts-kulture/FuturaCyrillicBold.woff") format("woff"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Riposte"; src: url("../fonts-kulture/RiposteLight.ttf") format("truetype"); font-weight: 300; font-display: swap; }
+
+.k {
+  --k-black: #080c05; --k-cream: #edd9a3; --k-red: #c01920; --k-red-dark: #8a1018;
+  --k-green: #1b2e0b; --k-yellow: #f7f780;
+  --font-display: "FuturaCyrillic", "Futura", "Century Gothic", sans-serif;
+  --font-ui: "Riposte", "Helvetica Neue", Arial, sans-serif;
+  --live: #c01920; /* the moving value on every diagram */
+}
+.k button { -webkit-tap-highlight-color: transparent; }
+
+/* Controls that only make sense when the reader asked for less motion */
+.k-rm-only { display: none; }
+@media (prefers-reduced-motion: reduce) { .k-rm-only { display: inline-block; } }
+
+/* Diagrams: inline SVG sized in real pixels by page.js, so labels stay 12px at every width */
+.k svg.k-plot, .k .k-trace, .k .k-ease, .k .k-cycle-svg, .k .k-flap-side, .k .k-flap-ease,
+.k .k-mq-spark, .k .k-exp-gantt, .k .k-side-track-svg { display: block; width: 100%; overflow: visible; }
+.k .ax { stroke: var(--ink); stroke-width: 1; fill: none; }
+.k .ax-2 { stroke: var(--rule); stroke-width: 1; fill: none; }
+.k .ax-d { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 3 3; fill: none; }
+.k .crv { stroke: var(--ink); stroke-width: 1.5; fill: none; }
+.k .crv-2 { stroke: var(--ink-3); stroke-width: 1.5; fill: none; }
+.k .crv-live { stroke: var(--live); stroke-width: 1.5; fill: none; }
+.k .dot-live { fill: var(--live); }
+.k .lbl { font: 500 12px/1 var(--font); fill: var(--ink-2); }
+.k .lbl-b { font: 600 12px/1 var(--font); fill: var(--ink); }
+.k .lbl-m { font: 500 11.5px/1 var(--mono); fill: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* ---------- Fig. 1: the pass, floating ---------- */
+.k-hero { margin-top: clamp(8px, 2vw, 24px); }
+.k-hero-canvas {
+  display: flex; justify-content: center; align-items: center;
+  min-height: 0; padding: clamp(28px, 4vw, 56px) 0 clamp(56px, 6vw, 84px);
+}
+.k-float { position: relative; width: min(720px, 100%); }
+.k-shadow {
+  position: absolute; left: 4%; right: 4%; top: 10%; bottom: 0; z-index: 0;
+  border-radius: 14px; background: rgba(46, 34, 6, 0.27); filter: blur(22px);
+  transform: translate3d(0, 24px, 0) scale(0.97); will-change: transform;
+  pointer-events: none;
+}
+
+/* the site's own pass, from Kulture/index.html + css/main.css:549-820 */
+.k .ticket-card {
+  --stub: 110px;
+  position: relative; z-index: 1; display: flex; width: 100%; overflow: hidden;
+  border-radius: 8px; background: var(--k-cream); color: var(--k-black);
+  transform-style: preserve-3d; will-change: transform; touch-action: none; outline-offset: 6px;
+  /* the two notches are holes, so the paper and the shadow show through them.
+     The mask only cuts; nothing is painted with it. */
+  -webkit-mask: radial-gradient(circle 9px at calc(100% - var(--stub) - 0.5px) 0, #0000 97%, #000) , radial-gradient(circle 9px at calc(100% - var(--stub) - 0.5px) 100%, #0000 97%, #000);
+  -webkit-mask-composite: source-in;
+  mask: radial-gradient(circle 9px at calc(100% - var(--stub) - 0.5px) 0, #0000 97%, #000) , radial-gradient(circle 9px at calc(100% - var(--stub) - 0.5px) 100%, #0000 97%, #000);
+  mask-composite: intersect;
+}
+.k .ticket-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; padding: 22px 24px 20px; }
+.k .ticket-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.k .ticket-brand { font: 900 24px/1 var(--font-display); letter-spacing: -0.04em; text-transform: uppercase; }
+.k .ticket-brand em, .k .stub-brand em { font-style: normal; color: var(--k-red); }
+.k .ticket-route { display: flex; align-items: center; gap: 10px; }
+.k .ticket-city { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.k .ticket-city-code { font: 900 14px/1 var(--font-display); letter-spacing: 0.08em; }
+.k .ticket-city-name { font: 400 8px/1.2 var(--font-ui); letter-spacing: 0.12em; text-transform: uppercase; color: rgba(8,12,5,0.42); }
+.k .ticket-arrow-svg { width: 40px; height: 12px; color: rgba(8,12,5,0.35); }
+.k .ticket-rule { height: 1px; background: rgba(8,12,5,0.1); }
+.k .ticket-passenger, .k .ticket-field { display: flex; flex-direction: column; gap: 4px; }
+.k .ticket-field-label { display: block; font: 700 7.5px/1.2 var(--font-ui); letter-spacing: 0.3em; text-transform: uppercase; color: rgba(8,12,5,0.38); }
+.k .ticket-name {
+  min-width: 160px; align-self: flex-start; padding-bottom: 2px; border-bottom: 1px dashed rgba(8,12,5,0.18); outline: none;
+  font: 900 20px/1.1 var(--font-display); letter-spacing: -0.02em; text-transform: uppercase;
+  color: rgba(8,12,5,0.28); transition: border-color 0.2s, color 0.2s; cursor: text;
+}
+.k .ticket-name.has-content { color: var(--k-black); }
+.k .ticket-name:focus { border-color: var(--k-red); }
+.k .ticket-info-row { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+.k .ticket-field-val { font: 700 13px/1.2 var(--font-display); letter-spacing: 0.02em; }
+.k .ticket-tier-val { color: var(--k-red); font-weight: 900; }
+.k .ticket-barcode { display: flex; align-items: center; gap: 16px; }
+.k .ticket-qr-svg { flex-shrink: 0; width: 72px; height: 72px; color: var(--k-black); }
+.k .ticket-barcode-info { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.k .ticket-barcode-num { font: 300 8px/1.3 var(--font-ui); letter-spacing: 0.18em; text-transform: uppercase; color: rgba(8,12,5,0.38); }
+.k .ticket-barcode-scan { font: 400 7px/1.3 var(--font-ui); letter-spacing: 0.15em; text-transform: uppercase; color: rgba(8,12,5,0.22); }
+.k .ticket-buy-btn { display: block; padding: 12px; border-radius: 4px; background: var(--k-black); color: var(--k-cream); font: 300 10px/1.2 var(--font-ui); letter-spacing: 0.18em; text-transform: uppercase; text-align: center; }
+.k .ticket-perf { flex-shrink: 0; width: 0; border-left: 1px dashed rgba(8,12,5,0.22); margin: 10px 0; }
+.k .ticket-stub { flex-shrink: 0; width: var(--stub); display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 24px 16px; background: rgba(8,12,5,0.04); }
+.k .stub-brand { font: 900 22px/1 var(--font-display); letter-spacing: -0.04em; text-transform: uppercase; }
+.k .stub-label { font: 700 7px/1.5 var(--font-ui); letter-spacing: 0.25em; text-transform: uppercase; text-align: center; color: rgba(8,12,5,0.38); }
+.k .stub-tier { font: 900 11px/1.2 var(--font-ui); letter-spacing: 0.2em; text-transform: uppercase; color: var(--k-red); text-align: center; }
+.k .stub-name { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 700 9px/1.4 var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; text-align: center; color: rgba(8,12,5,0.55); }
+.k .stub-date { font: 700 9px/1.2 var(--font-ui); letter-spacing: 0.15em; color: rgba(8,12,5,0.38); }
+.k .stub-qr { flex: 1; display: flex; align-items: flex-end; justify-content: center; color: rgba(8,12,5,0.28); }
+@media (max-width: 560px) {
+  .k .ticket-card { --stub: 84px; }
+  .k .ticket-main { padding: 18px 16px 16px; gap: 12px; }
+  .k .ticket-stub { padding: 20px 8px; }
+  .k .ticket-route { display: none; }
+  .k .ticket-name { min-width: 0; font-size: 18px; }
+  .k .ticket-info-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; } /* main.css:2085 */
+  .k .ticket-qr-svg { width: 60px; height: 60px; }
+}
+
+/* ---------- Fig. 2: the pass as a build plan ---------- */
+.k-anat .scrolly-fig { z-index: 3; }
+@media (min-width: 861px) { .k-anat .scrolly-fig { top: calc(50vh - 190px); } } /* the drawing is short, so centre it on the step being read */
+.k-anat-fig { position: relative; width: 100%; }
+.k-anat-fig svg { display: block; width: 100%; height: auto; overflow: visible; }
+.k-anat-fig .pt { transition: opacity 0.35s ease; }
+.k-anat-fig .pt .plan { transition: opacity 0.35s ease; }
+.k-anat-fig .pt .built { transition: opacity 0.35s ease; }
+.k-anat-fig .pt[data-state="plan"] .built { opacity: 0; }
+.k-anat-fig .pt[data-state="plan"] .plan { opacity: 1; }
+.k-anat-fig .pt:not([data-state="plan"]) .plan { opacity: 0; }
+.k-anat-fig .pt .hl-box { opacity: 0; transition: opacity 0.35s ease; }
+.k-anat-fig .pt[data-state="on"] .hl-box { opacity: 1; }
+.k-anat-fig .plan rect { fill: none; stroke: var(--ink-3); stroke-width: 1.2; stroke-dasharray: 4 4; }
+.k-anat-fig .hl-box { fill: color-mix(in srgb, var(--tint) 30%, transparent); }
+.k-anat-fig .ink { fill: var(--ink); }
+.k-anat-fig .ink-2 { fill: var(--ink-2); }
+.k-anat-fig .red { fill: var(--k-red); }
+.k-anat-fig .stroke { stroke: var(--ink); fill: none; }
+.k-anat-fig .fd { font-family: var(--font-display); font-weight: 900; }
+.k-anat-fig .fu { font-family: var(--font-ui); font-weight: 300; }
+@media (max-width: 860px) {
+  .k-anat .scrolly-fig figcaption { display: none; }
+}
+
+/* ---------- Fig. 3: the tilt, drawn out ---------- */
+.k-tilt-grid {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 4vw, 64px);
+  align-items: center; min-height: 0; touch-action: pan-y;
+}
+.k-pad-wrap { position: relative; width: min(100%, 460px); margin: 0 auto; padding: 24px 0 48px; }
+.k-pad-shadow {
+  position: absolute; left: 5%; right: 5%; top: calc(24px + 10%); bottom: 48px;
+  border-radius: 12px; background: rgba(46, 34, 6, 0.30); filter: blur(16px);
+  transform: translate3d(0, 20px, 0) scale(0.97); pointer-events: none;
+}
+.k-pad {
+  position: relative; aspect-ratio: 850 / 350; border-radius: 8px; background: var(--k-cream);
+  touch-action: none; cursor: crosshair; will-change: transform; outline-offset: 6px;
+}
+.k-pad-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.k-plots { display: grid; gap: 22px; min-width: 0; }
+.k-eases { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 3vw, 22px); }
+
+/* ---------- Fig. 4: the sideways hero in miniature ---------- */
+.k-side-canvas { display: grid; justify-items: center; gap: 18px; min-height: 0; touch-action: pan-y; }
+.k-side-view {
+  position: relative; width: min(100%, 760px); aspect-ratio: 16 / 9;
+  overflow-x: scroll; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain;
+  background: var(--k-black); border-radius: 4px; container-type: inline-size; outline-offset: 5px;
+}
+.k-side-view::-webkit-scrollbar { display: none; }
+@media (hover: hover) { .k-side-view { cursor: none; } }
+.k-side-track { display: flex; width: 300%; height: 100%; }
+.k-p { position: relative; width: 33.3334%; height: 100%; flex-shrink: 0; overflow: hidden; color: var(--k-cream); user-select: none; -webkit-user-select: none; }
+.k-p1 { background: var(--k-black); display: flex; flex-direction: column; align-items: center; padding-top: 7cqw; }
+.k-p1-tiers { display: flex; gap: 0.4cqw; padding: 0.4cqw; border: 1px solid rgba(237,217,163,0.14); border-radius: 0.6cqw; font: 300 1.05cqw/1 var(--font-ui); letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,217,163,0.45); }
+.k-p1-tiers span { padding: 0.7cqw 1.2cqw; border-radius: 0.4cqw; }
+.k-p1-tiers .on { background: var(--k-cream); color: var(--k-black); }
+.k-p1-ticket { position: relative; width: 42cqw; height: 18.5cqw; margin-top: 1.6cqw; border-radius: 0.8cqw; background: var(--k-cream); color: var(--k-black); padding: 1.8cqw 2cqw; }
+.k-p1-ticket b { display: block; font: 900 2.3cqw/1 var(--font-display); letter-spacing: -0.04em; }
+.k-p1-ticket b em { font-style: normal; color: var(--k-red); }
+.k-p1-ticket i { display: block; height: 0.5cqw; margin-top: 1.6cqw; width: 60%; background: rgba(8,12,5,0.14); }
+.k-p1-ticket i + i { width: 44%; margin-top: 1.2cqw; }
+.k-p1-ticket i + i + i { width: 30%; }
+.k-p1-ticket s { position: absolute; left: 2cqw; right: 11cqw; bottom: 1.6cqw; height: 2.4cqw; border-radius: 0.4cqw; background: var(--k-black); }
+.k-p1-ticket::after { content: ""; position: absolute; top: 0; bottom: 0; right: 9.4cqw; border-left: 1px dashed rgba(8,12,5,0.25); }
+.k-p1-info { display: flex; justify-content: space-between; width: 100%; margin-top: auto; padding: 0 5.5cqw 0.6cqw; font: 300 0.95cqw/1 var(--font-ui); letter-spacing: 0.22em; text-transform: uppercase; color: rgba(237,217,163,0.4); }
+.k-p1-title { font: 900 20.5cqw/0.84 var(--font-display); letter-spacing: -0.01em; text-align: center; margin-bottom: -2.4cqw; }
+.k-p2 { background: var(--k-red); display: flex; flex-direction: column; justify-content: center; padding: 0 5cqw; }
+.k-p2-lines span { display: block; font: italic 900 13cqw/0.88 var(--font-display); letter-spacing: -0.045em; }
+.k-p2-lines .in { padding-left: 8cqw; }
+.k-p2-foot { position: absolute; left: 5cqw; right: 5cqw; bottom: 4cqw; padding-top: 1.6cqw; border-top: 1px solid rgba(237,217,163,0.15); font: 700 1cqw/1 var(--font-ui); letter-spacing: 0.25em; text-transform: uppercase; color: rgba(237,217,163,0.5); }
+.k-p3 { background: var(--k-black); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3cqw; }
+.k-p3-eye { font: 700 1.1cqw/1 var(--font-ui); letter-spacing: 0.3em; text-transform: uppercase; color: var(--k-red); }
+.k-p3-title { margin-top: -2cqw; font: 900 9.5cqw/0.88 var(--font-display); letter-spacing: -0.045em; }
+.k-p3-title em { font-style: normal; color: var(--k-red); }
+.k-p3-clock { display: flex; align-items: center; gap: 1.2cqw; }
+.k-p3-clock span { display: flex; gap: 0.3cqw; }
+.k-p3-clock span b { display: grid; place-items: center; width: 6.4cqw; height: 9.6cqw; border-radius: 0.6cqw; background: #23271d; font: 900 7cqw/1 var(--font-display); color: var(--k-cream); box-shadow: inset 0 -4.8cqw 0 #1c1f18; }
+.k-p3-clock i { font: 900 3.4cqw/1 var(--font-display); font-style: normal; color: var(--k-red); }
+.k-p3-btn { padding: 1.3cqw 1.6cqw; border-radius: 0.5cqw; background: var(--k-cream); color: var(--k-black); font: 300 1.1cqw/1 var(--font-ui); letter-spacing: 0.18em; text-transform: uppercase; }
+/* the site's cursor, main.css:182-194, scoped to the miniature */
+.k-cur-dot, .k-cur-ring { position: absolute; top: 0; left: 0; z-index: 4; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; opacity: 0; transition: opacity 0.15s; }
+.k-cur-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: #fff; }
+.k-cur-ring { width: 36px; height: 36px; margin: -18px 0 0 -18px; border: 1.5px solid rgba(255,255,255,0.65); }
+.k-side-canvas.is-cur .k-cur-dot, .k-side-canvas.is-cur .k-cur-ring { opacity: 1; }
+@media (hover: none) { .k-cur-dot, .k-cur-ring { display: none; } }
+.k-side-track-svg { width: min(100%, 760px) !important; }
+
+/* ---------- Fig. 5: the type cycle ---------- */
+.k-cycle-canvas { display: grid; justify-items: center; gap: clamp(28px, 4vw, 48px); min-height: 0; }
+.k-cycle-words { margin: 0; width: min(100%, 760px); color: var(--k-red); }
+.k-cycle-words span {
+  display: block; height: 0.9em; white-space: nowrap;
+  font: italic 900 clamp(52px, 10.4vw, 138px)/0.88 var(--font-display); letter-spacing: -0.045em; text-transform: uppercase;
+}
+.k-cycle-words .k-in { padding-left: 8%; }
+.k-cycle-svg { width: min(100%, 760px) !important; }
+
+/* ---------- Fig. 6: the departures board ---------- */
+.k-board-canvas { display: grid; justify-items: center; gap: clamp(22px, 3vw, 36px); min-height: 0; }
+.k-board-eye { margin: 0; font: 700 11px/1 var(--font-ui); letter-spacing: 0.3em; text-transform: uppercase; color: var(--k-red); }
+.k-board { --fd-h: clamp(36px, 4.6vw, 60px); --fd-w: calc(var(--fd-h) * 1.36); }
+.k-clock { display: flex; align-items: center; gap: clamp(8px, 1.6vw, 22px); }
+.k .flip-group { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.k .fd-pair { display: flex; gap: 3px; }
+.k .flip-digit { position: relative; width: var(--fd-w); perspective: 700px; border-radius: 6px; box-shadow: 0 10px 18px -10px rgba(20, 16, 4, 0.55); }
+.k .fd-top, .k .fd-bot, .k .fd-flap { width: var(--fd-w); height: var(--fd-h); overflow: hidden; display: flex; justify-content: center; }
+.k .fd-top { align-items: flex-start; background: #2a2e24; border-radius: 6px 6px 0 0; border-bottom: 2px solid #0b0d08; }
+.k .fd-bot { align-items: flex-end; background: #1c1f18; border-radius: 0 0 6px 6px; }
+.k .fd-flap { position: absolute; top: 0; left: 0; z-index: 4; align-items: flex-start; background: #2a2e24; border-radius: 6px 6px 0 0; border-bottom: 2px solid #0b0d08; transform-origin: bottom center; pointer-events: none; backface-visibility: hidden; }
+.k .fd-num, .k .fd-flap-num { display: block; flex-shrink: 0; font: 900 calc(var(--fd-h) * 2)/1 var(--font-display); letter-spacing: -0.02em; color: var(--k-cream); font-variant-numeric: tabular-nums; }
+.k .fd-sep { margin-bottom: 24px; font: 900 clamp(22px, 3vw, 40px)/1 var(--font-display); color: var(--k-red); }
+.k .fd-label { font: 400 9px/1 var(--font-ui); letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-2); }
+.k-flap-plots { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: clamp(20px, 4vw, 56px); width: min(100%, 760px); align-items: end; }
+@media (max-width: 560px) {
+  .k-board { --fd-h: 32px; --fd-w: 54px; }
+  .k-clock { display: grid; grid-template-columns: auto auto auto; gap: 18px 10px; justify-content: center; }
+  .k-clock > :nth-child(4) { display: none; }
+  .k-clock > :nth-child(5) { grid-area: 2 / 1; }
+  .k-clock > :nth-child(6) { grid-area: 2 / 2; }
+  .k-clock > :nth-child(7) { grid-area: 2 / 3; }
+  .k-flap-plots { grid-template-columns: 1fr; }
+}
+
+/* ---------- Fig. 7: the velocity marquee, main.css:1044-1113 ---------- */
+.k-mq-bands {
+  position: relative; display: flex; flex-direction: column; overflow: hidden; user-select: none;
+  margin: 0 calc(50% - 50vw); padding: max(32px, 8.5vw) 0;
+}
+.k-mq .mq-row { height: clamp(68px, 10.5vw, 150px); flex: none; overflow: hidden; width: 145%; margin-left: -22.5%; display: flex; align-items: center; }
+.k-mq .mq-row--red   { background: var(--k-red);   transform: rotate(-6deg) scaleY(1.18); }
+.k-mq .mq-row--cream { background: var(--k-cream); transform: rotate(5deg)  scaleY(1.18); }
+.k-mq .mq-row--black { background: #111509;        transform: rotate(-6deg) scaleY(1.18); }
+.k-mq .mq-track { display: inline-flex; white-space: nowrap; will-change: transform; }
+.k-mq .mq-content {
+  display: inline-flex; align-items: center; gap: clamp(14px, 2.4vw, 36px); padding: 6px clamp(14px, 2.4vw, 36px) 6px 0;
+  font: 900 clamp(30px, 6.6vw, 96px)/1 var(--font-display); letter-spacing: -0.035em; text-transform: uppercase; color: var(--k-cream);
+}
+.k-mq .mq-content--dark { color: var(--k-black); }
+.k-mq .mq-star { display: inline-block; width: clamp(12px, 1.6vw, 24px); height: clamp(12px, 1.6vw, 24px); flex-shrink: 0; font-style: normal; background: var(--k-cream); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+.k-mq .mq-star--dark { background: var(--k-black); }
+.k-mq .mq-illus { display: inline-flex; align-items: center; flex-shrink: 0; font-size: clamp(22px, 4vw, 56px); line-height: 1; }
+.k-mq-meter {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 10px 28px;
+  width: min(100%, 720px); margin: clamp(28px, 4vw, 44px) auto 0;
+}
+.k-mq-big { margin: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 6.2ch; }
+.k-mq-big span { color: var(--ink-2); font: 500 12.5px/1.2 var(--font); }
+.k-mq-big b { font: 400 clamp(34px, 3.6vw, 48px)/1 var(--mono); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.k-mq-formula { grid-column: 1 / -1; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; }
+.k-mq-formula code { font-size: 12.5px; }
+
+/* ---------- Fig. 8: the experience cards, main.css:1279-1384 ----------
+   The stage runs edge to edge, so the cards come in from the edge of the window as they did on the site. */
+.k-exp-stage {
+  height: clamp(290px, 40vw, 600px); overflow: clip visible; touch-action: pan-y; container-type: inline-size;
+  margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); width: auto;
+}
+.k-exp-scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.k .exp-scene-card {
+  position: absolute; width: min(54cqw, 660px); aspect-ratio: 1.55; /* main.css:1296, clamp(300px, 54vw, 660px) */ border-radius: 4px; overflow: hidden;
+  container-type: inline-size;
+  padding: min(3.56cqw, 44px); display: flex; flex-direction: column; gap: min(1.08cqw, 13px); will-change: transform;
+  box-shadow: 0 18px 30px -22px rgba(20, 16, 4, 0.55);
+}
+.k .exp-scene-card > * { position: relative; }
+.k .exp-sc--1 { background: var(--k-red); color: var(--k-cream); }
+.k .exp-sc--2 { background: var(--k-cream); color: var(--k-black); }
+.k .exp-sc--3 { background: var(--k-yellow); color: var(--k-black); }
+.k .exp-sc--4 { background: #1e3010; color: var(--k-cream); }
+.k .exp-sc--5 { background: var(--k-black); color: var(--k-cream); }
+.k .exp-sc--6 { background: var(--k-red-dark); color: var(--k-cream); }
+.k .exp-sc-tag { margin: 0; font: 700 max(7px, 1.8cqw)/1.2 var(--font-ui); letter-spacing: 0.32em; text-transform: uppercase; opacity: 0.6; }
+.k .exp-sc-title { margin: 0; font: 900 11.8cqw/0.88 var(--font-display); letter-spacing: -0.04em; text-transform: uppercase; }
+.k .exp-sc-body { margin: 1cqw 0 0; max-width: 56cqw; font: 300 max(11px, 2.7cqw)/1.6 var(--font-ui); opacity: 0.72; }
+.k .exp-sc-num { position: absolute; right: 3.6cqw; bottom: -3cqw; font: 900 27cqw/1 var(--font-display); letter-spacing: -0.06em; opacity: 0.08; }
+.k-exp .k-exp-gantt { width: min(100%, 760px) !important; margin: clamp(18px, 3vw, 28px) auto 6px; }
+.k-exp .scrub { margin-top: 4px; width: min(100%, 560px); }
+.k-exp .scrub label { color: var(--ink-2); }
+@media (max-width: 960px) { .k .exp-scene-card { width: min(70cqw, 620px); padding: min(4.6cqw, 41px); gap: min(1.4cqw, 12px); } } /* main.css:1932 */
+@media (max-width: 560px) { .k .exp-sc-body { display: none; } }
+
+/* ---------- Fig. 9: the printed passes ---------- */
+.k-print-stack { display: grid; justify-items: center; min-height: 0; padding: 12px 0 34px; }
+.k-pt { position: relative; width: min(100%, 700px); cursor: pointer; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); outline-offset: 6px; }
+.k-pt + .k-pt { margin-top: -12%; }
+.k-pt:nth-child(1) { --r: -2.2deg; --x: -4%; }
+.k-pt:nth-child(2) { --r: 1.4deg; --x: 3%; }
+.k-pt:nth-child(3) { --r: -0.8deg; --x: -1%; }
+.k-pt { transform: translate(var(--x), 0) rotate(var(--r)); }
+.k-pt.is-up { transform: translate(var(--x), -14px) rotate(calc(var(--r) * 0.5)); }
+.k-pt svg { position: relative; display: block; width: 100%; height: auto; }
+.k-pt-shadow { position: absolute; left: 3%; right: 3%; top: 14%; bottom: 0; background: rgba(46, 34, 6, 0.32); filter: blur(14px); transform: translate3d(0, 14px, 0); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s; pointer-events: none; }
+.k-pt.is-up .k-pt-shadow { transform: translate3d(0, 30px, 0) scale(0.96); opacity: 0.8; }
+
+/* ---------- Fig. 10: the backdrop generator ---------- */
+.k-bd-canvas { display: grid; justify-items: center; min-height: 0; padding: 8px 0 40px; }
+.k-bd-sheet { position: relative; }
+.k-bd-sheet canvas { position: relative; display: block; width: 100%; height: 100%; }
+.k-bd-shadow { position: absolute; left: 3%; right: 3%; top: 6%; bottom: 0; background: rgba(30, 24, 6, 0.32); filter: blur(22px); transform: translate3d(0, 22px, 0); pointer-events: none; }
+.k-bd .stage-bar { gap: 10px 32px; }
+.k-bd-readout { display: flex; width: 100%; margin-top: 10px; }
+
+/* ---------- the contents list and the wide figures ----------
+   On wide screens the contents float in the left margin, where the widest figures
+   also reach. study.js steps the list aside while one of those passes under it, and the
+   build-plan steps move one column in so they clear it. */
+@media (min-width: 1360px) {
+  .k-anat .scrolly-steps { grid-column: 3 / span 4; }
+  .k-anat .scrolly-fig { grid-column: 7 / span 6; margin-left: 16px; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .k-anat-fig .pt, .k-anat-fig .pt .plan, .k-anat-fig .pt .built, .k-anat-fig .pt .hl-box,
+  .k-pt, .k-pt-shadow { transition: none; }
+}
+
+/* ---------- narrow screens ---------- */
+@media (max-width: 860px) {
+  .k-tilt-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 340px) {
+  .k-eases { grid-template-columns: 1fr; }
+}
