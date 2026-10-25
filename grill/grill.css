@@ -9,7 +9,7 @@
   --muted: #8b877b; --line: #d7d3c7; --line-soft: #e3dfd4;
   background: var(--paper); color: var(--ink);
   position: relative;
-  height: 340svh;               /* the scroll distance the drop plays over */
+  height: 500svh;               /* the drop plays over the first 240svh; the rest holds on the landed grill */
   padding-left: 0; padding-right: 0; /* full bleed: sections are padded site-wide */
 }
 .grill.is-still { height: 100svh; } /* reduced motion: land straight away */
@@ -131,6 +131,8 @@ html.grill-in-view .grain { display: none; }
 .grill__hint { right: var(--pad-x); font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
 .grill.is-moving .grill__hint,
 .grill.is-still .grill__hint { display: none; }
+/* landed and holding: the rest of the page only comes if you keep scrolling, so say so */
+@media (min-width: 700px) { .grill.is-holding .grill__hint { display: block; right: auto; left: 50%; transform: translateX(-50%); } }
 
 /* for keyboards: hidden until focused */
 .grill__skip {
@@ -142,9 +144,14 @@ html.grill-in-view .grain { display: none; }
 .grill__skip:focus-visible { transform: none; opacity: 1; }
 
 @media (max-width: 699px) {
-  .grill { height: 300svh; }
+  .grill { height: 460svh; }   /* the drop over 200svh, then the same hold */
   .grill__hint { display: none; }
   /* on a phone the index sits above the caption, across the full width */
   .grill__index { left: var(--pad-x); right: var(--pad-x); max-width: none; bottom: auto; top: 5.25rem;
     display: grid; grid-template-columns: repeat(7, auto); justify-content: start; gap: .1rem 1rem; }
+  /* Phones change height as the address bar tucks away. The frame takes the tallest height, so the
+     page never shows beneath it (that's what made it look like it was scrolling off early), and the
+     caption sits above where the address bar is when it's showing. */
+  .grill__stage { height: 100vh; height: 100lvh; }
+  .grill__cap { bottom: calc(clamp(1.25rem, 4.5svh, 2.75rem) + 100lvh - 100svh); }
 }

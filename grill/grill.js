@@ -283,16 +283,23 @@
 
   /* ---------- Scroll → progress ---------- */
   let target = 0, current = 0, landed = false, dirty = true;
+  // the drop plays over a fixed distance (2.4 screens, 2 on a phone); the section is taller than that,
+  // so once the grill has landed it holds there and the rest of the page only comes if you keep scrolling
   const sectionRange = () => {
     const r = root.getBoundingClientRect();
-    const top = r.top + scrollY;
-    return { top, len: Math.max(1, root.offsetHeight - innerHeight) };
+    const top = r.top + scrollY, screen = stage.clientHeight;
+    // (measured against the frame, not innerHeight: on a phone innerHeight changes with the address bar)
+    return { top, len: Math.max(1, Math.min(root.offsetHeight - screen, screen * (screen && stage.clientWidth < 700 ? 2 : 2.4))) };
   };
   const readScroll = () => {
     if (forced !== null) { target = forced; return; }
     if (reduce) { target = 1; return; }
     const { top, len } = sectionRange();
     target = Math.min(1, Math.max(0, (scrollY - top) / len));
+    const holding = scrollY > top + len - 2 && scrollY < top + root.offsetHeight - stage.clientHeight;
+    root.classList.toggle("is-holding", holding);
+    const cue = holding ? "Keep scrolling" : "Scroll";
+    if (hint && hint.textContent !== cue) hint.textContent = cue;
   };
   const jumpToLanding = () => {
     const { top, len } = sectionRange();
