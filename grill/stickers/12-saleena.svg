@@ -1,0 +1,14 @@
+<!-- grill sticker 12 (saleena): drawn by code, flat vector, die-cut border included; source/stickers.mjs -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="23.3 54.1 353.4 318.4" width="353" height="318"><g>
+  <path d="M200 340C110 280 52 226 56 160C60 108 104 80 146 88C172 93 190 110 200 134C210 110 228 93 254 88C296 80 340 108 344 160C348 226 290 280 200 340Z" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></path>
+  <path d="M200 134C210 110 228 93 254 88C296 80 340 108 344 160C348 226 290 280 200 340Z" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="50" stroke-linejoin="round" stroke-linecap="round"></path>
+  <path d="M200 340C110 280 52 226 56 160C60 108 104 80 146 88C172 93 190 110 200 134C210 110 228 93 254 88C296 80 340 108 344 160C348 226 290 280 200 340Z" fill="none" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></path>
+  <path d="M200 134V336" stroke="rgba(30,43,64,0.30)" stroke-width="56" stroke-linecap="round" stroke-linejoin="round" fill="rgba(30,43,64,0.30)"></path></g><g>
+  <path d="M200 340C110 280 52 226 56 160C60 108 104 80 146 88C172 93 190 110 200 134C210 110 228 93 254 88C296 80 340 108 344 160C348 226 290 280 200 340Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></path>
+  <path d="M200 134C210 110 228 93 254 88C296 80 340 108 344 160C348 226 290 280 200 340Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="44" stroke-linejoin="round" stroke-linecap="round"></path>
+  <path d="M200 340C110 280 52 226 56 160C60 108 104 80 146 88C172 93 190 110 200 134C210 110 228 93 254 88C296 80 340 108 344 160C348 226 290 280 200 340Z" fill="none" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></path>
+  <path d="M200 134V336" stroke="#FFFFFF" stroke-width="50" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF"></path></g><g>
+  <path d="M200 340C110 280 52 226 56 160C60 108 104 80 146 88C172 93 190 110 200 134C210 110 228 93 254 88C296 80 340 108 344 160C348 226 290 280 200 340Z" fill="#e07ba0" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></path>
+  <path d="M200 134C210 110 228 93 254 88C296 80 340 108 344 160C348 226 290 280 200 340Z" fill="#b86583"></path>
+  <path d="M200 340C110 280 52 226 56 160C60 108 104 80 146 88C172 93 190 110 200 134C210 110 228 93 254 88C296 80 340 108 344 160C348 226 290 280 200 340Z" fill="none" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></path>
+  <path d="M200 134V336" stroke="#1E2B40" stroke-width="6" stroke-linecap="round" opacity="0.5"></path></g></svg>

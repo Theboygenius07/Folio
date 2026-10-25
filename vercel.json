@@ -9,9 +9,18 @@
       "source": "/case-studies/:slug(wire|cohort|tiwari-town|saleena-tiwari|subtitles|kulture|clark|raise|seyis-park|saleena).html",
       "destination": "/:slug",
       "permanent": true
+    },
+    {
+      "source": "/cool.html",
+      "destination": "/cool",
+      "permanent": true
     }
   ],
   "rewrites": [
+    {
+      "source": "/cool",
+      "destination": "/cool.html"
+    },
     {
       "source": "/:slug(wire|cohort|tiwari-town|saleena-tiwari|subtitles|kulture|clark|raise|seyis-park|saleena)",
       "destination": "/case-studies/:slug.html"

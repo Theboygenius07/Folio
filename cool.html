@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f3f1ea" />
+  <title>Pick a tooth · Seyi Ogundipe</title>
+  <meta name="description" content="Seyi Ogundipe's work, one project in each tooth. Scroll down, pick a tooth." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Seyi Ogundipe — Design Engineer" />
+  <meta property="og:description" content="Design, engineering, growth & storytelling. Where ideas become products and products become experiences." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Seyi Ogundipe — Design Engineer" />
+  <meta name="twitter:description" content="Design, engineering, growth & storytelling. Where ideas become products and products become experiences." />
+  <meta name="twitter:image" content="og-image.png" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
+
+  <!-- All fonts load locally from /fonts — no external requests -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/styles.css?v=20261011h" />
+  <link rel="stylesheet" href="/grill/grill.css?v=20261025g" />
+
+  <!-- Set the time-of-day theme before first paint (no flash). ?vibe=night overrides. -->
+  <script>
+    (function () {
+      try {
+        var p = new URLSearchParams(location.search).get("vibe");
+        var m = p || localStorage.getItem("cohort-vibe") || "auto";
+        var t = m;
+        if (m === "auto") {
+          var h = new Date().getHours();
+          t = (h >= 5 && h < 10) ? "morning"
+            : (h >= 10 && h < 17) ? "day"
+            : (h >= 17 && h < 21) ? "evening" : "night";
+        }
+        document.documentElement.setAttribute("data-vibe", t);
+      } catch (e) {}
+    })();
+  </script>
+  <style>
+    /* the page after the drop: a quiet way back to the portfolio */
+    .cool__foot { display: flex; justify-content: center; padding: clamp(3rem, 10vh, 6rem) var(--pad-x); }
+    .cool__back { font-size: .95rem; color: var(--ink); border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: border-color .3s var(--ease); }
+    .cool__back:hover { border-color: var(--ink); }
+  </style>
+</head>
+<body class="cool">
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav" id="top">
+    <div class="nav__left">
+      <a href="/" class="nav__brand">Seyi&nbsp;Ogundipe</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="/#work" class="nav__link"><span>Work</span></a>
+        <a href="/#about" class="nav__link"><span>Experience</span></a>
+        <a href="/#contact" class="nav__link"><span>Contact</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ───────────────────────── GRILL HERO ───────────────────────── -->
+    <!-- A camera drops from the sky onto Seyi; each cap of the grill is a project (grill/grill.js). -->
+    <section class="grill" id="grill" aria-label="Selected work. Each tooth in the grill is a project.">
+      <div class="grill__stage">
+        <canvas class="grill__canvas" aria-hidden="true"></canvas>
+        <div class="grill__sprites" aria-hidden="true"></div>
+        <svg class="grill__teeth" viewBox="0 0 3840 2160" role="group" aria-label="Projects, one in each tooth"></svg>
+        <div class="grill__cap" data-state="intro">
+          <p class="grill__cap-label" aria-live="polite"><span class="grill__cap-num"></span><span class="grill__cap-meta">Seyi Ogundipe</span></p>
+          <a class="grill__cap-title">Design engineer</a>
+        </div>
+        <ol class="grill__index" aria-hidden="true"></ol>
+        <a class="grill__skip" href="#grill">Skip to the teeth</a>
+        <p class="grill__hint" aria-hidden="true">Scroll</p>
+      </div>
+    </section>
+
+    <!-- The projects the teeth link to, in tooth order (same list as the work grid on the home page) -->
+    <div class="cool__data" hidden>
+      <ol class="projects" id="projects">
+
+        <!-- 1. Redbrick (case study: its own about page) -->
+        <li class="project" style="--tint:#a3381d">
+          <a class="project__card" href="https://redbrick.ink/about" target="_blank" rel="noopener" data-note="Read the case study">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:transparent"></span>
+                <p class="project__title">Redbrick</p>
+                <span class="project__type">3D</span>
+                <span class="project__year">2026</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 2. Interfaze redesign (case study: /redesign) -->
+        <li class="project" style="--tint:#00bfa6">
+          <a class="project__card" href="https://interfaze-redesign.vercel.app/redesign" target="_blank" rel="noopener" data-note="Read the case study">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:transparent"></span>
+                <p class="project__title">Interfaze</p>
+                <span class="project__type">Redesign</span>
+                <span class="project__year">2026</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 3. Wire -->
+        <li class="project" style="--tint:#e0f61c">
+          <a class="project__card" href="/wire" data-note="Read the case study">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:#111">W</span>
+                <p class="project__title">Wire</p>
+                <span class="project__type">Product</span>
+                <span class="project__year">2026</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 4. Cohort -->
+        <li class="project" style="--tint:#3358ff">
+          <a class="project__card" href="/cohort" data-note="Read the case study">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:#161616"></span>
+                <p class="project__title">Cohort</p>
+                <span class="project__type">Product</span>
+                <span class="project__year">2026</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 5. Tiwari Town (Project Tiwari) -->
+        <li class="project" style="--tint:#4a9fe0">
+          <a class="project__card" href="/tiwari-town" data-note="Read the case study">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:#4a9fe0">T</span>
+                <p class="project__title">Tiwari Town</p>
+                <span class="project__type">3D</span>
+                <span class="project__year">2026</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 6. Saleena Tiwari (3D showcase) -->
+        <li class="project" style="--tint:#7a9c6f">
+          <a class="project__card" href="/saleena-tiwari" data-note="Read the case study">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:#314132">S</span>
+                <p class="project__title">Saleena Tiwari</p>
+                <span class="project__type">Creative</span>
+                <span class="project__year">2026</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 7. Subtitles -->
+        <li class="project" style="--tint:#6c5ce7">
+          <a class="project__card" href="/subtitles" data-note="Read the case study">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:transparent"></span>
+                <p class="project__title">Subtitles</p>
+                <span class="project__type">Motion</span>
+                <span class="project__year">2026</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 8. Kulture -->
+        <li class="project" style="--tint:#c8a94a">
+          <a class="project__card" href="/kulture" data-note="Read the case study">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:#1a1208; border:1.5px solid var(--tint)">
+                  
+                </span>
+                <p class="project__title">Kulture<span class="ast">*</span></p>
+                <span class="project__type">Events</span>
+                <span class="project__year">2025</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 9. Clark -->
+        <li class="project" style="--tint:#ff5b1f">
+          <a class="project__card" href="/clark" data-note="Read the case study">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:#161616"></span>
+                <p class="project__title">Clark</p>
+                <span class="project__type">Product</span>
+                <span class="project__year">2024</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 10. Raise -->
+        <li class="project" style="--tint:#4b63ff">
+          <a class="project__card" href="/raise" data-note="Read the case study">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:#161616"></span>
+                <p class="project__title">Cohort / Raise</p>
+                <span class="project__type">Pitch</span>
+                <span class="project__year">2026</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 11. Seyi's Park (3D case study) -->
+        <li class="project" style="--tint:#3a8f3a">
+          <a class="project__card" href="/seyis-park" data-note="Read the case study">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:transparent"></span>
+                <p class="project__title">Seyi's Park</p>
+                <span class="project__type">Creative</span>
+                <span class="project__year">2026</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 12. Saleena -->
+        <li class="project" style="--tint:#e07ba0">
+          <a class="project__card" href="/saleena" data-note="Read the case study">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot" style="background:transparent"></span>
+                <p class="project__title">Saleena</p>
+                <span class="project__type">Personal</span>
+                <span class="project__year">2024</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- 13. Fragments -->
+        <li class="project" style="--tint:#c8a94a">
+          <a class="project__card" href="https://www.notion.so/theboygenius/Hello-I-m-Seyi-I-build-cool-Stuff-1086f532ebdc8047ba3efd26f28c9331?pvs=18" target="_blank" rel="noopener" data-note="Open the archive">
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot">&#10038;</span>
+                <p class="project__title">Fragments</p>
+                <span class="project__type">Archive</span>
+                <span class="project__year">Ongoing</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+
+        <!-- 14. Your project: an envelope with a brief inside. Hover opens it, click sends it. -->
+        <li class="project project--open">
+          <a class="project__card" href="mailto:ogemgoldsmith07@gmail.com?subject=Your%20project" data-note="Send it" aria-label="Your project. Email Seyi at ogemgoldsmith07@gmail.com">
+            <div class="project__cover project__cover--open">
+              <div class="env-shadow" aria-hidden="true"></div>
+              <div class="env" aria-hidden="true">
+                <div class="env__back"></div>
+                <div class="env__letter">
+                  <p class="env__brief"><span>✸</span> Brief no. 14</p>
+                  <p class="env__lead">Your project could be</p>
+                  <p class="env__blank"><span class="env__line"><span class="brief__typed">a world someone can walk through.</span><i class="env__caret"></i></span></p>
+                </div>
+                <div class="env__flap"><span class="env__seal">✸</span></div>
+                <div class="env__pocket">
+                  <p class="env__to">For Seyi,</p>
+                  <p class="env__about">about your project</p>
+                  <p class="env__addr">ogemgoldsmith07@gmail.com</p>
+                  <div class="env__stamp"><span>✸</span><b>2026</b></div>
+                  <svg class="env__postmark" viewBox="0 0 120 60">
+                    <defs><path id="pm-ring" d="M30 30 m-22 0 a22 22 0 1 1 44 0 a22 22 0 1 1 -44 0" /></defs>
+                    <circle cx="30" cy="30" r="27" />
+                    <text><textPath href="#pm-ring" textLength="136" lengthAdjust="spacing">SEYI ✸ ANYWHERE ✸ </textPath></text>
+                    <text class="pm-mid" x="30" y="30">✸</text>
+                    <path d="M60 18 q7 -5 14 0 t14 0 t14 0 t14 0" /><path d="M60 26 q7 -5 14 0 t14 0 t14 0 t14 0" /><path d="M60 34 q7 -5 14 0 t14 0 t14 0 t14 0" /><path d="M60 42 q7 -5 14 0 t14 0 t14 0 t14 0" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="project__foot">
+              <div class="project__foot-meta">
+                <span class="project__dot project__dot--open" aria-hidden="true">✸</span>
+                <p class="project__title">Your project</p>
+                <span class="project__type">Let's talk</span>
+                <span class="project__year">Next</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+      </ol>
+    </div>
+
+    <footer class="cool__foot">
+      <a href="/" class="cool__back">← The rest of the portfolio</a>
+    </footer>
+  </main>
+
+      <div class="cursor-note" id="cursor-note" aria-hidden="true">
+        <span class="cursor-note__pill">
+          <span class="cursor-note__text">Read the case study</span>
+          <span class="cursor-note__arrow">↗</span>
+        </span>
+      </div>
+
+  <script src="/grill/grill.js?v=20261025g"></script>
+</body>
+</html>

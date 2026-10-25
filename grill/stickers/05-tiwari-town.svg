@@ -1,0 +1,41 @@
+<!-- grill sticker 05 (tiwari-town): drawn by code, flat vector, die-cut border included; source/stickers.mjs -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 63.9 401 330.6" width="401" height="331"><g>
+  <ellipse cx="200" cy="318" rx="168" ry="44" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></ellipse>
+  <path d="M60 318Q80 306 100 318T140 318M260 318Q280 306 300 318T340 318" fill="none" stroke="rgba(30,43,64,0.30)" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"></path>
+  <ellipse cx="200" cy="304" rx="110" ry="26" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></ellipse>
+  <circle cx="108" cy="190" r="20" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="150" cy="282" r="22" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></circle><circle cx="254" cy="282" r="22" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="190" cy="226" r="78" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="176" cy="290" r="22" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></circle><circle cx="228" cy="290" r="22" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="280" cy="150" r="52" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="322" cy="176" r="24" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="340" cy="168" r="9" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="50" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <ellipse cx="246" cy="128" rx="17" ry="27" transform="rotate(24 246 128)" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></ellipse>
+  <circle cx="292" cy="136" r="7.5" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="50" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <path d="M302 196Q314 206 326 198" fill="none" stroke="rgba(30,43,64,0.30)" stroke-width="55" stroke-linecap="round" stroke-linejoin="round"></path></g><g>
+  <ellipse cx="200" cy="318" rx="168" ry="44" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></ellipse>
+  <path d="M60 318Q80 306 100 318T140 318M260 318Q280 306 300 318T340 318" fill="none" stroke="#FFFFFF" stroke-width="50" stroke-linecap="round" stroke-linejoin="round"></path>
+  <ellipse cx="200" cy="304" rx="110" ry="26" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></ellipse>
+  <circle cx="108" cy="190" r="20" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="150" cy="282" r="22" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></circle><circle cx="254" cy="282" r="22" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="190" cy="226" r="78" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="176" cy="290" r="22" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></circle><circle cx="228" cy="290" r="22" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="280" cy="150" r="52" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="322" cy="176" r="24" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="340" cy="168" r="9" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="44" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <ellipse cx="246" cy="128" rx="17" ry="27" transform="rotate(24 246 128)" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></ellipse>
+  <circle cx="292" cy="136" r="7.5" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="44" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <path d="M302 196Q314 206 326 198" fill="none" stroke="#FFFFFF" stroke-width="49" stroke-linecap="round" stroke-linejoin="round"></path></g><g>
+  <ellipse cx="200" cy="318" rx="168" ry="44" fill="#4a9fe0" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></ellipse>
+  <path d="M60 318Q80 306 100 318T140 318M260 318Q280 306 300 318T340 318" fill="none" stroke="#aed4f1" stroke-width="6" stroke-linecap="round"></path>
+  <ellipse cx="200" cy="304" rx="110" ry="26" fill="#F2D59B" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></ellipse>
+  <circle cx="108" cy="190" r="20" fill="#C98B42" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="150" cy="282" r="22" fill="#C98B42" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></circle><circle cx="254" cy="282" r="22" fill="#C98B42" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="190" cy="226" r="78" fill="#E9B46C" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="176" cy="290" r="22" fill="#E9B46C" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></circle><circle cx="228" cy="290" r="22" fill="#E9B46C" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="280" cy="150" r="52" fill="#E9B46C" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="322" cy="176" r="24" fill="#f2d2a7" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <circle cx="340" cy="168" r="9" fill="#1E2B40"></circle>
+  <ellipse cx="246" cy="128" rx="17" ry="27" transform="rotate(24 246 128)" fill="#C98B42" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></ellipse>
+  <circle cx="292" cy="136" r="7.5" fill="#1E2B40"></circle>
+  <path d="M302 196Q314 206 326 198" fill="none" stroke="#1E2B40" stroke-width="5" stroke-linecap="round"></path></g></svg>

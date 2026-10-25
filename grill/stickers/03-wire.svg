@@ -1,0 +1,29 @@
+<!-- grill sticker 03 (wire): drawn by code, flat vector, die-cut border included; source/stickers.mjs -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="34 -15 371.5 409" width="372" height="409"><g>
+  <circle cx="124" cy="246" r="34" stroke="rgba(30,43,64,0.30)" stroke-width="50" stroke-linejoin="round" stroke-linecap="round" fill="rgba(30,43,64,0.30)"></circle>
+  <path d="M196 214C176 262 118 300 96 262C74 224 132 196 156 236C178 274 146 334 82 346" fill="none" stroke="rgba(30,43,64,0.30)" stroke-width="90" stroke-linecap="round" stroke-linejoin="round"></path><path d="M196 214C176 262 118 300 96 262C74 224 132 196 156 236C178 274 146 334 82 346" fill="none" stroke="rgba(30,43,64,0.30)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"></path>
+  <g transform="translate(246 152) rotate(38)">
+    <rect x="-17" y="-112" width="12" height="52" rx="5" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></rect><rect x="9" y="-112" width="12" height="52" rx="5" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></rect>
+    <rect x="-50" y="-68" width="104" height="108" rx="22" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></rect>
+    <rect x="-36" y="34" width="76" height="26" rx="10" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></rect>
+    <path d="M6 -46L-14 -6H4L-6 24L18 -20H0Z" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></path>
+  </g>
+  <path d="M322 54L330 72L348 80L330 88L322 106L314 88L296 80L314 72Z" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></path></g><g>
+  <circle cx="124" cy="246" r="34" stroke="#FFFFFF" stroke-width="44" stroke-linejoin="round" stroke-linecap="round" fill="#FFFFFF"></circle>
+  <path d="M196 214C176 262 118 300 96 262C74 224 132 196 156 236C178 274 146 334 82 346" fill="none" stroke="#FFFFFF" stroke-width="84" stroke-linecap="round" stroke-linejoin="round"></path><path d="M196 214C176 262 118 300 96 262C74 224 132 196 156 236C178 274 146 334 82 346" fill="none" stroke="#FFFFFF" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"></path>
+  <g transform="translate(246 152) rotate(38)">
+    <rect x="-17" y="-112" width="12" height="52" rx="5" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></rect><rect x="9" y="-112" width="12" height="52" rx="5" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></rect>
+    <rect x="-50" y="-68" width="104" height="108" rx="22" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></rect>
+    <rect x="-36" y="34" width="76" height="26" rx="10" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></rect>
+    <path d="M6 -46L-14 -6H4L-6 24L18 -20H0Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="47" stroke-linejoin="round" stroke-linecap="round"></path>
+  </g>
+  <path d="M322 54L330 72L348 80L330 88L322 106L314 88L296 80L314 72Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></path></g><g>
+  
+  <path d="M196 214C176 262 118 300 96 262C74 224 132 196 156 236C178 274 146 334 82 346" fill="none" stroke="#1E2B40" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"></path><path d="M196 214C176 262 118 300 96 262C74 224 132 196 156 236C178 274 146 334 82 346" fill="none" stroke="#e0f61c" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"></path>
+  <g transform="translate(246 152) rotate(38)">
+    <rect x="-17" y="-112" width="12" height="52" rx="5" fill="#C9CDD2" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></rect><rect x="9" y="-112" width="12" height="52" rx="5" fill="#C9CDD2" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></rect>
+    <rect x="-50" y="-68" width="104" height="108" rx="22" fill="#e0f61c" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></rect>
+    <rect x="-36" y="34" width="76" height="26" rx="10" fill="#afc016" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></rect>
+    <path d="M6 -46L-14 -6H4L-6 24L18 -20H0Z" fill="#1E2B40" stroke="#1E2B40" stroke-width="3" stroke-linejoin="round"></path>
+  </g>
+  <path d="M322 54L330 72L348 80L330 88L322 106L314 88L296 80L314 72Z" fill="#FFFFFF" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></path></g></svg>

@@ -1,0 +1,148 @@
+/* ============================================================
+   Grill hero. A camera drops from the sky onto Seyi; the 13 caps
+   of his grill are the project list. See grill.js.
+   ============================================================ */
+
+.grill {
+  /* the hero always uses the light palette, whatever the time of day or lights-off */
+  --paper: #f3f1ea; --paper-2: #eceae1; --ink: #15140f; --ink-soft: #2a2823;
+  --muted: #8b877b; --line: #d7d3c7; --line-soft: #e3dfd4;
+  background: var(--paper); color: var(--ink);
+  position: relative;
+  height: 340svh;               /* the scroll distance the drop plays over */
+  padding-left: 0; padding-right: 0; /* full bleed: sections are padded site-wide */
+}
+.grill.is-still { height: 100svh; } /* reduced motion: land straight away */
+
+.grill__stage {
+  position: sticky; top: 0;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.grill__canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+}
+
+/* Two layers share the camera transform set in grill.js, both sized to the close-up
+   rect in world px (768x432) and scaled by the camera:
+   sprites: each tooth as its own layer with its project's logo printed in, so it can lift;
+   teeth: the invisible links on top. */
+.grill__sprites,
+.grill__teeth {
+  position: absolute; left: 0; top: 0;
+  width: 768px; height: 432px;
+  transform-origin: 0 0;
+  overflow: visible;
+}
+/* the canvas already shows the same pixels, so the tooth layers only exist on screen once you've landed */
+.grill__sprites { pointer-events: none; visibility: hidden; }
+.grill.is-landed .grill__sprites,
+.grill.is-diving .grill__sprites { visibility: visible; }
+.grill__canvas, .grill__sprites, .grill__teeth { will-change: transform; }
+/* the site's fixed grain overlay would blend over every frame of the drop */
+html.grill-in-view .grain { display: none; }
+.grill__teeth { pointer-events: none; }
+.grill.is-landed .grill__teeth { pointer-events: auto; }
+
+/* a tooth: at rest it sits exactly on the photo; picked, it lifts toward you and tilts with the cursor */
+.grill__t3d {
+  position: absolute;
+  transform-origin: 50% 92%;         /* rooted at the gum line: it grows toward you, never off its socket */
+  transform: perspective(240px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(0) scale(1);
+  transition: transform .45s var(--ease), filter .45s var(--ease);
+}
+.grill__t3d.is-up {
+  z-index: 2;
+  transform: perspective(240px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-.6px) scale(1.12);
+  filter: drop-shadow(0 2.5px 2px rgba(30, 12, 6, .5));
+  transition: transform .18s var(--ease), filter .35s var(--ease);
+}
+.grill__t3d-face {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+}
+@media (prefers-reduced-motion: reduce) {
+  .grill__t3d, .grill__t3d.is-up { transition: none; }
+}
+
+.grill__tooth { cursor: pointer; outline: none; }
+.grill__tooth polygon { fill: transparent; stroke: none; }
+/* keyboard users still get a visible focus mark */
+.grill__tooth:focus-visible polygon { stroke: var(--ink); stroke-width: 2; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke; }
+
+/* ── Caption, bottom left: no box, just type on the image. Who he is, then what you're pointing at.
+   Ink while it sits on the paper; white once the photo fills the frame. ── */
+.grill__cap,
+.grill__index,
+.grill__hint {
+  position: absolute; z-index: 2;
+  bottom: clamp(1.25rem, 4.5vh, 2.75rem);
+  color: var(--ink);
+  font-family: var(--sans);
+  transition: color .5s var(--ease);
+}
+.grill.is-close .grill__cap,
+.grill.is-close .grill__index,
+.grill.is-close .grill__hint { color: #fff; }
+
+.grill__cap { left: var(--pad-x); max-width: calc(100% - 2 * var(--pad-x)); pointer-events: none; }
+.grill__cap-label {
+  display: flex; gap: .9em;
+  font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  opacity: .8;
+}
+.grill__cap-num { font-variant-numeric: tabular-nums; }
+.grill__cap-num:empty { display: none; }
+.grill__cap-title {
+  display: block;
+  margin-top: .12em;
+  font-size: clamp(2.5rem, 1.2rem + 5.4vw, 6.75rem);
+  font-weight: 400; line-height: .95; letter-spacing: -.04em;
+  color: inherit; text-decoration: none;
+}
+.grill__cap-title[href] { pointer-events: auto; cursor: pointer; }
+
+/* the index, bottom right: one number per tooth; the one you're on is full strength */
+.grill__index {
+  right: var(--pad-x);
+  display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .15rem .85rem;
+  max-width: 28rem;
+  list-style: none; margin: 0; padding: 0;
+  visibility: hidden; opacity: 0;
+  transition: opacity .4s var(--ease), visibility 0s .4s, color .5s var(--ease);
+}
+.grill.is-landed .grill__index { visibility: visible; opacity: 1; transition: opacity .4s var(--ease), color .5s var(--ease); }
+.grill__index button {
+  font: inherit; font-size: .85rem; font-weight: 500; font-variant-numeric: tabular-nums;
+  color: inherit; background: none; border: 0; padding: .2rem 0;
+  opacity: .6; cursor: pointer;
+  transition: opacity .2s var(--ease);
+}
+.grill__index button:hover,
+.grill__index button.is-on { opacity: 1; }
+
+/* small scroll cue, gone as soon as the drop starts */
+.grill__hint { right: var(--pad-x); font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
+.grill.is-moving .grill__hint,
+.grill.is-still .grill__hint { display: none; }
+
+/* for keyboards: hidden until focused */
+.grill__skip {
+  position: absolute; z-index: 3; left: var(--pad-x); top: 5rem;
+  font: inherit; font-size: .85rem; color: var(--ink); background: var(--paper);
+  padding: .4rem .6rem; border: 1px solid var(--ink);
+  transform: translateY(-200%); opacity: 0;
+}
+.grill__skip:focus-visible { transform: none; opacity: 1; }
+
+@media (max-width: 699px) {
+  .grill { height: 300svh; }
+  .grill__hint { display: none; }
+  /* on a phone the index sits above the caption, across the full width */
+  .grill__index { left: var(--pad-x); right: var(--pad-x); max-width: none; justify-content: flex-start; bottom: auto; top: 5.25rem; gap: .1rem .75rem; }
+}

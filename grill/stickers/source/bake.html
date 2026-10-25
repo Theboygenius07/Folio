@@ -1,0 +1,88 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Bake grill stickers</title>
+<!-- Bakes the 13 stickers into the grill close-up once, ahead of time, so the page does no sticker work while you scroll.
+     Run: node grill/stickers/source/bake.mjs (with the portfolio served on :8765). Writes grill/assets/closeup-full.webp and closeup-half.webp. -->
+<script>
+const CLOSE = { x: 1440, y: 1141, w: 768, h: 432, px: 3840 };
+  const STICKERS = [
+    "01-redbrick.svg", "02-interfaze.svg", "03-wire.svg", "04-cohort.svg", "05-tiwari-town.svg",
+    "06-saleena-tiwari.svg", "07-subtitles.svg", "08-kulture.svg", "09-clark.svg", "10-raise.svg",
+    "11-seyis-park.svg", "12-saleena.svg", "13-fragments.svg",
+  ];
+  // the centroid and size of each tooth's white window (solid caps: the cap's face)
+  const STICKER_BOX = [
+    [2045,985,192,267],
+    [2358,1048,187,260],
+    [1814,888,184,220],
+    [2541,1096,104,172],
+    [1556,836,151,194],
+    [2710,1134,150,203],
+    [2040,1276,161,178],
+    [2275,1353,173,190],
+    [1810,1212,146,176],
+    [2490,1385,158,174],
+    [1567,1125,178,196],
+    [2659,1367,86,93],
+    [1371,996,132,115],
+  ];
+
+
+const loadImg = (url) => new Promise((res) => { const i = new Image(); i.onload = () => i.decode().then(() => res(i), () => res(i)); i.onerror = () => res(null); i.src = url; });
+  let stickerImgs = null, gloss = null;
+  const scratch = () => { const c = document.createElement("canvas"); return [c, c.getContext("2d", { willReadFrequently: true })]; };
+  // keep only the ink: opaque, non-white pixels (drops the white die-cut and its faint outer ring); returns its bounds
+  const inkOnly = (cv, ctx2) => {
+    const { width: w, height: h } = cv, im = ctx2.getImageData(0, 0, w, h), d = im.data;
+    let x0 = w, y0 = h, x1 = -1, y1 = -1;
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const i = (y * w + x) * 4;
+      if (d[i + 3] < 250) { d[i + 3] = 0; continue; }
+      if (Math.min(d[i], d[i + 1], d[i + 2]) > 232) { d[i + 3] = 0; continue; } // white does nothing under multiply; clearing it keeps the shine on the ink only
+      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+    }
+    ctx2.putImageData(im, 0, 0);
+    return x1 < 0 ? null : { w: x1 - x0 + 1, h: y1 - y0 + 1, cx: (x0 + x1 + 1) / 2, cy: (y0 + y1 + 1) / 2 };
+  };
+  const compose = (base) => {
+    const bw = base.width || base.naturalWidth, bh = base.height || base.naturalHeight, sc = bw / CLOSE.px;
+    const cv = document.createElement("canvas"); cv.width = bw; cv.height = bh;
+    const c = cv.getContext("2d"); c.drawImage(base, 0, 0);
+    const [tmp, tc] = scratch(), [gl, gc] = scratch();
+    stickerImgs?.forEach((st, i) => {
+      if (!st || !STICKER_BOX[i]) return;
+      const [cx, cy, bw2, bh2] = STICKER_BOX[i], nw = st.naturalWidth, nh = st.naturalHeight;
+      // 1. measure the ink at natural size, so the artwork (not the border) fills ~84% of the window
+      tmp.width = nw; tmp.height = nh; tc.drawImage(st, 0, 0);
+      const ink0 = inkOnly(tmp, tc); if (!ink0) return;
+      const f = Math.min((bw2 * 0.84) / ink0.w, (bh2 * 0.84) / ink0.h) * sc;
+      // 2. draw it at that size, tilted, and centre the ink itself on the window's centroid
+      const R = Math.ceil(Math.hypot(nw, nh) * f + 4);
+      tmp.width = tmp.height = R;
+      tc.save(); tc.translate(R / 2, R / 2); tc.rotate((((i * 37) % 13) - 6) * Math.PI / 180);
+      tc.drawImage(st, (-nw * f) / 2, (-nh * f) / 2, nw * f, nh * f); tc.restore();
+      const ink = inkOnly(tmp, tc); if (!ink) return;
+      const dx = Math.round(cx * sc - ink.cx), dy = Math.round(cy * sc - ink.cy);
+      c.save(); c.globalCompositeOperation = "multiply"; c.drawImage(tmp, dx, dy); c.restore();
+      // 3. the tooth's shine back over the ink
+      if (gloss) {
+        const gs = (gloss.width || gloss.naturalWidth) / bw;
+        gl.width = gl.height = R; gc.clearRect(0, 0, R, R);
+        gc.drawImage(gloss, dx * gs, dy * gs, R * gs, R * gs, 0, 0, R, R);
+        gc.globalCompositeOperation = "destination-in"; gc.drawImage(tmp, 0, 0); gc.globalCompositeOperation = "source-over";
+        c.save(); c.globalAlpha = 0.7; c.drawImage(gl, dx, dy); c.restore();
+      }
+    });
+    return cv;
+  };
+
+window.bake = async () => {
+  const v = Date.now();
+  [stickerImgs, gloss] = await Promise.all([Promise.all(STICKERS.map((f) => loadImg(`/grill/stickers/${f}?v=${v}`))), loadImg(`/grill/assets/closeup-gloss.webp?v=${v}`)]);
+  const base = await loadImg(`/grill/assets/closeup-base-full.webp?v=${v}`);
+  const full = compose(base);
+  const half = document.createElement("canvas"); half.width = full.width / 2; half.height = full.height / 2;
+  const hc = half.getContext("2d"); hc.imageSmoothingQuality = "high"; hc.drawImage(full, 0, 0, half.width, half.height);
+  return { full: full.toDataURL("image/webp", 0.86), half: half.toDataURL("image/webp", 0.88) };
+};
+</script>

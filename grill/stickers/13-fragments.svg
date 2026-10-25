@@ -1,0 +1,35 @@
+<!-- grill sticker 13 (fragments): drawn by code, flat vector, die-cut border included; source/stickers.mjs -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="16.4 22.3 374 360.7" width="374" height="361"><g>
+  <g transform="rotate(-7 190 230)">
+    <path d="M64 120L92 106L116 124L148 102L176 122L204 100L232 118L262 98L286 116L300 104V336H64Z" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M90 178H274M90 214H274M90 250H254M90 286H220" stroke="rgba(30,43,64,0.30)" stroke-width="56" stroke-linecap="round" stroke-linejoin="round" fill="rgba(30,43,64,0.30)"></path></g>
+  <g transform="translate(250 176) rotate(36)">
+    <path d="M-46 -112H46L52 -56C52 -10 26 34 0 96C-26 34 -52 -10 -52 -56Z" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M0 -112H46L52 -56C52 -10 26 34 0 96Z" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="50" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M-46 -112H46L52 -56C52 -10 26 34 0 96C-26 34 -52 -10 -52 -56Z" fill="none" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M-46 -112H46" stroke="rgba(30,43,64,0.30)" stroke-width="59" stroke-linejoin="round" stroke-linecap="round" fill="rgba(30,43,64,0.30)"></path>
+    <circle cx="0" cy="-34" r="11" fill="rgba(30,43,64,0.30)" stroke="rgba(30,43,64,0.30)" stroke-width="50" stroke-linejoin="round" stroke-linecap="round"></circle>
+    <path d="M0 -34V92" stroke="rgba(30,43,64,0.30)" stroke-width="56" stroke-linecap="round" stroke-linejoin="round" fill="rgba(30,43,64,0.30)"></path>
+  </g></g><g>
+  <g transform="rotate(-7 190 230)">
+    <path d="M64 120L92 106L116 124L148 102L176 122L204 100L232 118L262 98L286 116L300 104V336H64Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M90 178H274M90 214H274M90 250H254M90 286H220" stroke="#FFFFFF" stroke-width="50" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF"></path></g>
+  <g transform="translate(250 176) rotate(36)">
+    <path d="M-46 -112H46L52 -56C52 -10 26 34 0 96C-26 34 -52 -10 -52 -56Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M0 -112H46L52 -56C52 -10 26 34 0 96Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="44" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M-46 -112H46L52 -56C52 -10 26 34 0 96C-26 34 -52 -10 -52 -56Z" fill="none" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M-46 -112H46" stroke="#FFFFFF" stroke-width="53" stroke-linejoin="round" stroke-linecap="round" fill="#FFFFFF"></path>
+    <circle cx="0" cy="-34" r="11" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="44" stroke-linejoin="round" stroke-linecap="round"></circle>
+    <path d="M0 -34V92" stroke="#FFFFFF" stroke-width="50" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF"></path>
+  </g></g><g>
+  <g transform="rotate(-7 190 230)">
+    <path d="M64 120L92 106L116 124L148 102L176 122L204 100L232 118L262 98L286 116L300 104V336H64Z" fill="#FFF6E6" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M90 178H274M90 214H274M90 250H254M90 286H220" stroke="#1E2B40" stroke-width="6" stroke-linecap="round" opacity="0.4"></path></g>
+  <g transform="translate(250 176) rotate(36)">
+    <path d="M-46 -112H46L52 -56C52 -10 26 34 0 96C-26 34 -52 -10 -52 -56Z" fill="#c8a94a" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M0 -112H46L52 -56C52 -10 26 34 0 96Z" fill="#a0873b"></path>
+    <path d="M-46 -112H46L52 -56C52 -10 26 34 0 96C-26 34 -52 -10 -52 -56Z" fill="none" stroke="#1E2B40" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M-46 -112H46" stroke="#1E2B40" stroke-width="9"></path>
+    <circle cx="0" cy="-34" r="11" fill="#1E2B40"></circle>
+    <path d="M0 -34V92" stroke="#1E2B40" stroke-width="6" stroke-linecap="round"></path>
+  </g></g></svg>
