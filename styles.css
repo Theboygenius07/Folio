@@ -1335,6 +1335,15 @@ main { position: relative; z-index: 1; }
 .particles-opt[aria-pressed="false"] { opacity: .45; }
 .particles-opt-state { font-size: .58rem; opacity: .7; }
 
+/* link to the grill page (/cool), sitting just left of the lamp, in the clock's voice */
+.cool-link {
+  pointer-events: all; padding: 1.4rem 6px 1.4rem 0; line-height: normal; /* same line box as the clock button */
+  font-family: var(--sans); font-size: .72rem; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--ink); opacity: .55; white-space: nowrap;
+  transition: opacity .2s ease, color 1.1s ease;
+}
+.cool-link:hover, .cool-link:focus-visible { opacity: 1; }
+
 /* ── Physics lamp ── */
 #lamp-mount { pointer-events: all; flex-shrink: 0; padding-right: 16px; }
 #lamp-physics {
@@ -1373,7 +1382,10 @@ body.no-ambient .hero__ambient { display: none; }
 @media (max-width: 560px) {
   #vibe-wrap { top: 0; left: 0; right: 0; }
   .vibe-btn { padding: 1.6rem 1rem 1.25rem; font-size: 0.72rem; }
+  .cool-link { padding: 1.6rem 6px 1.25rem 0; font-size: 0.72rem; }
 }
+/* small phones: the clock drops its "good day" word so the Cool link fits beside the lamp */
+@media (max-width: 440px) { #vibe-label { display: none; } }
 @media (prefers-reduced-motion: reduce) {
   .lamp-glow { transition: none; }
   #vibe-wrap { animation: none; }

@@ -90,7 +90,8 @@ html.grill-in-view .grain { display: none; }
 .grill.is-close .grill__index,
 .grill.is-close .grill__hint { color: #fff; }
 
-.grill__cap { left: var(--pad-x); max-width: calc(100% - 2 * var(--pad-x)); pointer-events: none; }
+.grill__cap { left: var(--pad-x); max-width: calc(100% - 2 * var(--pad-x)); pointer-events: none; transition: color .5s var(--ease), opacity .35s var(--ease); }
+.grill.is-mid .grill__cap { opacity: 0; }
 .grill__cap-label {
   display: flex; gap: .9em;
   font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
@@ -144,5 +145,6 @@ html.grill-in-view .grain { display: none; }
   .grill { height: 300svh; }
   .grill__hint { display: none; }
   /* on a phone the index sits above the caption, across the full width */
-  .grill__index { left: var(--pad-x); right: var(--pad-x); max-width: none; justify-content: flex-start; bottom: auto; top: 5.25rem; gap: .1rem .75rem; }
+  .grill__index { left: var(--pad-x); right: var(--pad-x); max-width: none; bottom: auto; top: 5.25rem;
+    display: grid; grid-template-columns: repeat(7, auto); justify-content: start; gap: .1rem 1rem; }
 }

@@ -66,7 +66,6 @@
       year: (li.querySelector(".project__year")?.textContent || "").trim(),
       href: a?.getAttribute("href") || "#",
       external: a?.target === "_blank",
-      note: a?.dataset.note || "Read the case study",
       tint: li.style.getPropertyValue("--tint").trim() || "#15140f", // the card's own colour
     };
   });
@@ -238,20 +237,6 @@
     }
   };
 
-  /* ---------- Cursor note (shared with the work grid) ---------- */
-  const note = document.getElementById("cursor-note");
-  const noteText = note?.querySelector(".cursor-note__text");
-  const noteArrow = note?.querySelector(".cursor-note__arrow");
-  let nTX = 0, nTY = 0, nX = 0, nY = 0, noteOn = false;
-  const showNote = (t, e) => {
-    if (!note || !canHover || reduce) return;
-    noteText.textContent = t.isGap ? "Send it" : t.project.note;
-    noteArrow.textContent = t.project.external || t.project.href.startsWith("mailto:") ? "↗" : "→";
-    if (!noteOn) { nX = nTX = e.clientX; nY = nTY = e.clientY; }
-    noteOn = true; note.classList.add("is-visible");
-  };
-  const hideNote = () => { if (note && noteOn) { noteOn = false; note.classList.remove("is-visible"); } };
-
   /* ---------- Interaction ---------- */
   let diving = false;
   let lastInput = "mouse"; // what the last click came from: mouse, touch, pen or keyboard
@@ -264,9 +249,8 @@
   };
   teeth.forEach((t) => {
     // while diving the camera moves the teeth under a still mouse; keep the clicked tooth selected
-    t.a.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse" && !diving) { activate(t); showNote(t, e); } });
+    t.a.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse" && !diving) activate(t); });
     t.a.addEventListener("pointermove", (e) => {
-      nTX = e.clientX; nTY = e.clientY;
       if (t.el && active === t && !diving) {
         const r = t.el.getBoundingClientRect();
         const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2), dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
@@ -274,7 +258,7 @@
         t.el.style.setProperty("--rx", `${(-Math.max(-1, Math.min(1, dy)) * 14).toFixed(2)}deg`);
       }
     });
-    t.a.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse" && !diving) { activate(null); hideNote(); } });
+    t.a.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse" && !diving) activate(null); });
     t.a.addEventListener("focus", () => {
       if (!t.a.matches(":focus-visible")) return; // taps focus too; only keyboard focus selects
       if (!landed && forced === null) jumpToLanding();
@@ -351,7 +335,7 @@
   let diveFrom = null, diveTo = null, diveT0 = 0, diveHref = null;
   const dive = (t) => {
     if (diving) return;
-    activate(t); diving = true; hideNote();
+    activate(t); diving = true;
     diveFrom = camera(current);
     diveTo = { s: diveFrom.s * 4, x: t.world.x, y: t.world.y, r: 0 };
     diveT0 = performance.now(); diveHref = t.project.href;
@@ -421,15 +405,12 @@
           landed = isLanded;
           root.classList.toggle("is-landed", landed);
           if (!active) setCard(landed ? "pick" : "intro");
-          if (!landed) { activate(null); hideNote(); }
+          if (!landed) activate(null);
         }
         root.classList.toggle("is-moving", current > 0.02);
-        root.classList.toggle("is-close", cam.e > 0.42);
+        root.classList.toggle("is-close", cam.e > 0.6);
+        root.classList.toggle("is-mid", cam.e > 0.18 && cam.e <= 0.6);   // mid-fall the caption would straddle paper and photo: let it go
       }
-    }
-    if (note && noteOn) {
-      nX += (nTX - nX) * 0.2; nY += (nTY - nY) * 0.2;
-      note.style.setProperty("--cnx", `${nX}px`); note.style.setProperty("--cny", `${nY}px`); note.style.setProperty("--cnr", "0deg");
     }
     requestAnimationFrame(tick);
   };
