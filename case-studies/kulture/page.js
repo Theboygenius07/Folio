@@ -7,7 +7,6 @@
                            font cycle 376-430, experience cards 500-545,
                            flip clock 553-608
      tickets/generate.js   buildSVG(): the printed passes
-     backdrop/generate.js  buildBackdrop(): the step-and-repeat
    GSAP is the same 3.12.5 the site loaded from cdnjs.
 */
 const S = window.Study;
@@ -958,7 +957,21 @@ function lineup() {
     else { chase && chase.kill(); tl.totalProgress(v); }
     wake();
   };
-  range.addEventListener("input", () => { outP.textContent = Math.round(range.value / 10) + "%"; to(+range.value / 1000); });
+  // the slider is yours once you touch it; until then the page's own scroll drives the cards, as it did on the site
+  let manual = false;
+  range.addEventListener("input", () => { manual = true; outP.textContent = Math.round(range.value / 10) + "%"; to(+range.value / 1000); });
+  const stage = $(".k-exp-stage", fig);
+  const fromScroll = () => {
+    if (manual || !visible) return;
+    const r = stage.getBoundingClientRect(), vh = innerHeight;
+    // 0 as the stage comes up from the bottom of the window, 1 once its middle is 40% of the way down
+    const v = clamp((0.95 * vh - (r.top + r.height / 2)) / (0.55 * vh), 0, 1);
+    if (Math.abs(v - target) < 0.002) return;
+    range.value = String(Math.round(v * 1000));
+    outP.textContent = Math.round(v * 100) + "%";
+    to(v);
+  };
+  addEventListener("scroll", fromScroll, { passive: true });
   tabs.addEventListener("click", (e) => {
     const b = e.target.closest("button[data-scrub]");
     if (!b) return;
@@ -1007,7 +1020,7 @@ function lineup() {
 
   let stop = null, visible = false;
   function wake() { if (visible && !stop) stop = S.raf(() => { paint(); if (!chase || !chase.isActive()) { stop = null; return false; } }); }
-  S.onVisible(fig, () => { visible = true; paint(); wake(); }, () => { visible = false; stop && stop(); stop = null; });
+  S.onVisible(fig, () => { visible = true; fromScroll(); paint(); wake(); }, () => { visible = false; manual = false; stop && stop(); stop = null; });
 }
 
 /* ------------------------------------------------------------------
@@ -1108,213 +1121,6 @@ function printPasses() {
   show(front);
 }
 
-/* ------------------------------------------------------------------
-   Fig. 10: the step-and-repeat. backdrop/generate.js buildBackdrop(), on a canvas
-   ------------------------------------------------------------------ */
-const VARIANTS = [
-  { id: "dark", BG: "#080C05", TEXT: "#EDD9A3", ACCENT: "#C01920", LOGO_TINT: "#EDD9A3" },
-  { id: "red", BG: "#C01920", TEXT: "#EDD9A3", ACCENT: "#080C05", LOGO_TINT: "#EDD9A3" },
-  { id: "green", BG: "#0B2310", TEXT: "#EDD9A3", ACCENT: "#C01920", LOGO_TINT: "#EDD9A3" },
-]; // backdrop/generate.js:26-30
-const SIZES = [
-  { label: "8x8", W: 2400, H: 2400 },
-  { label: "8x10", W: 2400, H: 3000 },
-  { label: "10x8", W: 3000, H: 2400 },
-]; // backdrop/generate.js:33-37
-const SPONSOR_FILES = ["seyetheplug", "bigbolaji", "leeyat", "godfather", "infowithsammy", "olakiits", "trimmy"]; // generate.js:17-20
-
-function backdrop() {
-  const fig = $("#kBd");
-  if (!fig) return;
-  const host = $(".k-bd-canvas", fig), sheet = $(".k-bd-sheet", fig), cv = $("canvas", fig);
-  const ctx = cv.getContext("2d");
-  const tabs = $$(".tabs", fig);
-  const layoutBtn = $("[data-layout]", fig);
-  const out = { wh: $("[data-wh]", fig), cell: $("[data-cell]", fig), lr: $("[data-lr]", fig), tr: $("[data-tr]", fig), logos: $("[data-logos]", fig), faded: $("[data-faded]", fig) };
-  let vi = 2, si = 2, showLayout = false, imgs = null, loading = null;
-
-  const load = (src) => new Promise((res, rej) => { const i = new Image(); i.decoding = "async"; i.onload = () => res(i); i.onerror = rej; i.src = src; });
-  const tint = (img, color) => {
-    // the SVG filter: feFlood the tint colour, composited into the logo's alpha
-    const c = document.createElement("canvas");
-    c.width = img.naturalWidth; c.height = img.naturalHeight;
-    const x = c.getContext("2d");
-    x.drawImage(img, 0, 0);
-    x.globalCompositeOperation = "source-in";
-    x.fillStyle = color; x.fillRect(0, 0, c.width, c.height);
-    return c;
-  };
-  const ensure = () => loading || (loading = Promise.all([
-    ...SPONSOR_FILES.map((f) => load(`kulture/logos/${f}.webp`)),
-    load("kulture/logos/kulture-wordmark.webp"),
-    load("kulture/logos/kulture-star.webp"),
-    document.fonts ? Promise.all([document.fonts.load("300 20px Riposte"), document.fonts.load("900 20px FuturaCyrillic")]) : null,
-  ]).then((r) => {
-    imgs = { sponsors: r.slice(0, 7).map((i) => tint(i, "#EDD9A3")), wordmark: r[7], star: r[8] };
-  }));
-  const contain = (img, x, y, w, h) => {
-    const iw = img.width, ih = img.height, s = Math.min(w / iw, h / ih);
-    ctx.drawImage(img, x + (w - iw * s) / 2, y + (h - ih * s) / 2, iw * s, ih * s);
-  };
-  const spaced = (s, px) => { ctx.letterSpacing = px + "px"; return s; };
-
-  function fit() {
-    const { W, H } = SIZES[si];
-    const avail = host.clientWidth;
-    const maxH = Math.min(window.innerHeight * 0.74, 720);
-    let w = Math.min(avail, 900), h = (w * H) / W;
-    if (h > maxH) { h = maxH; w = (h * W) / H; }
-    sheet.style.width = Math.round(w) + "px";
-    sheet.style.height = Math.round(h) + "px";
-    const dpr = DPR();
-    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
-    draw();
-  }
-
-  function draw() {
-    const { W, H } = SIZES[si];
-    const { BG, TEXT, ACCENT } = VARIANTS[vi];
-    const s = cv.width / W;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = BG; ctx.fillRect(0, 0, cv.width, cv.height);
-    if (!imgs) return;
-    ctx.setTransform(s, 0, 0, s, 0, 0);
-
-    // backdrop/generate.js:44-62
-    const COLS = 5;
-    const CELL_W = W / COLS;
-    const LOGO_ROW_H = Math.round(CELL_W * 0.40);
-    const TEXT_ROW_H = Math.round(LOGO_ROW_H * 0.34);
-    const PATTERN_H = LOGO_ROW_H + TEXT_ROW_H;
-    const LOGO_PX = CELL_W * 0.74;
-    const CX = W / 2, CY = H / 2;
-    const SAFE_W = W * 0.72, SAFE_H = H * 0.28;
-    const TILE = "FOR THE KULTURE*  ·  OJO · LAGOS · JULY 2025  ·  ";
-    const textStr = TILE.repeat(8);
-    const fontSize = Math.round(CELL_W * 0.038);
-
-    // generate.js:65-117: alternating text strips and logo rows, odd rows offset half a cell
-    ctx.save();
-    ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.clip();
-    const cells = [];
-    let logoRowIdx = 0, sponsorIdx = 0, y = -PATTERN_H;
-    while (y < H + PATTERN_H) {
-      const textY = y, logoY = y + TEXT_ROW_H;
-      ctx.globalAlpha = 0.12; ctx.strokeStyle = TEXT; ctx.lineWidth = 0.6;
-      ctx.beginPath(); ctx.moveTo(0, textY); ctx.lineTo(W, textY); ctx.stroke();
-      ctx.globalAlpha = 0.22; ctx.fillStyle = TEXT;
-      ctx.font = `300 ${fontSize}px Riposte, sans-serif`;
-      ctx.fillText(spaced(textStr, 4), -400, textY + TEXT_ROW_H * 0.72);
-      const isOdd = logoRowIdx % 2 === 1;
-      const xShift = isOdd ? CELL_W / 2 : 0;
-      const extraCol = isOdd ? 1 : 0;
-      for (let col = 0; col < COLS + extraCol; col++) {
-        const cellX = xShift + col * CELL_W;
-        const inSafe = cellX + CELL_W > CX - SAFE_W / 2 && cellX < CX + SAFE_W / 2 && logoY + LOGO_ROW_H > CY - SAFE_H / 2 && logoY < CY + SAFE_H / 2;
-        const img = imgs.sponsors[sponsorIdx % imgs.sponsors.length];
-        sponsorIdx++;
-        const imgX = cellX + (CELL_W - LOGO_PX) / 2;
-        const imgY = logoY + LOGO_ROW_H * 0.12;
-        const imgH = LOGO_ROW_H * 0.76;
-        ctx.globalAlpha = inSafe ? 0.07 : 0.65;
-        contain(img, imgX, imgY, LOGO_PX, imgH);
-        if (cellX < W && cellX + CELL_W > 0 && logoY < H && logoY + LOGO_ROW_H > 0) cells.push({ x: cellX, y: logoY, inSafe, odd: isOdd });
-      }
-      logoRowIdx++;
-      y += PATTERN_H;
-    }
-    ctx.restore();
-    ctx.letterSpacing = "0px";
-
-    // generate.js:173-176 and 156-163: the vignette, a radial fade in the ellipse's own box (r 46%)
-    const rx = SAFE_W * 0.78, ry = SAFE_H * 2.4;
-    ctx.save();
-    ctx.translate(CX, CY); ctx.scale(rx, ry);
-    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 0.92);
-    const a = (o) => BG + Math.round(o * 255).toString(16).padStart(2, "0");
-    g.addColorStop(0, a(1)); g.addColorStop(0.38, a(0.88)); g.addColorStop(0.68, a(0.30)); g.addColorStop(1, a(0));
-    ctx.globalAlpha = 1; ctx.fillStyle = g;
-    ctx.beginPath(); ctx.arc(0, 0, 1, 0, Math.PI * 2); ctx.fill();
-    ctx.restore();
-
-    // generate.js:120-140: the centre piece
-    const WM_ASPECT = 2.733, STAR_ASPECT = 1.038;
-    const WM_W = SAFE_W * 0.60, WM_H = WM_W / WM_ASPECT;
-    const STAR_H = WM_H * 0.92, STAR_W = STAR_H * STAR_ASPECT;
-    const GAP = WM_H * 0.05, TOTAL_W = WM_W + GAP + STAR_W;
-    const WM_X = CX - TOTAL_W / 2, WM_Y = CY - WM_H / 2;
-    const STAR_X = WM_X + WM_W + GAP, STAR_Y = CY - STAR_H / 2;
-    const TAG_Y = WM_Y + WM_H + Math.round(WM_H * 0.18);
-    const DATE_Y = TAG_Y + Math.round(WM_H * 0.14);
-    const tagSize = Math.round(WM_H * 0.085), dateSize = Math.round(WM_H * 0.060);
-    ctx.globalAlpha = 1;
-    contain(imgs.wordmark, WM_X, WM_Y, WM_W, WM_H);
-    contain(imgs.star, STAR_X, STAR_Y, STAR_W, STAR_H);
-
-    // tagline, with the asterisk in the accent colour, centred as one line
-    ctx.font = `300 ${tagSize}px Riposte, sans-serif`; spaced("", 10);
-    const w1 = ctx.measureText("FOR THE KULTURE").width;
-    ctx.font = `900 ${tagSize}px FuturaCyrillic, sans-serif`;
-    const w2 = ctx.measureText("*").width;
-    let tx = CX - (w1 + w2) / 2;
-    ctx.globalAlpha = 0.6; ctx.fillStyle = TEXT;
-    ctx.font = `300 ${tagSize}px Riposte, sans-serif`;
-    ctx.fillText("FOR THE KULTURE", tx, TAG_Y);
-    ctx.fillStyle = ACCENT; ctx.font = `900 ${tagSize}px FuturaCyrillic, sans-serif`;
-    ctx.fillText("*", tx + w1, TAG_Y);
-    ctx.globalAlpha = 0.32; ctx.fillStyle = TEXT;
-    ctx.font = `300 ${dateSize}px Riposte, sans-serif`; spaced("", 8);
-    ctx.textAlign = "center"; ctx.fillText("OJO · LAGOS · JULY 2025", CX, DATE_Y); ctx.textAlign = "left";
-    ctx.letterSpacing = "0px";
-    ctx.globalAlpha = 1;
-
-    // the layout, drawn over it on request
-    if (showLayout) {
-      const dpr = cv.width / sheet.clientWidth;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      const P = (v) => v * s;
-      ctx.lineWidth = 1 * dpr; ctx.strokeStyle = "#F7F780"; ctx.setLineDash([4 * dpr, 4 * dpr]);
-      cells.forEach((c) => { ctx.globalAlpha = c.inSafe ? 0.45 : 0.85; ctx.strokeRect(P(c.x), P(c.y), P(CELL_W), P(LOGO_ROW_H)); });
-      ctx.setLineDash([]); ctx.globalAlpha = 1; ctx.lineWidth = 2 * dpr;
-      ctx.strokeRect(P(CX - SAFE_W / 2), P(CY - SAFE_H / 2), P(SAFE_W), P(SAFE_H));
-      ctx.font = `600 ${12 * dpr}px ${getComputedStyle(document.body).fontFamily}`;
-      const label = (t, x, y) => { const m = ctx.measureText(t).width; ctx.fillStyle = "#F7F780"; ctx.fillRect(x - 4 * dpr, y - 13 * dpr, m + 8 * dpr, 18 * dpr); ctx.fillStyle = "#080C05"; ctx.fillText(t, x, y); };
-      label("safe zone, 72% × 28%: logos at 7%", P(CX - SAFE_W / 2) + 6 * dpr, P(CY - SAFE_H / 2) - 8 * dpr);
-      const odd = cells.find((c) => c.odd && c.y > 0);
-      if (odd) label("odd rows shift half a cell", 8 * dpr, P(odd.y) + 22 * dpr);
-      const even = cells.find((c) => !c.odd && c.y >= 0);
-      if (even) label(`cell ${CELL_W} × ${LOGO_ROW_H}`, P(even.x) + 6 * dpr, P(even.y) + 22 * dpr);
-    }
-
-    out.wh.textContent = `${W} × ${H}`;
-    out.cell.textContent = CELL_W;
-    out.lr.textContent = LOGO_ROW_H;
-    out.tr.textContent = TEXT_ROW_H;
-    out.logos.textContent = cells.length;
-    out.faded.textContent = cells.filter((c) => c.inSafe).length;
-  }
-
-  tabs[0].addEventListener("click", (e) => { const b = e.target.closest("button[data-variant]"); if (!b) return; pressOne(tabs[0], b); vi = +b.dataset.variant; draw(); });
-  tabs[1].addEventListener("click", (e) => { const b = e.target.closest("button[data-size]"); if (!b) return; pressOne(tabs[1], b); si = +b.dataset.size; fit(); });
-  layoutBtn.addEventListener("click", () => {
-    showLayout = !showLayout;
-    layoutBtn.setAttribute("aria-pressed", String(showLayout));
-    layoutBtn.textContent = showLayout ? "Hide the layout" : "Show the layout";
-    draw();
-  });
-  let ready = false;
-  S.onVisible(fig, () => {
-    if (ready) return;
-    ready = true;
-    fit();
-    ensure().then(fit).catch(() => {});
-    onResize(host, fit);
-  }, null, "600px 0px");
-}
-
-/* Figures that reach into the left margin. study.js steps the contents list aside
-   while any element marked data-wide passes under it. */
 function tocAway() {
   $$(".k-tilt-grid, .k-mq-bands, .k-exp-stage, .k-bd-sheet").forEach((n) => { n.dataset.wide = ""; });
 }
@@ -1331,5 +1137,4 @@ if (S && gsap) {
   marquee();
   lineup();
   printPasses();
-  backdrop();
 }

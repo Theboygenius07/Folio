@@ -379,8 +379,8 @@
             <svg class="k-exp-gantt" role="img" aria-label="The scroll timeline: when each card flies, the scroll position, and where the cards have got to"></svg>
             <div class="scrub">
               <label for="kExpRange">Scroll</label>
-              <input id="kExpRange" type="range" min="0" max="1000" value="600" aria-label="Scroll position through the experience section" />
-              <output for="kExpRange" data-out>60%</output>
+              <input id="kExpRange" type="range" min="0" max="1000" value="0" aria-label="Scroll position through the experience section" />
+              <output for="kExpRange" data-out>0%</output>
             </div>
             <div class="stage-bar">
               <div class="tabs tabs--small" role="group" aria-label="Scrub smoothing">
@@ -393,7 +393,7 @@
                 <li>rotation <b data-rot>0.0°</b></li>
               </ul>
             </div>
-            <figcaption><b>Fig. 8</b> The cards' timeline, rebuilt with the original's numbers and GSAP. Drag the slider as if you were scrolling. Each bar is a card's flight; the red line is your scroll and the square is where the cards have got to.</figcaption>
+            <figcaption><b>Fig. 8</b> The cards' timeline, rebuilt with the original's numbers and GSAP. Scroll and the cards fly in, as they did on the site, or drag the slider to run them yourself. Each bar is a card's flight; the red line is your scroll and the square is where the cards have got to.</figcaption>
           </figure>
         </section>
 
@@ -422,42 +422,6 @@
             <figcaption><b>Fig. 9</b> The 3 printed passes, drawn in your browser by the print script's own function. <span class="hover-only">Point at one to lift it.</span><span class="touch-only">Tap one to lift it.</span></figcaption>
           </figure>
 
-          <h3 class="sub">A backdrop from code</h3>
-          <div class="col">
-            <p>The step-and-repeat was code too. A Python script takes the 7 partner logos, strips their backgrounds and turns them white. A Node script lays them out: rows of logos offset like brickwork, a thin strip of repeating text over each row, and an oval fade behind the wordmark. Any logo that lands in a box round the middle, 72% wide and 28% tall, drops to 7% opacity.</p>
-            <p>It writes 3 colourways at 3 sizes, 8 by 8, 8 by 10 and 10 by 8 feet, as SVG, a PNG at twice the size, and a PDF at full size. Changing a logo or a size is a rerun.</p>
-          </div>
-
-          <!-- Fig. 10: backdrop/generate.js buildBackdrop(), drawn to a canvas with the processed logos. -->
-          <figure class="stage k k-bd" id="kBd">
-            <div class="stage-canvas k-bd-canvas" data-overlay>
-              <div class="k-bd-sheet">
-                <div class="k-bd-shadow" aria-hidden="true"></div>
-                <canvas role="img" aria-label="The step-and-repeat backdrop, generated in your browser"></canvas>
-              </div>
-            </div>
-            <div class="stage-bar">
-              <div class="tabs tabs--small" role="group" aria-label="Colourway">
-                <button type="button" data-variant="0" aria-pressed="false">Dark</button>
-                <button type="button" data-variant="1" aria-pressed="false">Red</button>
-                <button type="button" data-variant="2" aria-pressed="true">Green</button>
-              </div>
-              <div class="tabs tabs--small" role="group" aria-label="Size in feet">
-                <button type="button" data-size="0" aria-pressed="false">8 × 8</button>
-                <button type="button" data-size="1" aria-pressed="false">8 × 10</button>
-                <button type="button" data-size="2" aria-pressed="true">10 × 8</button>
-              </div>
-              <button type="button" class="link-btn" data-layout aria-pressed="false">Show the layout</button>
-            </div>
-            <ul class="readout k-bd-readout" aria-label="Layout numbers">
-              <li>viewBox <b data-wh>3000 × 2400</b></li>
-              <li>cell <b data-cell>600</b></li>
-              <li>logo row <b data-lr>240</b></li>
-              <li>text row <b data-tr>82</b></li>
-              <li>logos <b data-logos>0</b>, faded <b data-faded>0</b></li>
-            </ul>
-            <figcaption><b>Fig. 10</b> The backdrop script, ported to run here with the real white logos. Pick a colourway and a size, or show the layout to see the grid underneath: the brick offset, and the safe zone where logos fade out.</figcaption>
-          </figure>
         </section>
 
         <section class="g s end" id="end" aria-labelledby="end-h">
@@ -471,7 +435,7 @@
             <li><b>Brand</b>The 3 jobs and the visual system.<span>&gt; Type, colour, the asterisk</span></li>
             <li><b>Build</b>A single page, with motion on scroll and on the cursor.<span>&gt; HTML, CSS, JavaScript, GSAP</span></li>
             <li><b>Port</b>The same site rebuilt as components.<span>&gt; Next.js, React, TypeScript</span></li>
-            <li><b>Print</b>Passes and backdrops rendered from code.<span>&gt; Node, Puppeteer, Python</span></li>
+            <li><b>Print</b>Passes rendered from code.<span>&gt; Node, Puppeteer</span></li>
           </ol>
         </section>
 
