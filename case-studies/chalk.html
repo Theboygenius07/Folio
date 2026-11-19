@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>chalk · Seyi Ogundipe</title>
-  <meta name="description" content="chalk is an AI teacher that draws the lesson while it talks you through it, on the web and on a Mac. A case study with 5 figures you can play with, drawn in chalk's own crayon hand." />
+  <meta name="description" content="How chalk works: an AI teacher that draws the lesson while it talks you through it. The model describes, code computes: more than 140 engines, a board drawn stroke by stroke with every line checked, and a Mac pointer that lands on the real control." />
   <meta name="author" content="Seyi Ogundipe" />
   <meta name="theme-color" content="#FFFCF6" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="chalk: a teacher that draws the lesson while it talks you through it" />
+  <meta property="og:title" content="chalk: how an AI teacher that draws works" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='4' width='28' height='24' rx='9' fill='%2329A383'/%3E%3Ccircle cx='12' cy='13' r='2.2' fill='%23fff'/%3E%3Ccircle cx='20' cy='13' r='2.2' fill='%23fff'/%3E%3Cpath d='M11 18.5q5 4.5 10 0' stroke='%23fff' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="chalk/page.css" />
 </head>
 <body class="u-root">
-  <!-- The two grains and the boil, once per page: one for words, one for shapes (chalk, updates/crayon.tsx CrayonDefs). -->
+  <!-- The 2 grains and the boil, once per page: one for words, one for shapes. -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <defs>
       <filter id="u-crayon-text" x="-4%" y="-10%" width="108%" height="120%" color-interpolation-filters="sRGB">
@@ -60,50 +60,173 @@
     <header class="u-hero">
       <p class="u-eyebrow"><span>Case study</span><span aria-hidden="true">·</span><span>2026</span><span aria-hidden="true">·</span><span>Founder and CEO</span></p>
       <h1 class="u-display">chalk.</h1>
-      <p class="u-dek">I founded chalk and built it: an AI teacher that draws the lesson while it talks you through it, on the web and on your Mac.</p>
-      <p class="u-meta">July 2026 to now · 8 chapters · 5 you can play with, right here</p>
+      <p class="u-dek">I founded chalk and built it in under 4 months: an AI teacher that draws the lesson while it talks you through it. Here’s how it works.</p>
+      <p class="u-meta">Launched 6 November 2026, on the web and the Mac · more than 140 engines</p>
     </header>
     <div data-hero-art></div>
 
     <nav class="u-rail" aria-label="In this case study">
       <p class="u-rail-head">In this case study</p>
-      <a href="#mac" class="u-c-cobalt" data-rail="mac"><span class="u-rail-n">1</span><span class="u-rail-t">On your Mac</span></a>
-      <a href="#pointing" class="u-c-jade" data-rail="pointing"><span class="u-rail-n">2</span><span class="u-rail-t">The real button</span></a>
-      <a href="#answer-first" class="u-c-gold" data-rail="answer-first"><span class="u-rail-n">3</span><span class="u-rail-t">The answer first</span></a>
-      <a href="#guess-first" class="u-c-pink" data-rail="guess-first"><span class="u-rail-n">4</span><span class="u-rail-t">Guess first</span></a>
-      <a href="#a-week-later" class="u-c-jade" data-rail="a-week-later"><span class="u-rail-n">5</span><span class="u-rail-t">A week later</span></a>
-      <a href="#your-course" class="u-c-sky" data-rail="your-course"><span class="u-rail-n">6</span><span class="u-rail-t">Your own course</span></a>
-      <a href="#videos" class="u-c-red" data-rail="videos"><span class="u-rail-n">7</span><span class="u-rail-t">Ask for a video</span></a>
-      <a href="#crayon" class="u-c-cobalt" data-rail="crayon"><span class="u-rail-n">8</span><span class="u-rail-t">The crayon hand</span></a>
+      <a href="#the-rule" class="u-c-cobalt" data-rail="the-rule"><span class="u-rail-n">1</span><span class="u-rail-t">Describe, compute</span></a>
+      <a href="#engines" class="u-c-gold" data-rail="engines"><span class="u-rail-n">2</span><span class="u-rail-t">More than 140 engines</span></a>
+      <a href="#drawn-board" class="u-c-jade" data-rail="drawn-board"><span class="u-rail-n">3</span><span class="u-rail-t">The drawn board</span></a>
+      <a href="#checked" class="u-c-pink" data-rail="checked"><span class="u-rail-n">4</span><span class="u-rail-t">Every line checked</span></a>
+      <a href="#on-a-mac" class="u-c-sky" data-rail="on-a-mac"><span class="u-rail-n">5</span><span class="u-rail-t">On a Mac</span></a>
+      <a href="#crayon" class="u-c-red" data-rail="crayon"><span class="u-rail-n">6</span><span class="u-rail-t">The crayon hand</span></a>
     </nav>
 
     <article class="u-article">
 
       <!-- 1 -->
-      <section id="mac" class="u-ch u-c-cobalt">
+      <section id="the-rule" class="u-ch u-c-cobalt">
         <div class="u-ch-words">
-          <svg class="u-ch-art" viewBox="0 0 240 196" data-art="laptop" aria-hidden="true" focusable="false"></svg>
-          <p class="u-kicker"><span class="u-kicker-n">1</span>chalk for Mac</p>
-          <h2 class="u-display">Ask about anything on your screen.</h2>
-          <p class="u-para">Hold ⌘⌥ and ask. When the answer needs a picture, a side board comes up beside your work, drawn from your own problem, and you can turn it, zoom it or keep it.</p>
-          <p class="u-para">Say “show me on my screen” and chalk draws the working right there, over the app you’re in. Circle part of a board to ask about just that part. Ask about a PDF and it reads the whole document, not only the page in view.</p>
+          <svg class="u-ch-art" viewBox="0 0 240 196" data-art="board" aria-hidden="true" focusable="false"></svg>
+          <p class="u-kicker"><span class="u-kicker-n">1</span>One rule</p>
+          <h2 class="u-display">The model describes. Code computes.</h2>
+          <p class="u-para">The model describes the lesson: sections, blocks and how they connect. chalk computes every position itself; no tool the model uses accepts a coordinate.</p>
+          <p class="u-para">Where a figure can be calculated (a graph, a matrix, a circuit, an engine), chalk’s own code calculates it, so a graph is the real graph. Every board is fact-checked before it’s taught.</p>
         </div>
-        <figure class="u-demo u-film">
-          <figcaption class="u-cap"><span class="u-cap-tag is-played">Filmed in chalk</span><span>Asked how to turn a table into a chart, it boxes the table, then points at Chart, then Column.</span></figcaption>
-          <div class="u-clip"><video src="chalk/media/mac-pointing.mp4" poster="chalk/media/mac-pointing.jpg" width="1200" height="674" muted loop playsinline preload="none" aria-label="chalk on a Mac, pointing at Chart and then Column in a spreadsheet"></video></div>
+        <figure class="u-demo" id="fig-loan">
+          <figcaption class="u-cap"><span class="u-cap-tag"><i></i>Live</span><span>A £200,000 mortgage. Move the rate or the years and watch both sides change.</span></figcaption>
+          <div class="u-card ln">
+            <div class="ln-split">
+              <div class="ln-side">
+                <p class="ln-title">What the model wrote</p>
+                <pre class="u-code" data-ln-code></pre>
+                <p class="ln-count" data-ln-in></p>
+              </div>
+              <div class="ln-side">
+                <p class="ln-title">What chalk worked out</p>
+                <dl class="ln-got" data-ln-got></dl>
+                <p class="ln-count" data-ln-out></p>
+              </div>
+            </div>
+            <div class="ln-board">
+              <p class="ln-title">What the board shows</p>
+              <p class="ln-head" aria-live="polite"></p>
+              <div class="ln-chart-box"><svg class="ln-chart" role="img" aria-label="What is still owed, year by year"></svg></div>
+              <div class="ln-fields">
+                <label class="u-slider"><span>Interest a year</span><b data-show="rate">5%</b><input type="range" min="0" max="20" step="0.05" value="5" data-k="rate" /></label>
+                <label class="u-slider"><span>Term</span><b data-show="years">25 years</b><input type="range" min="1" max="40" step="1" value="25" data-k="years" /></label>
+              </div>
+              <details class="ln-more">
+                <summary>See the working</summary>
+                <div class="ln-work"></div>
+              </details>
+            </div>
+          </div>
         </figure>
       </section>
 
       <div data-garland="g1" data-flip="1" data-flower="blue"></div>
 
       <!-- 2 -->
-      <section id="pointing" class="u-ch u-c-jade">
+      <section id="engines" class="u-ch u-c-gold">
+        <div class="u-ch-words">
+          <svg class="u-ch-art" viewBox="0 0 240 196" data-art="gear" aria-hidden="true" focusable="false"></svg>
+          <p class="u-kicker"><span class="u-kicker-n">2</span>Engines</p>
+          <h2 class="u-display">More than 140 engines.</h2>
+          <p class="u-para">Some things can’t be explained in a picture; they have to run. So chalk has more than 140 engines, each a small simulator of one subject. The model only names the engine and sets it up. The engine works out the rest.</p>
+        </div>
+        <figure class="u-demo u-film">
+          <figcaption class="u-cap"><span class="u-cap-tag is-played">Filmed in chalk</span><span>A 4-cylinder engine in 3D, each piston a stroke apart.</span></figcaption>
+          <div class="u-clip"><video src="chalk/media/engine.mp4" poster="chalk/media/engine.jpg" width="1200" height="762" muted loop playsinline preload="none" aria-label="chalk's 3D engine: 4 pistons turning a crankshaft, each cylinder coloured by its stroke"></video></div>
+        </figure>
+        <ul class="en-list" aria-label="Some of the engines">
+          <li><svg viewBox="0 0 40 40" data-mark="0" aria-hidden="true"></svg><div><h3>DC circuits</h3><p>Solved: every current and voltage, with current flowing faster where there’s more.</p></div></li>
+          <li><svg viewBox="0 0 40 40" data-mark="1" aria-hidden="true"></svg><div><h3>The heart</h3><p>The whole circulation solved beat by beat, valves opening and shutting.</p></div></li>
+          <li><svg viewBox="0 0 40 40" data-mark="2" aria-hidden="true"></svg><div><h3>Petri nets</h3><p>Fire a transition and watch the tokens move.</p></div></li>
+          <li><svg viewBox="0 0 40 40" data-mark="3" aria-hidden="true"></svg><div><h3>A database that runs</h3><p>SQL joins drawn as lines between matching rows.</p></div></li>
+          <li><svg viewBox="0 0 40 40" data-mark="4" aria-hidden="true"></svg><div><h3>Inheritance</h3><p>Tap an allele and the Punnett square fills in.</p></div></li>
+          <li><svg viewBox="0 0 40 40" data-mark="5" aria-hidden="true"></svg><div><h3>A hash table</h3><p>Type a key and watch it hash, probe and land.</p></div></li>
+          <li><svg viewBox="0 0 40 40" data-mark="6" aria-hidden="true"></svg><div><h3>Recursion</h3><p>Factorial, Fibonacci and Hanoi run for real on the call stack.</p></div></li>
+          <li><svg viewBox="0 0 40 40" data-mark="7" aria-hidden="true"></svg><div><h3>Earthquakes</h3><p>P and S waves traced through the Earth, bending as they go.</p></div></li>
+          <li><svg viewBox="0 0 40 40" data-mark="8" aria-hidden="true"></svg><div><h3>Organic mechanisms</h3><p>Curly arrows applied one by one, each next structure worked out.</p></div></li>
+          <li><svg viewBox="0 0 40 40" data-mark="9" aria-hidden="true"></svg><div><h3>A feedback loop</h3><p>Cruise control and a thermostat under on/off, P, PI or PID.</p></div></li>
+          <li><svg viewBox="0 0 40 40" data-mark="10" aria-hidden="true"></svg><div><h3>Music theory</h3><p>A key on the keyboard and the staff, with its scale degrees.</p></div></li>
+          <li><svg viewBox="0 0 40 40" data-mark="11" aria-hidden="true"></svg><div><h3>Graph search</h3><p>BFS, DFS and Dijkstra stepped through on a real graph.</p></div></li>
+        </ul>
+      </section>
+
+      <div data-garland="g2" data-flower="red"></div>
+
+      <!-- 3 -->
+      <section id="drawn-board" class="u-ch u-c-jade">
+        <div class="u-ch-words">
+          <svg class="u-ch-art" viewBox="0 0 240 196" data-art="pencil" aria-hidden="true" focusable="false"></svg>
+          <p class="u-kicker"><span class="u-kicker-n">3</span>The drawn board</p>
+          <h2 class="u-display">It draws while it talks.</h2>
+          <p class="u-para">The model names the figure and its givens, such as a triangle with sides 5 and 7 and a 60° angle. chalk computes the geometry and draws it stroke by stroke, writing each step while its sentence is spoken. Equation lines are checked.</p>
+          <p class="u-para">Research on teaching with drawings finds that watching an explanation being drawn, by a visible hand, helps people learn. chalk’s one cursor is that hand.</p>
+        </div>
+        <figure class="u-demo" id="fig-drawn">
+          <figcaption class="u-cap"><span class="u-cap-tag"><i></i>Live</span><span>Change the givens, then press Play.</span></figcaption>
+          <div class="u-card db">
+            <div class="ln-split">
+              <div class="ln-side">
+                <p class="ln-title">What the model wrote</p>
+                <pre class="u-code" data-db-code></pre>
+                <p class="ln-count">No coordinates. chalk places every point.</p>
+              </div>
+              <div class="ln-side db-givens">
+                <p class="ln-title">The givens</p>
+                <label class="u-slider"><span>Side AB</span><b data-db-show="ab">5</b><input type="range" min="3" max="10" step="0.5" value="5" data-db="ab" /></label>
+                <label class="u-slider"><span>Side BC</span><b data-db-show="bc">7</b><input type="range" min="3" max="10" step="0.5" value="7" data-db="bc" /></label>
+                <label class="u-slider"><span>Angle B</span><b data-db-show="b">60°</b><input type="range" min="20" max="150" step="1" value="60" data-db="b" /></label>
+              </div>
+            </div>
+            <div class="db-board">
+              <svg class="db-svg" role="img" aria-label="The triangle, drawn to scale, with its working"></svg>
+              <p class="db-say" aria-live="polite"></p>
+            </div>
+            <div class="db-do">
+              <div class="db-dots" role="group" aria-label="Steps"></div>
+              <button type="button" class="u-btn" data-db-play>Play</button>
+            </div>
+            <p class="db-facts" data-db-facts></p>
+          </div>
+        </figure>
+      </section>
+
+      <div data-garland="g3" data-flip="1" data-flower="gold"></div>
+
+      <!-- 4 -->
+      <section id="checked" class="u-ch u-c-pink">
+        <div class="u-ch-words">
+          <svg class="u-ch-art" viewBox="0 0 240 196" data-art="slate" aria-hidden="true" focusable="false"></svg>
+          <p class="u-kicker"><span class="u-kicker-n">4</span>Checked</p>
+          <h2 class="u-display">Every line is checked.</h2>
+          <p class="u-para">Before a line of working goes on the board, chalk works out each side of its “=” with the figure’s own values. If they don’t agree, the line is never written.</p>
+          <p class="u-para">A name the figure doesn’t know is left unchecked, never failed. It refuses what is false, not what it cannot read.</p>
+        </div>
+        <figure class="u-demo" id="fig-check">
+          <figcaption class="u-cap"><span class="u-cap-tag"><i></i>Live</span><span>Pick a line the tutor might write, or type your own.</span></figcaption>
+          <div class="u-card ck">
+            <p class="ln-title">The figure’s values</p>
+            <p class="ck-values" data-ck-values></p>
+            <label class="ck-field"><span class="ln-title">A line of working</span><input type="text" spellcheck="false" autocomplete="off" autocapitalize="off" data-ck-input value="AC² = 5² + 7² − 2·5·7·cos 60°" /></label>
+            <div class="ck-keys" aria-label="Symbols">
+              <button type="button" data-key="²">²</button><button type="button" data-key="√">√</button><button type="button" data-key="·">·</button><button type="button" data-key="°">°</button><button type="button" data-key="≈">≈</button><button type="button" data-key="½">½</button><button type="button" data-key="−">−</button>
+            </div>
+            <div class="ck-verdict" data-ck-verdict aria-live="polite"></div>
+            <div class="ck-try">
+              <p class="ln-title">Lines the tutor might write</p>
+              <div class="ck-lines" data-ck-lines></div>
+            </div>
+          </div>
+        </figure>
+      </section>
+
+      <div data-garland="g4" data-flower="sky"></div>
+
+      <!-- 5 -->
+      <section id="on-a-mac" class="u-ch u-c-sky">
         <div class="u-ch-words">
           <svg class="u-ch-art" viewBox="0 0 240 196" data-art="nib" aria-hidden="true" focusable="false"></svg>
-          <p class="u-kicker"><span class="u-kicker-n">2</span>Pointing</p>
-          <h2 class="u-display">It points at the real button.</h2>
-          <p class="u-para">A teacher on your screen lives or dies by where it points. If it says “click Chart” and lands on Text, you stop trusting the rest of the answer.</p>
-          <p class="u-para">When chalk guessed the pixels from a picture of the screen, it landed on the right thing 59 times in 100. So I changed the question. chalk names the button, and code finds that button’s real box on the screen and puts the nib on it. That lands 97 times in 100.</p>
+          <p class="u-kicker"><span class="u-kicker-n">5</span>chalk for Mac</p>
+          <h2 class="u-display">On a Mac, it points at the real thing.</h2>
+          <p class="u-para">When you hold ⌘⌥ and ask, chalk lists what’s on screen: the text it reads and the controls the app itself exposes (macOS accessibility). The model answers by picking a control by name from that list, not by guessing a pixel. chalk then draws the pointer on that control’s real bounds.</p>
+          <p class="u-para">Some screens it reads properly: a spreadsheet, a circuit, a LeetCode problem, a chord sheet, a chess or Go game, with real chess and Go engines behind them. And chalk only suggests. It acts only on a ⌘⌥ tap, a click or a spoken “yes”, and never offers to send, pay or delete.</p>
         </div>
         <figure class="u-demo" id="fig-point">
           <figcaption class="u-cap"><span class="u-cap-tag"><i></i>Live</span><span>Pick a button, then point at it both ways.</span></figcaption>
@@ -145,145 +268,31 @@
                 <button type="button" role="radio" aria-checked="false" data-pick="Comment">Comment</button>
               </div>
               <div class="u-btns">
-                <button type="button" class="u-btn is-quiet" data-run="guess">Guess the pixels</button>
+                <button type="button" class="u-btn is-quiet" data-run="guess">Guess a pixel</button>
                 <button type="button" class="u-btn" data-run="name">Name the button</button>
               </div>
             </div>
-            <p class="pt-what" aria-live="polite">The nib is waiting. Pick a button, then point.</p>
-            <p class="pt-stat"><span data-m="guess"><b>59</b> in 100 <em>when it guessed pixels.</em></span> <span data-m="name"><b>97</b> in 100 <em>when it named the button.</em></span></p>
+            <p class="pt-what" aria-live="polite">The pointer is waiting. Pick a button, then point.</p>
+            <p class="pt-stat"><span data-m="name"><b>97%</b> <em>naming the control.</em></span> <span data-m="guess"><b>59%</b> <em>guessing a pixel position.</em></span></p>
+            <p class="pt-note">On a test of 182 named controls across 13 recorded screens. On screens it was never tuned on, naming the control hit 95%.</p>
           </div>
         </figure>
-      </section>
-
-      <div data-garland="g2" data-flower="red"></div>
-
-      <!-- 3 -->
-      <section id="answer-first" class="u-ch u-c-gold">
-        <div class="u-ch-words">
-          <svg class="u-ch-art" viewBox="0 0 240 196" data-art="board" aria-hidden="true" focusable="false"></svg>
-          <p class="u-kicker"><span class="u-kicker-n">3</span>Maths</p>
-          <h2 class="u-display">The answer first, then the picture.</h2>
-          <p class="u-para">Maths in chalk used to arrive as a wall of tiles and tables. Now it opens on the answer, as a sentence with the number big, then one picture, then only the sliders that matter.</p>
-          <p class="u-para">The formula, the numbers put in and the totals wait under See the working, for when you want them.</p>
-        </div>
-        <figure class="u-demo" id="fig-loan">
-          <figcaption class="u-cap"><span class="u-cap-tag"><i></i>Live</span><span>A £200,000 mortgage at 5% over 25 years. Move the rate or the years.</span></figcaption>
-          <div class="u-card ln">
-            <p class="ln-title">A £200,000 mortgage</p>
-            <p class="ln-head" aria-live="polite"></p>
-            <div class="ln-chart-box"><svg class="ln-chart" role="img" aria-label="What is still owed, year by year"></svg></div>
-            <div class="ln-fields">
-              <label class="u-slider"><span>Interest a year</span><b data-show="rate">5%</b><input type="range" min="0" max="20" step="0.05" value="5" data-k="rate" /></label>
-              <label class="u-slider"><span>Term</span><b data-show="years">25 years</b><input type="range" min="1" max="40" step="1" value="25" data-k="years" /></label>
-            </div>
-            <details class="ln-more">
-              <summary>See the working</summary>
-              <div class="ln-work"></div>
-            </details>
-          </div>
-        </figure>
-      </section>
-
-      <div data-garland="g3" data-flip="1" data-flower="gold"></div>
-
-      <!-- 4 -->
-      <section id="guess-first" class="u-ch u-c-pink">
-        <div class="u-ch-words">
-          <svg class="u-ch-art" viewBox="0 0 240 196" data-art="pencil" aria-hidden="true" focusable="false"></svg>
-          <p class="u-kicker"><span class="u-kicker-n">4</span>Learn by doing</p>
-          <h2 class="u-display">Guess first, then it runs.</h2>
-          <p class="u-para">The fastest way to learn something is to be a little wrong about it first. So chalk asks you to draw the line you expect, then runs the real thing over it.</p>
-          <p class="u-para">It checks your line the way a teacher would mark it: where it starts, which way it goes, where it crosses zero and where it ends.</p>
-        </div>
-        <figure class="u-demo" id="fig-sketch">
-          <figcaption class="u-cap"><span class="u-cap-tag"><i></i>Live</span><span>Draw with your finger or mouse, then let chalk run it.</span></figcaption>
-          <div class="u-card sk">
-            <p class="ln-title">Draw your guess</p>
-            <p class="sk-ask">A ball is thrown straight up at 15 m/s. Sketch its velocity for the first 3.5 seconds (up is positive).</p>
-            <svg class="sk-svg" viewBox="0 0 560 310" role="img" aria-label="Axes to draw your guess on: time in seconds across, velocity in metres per second up"></svg>
-            <div class="u-btns sk-do">
-              <button type="button" class="u-btn" data-sk="run" disabled>Run it</button>
-              <button type="button" class="u-btn is-quiet" data-sk="clear">Clear</button>
-            </div>
-            <div class="sk-out" aria-live="polite" hidden>
-              <p class="sk-say"></p>
-              <p class="sk-why">Gravity takes 9.81 m/s off every second, going up and coming down, so it is one straight line through zero at the top.</p>
-            </div>
-          </div>
-        </figure>
-      </section>
-
-      <div data-garland="g4" data-flower="sky"></div>
-
-      <!-- 5 -->
-      <section id="a-week-later" class="u-ch u-c-jade">
-        <div class="u-ch-words">
-          <svg class="u-ch-art" viewBox="0 0 240 196" data-art="calendar" aria-hidden="true" focusable="false"></svg>
-          <p class="u-kicker"><span class="u-kicker-n">5</span>Remember it</p>
-          <h2 class="u-display">Your turn, and a week later.</h2>
-          <p class="u-para">Every board ends with Your turn: one question, while the lesson is still in front of you.</p>
-          <p class="u-para">A week later chalk asks again, in Today’s review. What you get right moves further apart: a day, then 3, 7, 21 and 60. What you miss comes back the next day, and anything you miss twice goes to the front.</p>
-        </div>
-        <figure class="u-demo" id="fig-review">
-          <figcaption class="u-cap"><span class="u-cap-tag"><i></i>Live</span><span>Answer right or wrong and see when it comes back. These are chalk’s real gaps.</span></figcaption>
-          <div class="u-card rv">
-            <p class="ln-title">Today’s review</p>
-            <p class="rv-ask">Which chamber of the heart pumps oxygen-rich blood to the whole body?</p>
-            <div class="rv-box"><svg class="rv-svg" role="img" aria-label="When this question comes back, day by day"></svg></div>
-            <p class="rv-say" aria-live="polite"></p>
-            <div class="u-btns rv-do">
-              <button type="button" class="u-btn" data-rv="1">Got it right</button>
-              <button type="button" class="u-btn is-quiet" data-rv="0">Missed it</button>
-              <button type="button" class="u-link" data-rv="reset">Start again</button>
-            </div>
-          </div>
+        <figure class="u-demo u-film">
+          <figcaption class="u-cap"><span class="u-cap-tag is-played">Filmed in chalk</span><span>Asked how to turn a table into a chart, it boxes the table, then points at Chart, then Column.</span></figcaption>
+          <div class="u-clip"><video src="chalk/media/mac-pointing.mp4" poster="chalk/media/mac-pointing.jpg" width="1200" height="674" muted loop playsinline preload="none" aria-label="chalk on a Mac, pointing at Chart and then Column in a spreadsheet"></video></div>
         </figure>
       </section>
 
       <div data-garland="g5" data-flip="1" data-flower="pink"></div>
 
       <!-- 6 -->
-      <section id="your-course" class="u-ch u-c-sky">
-        <div class="u-ch-words">
-          <svg class="u-ch-art" viewBox="0 0 240 196" data-art="cards" aria-hidden="true" focusable="false"></svg>
-          <p class="u-kicker"><span class="u-kicker-n">6</span>Your own course</p>
-          <h2 class="u-display">Your lectures, your exam.</h2>
-          <p class="u-para">Make a course from your own lectures and past papers. chalk reads the pictures on your slides as well as the words, and answers with the pages it used, so you can check.</p>
-          <p class="u-para">The Exam tab shows where the marks fall across your past papers, plans your revision to the day, and writes mock papers marked point by point, the way an examiner would.</p>
-        </div>
-        <figure class="u-demo u-film">
-          <figcaption class="u-cap"><span class="u-cap-tag is-played">Filmed in chalk</span><span>5 lectures and 2 past papers, made into a course.</span></figcaption>
-          <div class="u-clip is-portrait"><video src="chalk/media/your-course.mp4" poster="chalk/media/your-course.jpg" width="720" height="1280" muted loop playsinline preload="none" aria-label="A course made from lectures and past papers, with where the marks went and a revision plan"></video></div>
-        </figure>
-      </section>
-
-      <div data-garland="g6" data-flower="blue"></div>
-
-      <!-- 7 -->
-      <section id="videos" class="u-ch u-c-red">
-        <div class="u-ch-words">
-          <svg class="u-ch-art" viewBox="0 0 240 196" data-art="phone" aria-hidden="true" focusable="false"></svg>
-          <p class="u-kicker"><span class="u-kicker-n">7</span>Videos</p>
-          <h2 class="u-display">Ask for a video.</h2>
-          <p class="u-para">Ask for a video and chalk makes a short explainer: real pictures moving, chalk’s voice, and the words lit up as they’re said.</p>
-          <p class="u-para">I also built cutroom, a video editor you talk to. It cut chalk’s launch film.</p>
-        </div>
-        <figure class="u-demo u-film">
-          <figcaption class="u-cap"><span class="u-cap-tag is-played">Filmed in chalk</span><span>“Where does rain come from?” Asked, and played.</span></figcaption>
-          <div class="u-clip is-portrait"><video src="chalk/media/ask-for-a-video.mp4" poster="chalk/media/ask-for-a-video.jpg" width="720" height="1280" muted loop playsinline preload="none" aria-label="A short explainer video about where rain comes from, made in chalk"></video></div>
-        </figure>
-      </section>
-
-      <div data-garland="g7" data-flip="1" data-flower="red"></div>
-
-      <!-- 8 -->
-      <section id="crayon" class="u-ch u-c-cobalt">
+      <section id="crayon" class="u-ch u-c-red">
         <div class="u-ch-words">
           <svg class="u-ch-art" viewBox="0 0 240 196" data-art="crayons" aria-hidden="true" focusable="false"></svg>
-          <p class="u-kicker"><span class="u-kicker-n">8</span>The look</p>
+          <p class="u-kicker"><span class="u-kicker-n">6</span>The illustrations</p>
           <h2 class="u-display">Drawn in code, in a crayon hand.</h2>
-          <p class="u-para">chalk’s feed and updates pages are drawn in code, never pictures: flat colour, white streaks where the wax skips, and grain over the lot. Every drawing is seeded, so it comes out the same every time.</p>
-          <p class="u-para">Then the grain boils, stepping through 4 frames on a loop the way a hand-drawn film redraws its line. Every flower on this page is drawn that way.</p>
+          <p class="u-para">chalk’s illustrations are drawn in code, never pictures: flat colour, white streaks where the wax skips, and grain over the lot. Every drawing is seeded, so it comes out the same every time, and every one on this page is drawn that way.</p>
+          <p class="u-para">Then the grain boils, stepping through 4 frames on a loop the way a hand-drawn film redraws its line.</p>
         </div>
         <figure class="u-demo" id="fig-crayon">
           <figcaption class="u-cap"><span class="u-cap-tag"><i></i>Live</span><span>Tap the paper to lay a shape. Turn the boil off to hold it still.</span></figcaption>
@@ -318,20 +327,31 @@
       <section class="u-rest">
         <h2 class="u-display">And the rest.</h2>
         <ul>
-          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="0" aria-hidden="true"></svg><div><h3>Free, every week</h3><p>2 boards and 2 new classes, back every Monday. Plans add videos, recording classes and chalk for Mac.</p></div></li>
-          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="1" aria-hidden="true"></svg><div><h3>The heart, in 3D</h3><p>Turn it, zoom in, step through it. It beats 72 times a minute, the atria and then the ventricles.</p></div></li>
-          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="2" aria-hidden="true"></svg><div><h3>The nervous system</h3><p>The brain, the spinal cord and 242 nerves, each pinned where it really runs.</p></div></li>
-          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="3" aria-hidden="true"></svg><div><h3>Machines at real speed</h3><p>An engine runs as a blur at 3,000 rpm, then eases into slow motion so you can see each stroke.</p></div></li>
-          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="4" aria-hidden="true"></svg><div><h3>One step at a time</h3><p>A hard problem is laid out as a plan, then worked step by step, each number feeding the next.</p></div></li>
-          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="5" aria-hidden="true"></svg><div><h3>Teach it back</h3><p>Explain it in your own words, and chalk shows what you got and what you missed.</p></div></li>
-          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="6" aria-hidden="true"></svg><div><h3>Your knowledge map</h3><p>Everything you have learned, and how it connects, on one map.</p></div></li>
-          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="7" aria-hidden="true"></svg><div><h3>Prices in naira</h3><p>In Nigeria, every price is in naira.</p></div></li>
+          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="0" aria-hidden="true"></svg><div><h3>Circle to ask</h3><p>Circle part of a board and “this” means it.</p></div></li>
+          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="1" aria-hidden="true"></svg><div><h3>One cursor</h3><p>The same green buddy builds the board, then walks you through it.</p></div></li>
+          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="2" aria-hidden="true"></svg><div><h3>Boards are logs</h3><p>A board is an append-only log of events, so replay, video and “continue where you stopped” all read the same record.</p></div></li>
+          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="3" aria-hidden="true"></svg><div><h3>One board, two places</h3><p>The web board and the answer on your Mac produce the same document.</p></div></li>
+          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="4" aria-hidden="true"></svg><div><h3>It comes back</h3><p>What you learn comes back days later, then weeks later, and a check a week on shows what stuck.</p></div></li>
+          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="5" aria-hidden="true"></svg><div><h3>Your own course</h3><p>Built from your lectures and past papers, it answers with the pages it used.</p></div></li>
+          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="6" aria-hidden="true"></svg><div><h3>Guess first</h3><p>Draw the line you expect, then chalk runs the real thing over it.</p></div></li>
+          <li><svg class="u-rest-mark" viewBox="0 0 40 40" data-mark="7" aria-hidden="true"></svg><div><h3>Launched together</h3><p>On the web and the Mac on 6 November 2026. Students paid in the first week.</p></div></li>
         </ul>
+      </section>
+
+      <div data-garland="glearn" data-flip="1" data-flower="blue"></div>
+
+      <section class="u-learned">
+        <h2 class="u-display">What I learned.</h2>
+        <ol>
+          <li><span class="u-learned-n">1</span><p>A model can’t be relied on to do less, so the limits live in code.</p></li>
+          <li><span class="u-learned-n">2</span><p>Give the model names, not numbers. It picks the button, the figure, the engine; code finds where.</p></li>
+          <li><span class="u-learned-n">3</span><p>If it can be shown, show it: engines, not paragraphs.</p></li>
+        </ol>
       </section>
     </article>
 
     <section class="u-end">
-      <div data-garland="gend" data-flip="1" data-flower="red"></div>
+      <div data-garland="gend" data-flower="red"></div>
       <div class="u-end-inner">
         <svg class="u-end-buddy" viewBox="0 0 200 180" data-buddy aria-hidden="true" focusable="false"></svg>
         <h2 class="u-display">Try chalk.</h2>

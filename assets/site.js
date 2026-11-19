@@ -18,6 +18,24 @@
   // phones tap, they don't click
   if (!fine) document.querySelectorAll(".hint").forEach(function (h) { h.innerHTML = h.innerHTML.replace("Click anywhere", "Tap anywhere").replace("click anywhere", "tap anywhere"); });
 
+  /* ---------- punctuation stays with the word before it ----------
+     A tag or a pill is its own block on the line, and a browser will happily break between it and the comma or full
+     stop after it, leaving ". 1,000 people" to start a line (a word joiner doesn't hold it in Chrome). So each one and
+     the punctuation after it go in one span that never breaks; the words a pill opens still wrap as normal. */
+  document.querySelectorAll(".pill, .name, .tag").forEach(function (el) {
+    var reveal = el.nextSibling && el.nextSibling.nodeType === 1 && el.nextSibling.classList.contains("reveal") ? el.nextSibling : null;
+    var n = reveal ? reveal.nextSibling : el.nextSibling;
+    var m = n && n.nodeType === 3 && /^[.,;:!?)’]+/.exec(n.data);
+    if (!m) return;
+    var glue = document.createElement("span");
+    glue.className = "glue";
+    el.parentNode.insertBefore(glue, el);
+    glue.appendChild(el);
+    if (reveal) glue.appendChild(reveal);
+    n.data = n.data.slice(m[0].length);
+    glue.appendChild(document.createTextNode(m[0]));
+  });
+
   /* ---------- words that open ---------- */
   var openers = {};
   document.querySelectorAll(".pill").forEach(function (pill) {
@@ -142,20 +160,25 @@
       doodles++;
       var all = ink.querySelectorAll(".doodle"); if (all.length > 28) all[0].remove();
     }
+    var touring = false;
     async function tour() {
+      touring = true;
       var name = $(".name--chalk", sec), pill = $('[data-for="r-point"]', sec), work = $(".work", sec);
       var a = rel(name, sec);
       to(a.x + a.w + 8, a.y + a.h * 0.6, 1100); await sleep(reduce ? 0 : 1150);
       stroke("M" + f(a.x - 2) + " " + f(a.y + a.h + 8) + " Q" + f(a.x + a.w / 2) + " " + f(a.y + a.h + 15) + " " + f(a.x + a.w + 4) + " " + f(a.y + a.h + 5), "#1F8C6E", 5);
       say("hi, that's me"); await sleep(1500);
+      if (!touring) return;
       var b = rel(pill, sec);
       to(b.x + b.w + 6, b.y + b.h * 0.7, 900); say(""); await sleep(reduce ? 0 : 950);
       stroke(loop(b), "#E4492A", 3.5);
       say("tap this one"); await sleep(1700);
+      if (!touring) return;
       var c = rel(work, sec);
       to(c.x + c.w * 0.62, c.y + 34, 900); say(""); await sleep(reduce ? 0 : 950);
       say("this is me on a Mac, pointing"); await sleep(2200);
-      say(""); follow = fine;
+      if (!touring) return;
+      say(""); follow = fine; touring = false;
     }
     once(sec, tour, 0.45);
     if (fine && !reduce) {
@@ -172,6 +195,8 @@
     sec.addEventListener("click", function (e) {
       if (interactive(e.target)) return;
       var r = sec.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      // a click during the tour ends it: the nib is yours from here
+      if (touring) { touring = false; say(""); follow = fine; }
       var was = follow; follow = false;
       to(x + 6, y + 4, 220);
       setTimeout(function () { doodle(x, y); follow = was; }, reduce ? 0 : 200);

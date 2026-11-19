@@ -1,10 +1,10 @@
 /*
  * chalk, the case study. Plain JS, no build step.
  *
- * 1. The crayon hand, ported from chalk's updates/crayon.tsx: the same seeded rng, hatch and shape, so every
+ * 1. The crayon hand, ported from chalk's own: the same seeded rng, hatch and shape, so every
  *    drawing here is the one chalk draws: flat colour, white streaks clipped inside, grain over the lot.
  * 2. The reader: the chapter rail on wide screens, the garlands drawing in as they're reached, the films.
- * 3. Five live figures, each running chalk's own mechanics with its real constants.
+ * 3. 5 live figures, each running chalk's own mechanics with its real constants.
  */
 (() => {
   "use strict";
@@ -88,6 +88,15 @@
   }
   const heart = (cx, cy, s) =>
     `M${f(cx)} ${f(cy + s * 0.62)} C${f(cx - s * 0.98)} ${f(cy + s * 0.02)} ${f(cx - s * 0.8)} ${f(cy - s * 0.72)} ${f(cx - s * 0.3)} ${f(cy - s * 0.62)} C${f(cx - s * 0.1)} ${f(cy - s * 0.58)} ${f(cx - s * 0.02)} ${f(cy - s * 0.42)} ${f(cx)} ${f(cy - s * 0.3)} C${f(cx + s * 0.02)} ${f(cy - s * 0.42)} ${f(cx + s * 0.1)} ${f(cy - s * 0.58)} ${f(cx + s * 0.3)} ${f(cy - s * 0.62)} C${f(cx + s * 0.8)} ${f(cy - s * 0.72)} ${f(cx + s * 0.98)} ${f(cy + s * 0.02)} ${f(cx)} ${f(cy + s * 0.62)} Z`;
+  function gear(cx, cy, R, r, teeth) {
+    let d = "";
+    const step = (Math.PI * 2) / teeth;
+    for (let i = 0; i < teeth; i++) {
+      const a = i * step;
+      for (const [ang, rad] of [[a - step * 0.25, r], [a - step * 0.16, R], [a + step * 0.16, R], [a + step * 0.25, r]]) d += `${d ? "L" : "M"}${f(cx + Math.cos(ang) * rad)} ${f(cy + Math.sin(ang) * rad)}`;
+    }
+    return `${d}Z`;
+  }
   /** A leafy blue sprig, rounded at its foot (the carousel's first slide, beside the big pink flower). */
   const sprig = (x, y, s) =>
     `M${f(x)} ${f(y)} C${f(x - s * 0.34)} ${f(y - s * 0.36)} ${f(x - s * 0.44)} ${f(y - s * 0.78)} ${f(x - s * 0.16)} ${f(y - s * 0.9)} ` +
@@ -142,6 +151,20 @@
         shape(`${k}s1`, star(204, 40, 16), INK.pink, [188, 24, 220, 56], 103, 10) +
         shape(`${k}s2`, star(44, 154, 12), INK.blue, [32, 142, 56, 166], 104, 8);
     },
+    gear: (k) =>
+      shape(`${k}g`, gear(104, 100, 68, 54, 11), INK.gold, [36, 32, 172, 168], 9) +
+      `<path d="${circle(104, 100, 20)}" fill="${INK.paper}"/>` +
+      shape(`${k}g2`, gear(182, 52, 32, 25, 8), INK.blue, [150, 20, 214, 84], 13, 14) +
+      `<path d="${circle(182, 52, 9)}" fill="${INK.paper}"/>` +
+      shape(`${k}s`, star(196, 146, 17), INK.red, [179, 129, 213, 163], 3, 10),
+    // A navy slate with two lines of working: one ticked in jade, one crossed out in red.
+    slate: (k) =>
+      shape(`${k}b`, blob(30, 26, 176, 134, 14, 2), "#22344E", [30, 26, 206, 160], 121, 20, 0.16) +
+      `<path d="M52 66 H136 M52 116 H122" stroke="#B6DFE6" stroke-width="7" stroke-linecap="round"/>` +
+      stroke("M150 64 L162 76 L186 50", INK.buddy, 9) +
+      stroke("M140 106 L162 128 M162 106 L140 128", INK.red, 8) +
+      shape(`${k}s`, star(206, 166, 15), INK.gold, [191, 151, 221, 181], 122, 10) +
+      shape(`${k}s2`, star(30, 168, 10), INK.pink, [20, 158, 40, 178], 123, 7),
     board: (k) =>
       stroke("M84 128 L64 182 M156 128 L176 182", INK.brown, 7) +
       shape(`${k}b`, blob(46, 22, 148, 110, 10, 2), INK.gold, [46, 22, 194, 132], 17) +
@@ -240,11 +263,11 @@
   document.querySelectorAll("[data-garland]").forEach((el) => {
     el.outerHTML = garland(el.dataset.garland, el.dataset.flip === "1", INK[el.dataset.flower] || INK.pink);
   });
-  document.querySelectorAll("[data-mark]").forEach((el) => {
+  document.querySelectorAll("[data-mark]").forEach((el, n) => {
     const i = Number(el.dataset.mark), c = FLOWERS[i % FLOWERS.length];
     el.innerHTML = i % 2 === 0
-      ? shape(`rb${i}`, star(20, 20, 17), c, [3, 3, 37, 37], 80 + i, 8)
-      : shape(`rb${i}`, flower(20, 20, 17), c, [2, 2, 38, 38], 80 + i, 8) + `<path d="${circle(20, 20, 4)}" fill="${INK.gold}"/>`;
+      ? shape(`rb${n}`, star(20, 20, 17), c, [3, 3, 37, 37], 80 + i, 8)
+      : shape(`rb${n}`, flower(20, 20, 17), c, [2, 2, 38, 38], 80 + i, 8) + `<path d="${circle(20, 20, 4)}" fill="${INK.gold}"/>`;
   });
   const endBuddy = document.querySelector("[data-buddy]");
   if (endBuddy) endBuddy.innerHTML = buddy("eb", 20, 20, 160, 9);
@@ -302,7 +325,19 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   const minus = (v) => String(v).replace("-", "−");
 
-  /* ================================================================ 2. pointing */
+  /**
+   * What the model wrote, shown as the structure it really is: names and values, no coordinates. A key that just
+   * changed is marked for a moment, so moving a slider shows how little of the board the model ever wrote.
+   */
+  function codeHTML(pairs, changed = new Set()) {
+    const val = (v) => (typeof v === "number" ? `<span class="c-n">${+v.toFixed(2)}</span>`
+      : typeof v === "string" ? `<span class="c-s">"${esc(v)}"</span>`
+      : Array.isArray(v) ? `[${v.map(val).join(", ")}]`
+      : `{ ${Object.entries(v).map(([k, x]) => `<span class="c-k">"${esc(k)}"</span>: ${val(x)}`).join(", ")} }`);
+    return `{\n${pairs.map(([k, v], i) => `  <span class="c-line${changed.has(k) ? " is-new" : ""}"><span class="c-k">"${k}"</span>: ${val(v)}${i < pairs.length - 1 ? "," : ""}</span>`).join("\n")}\n}`;
+  }
+
+  /* ================================================================ 5. pointing */
   (function pointing() {
     const fig = document.getElementById("fig-point");
     if (!fig) return;
@@ -357,7 +392,7 @@
         // The answer names the button; code reads that button's own box and the nib goes onto it.
         putNib(T.x + T.w * 0.62, T.y + T.h + 1, 850);
         timer = setTimeout(() => { tEl.classList.add("is-hot"); showMark(T, target, false); }, wait);
-        what.textContent = `chalk named “${target}”. Code read that button’s real box, ${Math.round(T.w)} × ${Math.round(T.h)} px at (${Math.round(T.x)}, ${Math.round(T.y)}), and the nib went onto it.`;
+        what.textContent = `The model picked “${target}” from the list of controls. Its real bounds, ${Math.round(T.w)} × ${Math.round(T.h)} px at (${Math.round(T.x)}, ${Math.round(T.y)}), came from the app, and chalk drew the pointer on them.`;
         stat.className = "pt-stat is-name";
         return;
       }
@@ -375,7 +410,7 @@
         else showMark({ x: x - 5, y: y - 5, w: 10, h: 10 }, "Clicked nothing", true, 5);
         tEl.classList.add("is-want");
       }, wait);
-      what.textContent = `chalk guessed a point from a picture of the screen, ${dist} px from the middle of ${target}. It landed on ${hit ? hit.dataset.name : "nothing at all"}.`;
+      what.textContent = `Asked for a pixel position instead, it gave one ${dist} px from the middle of ${target}. That lands on ${hit ? hit.dataset.name : "nothing at all"}.`;
       stat.className = "pt-stat is-guess";
     }
 
@@ -394,11 +429,13 @@
     settle();
   })();
 
-  /* ================================================================ 3. the answer first */
+  /* ================================================================ 1. the model describes, code computes */
   (function answerFirst() {
     const fig = document.getElementById("fig-loan");
     if (!fig) return;
     const head = fig.querySelector(".ln-head"), svg = fig.querySelector(".ln-chart"), work = fig.querySelector(".ln-work");
+    const codeEl = fig.querySelector("[data-ln-code]"), inEl = fig.querySelector("[data-ln-in]"), gotEl = fig.querySelector("[data-ln-got]"), outEl = fig.querySelector("[data-ln-out]");
+    const int = (v) => Math.round(v).toLocaleString("en-GB");
     const AMOUNT = 200000;
     let rate = 5, years = 25, narrow = false;
     const gbp0 = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0, minimumFractionDigits: 0 });
@@ -429,8 +466,24 @@
     }
     const compact = (v) => (v >= 1e4 ? `£${Math.round(v / 1e3)}k` : v >= 1e3 ? `£${+(v / 1e3).toFixed(1)}k` : `£${Math.round(v)}`);
 
-    function draw() {
+    function draw(changed) {
       const s = schedule(), cross = crossover(s.rows), cy = cross ? Math.ceil(cross / 12) : null;
+
+      // Both sides: the 4 values the model wrote, and what chalk worked out from them.
+      codeEl.innerHTML = codeHTML([["amount", AMOUNT], ["rate", rate], ["years", years], ["view", "schedule"]], changed);
+      inEl.textContent = "4 values.";
+      const row = (q) => `<tr><td>${q.k}</td><td>${money(q.interest, true)}</td><td>${money(q.principal, true)}</td><td>${money(q.closing)}</td></tr>`;
+      const last = s.rows[s.rows.length - 1];
+      gotEl.innerHTML =
+        `<div><dt>Each month</dt><dd>${money(s.payment, true)}</dd></div>` +
+        `<div><dt>Paid back</dt><dd>${money(s.totalPaid)}</dd></div>` +
+        `<div class="ln-got-wide"><dt>The schedule, month by month</dt><dd><table class="ln-mini"><thead><tr><th>Month</th><th>Interest</th><th>Repaid</th><th>Owed</th></tr></thead><tbody>` +
+        row(s.rows[0]) + (s.rows.length > 3 ? row(s.rows[1]) + `<tr class="ln-gap"><td>⋮</td><td></td><td></td><td></td></tr>` : s.rows.length === 3 ? row(s.rows[1]) : "") + (s.rows.length > 1 ? row(last) : "") +
+        `</tbody></table></dd></div>` +
+        `<div><dt>Repaying overtakes interest</dt><dd>${cross ? `month ${cross}, year ${cy}` : s.r === 0 ? "from the start" : "never"}</dd></div>` +
+        `<div><dt>Interest in all</dt><dd>${money(s.totalInterest)}</dd></div>`;
+      outEl.textContent = `${int(s.rows.length)} rows of 4: ${int(s.rows.length * 4)} numbers in the schedule alone.`;
+
       head.innerHTML = `You pay <b class="ln-big">${money(s.payment, s.payment < 1000)}</b> a month for ${monthsLabel(s.months)}.` +
         `<span class="ln-sub">${s.totalInterest > 0.5 ? `${money(s.totalInterest)} of what you pay is interest: ${Math.round((s.totalInterest / AMOUNT) * 100)}% on top of what you borrowed.` : "At no interest, every pound you pay comes off the debt."}</span>`;
 
@@ -466,7 +519,6 @@
       work.innerHTML = (s.r === 0
         ? `<p class="ln-f"><span class="ln-eq">M = P ÷ n</span>P = ${money(AMOUNT)}, what you borrow<br>n = ${years} × 12 = ${s.n} payments<br>M = ${AMOUNT.toLocaleString("en-GB")} ÷ ${s.n} = <b>${money(s.payment, true)}</b></p>`
         : `<p class="ln-f"><span class="ln-eq">M = P × r ÷ (1 − (1 + r)<sup>−n</sup>)</span>P = ${money(AMOUNT)}, what you borrow<br>r = ${pct(rate)} ÷ 12 = ${dec(s.r)} a month<br>n = ${years} × 12 = ${s.n} payments<br>M = ${AMOUNT.toLocaleString("en-GB")} × ${dec(s.r)} ÷ (1 − ${dec(1 + s.r)}<sup>−${s.n}</sup>) = <b>${money(s.payment, true)}</b></p>`) +
-        `<p>Over ${monthsLabel(s.months)} you pay back ${money(s.totalPaid)}: the ${money(AMOUNT)} you borrowed and ${money(s.totalInterest)} of interest.</p>` +
         (first && s.r > 0 ? `<p>Interest is charged each month on what is still owed, so the first payment is ${money(first.interest, true)} of interest and only ${money(first.principal, true)} off the debt.${cross ? ` The split tips in month ${cross}, in year ${cy}.` : ""}</p>` : "");
     }
 
@@ -475,187 +527,366 @@
         const v = Number(input.value);
         if (input.dataset.k === "rate") { rate = Math.round(v * 100) / 100; fig.querySelector('[data-show="rate"]').textContent = pct(rate); }
         else { years = v; fig.querySelector('[data-show="years"]').textContent = `${v} year${v === 1 ? "" : "s"}`; }
-        draw();
+        draw(new Set([input.dataset.k]));
       });
     });
     watchWidth(fig.querySelector(".ln-chart-box"), 560, (n) => { narrow = n; draw(); });
   })();
 
-  /* ================================================================ 4. guess first */
-  (function guessFirst() {
-    const fig = document.getElementById("fig-sketch");
+  /* ================================================================ the triangle, solved as chalk solves it */
+  const RAD = Math.PI / 180;
+  /** chalk's number formats: to 2 places, whole when it is; an angle whole or to 1 place. */
+  const fmt = (n) => { const r = Math.round(n * 100) / 100; return Math.abs(r - Math.round(r)) < 1e-9 ? String(Math.round(r)) : r.toFixed(2).replace(/0$/, ""); };
+  const deg = (n) => { const r = Math.round(n * 10) / 10; return `${Math.abs(r - Math.round(r)) < 1e-9 ? Math.round(r) : r.toFixed(1)}°`; };
+  /** Two sides and the angle between them (SAS at B): the third side by the cosine rule, then the angles by it turned round. */
+  function solveSAS(AB, BC, B) {
+    const sq = AB * AB + BC * BC - 2 * AB * BC * Math.cos(B * RAD), AC = Math.sqrt(sq);
+    const A = Math.acos(Math.max(-1, Math.min(1, (AC * AC + AB * AB - BC * BC) / (2 * AC * AB)))) / RAD;
+    const C = 180 - A - B;
+    const area = 0.5 * AC * AB * Math.sin(A * RAD);
+    const exact = Math.abs(sq - Math.round(sq)) < 1e-9 ? Math.round(sq) : sq;
+    const perfect = Number.isInteger(exact) && Number.isInteger(Math.sqrt(exact));
+    return { AB, BC, AC, A, B, C, sq, perfect, area, perimeter: AB + BC + AC };
+  }
+
+  /* ================================================================ 3. the drawn board */
+  (function drawnBoard() {
+    const fig = document.getElementById("fig-drawn");
     if (!fig) return;
-    const svg = fig.querySelector(".sk-svg"), runBtn = fig.querySelector('[data-sk="run"]'), clearBtn = fig.querySelector('[data-sk="clear"]');
-    const out = fig.querySelector(".sk-out"), say = fig.querySelector(".sk-say");
-    // chalk's sketch block: the same axes, the same function and the same feature check (tangle-engine checkSketch).
-    // Its own drawing at a phone's width, so the axis words stay readable there.
-    let W = 560, H = 310, L = 54, R = 540, T = 30, B = 272, shown = false;
-    const ax = { x0: 0, x1: 3.5, y0: -20, y1: 20 };
-    const fn = (t) => 15 - 9.81 * t;
-    const X = (x) => L + ((R - L) * (x - ax.x0)) / (ax.x1 - ax.x0), Y = (y) => B - ((B - T) * (y - ax.y0)) / (ax.y1 - ax.y0);
-    const ux = (sx) => ax.x0 + ((sx - L) / (R - L)) * (ax.x1 - ax.x0), uy = (sy) => ax.y0 + ((B - sy) / (B - T)) * (ax.y1 - ax.y0);
-    const ticks = (lo, hi) => { const step = Math.pow(10, Math.floor(Math.log10((hi - lo) / 2))); const s = (hi - lo) / step > 8 ? step * 2 : step; const o = []; for (let v = Math.ceil(lo / s) * s; v <= hi + 1e-9; v += s) o.push(+v.toFixed(6)); return o; };
-    const nice = (v) => +v.toPrecision(3);
+    const svg = fig.querySelector(".db-svg"), say = fig.querySelector(".db-say"), codeEl = fig.querySelector("[data-db-code]");
+    const factsEl = fig.querySelector("[data-db-facts]"), dotsEl = fig.querySelector(".db-dots"), playBtn = fig.querySelector("[data-db-play]");
+    // chalk's drawn board on its navy panel, in its colours for a dark board, never black or white: jade lines and
+    // labels, the working in blue, what is asked and its answer in marigold, construction in peri.
+    const C = { ink: "#5ACDBE", label: "#8EE3D1", write: "#B6DFE6", accent: "#F8A81B", soft: "#A9ABEE" };
+    const STEPS = ["AB", "BC", "angle B", "AC, dashed", "the working", "the answer"];
+    const WORD_MS = 330;
+    let AB = 5, BC = 7, B = 60, narrow = false, shown = 5, run = 0, items = [], nibG = null, rest = { x: 0, y: 0 }, t = solveSAS(5, 7, 60);
 
-    let inkG, truthG, empty;
-    function axes() {
-    let base = "";
-    for (const v of ticks(ax.y0, ax.y1)) base += `<line x1="${L}" x2="${R}" y1="${f(Y(v))}" y2="${f(Y(v))}" stroke="${v === 0 ? "#B9B1A0" : "#EFE9DC"}" stroke-width="${v === 0 ? 1.6 : 1}"/><text x="${L - 8}" y="${f(Y(v) + 4)}" text-anchor="end">${minus(v)}</text>`;
-    for (const v of ticks(ax.x0, ax.x1)) base += `<line x1="${f(X(v))}" x2="${f(X(v))}" y1="${T}" y2="${B}" stroke="${v === 0 ? "#B9B1A0" : "#EFE9DC"}" stroke-width="${v === 0 ? 1.6 : 1}"/><text x="${f(X(v))}" y="${B + 18}" text-anchor="middle">${v}</text>`;
-    base += `<text x="${R}" y="${H - 4}" text-anchor="end">time, s →</text><text x="${L}" y="16">↑ velocity, m/s</text>`;
-    svg.innerHTML = `<rect x="${L}" y="${T}" width="${R - L}" height="${B - T}" fill="transparent"/>${base}<g class="sk-ink"></g><g class="sk-truth"></g><text class="sk-empty" x="${(L + R) / 2}" y="${(T + B) / 2 - 24}" text-anchor="middle">press and drag to draw your guess</text>`;
-    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
-    inkG = svg.querySelector(".sk-ink"); truthG = svg.querySelector(".sk-truth"); empty = svg.querySelector(".sk-empty");
-    }
+    const sentences = () => [
+      `Start with the side we know: AB is ${fmt(AB)}.`,
+      `From B, the side BC runs ${fmt(BC)} to C.`,
+      `The angle between them, at B, is ${deg(B)}.`,
+      "We want AC, the side that closes the triangle.",
+      "Two sides and the angle between them: that’s the cosine rule.",
+      t.perfect ? `So AC is the square root of ${fmt(t.sq)}: exactly ${fmt(t.AC)}.` : `So AC is the square root of ${fmt(t.sq)}, about ${fmt(t.AC)}.`,
+    ];
 
-    let pts = [], drawing = false;
-    const at = (e) => { const m = svg.getScreenCTM().inverse(); const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m); return { x: ux(q.x), y: uy(q.y) }; };
-    const paint = () => {
-      inkG.innerHTML = pts.length > 1 ? lineIn(pts.map((q, i) => `${i ? "L" : "M"}${f(X(q.x))} ${f(Y(q.y))}`).join(" "), INK.pink, 5, [0, 0, W, H]) : "";
-      empty.style.display = pts.length ? "none" : "";
-      runBtn.disabled = pts.length < 6;
-    };
-    const reset = () => { truthG.innerHTML = ""; truthG.classList.remove("is-in"); out.hidden = true; shown = false; };
-    svg.addEventListener("pointerdown", (e) => { if (e.button > 0) return; svg.setPointerCapture(e.pointerId); drawing = true; pts = [at(e)]; reset(); paint(); });
-    svg.addEventListener("pointermove", (e) => { if (!drawing) return; pts.push(at(e)); paint(); });
-    const stop = () => { drawing = false; };
-    svg.addEventListener("pointerup", stop);
-    svg.addEventListener("pointercancel", stop);
-    clearBtn.addEventListener("click", () => { pts = []; reset(); paint(); });
+    dotsEl.innerHTML = STEPS.map((s, i) => `<button type="button" aria-label="Step ${i + 1}: ${s}" data-step-dot="${i}"></button>`).join("");
+    const dots = [...dotsEl.querySelectorAll("button")];
 
-    /** The sketch checked against the true curve, feature by feature, a tenth of each axis allowed (chalk's checkSketch). */
-    function check() {
-      const p = pts.filter((q) => q.x >= ax.x0 && q.x <= ax.x1).sort((a, b) => a.x - b.x);
-      if (p.length < 6) return null;
-      const tx = (ax.x1 - ax.x0) * 0.1, ty = (ax.y1 - ax.y0) * 0.1, bins = [];
-      for (let b = 0; b < 30; b++) {
-        const lo = ax.x0 + ((ax.x1 - ax.x0) * b) / 30, hi = lo + (ax.x1 - ax.x0) / 30, inn = p.filter((q) => q.x >= lo && q.x < hi);
-        if (inn.length) bins.push({ x: (lo + hi) / 2, y: inn.reduce((s, q) => s + q.y, 0) / inn.length });
-      }
-      if (bins.length < 6) return null;
-      const truth = bins.map((b) => fn(b.x)), feats = [];
-      feats.push({ id: "start", ok: Math.abs(bins[0].y - truth[0]) <= ty * 1.2 });
-      let agree = 0, steps = 0;
-      for (let i = 1; i < bins.length; i++) { const dt = truth[i] - truth[i - 1], ds = bins[i].y - bins[i - 1].y; if (Math.abs(dt) < ty * 0.02) continue; steps++; if (Math.sign(dt) === Math.sign(ds)) agree++; }
-      feats.push({ id: "trend", ok: steps === 0 || agree / steps >= 0.7 });
-      const zeros = (ys) => ys.flatMap((y, i) => (i && Math.sign(y) !== Math.sign(ys[i - 1]) && y !== 0 ? [bins[i - 1].x + ((bins[i].x - bins[i - 1].x) * ys[i - 1]) / (ys[i - 1] - y)] : []));
-      const tz = zeros(truth), sz = zeros(bins.map((b) => b.y));
-      if (tz.length) feats.push({ id: "zero", ok: tz.every((z) => sz.some((s) => Math.abs(s - z) <= tx)) });
-      feats.push({ id: "end", ok: Math.abs(bins[bins.length - 1].y - truth[truth.length - 1]) <= ty * 1.2 });
-      const off = bins.reduce((s, b, i) => s + Math.abs(b.y - truth[i]), 0) / bins.length;
-      return { feats, off, sz, start: bins[0].y, end: bins[bins.length - 1].y };
-    }
-
-    const tz = 15 / 9.81;
-    /** The real line, over the guess. It draws itself in when run; a redraw at a new width just appears. */
-    function truth(animate) {
-      const line = Array.from({ length: 61 }, (_, i) => (ax.x1 * i) / 60).map((x, i) => `${i ? "L" : "M"}${f(X(x))} ${f(Y(fn(x)))}`).join(" ");
-      truthG.classList.remove("is-in");
-      truthG.innerHTML = lineIn(line, INK.cobalt, 5, [0, 0, W, H], null, true) +
-        shape("sk-top", circle(X(tz), Y(0), 6), INK.gold, [X(tz) - 6, Y(0) - 6, X(tz) + 6, Y(0) + 6], 9, 5) +
-        `<text x="${f(X(tz) + 12)}" y="${f(Y(0) - 10)}" class="sk-top">the top, ${nice(tz)} s</text>`;
-      shown = true;
-      if (!animate) { truthG.classList.add("is-in"); return; }
-      void truthG.getBoundingClientRect();
-      requestAnimationFrame(() => truthG.classList.add("is-in"));
-    }
-    runBtn.addEventListener("click", () => {
-      truth(true);
-      const c = check();
-      out.hidden = false;
-      if (!c) { say.innerHTML = "<b>Not yet.</b> Draw a longer line, across most of the graph."; return; }
-      const good = c.feats.filter((x) => x.ok).length, miss = c.feats.find((x) => !x.ok);
-      const off = `${c.off < 1 ? c.off.toFixed(1) : Math.round(c.off * 10) / 10} m/s`;
-      const why = {
-        start: `the real one starts at 15, the speed it was thrown at, and yours started at ${minus(+c.start.toFixed(1))}`,
-        trend: "the real one falls the whole way, because gravity never stops pulling",
-        zero: `the real one crosses zero at ${nice(tz)} s, the top of the throw${c.sz.length ? `, and yours at ${+c.sz[0].toFixed(2)} s` : ", and yours never did"}`,
-        end: `the real one ends at ${minus(nice(fn(ax.x1)))}, falling faster than it was thrown, and yours ended at ${minus(+c.end.toFixed(1))}`,
+    function render() {
+      t = solveSAS(AB, BC, B);
+      const W = narrow ? 320 : 800, H = narrow ? 420 : 320;
+      const box = narrow ? [16, 22, 304, 236] : [30, 26, 440, 296];
+      const fs = narrow ? 14 : 16, ws = narrow ? 13.5 : 16;
+      // A at the origin, B along the x-axis, C above, scaled into the figure's room.
+      const P = [{ x: 0, y: 0 }, { x: AB, y: 0 }, { x: t.AC * Math.cos(t.A * RAD), y: t.AC * Math.sin(t.A * RAD) }];
+      const minX = Math.min(...P.map((p) => p.x)), maxX = Math.max(...P.map((p) => p.x)), minY = 0, maxY = Math.max(...P.map((p) => p.y));
+      const k = Math.min((box[2] - box[0]) / (maxX - minX), (box[3] - box[1]) / (maxY - minY)) * 0.8;
+      const ox = (box[0] + box[2]) / 2 - ((minX + maxX) / 2) * k, oy = (box[1] + box[3]) / 2 + ((minY + maxY) / 2) * k;
+      const S = P.map((p) => ({ x: ox + p.x * k, y: oy - p.y * k }));
+      const [pA, pB, pC] = S;
+      const cen = { x: (pA.x + pB.x + pC.x) / 3, y: (pA.y + pB.y + pC.y) / 3 };
+      const unit = (v) => { const l = Math.hypot(v.x, v.y) || 1; return { x: v.x / l, y: v.y / l }; };
+      const out = (p, d) => { const u = unit({ x: p.x - cen.x, y: p.y - cen.y }); return { x: p.x + u.x * d, y: p.y + u.y * d }; };
+      const mid = (p, q) => ({ x: (p.x + q.x) / 2, y: (p.y + q.y) / 2 });
+      // The angle at B: an arc between BA and BC, and its marigold wash.
+      const uA = unit({ x: pA.x - pB.x, y: pA.y - pB.y }), uC = unit({ x: pC.x - pB.x, y: pC.y - pB.y });
+      const r = Math.max(16, Math.min(34, Math.min(Math.hypot(pA.x - pB.x, pA.y - pB.y), Math.hypot(pC.x - pB.x, pC.y - pB.y)) * 0.22));
+      const a0 = { x: pB.x + uA.x * r, y: pB.y + uA.y * r }, a1 = { x: pB.x + uC.x * r, y: pB.y + uC.y * r };
+      const sweep = uA.x * uC.y - uA.y * uC.x > 0 ? 1 : 0;
+      const arcD = `M${f(a0.x)} ${f(a0.y)} A${f(r)} ${f(r)} 0 0 ${sweep} ${f(a1.x)} ${f(a1.y)}`;
+      const bis = unit({ x: uA.x + uC.x, y: uA.y + uC.y });
+      // The working, beside the figure (under it on a phone).
+      const wx = narrow ? 16 : 478, wy = narrow ? [282, 310, 338, 382] : [100, 136, 172, 228];
+      const work = [
+        { s: 4, text: "AC² = AB² + BC² − 2·AB·BC·cos B", c: C.write },
+        { s: 4, text: `= ${fmt(AB)}² + ${fmt(BC)}² − 2·${fmt(AB)}·${fmt(BC)}·cos ${deg(B)}`, c: C.write },
+        { s: 4, text: `= ${fmt(t.sq)}`, c: C.write },
+        { s: 5, text: `AC = √${fmt(t.sq)} ${t.perfect ? "=" : "≈"} ${fmt(t.AC)}`, c: C.accent, bold: true },
+      ];
+      const lab = (s, p, text, colour, size = fs, weight = 600, cls = "") => `<text class="db-lb ${cls}" data-s="${s}" x="${f(p.x)}" y="${f(p.y)}" dy=".35em" text-anchor="middle" fill="${colour}" font-size="${size}" font-weight="${weight}">${text}</text>`;
+      const line = (s, p, q, colour, w, dash) => `<line class="db-st" data-s="${s}" data-x1="${f(p.x)}" data-y1="${f(p.y)}" data-x2="${f(q.x)}" data-y2="${f(q.y)}" x1="${f(p.x)}" y1="${f(p.y)}" x2="${f(q.x)}" y2="${f(q.y)}" stroke="${colour}" stroke-width="${w}" stroke-linecap="round"${dash ? ` stroke-dasharray="${dash}"` : ""}/>`;
+      let g = "";
+      g += `<path class="db-lb" data-s="2" d="M${f(pB.x)} ${f(pB.y)} L${f(a0.x)} ${f(a0.y)} A${f(r)} ${f(r)} 0 0 ${sweep} ${f(a1.x)} ${f(a1.y)} Z" fill="${C.accent}" fill-opacity=".22"/>`;
+      g += line(0, pA, pB, C.ink, 3.4);
+      g += line(1, pB, pC, C.ink, 3.4);
+      g += `<path class="db-st db-arc" data-s="2" d="${arcD}" fill="none" stroke="${C.ink}" stroke-width="2.6" stroke-linecap="round"/>`;
+      g += line(3, pC, pA, C.soft, 2.4, "7 7");
+      g += line(5, pC, pA, C.accent, 3.6);
+      // Every label finds a place clear of the sides, of the labels already placed and of the working.
+      const segs = [[pA, pB], [pB, pC], [pC, pA]];
+      const placed = work.map((w, i) => ({ x: wx - 4, y: wy[i] - ws, w: w.text.length * ws * 0.56 + 8, h: ws + 8 }));
+      const boxAt = (c, w, h) => ({ x: c.x - w / 2, y: c.y - h / 2, w, h });
+      const meets = (a, b) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+      const crossed = (b) => segs.some(([p, q]) => { for (let i = 0; i <= 48; i++) { const x = p.x + ((q.x - p.x) * i) / 48, y = p.y + ((q.y - p.y) * i) / 48; if (x > b.x - 3 && x < b.x + b.w + 3 && y > b.y - 3 && y < b.y + b.h + 3) return true; } return false; });
+      const inside = (b) => b.x >= 2 && b.y >= 2 && b.x + b.w <= W - 2 && b.y + b.h <= H - 2;
+      const place = (cands, text, size) => {
+        const w = text.length * size * 0.6 + 4, h = size + 4;
+        const pick = cands.find((c) => { const b = boxAt(c, w, h); return inside(b) && !crossed(b) && !placed.some((o) => meets(o, { x: b.x - 3, y: b.y - 3, w: b.w + 6, h: b.h + 6 })); }) ?? cands[0];
+        placed.push(boxAt(pick, w, h));
+        return pick;
       };
-      say.innerHTML = `<b>${good} of ${c.feats.length}.</b> ` + (miss
-        ? `Your line was ${off} from the real one on average, but ${why[miss.id]}.`
-        : `That’s the shape: your line stayed ${off} from the real one on average, through zero at the top.`);
-    });
-    watchWidth(svg, 480, (narrow) => {
-      [W, H, L, R, T, B] = narrow ? [340, 250, 40, 330, 28, 212] : [560, 310, 54, 540, 30, 272];
-      svg.classList.toggle("is-narrow", narrow);
-      axes();
-      paint();
-      if (shown) truth(false);
-    });
-  })();
-
-  /* ================================================================ 5. a week later */
-  (function weekLater() {
-    const fig = document.getElementById("fig-review");
-    if (!fig) return;
-    const svg = fig.querySelector(".rv-svg"), say = fig.querySelector(".rv-say");
-    const right = fig.querySelector('[data-rv="1"]'), wrong = fig.querySelector('[data-rv="0"]');
-    // chalk's own rules (lib/learning/rules.ts): days until it comes back after 1, 2, 3, 4, 5 or more right answers
-    // in a row; the day after a miss; the week-later check; missed twice and it is a mistake you keep making.
-    const GAPS = [1, 3, 7, 21, 60], CHECK_AFTER_DAYS = 7, KEEPS_MISSING = 2, MAX = 12;
-    let results = [], narrow = false, fresh = -1;
-    const streak = () => { let n = 0; for (let i = results.length - 1; i >= 0 && results[i].ok; i--) n++; return n; };
-    const misses = () => results.filter((r) => !r.ok).length;
-    const dueAt = () => { const last = results[results.length - 1]; if (!last) return 1; if (!last.ok) return last.at + 1; return last.at + GAPS[Math.min(streak(), GAPS.length) - 1]; };
-    const keepsMissing = () => misses() >= KEEPS_MISSING && streak() < 2;
-    const days = (n) => `${n} day${n === 1 ? "" : "s"}`;
-
-    function draw() {
-      const W = narrow ? 340 : 780, H = 144, L = 22, R = W - 22, A = 100;
-      const next = dueAt(), D = Math.max(100, next * 1.12);
-      // Days on a log scale, so a run of answers a day apart stays readable beside a 60-day gap.
-      const X = (d) => L + ((R - L) * Math.log1p(d)) / Math.log1p(D);
-      let g = lineIn(`M${L} ${A} L${R} ${A}`, "#D9D0BC", 4, [0, A - 30, W, A + 30]);
-      const marks = [[0, "learned"], [1, "1 day"], [CHECK_AFTER_DAYS, "1 week"], [30, "1 month"], [90, "3 months"], [180, "6 months"], [365, "1 year"], [730, "2 years"]]
-        .filter(([d]) => d <= D && !(narrow && d === 1));
-      // A label is written only where it clears the one before it, measured by its own width.
-      let lastEnd = -99;
-      const dotR = narrow ? 4.5 : 6.5;
-      for (const [d, label] of marks) {
-        const x = X(d);
-        if (d === CHECK_AFTER_DAYS) g += shape("rv-check", star(x, A, 9), INK.gold, [x - 9, A - 9, x + 9, A + 9], 31, 6);
-        else g += `<line x1="${f(x)}" x2="${f(x)}" y1="${A - 6}" y2="${A + 6}" stroke="#C9C0AC" stroke-width="2" stroke-linecap="round"/>`;
-        const tw = label.length * 6.4, start = d === 0 ? x : x - tw / 2;
-        if (start > lastEnd + 14) { g += `<text x="${f(x)}" y="${A + 30}" text-anchor="${d === 0 ? "start" : "middle"}">${label}</text>`; lastEnd = start + tw; }
-      }
-      // Each answer, and the hop to the next time it is asked.
-      let from = 0;
-      results.forEach((r, i) => {
-        const x0 = X(from), x1 = X(r.at), h = Math.min(74, 16 + (x1 - x0) * 0.5);
-        g += lineIn(`M${f(x0)} ${A} Q${f((x0 + x1) / 2)} ${f(A - h)} ${f(x1)} ${A}`, r.ok ? INK.jade : INK.red, 3.5, [0, 0, W, H]);
-        from = r.at;
+      const rot = (u, a) => ({ x: u.x * Math.cos(a) - u.y * Math.sin(a), y: u.x * Math.sin(a) + u.y * Math.cos(a) });
+      const nameAt = (P) => { const u = unit({ x: P.x - cen.x, y: P.y - cen.y }); const c = []; for (const d of [18, 24, 32]) for (const a of [0, 0.6, -0.6, 1.2, -1.2, 1.8, -1.8]) { const v = rot(u, a); c.push({ x: P.x + v.x * d, y: P.y + v.y * d }); } return c; };
+      /** Along the side's outward normal (away from the corner opposite), then slid along the side. */
+      const sideAt = (p, q, opp, text, size) => {
+        const m = mid(p, q), dir = unit({ x: q.x - p.x, y: q.y - p.y });
+        let n = { x: -dir.y, y: dir.x };
+        if (n.x * (opp.x - m.x) + n.y * (opp.y - m.y) > 0) n = { x: -n.x, y: -n.y };
+        const w = text.length * size * 0.6, base = 8 + Math.abs(n.x) * (w / 2) + Math.abs(n.y) * (size / 2), len = Math.hypot(q.x - p.x, q.y - p.y), c = [];
+        for (const d of [base, base + 8, base + 16]) for (const t of [0, 0.15, -0.15, 0.3, -0.3]) c.push({ x: m.x + n.x * d + dir.x * len * t, y: m.y + n.y * d + dir.y * len * t });
+        return c;
+      };
+      /** Inside the angle along its bisector, further out until it fits between the sides; else outside the corner. */
+      const angleAt = (text, size) => { const c = []; for (let d = r + 16; d <= r + 140; d += 8) c.push({ x: pB.x + bis.x * d, y: pB.y + bis.y * d }); for (let d = 18; d <= 60; d += 8) for (const a of [0, 0.7, -0.7]) { const v = rot({ x: -bis.x, y: -bis.y }, a); c.push({ x: pB.x + v.x * d, y: pB.y + v.y * d }); } return c; };
+      const acText = `${t.perfect ? "" : "≈ "}${fmt(t.AC)}`;
+      const nA = place(nameAt(pA), "A", fs + 2), nB = place(nameAt(pB), "B", fs + 2), nC = place(nameAt(pC), "C", fs + 2);
+      const lAB = place(sideAt(pA, pB, pC, fmt(AB), fs), fmt(AB), fs), lBC = place(sideAt(pB, pC, pA, fmt(BC), fs), fmt(BC), fs);
+      const lAC = place(sideAt(pC, pA, pB, acText, fs), acText, fs), lB = place(angleAt(deg(B), fs - 1), deg(B), fs - 1);
+      g += lab(0, nA, "A", C.label, fs + 2, 700) + lab(0, nB, "B", C.label, fs + 2, 700) + lab(1, nC, "C", C.label, fs + 2, 700);
+      g += lab(0, lAB, fmt(AB), C.label) + lab(1, lBC, fmt(BC), C.label) + lab(2, lB, deg(B), C.label, fs - 1);
+      g += lab(3, lAC, "?", C.accent, fs + 2, 700, "db-ask") + lab(5, lAC, acText, C.accent, fs, 700);
+      work.forEach((w, i) => {
+        g += `<clipPath id="db-w${i}"><rect class="db-wclip" x="${wx - 2}" y="${wy[i] - ws - 6}" width="0" height="${ws + 14}"/></clipPath>`;
+        g += `<text class="db-wr" data-s="${w.s}" data-w="${i}" x="${wx}" y="${wy[i]}" fill="${w.c}" font-size="${w.bold ? ws + 1 : ws}" font-weight="${w.bold ? 700 : 500}" clip-path="url(#db-w${i})">${w.text}</text>`;
       });
-      // The hop still to come, dashed, with its gap said over it.
-      const x0 = X(from), x1 = X(next), h = Math.min(74, 16 + (x1 - x0) * 0.5), gap = next - from;
-      g += `<path d="M${f(x0)} ${A} Q${f((x0 + x1) / 2)} ${f(A - h)} ${f(x1)} ${A}" fill="none" stroke="${INK.ink}" stroke-opacity=".55" stroke-width="2.5" stroke-dasharray="2 7" stroke-linecap="round"/>`;
-      const last = results[results.length - 1], lx = Math.min(Math.max((x0 + x1) / 2, L + 30), R - 30);
-      g += `<text class="rv-gap${last && !last.ok ? " is-miss" : ""}" x="${f(lx)}" y="${f(A - h / 2 - 12)}" text-anchor="middle">+${days(gap)}</text>`;
-      g += `<circle cx="${f(x1)}" cy="${A}" r="${dotR + 0.5}" fill="${INK.paper}" stroke="${INK.ink}" stroke-width="2.5" stroke-dasharray="3 3"/>`;
-      g += shape("rv-0", circle(X(0), A, dotR), INK.ink, [X(0) - 7, A - 7, X(0) + 7, A + 7], 3, 5);
-      results.forEach((r, i) => {
-        const x = X(r.at);
-        const dot = shape(`rv-d${i}`, circle(x, A, dotR), r.ok ? INK.jade : INK.red, [x - 7, A - 7, x + 7, A + 7], 40 + i, 5);
-        g += i === fresh && !reduce ? `<g class="cr-new">${dot}</g>` : dot;
-      });
+      const nibS = narrow ? 1.05 : 1.2;
+      rest = { x: W - 34, y: H - 40 };
+      g += `<g class="db-nib"><g transform="scale(${nibS})"><g transform="translate(-3 -2)"><path d="${NIB_D}" fill="${INK.buddy}" stroke="#FFFFFF" stroke-width="1.4" stroke-linejoin="round"/><circle cx="5.3" cy="7.6" r="1.05" fill="#fff"/><circle cx="8.9" cy="7.6" r="1.05" fill="#fff"/><path d="M5.5 10.9 Q7.1 12.3 8.7 10.9" stroke="#fff" stroke-width="1.1" stroke-linecap="round" fill="none"/></g></g></g>`;
       svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
       svg.innerHTML = g;
-
-      const s = streak();
-      if (!last) say.textContent = `Learned on day 0, so it comes back tomorrow, on day ${next}.`;
-      else if (last.ok) say.textContent = `Right ${s === 1 ? "once" : `${s} times`} in a row, so it comes back in ${days(gap)}, on day ${next}.`;
-      else say.textContent = `Missed, so it comes back tomorrow, on day ${next}.` + (keepsMissing() ? ` That’s ${misses()} misses: it’s a mistake you keep making, so it comes first.` : "");
-      if (results.length >= MAX) say.textContent += " That’s 12 answers. Start again to try another run.";
-      right.disabled = wrong.disabled = results.length >= MAX;
+      nibG = svg.querySelector(".db-nib");
+      // Everything that draws, in the order a pen would draw it.
+      items = [...svg.querySelectorAll(".db-st, .db-wr")].map((el) => {
+        const it = { el, s: Number(el.dataset.s) };
+        if (el.tagName === "line") { it.kind = "line"; it.p = [Number(el.dataset.x1), Number(el.dataset.y1), Number(el.dataset.x2), Number(el.dataset.y2)]; it.len = Math.hypot(it.p[2] - it.p[0], it.p[3] - it.p[1]); }
+        else if (el.tagName === "path") { it.kind = "path"; it.len = el.getTotalLength(); }
+        else { it.kind = "write"; it.clip = svg.querySelector(`#db-w${el.dataset.w} rect`); it.len = el.getComputedTextLength() + 4; it.x = Number(el.getAttribute("x")); it.y = Number(el.getAttribute("y")); }
+        return it;
+      });
+      factsEl.innerHTML = `<b>What chalk worked out:</b> AC ${t.perfect ? "=" : "≈"} ${fmt(t.AC)} · angle A ≈ ${deg(t.A)} · angle C ≈ ${deg(t.C)} · area ≈ ${fmt(t.area)} · perimeter ≈ ${fmt(t.perimeter)}`;
     }
-    const answer = (ok) => { if (results.length >= MAX) return; results.push({ at: dueAt(), ok }); fresh = results.length - 1; draw(); fresh = -1; };
-    right.addEventListener("click", () => answer(true));
-    wrong.addEventListener("click", () => answer(false));
-    fig.querySelector('[data-rv="reset"]').addEventListener("click", () => { results = []; draw(); });
-    watchWidth(fig.querySelector(".rv-box"), 560, (n) => { narrow = n; draw(); });
+    let nibAt = { x: 0, y: 0 };
+    const putNib = (x, y) => { nibAt = { x, y }; if (nibG) nibG.setAttribute("transform", `translate(${f(x)} ${f(y)})`); };
+    /** Draw one item to `p` of the way: a line grows from its start, an arc unrolls, a line of working is written left to right. */
+    function drawItem(it, p) {
+      if (it.kind === "line") {
+        const [x1, y1, x2, y2] = it.p, x = x1 + (x2 - x1) * p, y = y1 + (y2 - y1) * p;
+        it.el.setAttribute("x2", f(x)); it.el.setAttribute("y2", f(y)); it.el.style.opacity = p > 0 ? 1 : 0;
+        return { x, y };
+      }
+      if (it.kind === "path") {
+        it.el.style.strokeDasharray = `${it.len}`; it.el.style.strokeDashoffset = `${it.len * (1 - p)}`; it.el.style.opacity = p > 0 ? 1 : 0;
+        const q = it.el.getPointAtLength(it.len * p);
+        return { x: q.x, y: q.y };
+      }
+      it.clip.setAttribute("width", f(it.len * p + 2)); it.el.style.opacity = 1;
+      return { x: it.x + it.len * p, y: it.y - 4 };
+    }
+    /** The board as it is after step `k`: everything up to it drawn, nothing after. */
+    function show(k) {
+      shown = k;
+      items.forEach((it) => drawItem(it, it.s <= k ? 1 : 0));
+      svg.querySelectorAll(".db-lb").forEach((el) => { el.style.opacity = Number(el.dataset.s) <= k ? 1 : 0; });
+      // The answer replaces the "?" it was asked as.
+      const ask = svg.querySelector(".db-ask");
+      if (ask && k >= 5) ask.style.opacity = 0;
+      if (k >= 0) setSay(k, Infinity); else say.textContent = "";
+      dots.forEach((d, i) => { d.toggleAttribute("data-on", i === k); d.toggleAttribute("data-past", i < k); });
+      putNib(rest.x, rest.y);
+    }
+    function setSay(k, lit) {
+      const words = sentences()[k].split(" ");
+      say.innerHTML = words.map((w, i) => `<span${i < lit ? ' class="is-lit"' : ""}>${esc(w)}</span>`).join(" ");
+    }
+    const tick = (dur, fn, token) => new Promise((done) => {
+      const t0 = performance.now();
+      const frame = (now) => {
+        if (token !== run) return done(false);
+        const p = Math.min(1, (now - t0) / dur);
+        fn(p);
+        if (p < 1) requestAnimationFrame(frame); else done(true);
+      };
+      requestAnimationFrame(frame);
+    });
+    /** Play: each step's sentence is said word by word while its strokes are drawn, the nib travelling along them. */
+    async function play() {
+      if (reduce) { show(5); return; }
+      const token = ++run;
+      show(-1);
+      for (let k = 0; k <= 5; k++) {
+        if (token !== run) return;
+        dots.forEach((d, i) => { d.toggleAttribute("data-on", i === k); d.toggleAttribute("data-past", i < k); });
+        setSay(k, 0);
+        const spans = [...say.querySelectorAll("span")];
+        const talk = tick(spans.length * WORD_MS, (p) => { const n = Math.ceil(p * spans.length); spans.forEach((s, i) => s.classList.toggle("is-lit", i < n)); }, token);
+        await tick(160, () => {}, token);
+        for (const it of items.filter((x) => x.s === k)) {
+          const dur = it.kind === "write" ? Math.max(500, it.len * 5.5) : Math.max(420, it.len * 3.2);
+          if (!(await tick(dur, (p) => { const at = drawItem(it, p); putNib(at.x, at.y); }, token))) return;
+        }
+        svg.querySelectorAll(`.db-lb[data-s="${k}"]`).forEach((el) => { el.style.opacity = 1; });
+        if (k === 5) { const ask = svg.querySelector(".db-ask"); if (ask) ask.style.opacity = 0; }
+        await talk;
+        if (!(await tick(420, () => {}, token))) return;
+      }
+      if (token === run) { shown = 5; const from = nibAt; tick(600, (p) => putNib(from.x + (rest.x - from.x) * p, from.y + (rest.y - from.y) * p), token); }
+    }
+    playBtn.addEventListener("click", () => { playBtn.textContent = "Play again"; play(); });
+    dots.forEach((d, i) => d.addEventListener("click", () => { run++; show(i); }));
+    const code = (changed) => { codeEl.innerHTML = codeHTML([["figure", "triangle"], ["sides", { AB, BC }], ["angles", { B }], ["find", ["AC"]]], changed); };
+    fig.querySelectorAll("input[data-db]").forEach((input) => input.addEventListener("input", () => {
+      const v = Number(input.value), key = input.dataset.db;
+      if (key === "ab") AB = v; else if (key === "bc") BC = v; else B = v;
+      fig.querySelector(`[data-db-show="${key}"]`).textContent = key === "b" ? deg(v) : fmt(v);
+      code(new Set([key === "b" ? "angles" : "sides"]));
+      run++;
+      render();
+      show(5);
+    }));
+    code();
+    watchWidth(svg, 560, (n) => { narrow = n; run++; render(); show(5); });
+    // It plays once by itself the first time it is seen; Play draws it again.
+    if (!reduce && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); playBtn.textContent = "Play again"; play(); } }, { threshold: 0.55 });
+      io.observe(svg);
+    }
   })();
 
-  /* ================================================================ 8. the crayon hand */
+  /* ================================================================ 4. every line is checked */
+  (function lineCheck() {
+    const fig = document.getElementById("fig-check");
+    if (!fig) return;
+    const input = fig.querySelector("[data-ck-input]"), out = fig.querySelector("[data-ck-verdict]"), linesEl = fig.querySelector("[data-ck-lines]");
+    // The same triangle, solved: AB 5, BC 7, angle B 60°.
+    const T = solveSAS(5, 7, 60);
+    const scope = { AB: T.AB, BA: T.AB, BC: T.BC, CB: T.BC, AC: T.AC, CA: T.AC, A: T.A, B: T.B, C: T.C, area: T.area, perimeter: T.perimeter };
+    const ANGLES = new Set(["A", "B", "C"]);
+    fig.querySelector("[data-ck-values]").innerHTML = [`AB = 5`, `BC = 7`, `AC ≈ ${+T.AC.toFixed(3)}`, `A ≈ ${deg(T.A)}`, `B = 60°`, `C ≈ ${deg(T.C)}`, `area ≈ ${+T.area.toFixed(3)}`].map((v) => `<span>${v}</span>`).join("");
+
+    /* A small reader for a line of working: numbers, + − × · ÷ / ^ ² ³, √ and sqrt, sin cos tan (in degrees), ½,
+       brackets, and the figure's names. Each value knows whether it is an angle, as chalk's check does. */
+    class Unknown extends Error { constructor(name) { super(name); this.name_ = name; } }
+    function read(src) {
+      const toks = [];
+      for (let i = 0; i < src.length;) {
+        const ch = src[i], rest = src.slice(i);
+        const num = /^(\d+(\.\d+)?|\.\d+)/.exec(rest), name = /^[A-Za-z]+/.exec(rest);
+        if (/\s/.test(ch)) { i++; continue; }
+        if (num) { toks.push({ t: "num", v: parseFloat(num[0]) }); i += num[0].length; continue; }
+        if (name) { toks.push({ t: "name", v: name[0] }); i += name[0].length; continue; }
+        const one = { "½": ["num", 0.5], "¼": ["num", 0.25], "¾": ["num", 0.75], "π": ["num", Math.PI], "²": ["pow", 2], "³": ["pow", 3], "°": ["deg"], "+": ["+"], "-": ["-"], "−": ["-"], "–": ["-"], "*": ["*"], "×": ["*"], "·": ["*"], "⋅": ["*"], "/": ["/"], "÷": ["/"], "^": ["^"], "√": ["sqrt"], "(": ["("], ")": [")"] }[ch];
+        if (!one) throw new Error("unreadable");
+        toks.push(one.length > 1 ? { t: one[0], v: one[1] } : { t: one[0] });
+        i++;
+      }
+      let k = 0;
+      const peek = () => toks[k], next = () => toks[k++];
+      const FUN = { sin: Math.sin, cos: Math.cos, tan: Math.tan };
+      const starts = (q) => q && (q.t === "num" || q.t === "name" || q.t === "(" || q.t === "sqrt");
+      function expr() {
+        let a = term();
+        while (peek() && (peek().t === "+" || peek().t === "-")) { const op = next().t, b = term(); a = { v: op === "+" ? a.v + b.v : a.v - b.v, angle: a.angle && b.angle }; }
+        return a;
+      }
+      function term() {
+        let a = unary();
+        for (;;) {
+          const q = peek();
+          if (q && (q.t === "*" || q.t === "/")) { next(); const b = unary(); a = q.t === "*" ? { v: a.v * b.v, angle: a.angle !== b.angle } : { v: a.v / b.v, angle: a.angle && !b.angle }; }
+          else if (starts(q)) { const b = unary(); a = { v: a.v * b.v, angle: a.angle !== b.angle }; }
+          else return a;
+        }
+      }
+      function unary() { const q = peek(); if (q && (q.t === "-" || q.t === "+")) { next(); const a = unary(); return { v: q.t === "-" ? -a.v : a.v, angle: a.angle }; } return power(); }
+      function power() { const a = postfix(); if (peek() && peek().t === "^") { next(); const b = unary(); return { v: Math.pow(a.v, b.v), angle: false }; } return a; }
+      function postfix() {
+        let a = atom();
+        for (;;) {
+          const q = peek();
+          if (q && q.t === "deg") { next(); a = { v: a.v, angle: true }; }
+          else if (q && q.t === "pow") { next(); a = { v: Math.pow(a.v, q.v), angle: false }; }
+          else return a;
+        }
+      }
+      const group = () => { const a = expr(); if (!peek() || next().t !== ")") throw new Error("bracket"); return a; };
+      function atom() {
+        const q = next();
+        if (!q) throw new Error("end");
+        if (q.t === "num") return { v: q.v, angle: false };
+        if (q.t === "(") return group();
+        const fn = q.t === "sqrt" ? "sqrt" : q.t === "name" && (q.v === "sqrt" || FUN[q.v]) ? q.v : null;
+        if (fn) {
+          let arg;
+          if (peek() && peek().t === "(") { next(); arg = group(); }
+          else { arg = atom(); if (peek() && peek().t === "deg") { next(); arg = { v: arg.v, angle: true }; } }
+          return fn === "sqrt" ? { v: Math.sqrt(arg.v), angle: false } : { v: FUN[fn](arg.v * RAD), angle: false };
+        }
+        if (q.t === "name") {
+          if (!(q.v in scope)) throw new Unknown(q.v);
+          return { v: scope[q.v], angle: ANGLES.has(q.v) };
+        }
+        throw new Error("unexpected");
+      }
+      const r = expr();
+      if (k < toks.length) throw new Error("left over");
+      return Number.isFinite(r.v) ? r : null;
+    }
+    /** chalk's rule: every side of each "=" or "≈" must agree with the first, within 1.5% or 0.01. */
+    const close = (a, b) => Math.abs(a - b) <= Math.max(0.01, 0.015 * Math.max(Math.abs(a), Math.abs(b)));
+    const n5 = (v) => String(+v.toPrecision(5)).replace("-", "−");
+    function check(text) {
+      let checked = 0, unknown = null, agreed = [];
+      for (const claim of text.split(/⇒|;|,(?![^(]*\))/)) {
+        const sides = claim.split(/≈|=|≃/).map((s) => s.trim()).filter(Boolean);
+        if (sides.length < 2) continue;
+        const nums = [];
+        for (const s of sides) {
+          try { const r = read(s); if (r) nums.push({ s, r }); } catch (e) { if (e instanceof Unknown && !unknown) unknown = e.name_; }
+        }
+        for (let i = 1; i < nums.length; i++) {
+          const a = nums[0].r, b = nums[i].r;
+          checked++;
+          const same = close(a.v, b.v) || (a.angle !== b.angle && close(a.angle ? a.v * RAD : a.v, b.angle ? b.v * RAD : b.v));
+          if (!same) return { verdict: "wrong", why: `${nums[0].s} comes to ${n5(a.v)} but ${nums[i].s} comes to ${n5(b.v)}` };
+          agreed.push([nums[0], nums[i], !close(a.v, b.v)]);
+        }
+      }
+      return checked ? { verdict: "right", agreed } : { verdict: "unchecked", unknown };
+    }
+    function show() {
+      const text = input.value.trim();
+      linesEl.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.line === text)));
+      if (!text) { out.innerHTML = `<p class="ck-say">Type a line with an “=” or “≈” in it.</p>`; return; }
+      const r = check(text);
+      if (r.verdict === "right") {
+        const [x, y, rad] = r.agreed[0], same = n5(x.r.v) === n5(y.r.v);
+        const ang = x.r.angle ? x : y, plainSide = x.r.angle ? y : x;
+        const said = rad ? `${esc(ang.s)} is ${n5(ang.r.v)}°, and ${esc(plainSide.s)} is the same angle in radians, ${n5(plainSide.r.v)}.`
+          : same ? `Both sides come to ${n5(x.r.v)}${x.r.angle ? "°" : ""}.` : `${esc(x.s)} comes to ${n5(x.r.v)} and ${esc(y.s)} to ${n5(y.r.v)}: within 1.5%, so they agree.`;
+        out.innerHTML = `<span class="ck-tag is-right">Right</span><p class="ck-say">${said} It can go on the board.</p>`;
+      } else if (r.verdict === "wrong") {
+        out.innerHTML = `<span class="ck-tag is-wrong">Wrong</span><p class="ck-say">${esc(r.why)}. This line is never written.</p>`;
+      } else {
+        out.innerHTML = `<span class="ck-tag">Unchecked</span><p class="ck-say">${r.unknown ? `The figure has no “${esc(r.unknown)}”, so` : "Nothing here can be set against the figure, so"} the line is left alone: unchecked, not failed.</p>`;
+      }
+    }
+    const LINES = ["AC² = 5² + 7² − 2·5·7·cos 60°", "AC ≈ 6.24", "AC = 6.5", "B = 60°", "area = ½·5·7·sin 60°", "h = AC·sin A"];
+    linesEl.innerHTML = LINES.map((l) => `<button type="button" data-line="${esc(l)}" aria-pressed="false">${esc(l)}</button>`).join("");
+    linesEl.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { input.value = b.dataset.line; show(); }));
+    fig.querySelectorAll("[data-key]").forEach((b) => b.addEventListener("click", () => {
+      const s = input.selectionStart ?? input.value.length, e = input.selectionEnd ?? s;
+      input.value = input.value.slice(0, s) + b.dataset.key + input.value.slice(e);
+      input.focus();
+      input.setSelectionRange(s + b.dataset.key.length, s + b.dataset.key.length);
+      show();
+    }));
+    input.addEventListener("input", show);
+    show();
+  })();
+
+  /* ================================================================ 6. the crayon hand */
   (function crayonHand() {
     const fig = document.getElementById("fig-crayon");
     if (!fig) return;
