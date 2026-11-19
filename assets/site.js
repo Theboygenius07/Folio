@@ -80,6 +80,13 @@
 
   /* ---------- the rest: a peek at each cover ---------- */
   var peek = $("#peek");
+  // fetch the covers as their names come near, so the first hover shows one at once
+  if (peek && fine && "IntersectionObserver" in window) {
+    var warm = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { warm.unobserve(e.target); var im = new Image(); im.src = e.target.dataset.img; } });
+    }, { rootMargin: "400px 0px" });
+    document.querySelectorAll(".tag[data-img]").forEach(function (a) { warm.observe(a); });
+  }
   if (peek && fine) {
     document.querySelectorAll(".tag[data-img]").forEach(function (a) {
       a.addEventListener("mouseenter", function () { peek.src = a.dataset.img; peek.classList.add("is-on"); });
