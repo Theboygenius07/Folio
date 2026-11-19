@@ -211,7 +211,7 @@ document.addEventListener("click", (e) => {
   }
 
   // the name
-  const home = document.querySelector(".bar-home");
+  const home = null; // the name is drawn by /assets/crayon.js
   if (home && !home.querySelector(".bar-spark")) {
     const label = home.textContent.replace(/^\s*←\s*/, "").trim();
     const fl = flower(20, 20, 19);

@@ -389,7 +389,7 @@
       svgEl(w + 4, 8, "ul", '<path class="ink-accent" pathLength="1" d="' + wave(w + 4, 8) + '"/>'));
   }
   // the name: a crayon flower, and a swoosh under it
-  var name = $(".top__name");
+  var name = null; // the name is drawn by assets/crayon.js
   if (name && !name.querySelector(".spark")) {
     var label = name.textContent.trim();
     name.innerHTML = svgEl(40, 40, "spark", '<g filter="url(#cr-mk)"><path class="fill-accent" d="' + flower(20, 20, 19) + '"/>' + streaks(flower(20, 20, 19), [0, 0, 40, 40], 9, 6.5, "mk__s", 2.6) + "</g>" +
