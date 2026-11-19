@@ -3,639 +3,227 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f3f1ea" />
-  <title>Seyi Ogundipe — Design Engineer</title>
-  <meta name="description" content="Seyi Ogundipe is a design engineer working at the intersection of design, engineering, growth, and storytelling. 11+ hackathon wins. Currently building Cohort." />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Seyi Ogundipe — Design Engineer" />
-  <meta property="og:description" content="Design, engineering, growth & storytelling. Where ideas become products and products become experiences." />
+  <title>Seyi Ogundipe, design engineer</title>
+  <meta name="description" content="Seyi Ogundipe is a design engineer. He founded and built chalk, is the founding design engineer at Cohort, and has won 13+ hackathons." />
+  <meta name="theme-color" content="#EDE8DC" />
+  <meta property="og:title" content="Seyi Ogundipe, design engineer" />
+  <meta property="og:description" content="I founded and built chalk, I&rsquo;m the founding design engineer at Cohort, and I&rsquo;ve won 13+ hackathons." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-
-  <!-- Twitter card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Seyi Ogundipe — Design Engineer" />
-  <meta name="twitter:description" content="Design, engineering, growth & storytelling. Where ideas become products and products become experiences." />
+  <meta name="twitter:title" content="Seyi Ogundipe, design engineer" />
   <meta name="twitter:image" content="og-image.png" />
-
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
-
-  <!-- All fonts load locally from /fonts — no external requests -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="styles.css?v=20261025d" />
-
-  <!-- Set the time-of-day theme before first paint (no flash). ?vibe=night overrides. -->
-  <script>
-    (function () {
-      try {
-        var p = new URLSearchParams(location.search).get("vibe");
-        var m = p || localStorage.getItem("cohort-vibe") || "auto";
-        var t = m;
-        if (m === "auto") {
-          var h = new Date().getHours();
-          t = (h >= 5 && h < 10) ? "morning"
-            : (h >= 10 && h < 17) ? "day"
-            : (h >= 17 && h < 21) ? "evening" : "night";
-        }
-        document.documentElement.setAttribute("data-vibe", t);
-      } catch (e) {}
-    })();
-  </script>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@900&family=Shantell+Sans:wght@500..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css?v=1" />
 </head>
 <body>
-  <!-- Grain / paper texture overlay -->
-  <div class="grain" aria-hidden="true"></div>
+  <!-- chalk's crayon grain, for its name and for what its nib draws -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+    <filter id="cr-text" x="-4%" y="-10%" width="108%" height="120%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="1.35" numOctaves="2" seed="3" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -4.4 0 0 0 3.75" result="m"/>
+      <feComposite in="SourceGraphic" in2="m" operator="in" result="t"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="7" result="w"/>
+      <feDisplacementMap in="t" in2="w" scale="2.6" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="cr-fill" x="-6%" y="-6%" width="112%" height="112%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="11" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -3.4 0 0 0 2.75" result="m"/>
+      <feComposite in="SourceGraphic" in2="m" operator="in" result="t"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="5" result="w"/>
+      <feDisplacementMap in="t" in2="w" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs></svg>
 
-  <!-- Ambient pool of light (tinted by the time-of-day theme) -->
-  <div class="lamp-glow" aria-hidden="true"></div>
-
-  <!-- ───────────────────────── NAV ───────────────────────── -->
-  <header class="nav" id="top">
-    <div class="nav__left">
-      <a href="#top" class="nav__brand">Seyi&nbsp;Ogundipe</a>
-      <nav class="nav__links" aria-label="Primary">
-        <a href="#work" class="nav__link"><span>Work</span></a>
-        <a href="#about" class="nav__link"><span>Experience</span></a>
-        <a href="#contact" class="nav__link"><span>Contact</span></a>
-      </nav>
-    </div>
+  <header class="top">
+    <a class="top__name" href="#hello">Seyi Ogundipe</a>
+    <nav class="top__nav" aria-label="Primary">
+      <a href="work.html">Work</a><a href="skills.html">Skills</a><a href="#worked">Experience</a><a href="#hello-again">Contact</a>
+    </nav>
   </header>
 
   <main>
-    <!-- ───────────────────────── HERO ───────────────────────── -->
-    <section class="hero" id="hero">
-      <div class="hero__ambient" aria-hidden="true">
-        <div class="hero__spotlight"></div>
-      </div>
-
-      <div class="hero__doc">
-        <p class="hero__greeting">Hello.</p>
-
-        <p class="hero__bio">
-          I&rsquo;m Seyi&nbsp;Ogundipe<span class="hero__bio-photo" data-tilt><img src="images/seyi-cohort.png" alt="Seyi, as seen on the Cohort site" loading="lazy" /></span>, a design engineer obsessed with building things.
-        </p>
-
-        <p class="hero__more">
-          I love working with
-          <button class="exp__pill" data-for="x-hero-startup" data-emoji="🚀" aria-expanded="false">startups</button><span id="x-hero-startup" class="exp__reveal">&mdash; there&rsquo;s nothing like watching an idea turn into something real</span>
-          and competing in
-          <button class="exp__pill exp__pill--term" data-for="x-hero-hackathon" aria-expanded="false">hackathons</button><span id="x-hero-hackathon" class="exp__reveal">, 11+ wins and counting</span>.
-          Most days I&rsquo;m somewhere between
-          <button class="exp__pill exp__pill--paint" data-emoji="🎨" aria-expanded="false" aria-label="design — toggle a paint cursor effect">design</button>
-          and code, with
-          <button class="exp__pill" data-for="x-hero-growth" data-emoji="📈" aria-expanded="false">growth</button><span id="x-hero-growth" class="exp__reveal">&mdash; I&rsquo;ve worked as a Growth Associate, managing online communities of thousands</span>
-          and
-          <button class="exp__pill" data-for="x-hero-writing" data-emoji="✍️" aria-expanded="false">writing</button><span id="x-hero-writing" class="exp__reveal">&mdash; turns out I&rsquo;m an award-winning writer too, and I&rsquo;m actually building a place to showcase those pieces right now</span>.
-        </p>
-
-        <p class="hero__more">
-          Currently building during the day, reading at night, and staying
-          <button class="exp__pill" data-for="x-hero-open" data-emoji="🤝" aria-expanded="false">open</button> to whatever&rsquo;s next<span id="x-hero-open" class="exp__reveal">, to internships, weird collaborations, or just a good conversation about an idea. If you&rsquo;re building something, I probably want to hear about it</span>.
-        </p>
-
-        <p class="hero__more">
-          <button class="exp__pill" data-for="x-hero-contact" data-emoji="👋" aria-expanded="false">Nice to meet you</button><span id="x-hero-contact" class="exp__reveal">. Reach me at <a href="mailto:ogemgoldsmith07@gmail.com">ogemgoldsmith07@gmail.com</a>, or just <a href="#contact">say hello</a></span>.
-        </p>
-      </div>
-
-      <div class="hero__foot">
-        <a href="#work" class="hero__cta">
-          <span>Selected work</span>
-          <span class="hero__cta-arrow">↓</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- ───────────────────────── WORK ───────────────────────── -->
-    <section class="work" id="work">
-      <div class="section-head">
-        <span class="section-head__label">(Selected Work)</span>
-        <span class="section-head__count">Thirteen projects</span>
-      </div>
-
-      <ol class="projects" id="projects">
-
-        <!-- 1. Redbrick (case study: its own about page) -->
-        <li class="project" style="--tint:#a3381d">
-          <a class="project__card" href="https://redbrick.ink/about" target="_blank" rel="noopener" data-note="Read the case study">
-            <div class="project__cover">
-              <img src="images/redbrick-web.png" alt="Redbrick" loading="lazy" />
-              <video class="project__reel" data-src="videos/redbrick.mp4" muted loop playsinline preload="none"></video>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot" style="background:transparent"><img src="images/redbrick-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" /></span>
-                <p class="project__title">Redbrick</p>
-                <span class="project__type">3D</span>
-                <span class="project__year">2026</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">Three.js, TypeScript, Vite, OpenStreetMap, LIDAR, Open Data, WebGL, Three.js, TypeScript, Vite, OpenStreetMap, LIDAR, Open Data, WebGL, </span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-        <!-- 2. Interfaze redesign (case study: /redesign) -->
-        <li class="project" style="--tint:#00bfa6">
-          <a class="project__card" href="https://interfaze-redesign.vercel.app/redesign" target="_blank" rel="noopener" data-note="Read the case study">
-            <div class="project__cover">
-              <img src="images/interfaze-web.png" alt="Interfaze redesign" loading="lazy" />
-              <video class="project__reel" data-src="videos/interfaze.mp4" muted loop playsinline preload="none"></video>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot" style="background:transparent"><img src="images/interfaze-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" /></span>
-                <p class="project__title">Interfaze</p>
-                <span class="project__type">Redesign</span>
-                <span class="project__year">2026</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">Next.js, React, Tailwind, Motion, Design Systems, Lighthouse, Next.js, React, Tailwind, Motion, Design Systems, Lighthouse, </span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-        <!-- 3. Wire -->
-        <li class="project" style="--tint:#e0f61c">
-          <a class="project__card" href="/wire" data-note="Read the case study">
-            <div class="project__cover">
-              <img src="images/wire-web.png" alt="Wire" loading="lazy" />
-              <video class="project__reel" data-src="videos/wire.mp4" muted loop playsinline preload="none"></video>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot" style="background:#111">W</span>
-                <p class="project__title">Wire</p>
-                <span class="project__type">Product</span>
-                <span class="project__year">2026</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">AI, Infrastructure, MCP, Product Design, Vercel, AI, Infrastructure, MCP, Product Design, Vercel,</span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-        <!-- 4. Cohort -->
-        <li class="project" style="--tint:#3358ff">
-          <a class="project__card" href="/cohort" data-note="Read the case study">
-            <div class="project__cover">
-              <img src="images/cohort-web.png" alt="Cohort" loading="lazy" />
-              <video class="project__reel" data-src="videos/cohort.mp4" muted loop playsinline preload="none"></video>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot" style="background:#161616"><img src="images/cohort-work-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" /></span>
-                <p class="project__title">Cohort</p>
-                <span class="project__type">Product</span>
-                <span class="project__year">2026</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">GSAP, Lenis, WebGL, Web Audio, Canvas, Vanilla JS, Vercel, Postgres, GSAP, Lenis, WebGL, Web Audio, Canvas, Vanilla JS, Vercel, Postgres,</span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-        <!-- 5. Tiwari Town (Project Tiwari) -->
-        <li class="project" style="--tint:#4a9fe0">
-          <a class="project__card" href="/tiwari-town" data-note="Read the case study">
-            <div class="project__cover">
-              <img src="images/tiwari-town-web.png" alt="Tiwari Town" loading="lazy" />
-              <video class="project__reel" data-src="videos/tiwari-town.mp4" muted loop playsinline preload="none"></video>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot" style="background:#4a9fe0">T</span>
-                <p class="project__title">Tiwari Town</p>
-                <span class="project__type">3D</span>
-                <span class="project__year">2026</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">Three.js, TypeScript, Vite, Procedural, Multiplayer, Web Audio, Vercel, Three.js, TypeScript, Vite, Procedural, Multiplayer, Web Audio, Vercel, </span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-        <!-- 6. Saleena Tiwari (3D showcase) -->
-        <li class="project" style="--tint:#7a9c6f">
-          <a class="project__card" href="/saleena-tiwari" data-note="Read the case study">
-            <div class="project__cover">
-              <img src="images/saleena-tiwari-web.png" alt="Saleena Tiwari" loading="lazy" />
-              <video class="project__reel" data-src="videos/saleena-tiwari.mp4" muted loop playsinline preload="none"></video>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot" style="background:#314132">S</span>
-                <p class="project__title">Saleena Tiwari</p>
-                <span class="project__type">Creative</span>
-                <span class="project__year">2026</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">Three.js, Vite, Shaders, Blender, Scroll, Personal, Vercel, Three.js, Vite, Shaders, Blender, Scroll, Personal, Vercel,</span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-        <!-- 7. Subtitles -->
-        <li class="project" style="--tint:#6c5ce7">
-          <a class="project__card" href="/subtitles" data-note="Read the case study">
-            <div class="project__cover">
-              <img src="images/subtitles-web.png" alt="Subtitles" loading="lazy" />
-              <video class="project__reel" data-src="videos/subtitles.mp4" muted loop playsinline preload="none"></video>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot" style="background:transparent"><img src="images/subtitles-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" /></span>
-                <p class="project__title">Subtitles</p>
-                <span class="project__type">Motion</span>
-                <span class="project__year">2026</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">JavaScript, Three.js, MediaPipe, GSAP, Cloudinary, Typography, Vercel, JavaScript, Three.js, MediaPipe, GSAP, Cloudinary, Typography, Vercel,</span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-        <!-- 8. Kulture -->
-        <li class="project" style="--tint:#c8a94a">
-          <a class="project__card" href="/kulture" data-note="Read the case study">
-            <div class="project__cover">
-              <img src="images/kulture-web.png" alt="KULTURE*" loading="lazy" />
-              <video class="project__reel" data-src="videos/kulture.mp4" muted loop playsinline preload="none"></video>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot" style="background:#1a1208; border:1.5px solid var(--tint)">
-                  <img src="images/kulture-icon.svg" alt="" style="width:62%;height:62%;object-fit:contain;display:block;filter:invert(1) sepia(1) saturate(2) hue-rotate(5deg) brightness(1.1);" />
-                </span>
-                <p class="project__title">Kulture<span class="ast">*</span></p>
-                <span class="project__type">Events</span>
-                <span class="project__year">2025</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">HTML, CSS, JavaScript, GSAP, Brand, Print, Puppeteer, OpenStreetMap, HTML, CSS, JavaScript, GSAP, Brand, Print, Puppeteer, OpenStreetMap,</span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-        <!-- 9. Clark -->
-        <li class="project" style="--tint:#ff5b1f">
-          <a class="project__card" href="/clark" data-note="Read the case study">
-            <div class="project__cover">
-              <img src="images/clark.png" alt="Clark" loading="lazy" />
-              <video class="project__reel" data-src="videos/clark.mp4" muted loop playsinline preload="none"></video>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot" style="background:#161616"><img src="clark-logo.png" alt="" style="width:70%;height:70%;object-fit:contain;display:block;" /></span>
-                <p class="project__title">Clark</p>
-                <span class="project__type">Product</span>
-                <span class="project__year">2024</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">Product Design, Onboarding, Streak System, Card UI, AI Interface, Product Design, Onboarding, Streak System, Card UI, AI Interface,</span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-        <!-- 10. Raise -->
-        <li class="project" style="--tint:#4b63ff">
-          <a class="project__card" href="/raise" data-note="Read the case study">
-            <div class="project__cover">
-              <img src="images/raise-web.png" alt="Cohort / Raise" loading="lazy" />
-              <video class="project__reel" data-src="videos/raise.mp4" muted loop playsinline preload="none"></video>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot" style="background:#161616"><img src="images/cohort-work-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" /></span>
-                <p class="project__title">Cohort / Raise</p>
-                <span class="project__type">Pitch</span>
-                <span class="project__year">2026</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">GSAP, Lenis, Canvas, SVG, Narrative Design, CSS Variables, Motion Design, GSAP, Lenis, Canvas, SVG, Narrative Design, CSS Variables, Motion Design,</span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-        <!-- 11. Seyi's Park (3D case study) -->
-        <li class="project" style="--tint:#3a8f3a">
-          <a class="project__card" href="/seyis-park" data-note="Read the case study">
-            <div class="project__cover">
-              <img src="images/seyispark-web.png" alt="Seyi's Park" loading="lazy" />
-              <video class="project__reel" data-src="videos/seyispark.mp4" muted loop playsinline preload="none"></video>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot" style="background:transparent"><img src="images/seyispark-icon.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" /></span>
-                <p class="project__title">Seyi's Park</p>
-                <span class="project__type">Creative</span>
-                <span class="project__year">2026</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">Three.js, Blender, GSAP, Howler, Isometric 3D, Creative Dev, Vercel, Three.js, Blender, GSAP, Howler, Isometric 3D, Creative Dev, Vercel,</span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-        <!-- 12. Saleena -->
-        <li class="project" style="--tint:#e07ba0">
-          <a class="project__card" href="/saleena" data-note="Read the case study">
-            <div class="project__cover">
-              <img src="images/saleena-web.png" alt="Saleena" loading="lazy" />
-              <video class="project__reel" data-src="videos/saleena.mp4" muted loop playsinline preload="none"></video>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot" style="background:transparent"><img src="images/saleena-logo.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" /></span>
-                <p class="project__title">Saleena</p>
-                <span class="project__type">Personal</span>
-                <span class="project__year">2024</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">Framer, Typography, Multilingual, English, German, Nepali, Storytelling, Framer, Typography, Multilingual, English, German, Nepali, Storytelling,</span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-        <!-- 13. Fragments -->
-        <li class="project" style="--tint:#c8a94a">
-          <a class="project__card" href="https://www.notion.so/theboygenius/Hello-I-m-Seyi-I-build-cool-Stuff-1086f532ebdc8047ba3efd26f28c9331?pvs=18" target="_blank" rel="noopener" data-note="Open the archive">
-            <div class="project__cover">
-              <img src="images/fragments-web.png" alt="Fragments" loading="lazy" />
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot">&#10038;</span>
-                <p class="project__title">Fragments</p>
-                <span class="project__type">Archive</span>
-                <span class="project__year">Ongoing</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">UI/UX, Brand, Landing Pages, Interaction Design, Mobile, 3D, UI/UX, Brand, Landing Pages, Interaction Design, Mobile, 3D,</span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-
-        <!-- 14. Your project: an envelope with a brief inside. Hover opens it, click sends it. -->
-        <li class="project project--open">
-          <a class="project__card" href="mailto:ogemgoldsmith07@gmail.com?subject=Your%20project" data-note="Send it" aria-label="Your project. Email Seyi at ogemgoldsmith07@gmail.com">
-            <div class="project__cover project__cover--open">
-              <div class="env-shadow" aria-hidden="true"></div>
-              <div class="env" aria-hidden="true">
-                <div class="env__back"></div>
-                <div class="env__letter">
-                  <p class="env__brief"><span>✸</span> Brief no. 14</p>
-                  <p class="env__lead">Your project could be</p>
-                  <p class="env__blank"><span class="env__line"><span class="brief__typed">a world someone can walk through.</span><i class="env__caret"></i></span></p>
-                </div>
-                <div class="env__flap"><span class="env__seal">✸</span></div>
-                <div class="env__pocket">
-                  <p class="env__to">For Seyi,</p>
-                  <p class="env__about">about your project</p>
-                  <p class="env__addr">ogemgoldsmith07@gmail.com</p>
-                  <div class="env__stamp"><span>✸</span><b>2026</b></div>
-                  <svg class="env__postmark" viewBox="0 0 120 60">
-                    <defs><path id="pm-ring" d="M30 30 m-22 0 a22 22 0 1 1 44 0 a22 22 0 1 1 -44 0" /></defs>
-                    <circle cx="30" cy="30" r="27" />
-                    <text><textPath href="#pm-ring" textLength="136" lengthAdjust="spacing">SEYI ✸ ANYWHERE ✸ </textPath></text>
-                    <text class="pm-mid" x="30" y="30">✸</text>
-                    <path d="M60 18 q7 -5 14 0 t14 0 t14 0 t14 0" /><path d="M60 26 q7 -5 14 0 t14 0 t14 0 t14 0" /><path d="M60 34 q7 -5 14 0 t14 0 t14 0 t14 0" /><path d="M60 42 q7 -5 14 0 t14 0 t14 0 t14 0" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div class="project__foot">
-              <div class="project__foot-meta">
-                <span class="project__dot project__dot--open" aria-hidden="true">✸</span>
-                <p class="project__title">Your project</p>
-                <span class="project__type">Let's talk</span>
-                <span class="project__year">Next</span>
-              </div>
-              <div class="project__track" aria-hidden="true">
-                <span class="project__track-inner">A launch, A product, A 3D world, An identity, An AI tool, A story worth telling, A launch, A product, A 3D world, An identity, An AI tool, A story worth telling, </span>
-              </div>
-            </div>
-          </a>
-        </li>
-
-      </ol>
-
-      <!-- Cursor note (desktop): follows the pointer over any project card -->
-      <div class="cursor-note" id="cursor-note" aria-hidden="true">
-        <span class="cursor-note__pill">
-          <span class="cursor-note__text">Read the case study</span>
-          <span class="cursor-note__arrow">↗</span>
-        </span>
-      </div>
-    </section>
-
-    <!-- ───────────────────────── ABOUT ───────────────────────── -->
-    <section class="about" id="about">
-      <div class="section-head">
-        <span class="section-head__label">(About)</span>
-      </div>
-
-      <ol class="exp-list">
-
-        <!-- ── Cohort ── -->
-        <li class="exp reveal" data-reveal>
-          <div class="exp__meta">
-            <div class="exp__co-info">
-              <img class="exp__co-logo" src="images/cohort-icon.png" alt="" loading="lazy" />
-              <span class="exp__co-name">Cohort &mdash; Founding Design Engineer</span>
-            </div>
-            <span class="exp__period">Dec 2025 &mdash; Present</span>
-          </div>
-          <p class="exp__narrative">
-            Built from day 0 &mdash; design,
-            <span class="exp__word" id="word-systems">systems</span>,
-            and <span class="exp__word" id="word-code">code</span>
-            in one seat. Every
-            <button class="exp__pill" data-for="x-screen" aria-expanded="false">screen</button><span id="x-screen" class="exp__reveal"> &mdash; the onboarding, landing page, deck, messaging, app &amp; the full design system</span>
-            in
-            <a class="exp__brand" href="https://www.trycohort.xyz/" target="_blank" rel="noopener">
-              <span class="exp__brand-name">Cohort</span>
-              <span class="exp__brand-marquee" aria-hidden="true">
-                <span>LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
-                <span aria-hidden="true">LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
-              </span>
-            </a>.
-            Not a feature team. A
-            <button class="exp__pill" data-for="x-complete" aria-expanded="false">complete</button><span id="x-complete" class="exp__reveal">&thinsp;&mdash;&thinsp;0&thinsp;&rarr;&thinsp;100, every screen shaped from the ground up</span>
-            product.
-          </p>
-        </li>
-
-        <!-- ── FourDimensions ── -->
-        <li class="exp reveal" data-reveal>
-          <div class="exp__meta">
-            <div class="exp__co-info">
-              <img class="exp__co-logo" src="linnked-logo.png" alt="" loading="lazy" />
-              <span class="exp__co-name">FourDimensions &mdash; Lead Design Engineer</span>
-            </div>
-            <span class="exp__period">Oct 2022 &mdash; June 2025</span>
-          </div>
-          <p class="exp__narrative">
-            Design, Engineering and Growth across multiple early startups. Built
-            <a class="exp__brand" href="https://forthekulture.vercel.app/" target="_blank" rel="noopener">
-              <span class="exp__brand-name">Kulture</span>
-              <span class="exp__brand-marquee" aria-hidden="true">
-                <span>LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
-                <span aria-hidden="true">LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
-              </span>
-            </a>
-            and
-            <a class="exp__brand" href="https://bybull.ai/" target="_blank" rel="noopener">
-              <span class="exp__brand-name">Bybull</span>
-              <span class="exp__brand-marquee" aria-hidden="true">
-                <span>LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
-                <span aria-hidden="true">LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
-              </span>
-            </a>
-            from first wireframe to live product ✦ &mdash; UX, systems design, and frontend execution for platforms reaching thousands of users.
-          </p>
-        </li>
-
-        <!-- ── Clark ── -->
-        <li class="exp reveal" data-reveal>
-          <div class="exp__meta">
-            <div class="exp__co-info">
-              <img class="exp__co-logo" src="clark-logo.png" alt="" loading="lazy" />
-              <span class="exp__co-name">Clark &mdash; Lead Product Designer</span>
-            </div>
-            <span class="exp__period">Dec 2024 &mdash; May 2025</span>
-          </div>
-          <p class="exp__narrative">
-            An AI ✦ <span id="word-study" class="exp__word" style="cursor:pointer">study</span> companion built for how students actually learn 🧠. Led product design at
-            <a class="exp__brand" href="https://clarkai-fe.vercel.app/" target="_blank" rel="noopener">
-              <span class="exp__brand-name">Clark</span>
-              <span class="exp__brand-marquee" aria-hidden="true">
-                <span>LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
-                <span aria-hidden="true">LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot; LEARN MORE &middot;&nbsp;</span>
-              </span>
-            </a>
-            from blank canvas to shipped MVP &mdash; landing ✏️, onboarding, streak system ⚡, card UI, and the core AI interface 💡. All of it.
-          </p>
-        </li>
-
-      </ol>
-
-    </section>
-
-    <!-- ───────────────────────── CONTACT ───────────────────────── -->
-    <section class="contact" id="contact">
-      <div class="section-head">
-        <span class="section-head__label">(Contact)</span>
-        <span class="section-head__count">Let&rsquo;s build</span>
-      </div>
-
-      <span class="contact__email reveal" data-reveal data-magnetic>
-        ogemgoldsmith07@gmail.com
-      </span>
-
-      <p class="contact__sub reveal" data-reveal>
-        Open to creative&hairsp;&mdash;&hairsp;product&hairsp;&middot;&hairsp;design&hairsp;&middot;&hairsp;growth&hairsp;&middot;&hairsp;engineering roles, collaborations, and good problems and conversation.
+    <!-- HELLO -->
+    <section class="sec sec--intro" id="hello" data-bg="#EDE8DC" data-fg="#1A1A14" data-muted="rgba(26,26,20,.52)" data-accent="#E4492A">
+      <p class="kicker">Hello.</p>
+      <p class="voice">
+        I&rsquo;m Seyi Ogundipe<span class="me"><img src="images/seyi-cohort.png" alt="Seyi" /></span>, a design engineer obsessed with building things.
+        I love <button class="pill" data-for="r-startups" aria-expanded="false">startups</button><span class="reveal" id="r-startups">, because there&rsquo;s nothing like watching an idea turn into something real</span>,
+        I&rsquo;ve won <button class="pill" data-for="r-wins" aria-expanded="false">13+ hackathons</button><span class="reveal" id="r-wins">, most recently the Pfizer AI Studio Hackathon</span>,
+        and most days I&rsquo;m somewhere between <button class="pill" data-for="r-design" aria-expanded="false">design</button><span class="reveal" id="r-design"> (I learned it because of Figma)</span> and code, with
+        <button class="pill" data-for="r-growth" aria-expanded="false">growth</button><span class="reveal" id="r-growth"> (I&rsquo;ve run online communities of thousands)</span> and
+        <button class="pill" data-for="r-writing" aria-expanded="false">writing</button><span class="reveal" id="r-writing"> (I&rsquo;m an award-winning writer too)</span> on the side.
       </p>
+      <p class="aside"><span>Right now: chalk, Cohort, and Computer Science at the University of Liverpool.</span><a href="work.html">See all my work</a><a href="skills.html">Everything I can do</a></p>
+    </section>
 
-      <ul class="socials">
-        <li><a href="https://www.trycohort.xyz/" target="_blank" rel="noopener noreferrer">Cohort ↗</a></li>
-        <li><a href="https://www.linkedin.com/in/oluwaseyiogundipe/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
-        <li><a href="https://x.com/_theboygenius_" target="_blank" rel="noopener noreferrer">X / Twitter ↗</a></li>
-        <li><a href="https://github.com/Theboygenius07" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
-        <li><a href="https://docs.google.com/document/d/1vYnJxEyPxDjI2a7N3oeeTaSEkIPMNTu0D0r5MbuuB1Q/view" target="_blank" rel="noopener noreferrer">CV ↗</a></li>
-      </ul>
+    <!-- chalk: its nib points, circles and draws -->
+    <section class="sec sec--chalk" id="chalk" data-bg="#F5EFE2" data-fg="#16181F" data-muted="rgba(22,24,31,.55)" data-accent="#1F43D9">
+      <svg class="ink-layer" id="chalkInk" aria-hidden="true"></svg>
+      <p class="kicker"><b>01</b><span>2026 · Founder and CEO</span></p>
+      <p class="voice">
+        I founded and built <a class="name name--chalk" href="case-studies/chalk.html">chalk</a>, an AI teacher that draws the lesson while it talks you through it.
+        On a Mac it <button class="pill" data-for="r-point" aria-expanded="false">points at the real button</button><span class="reveal" id="r-point">: guessing pixels, it landed 59 times in 100; naming the button and letting code find it, 97</span>.
+      </p>
+      <div class="work">
+        <figure class="media"><video data-src="assets/img/chalk-landing.mp4" poster="assets/img/chalk-landing.jpg" muted loop playsinline preload="none" aria-label="chalk on a Mac: it boxes the table, points at Chart, then at Column"></video></figure>
+      </div>
+      <p class="more"><a href="case-studies/chalk.html">Read the case study →</a><span class="hint">Click anywhere here and chalk draws for you.</span></p>
+      <div class="cnib" id="cnib" aria-hidden="true">
+        <svg viewBox="0 0 22 26" width="28" height="33"><path d="M3 2 L3 19 Q3 20.5 4.4 19.6 L8 16.6 L11 23.4 Q11.6 24.8 12.9 24.2 L14.6 23.4 Q15.9 22.8 15.3 21.5 L12.2 15 L16.4 14.6 Q18 14.4 16.9 13.2 L4.9 1.4 Q3 -0.4 3 2 Z" fill="#29A383" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="5.3" cy="7.6" r="1.05" fill="#fff"/><circle cx="8.9" cy="7.6" r="1.05" fill="#fff"/><path d="M5.2 10.5 Q7.1 12.3 9 10.5" fill="none" stroke="#fff" stroke-width="1.1" stroke-linecap="round"/></svg>
+        <span class="cnib__note" id="cnibNote" hidden></span>
+      </div>
+    </section>
+
+    <!-- Redbrick: lay a brick -->
+    <section class="sec sec--bricks" id="redbrick" data-bg="#A3381D" data-fg="#FFF3E6" data-muted="rgba(255,243,230,.68)" data-accent="#F5B21E">
+      <p class="kicker"><b>02</b><span>2026 · 3D</span></p>
+      <p class="voice">
+        I measured Liverpool&rsquo;s university quarter from <button class="pill" data-for="r-data" aria-expanded="false">open data</button><span class="reveal" id="r-data"> (OpenStreetMap and LiDAR)</span>
+        and built <a class="name name--redbrick" href="https://redbrick.ink/about" target="_blank" rel="noopener">Redbrick</a>, a 3D model you can walk through in a browser.
+      </p>
+      <div class="work">
+        <figure class="media"><video data-src="videos/redbrick.mp4" poster="images/redbrick-web.png" muted loop playsinline preload="none" aria-label="Walking down a street in Redbrick"></video></figure>
+      </div>
+      <p class="more"><a href="https://redbrick.ink/about" target="_blank" rel="noopener">Read how it was built ↗</a><span class="hint" id="brickHint"><button type="button" class="hint-btn" id="brickBtn">Lay a brick</button> or click anywhere here</span></p>
+      <div class="wall" id="wall" aria-hidden="true"></div>
+    </section>
+
+    <!-- Cohort: it texts you -->
+    <section class="sec" id="cohort" data-bg="#1C34F5" data-fg="#FFFFFF" data-muted="rgba(255,255,255,.72)" data-accent="#F5B21E">
+      <p class="kicker"><b>03</b><span>2026 · Founding design engineer</span></p>
+      <p class="voice">
+        At <a class="name name--cohort" href="case-studies/cohort.html">Cohort</a> I&rsquo;m the founding design engineer.
+        It&rsquo;s the social layer for student life, and it lives in your <button class="pill" data-for="r-msgs" aria-expanded="false">messages</button><span class="reveal" id="r-msgs">. 2,000+ students are on the waitlist</span>.
+      </p>
+      <div class="work">
+        <figure class="media"><video data-src="videos/cohort.mp4" poster="images/cohort-web.png" muted loop playsinline preload="none" aria-label="Cohort's site"></video></figure>
+        <div class="egg egg--thread" id="thread" aria-live="polite"></div>
+      </div>
+      <p class="more"><a href="case-studies/cohort.html">Read the case study →</a><span class="hint">Cohort just texted you.</span></p>
+    </section>
+
+    <!-- Dumpling -->
+    <section class="sec" id="dumpling" data-bg="#121213" data-fg="#FFFFFF" data-muted="rgba(255,255,255,.56)" data-accent="#F26B3A">
+      <p class="kicker"><b>04</b><span>2026 · Pfizer AI Studio Hackathon</span></p>
+      <p class="voice">
+        <a class="name name--dumpling" href="https://tasty-dumpling-kohl.vercel.app/" target="_blank" rel="noopener">Dumpling</a> was the sole winner at the Pfizer AI Studio Hackathon.
+        Testers report bugs in their own words, and it folds the duplicates into <button class="pill" data-for="r-ticket" aria-expanded="false">one ticket</button><span class="reveal" id="r-ticket">. A person approves every step, then it goes to GitHub or Jira</span>.
+      </p>
+      <div class="work">
+        <figure class="media"><img src="assets/img/dumpling.jpg" alt="Dumpling: get clear feedback from every tester" loading="lazy" /></figure>
+      </div>
+      <p class="more"><a href="https://tasty-dumpling-kohl.vercel.app/" target="_blank" rel="noopener">Try it ↗</a></p>
+    </section>
+
+    <!-- Wire -->
+    <section class="sec" id="wire" data-bg="#E0F61C" data-fg="#111111" data-muted="rgba(17,17,17,.6)" data-accent="#111111">
+      <p class="kicker"><b>05</b><span>2026 · APIConf hackathon</span></p>
+      <p class="voice">
+        Type what you&rsquo;re selling into <a class="name name--wire" href="case-studies/wire.html">Wire</a> and you get back a checkout link, a QR code and a live sales dashboard.
+        I designed it and built its front end in one sprint at <button class="pill" data-for="r-apiconf" aria-expanded="false">APIConf 2026</button><span class="reveal" id="r-apiconf">. It also turns any API into tools an AI agent can use</span>.
+      </p>
+      <div class="work">
+        <figure class="media"><video data-src="videos/wire.mp4" poster="images/wire-web.png" muted loop playsinline preload="none" aria-label="Wire: a sentence becomes a payment page"></video></figure>
+      </div>
+      <p class="more"><a href="case-studies/wire.html">Read the case study →</a></p>
+    </section>
+
+    <!-- Kulture -->
+    <section class="sec" id="kulture" data-bg="#0D0C0B" data-fg="#E6CF8B" data-muted="rgba(230,207,139,.62)" data-accent="#E6CF8B">
+      <p class="kicker"><b>06</b><span>2025 · Events</span></p>
+      <p class="voice">
+        For <a class="name name--kulture" href="case-studies/kulture.html">Kulture</a>, a night in Ojo, Lagos, I made the site, the tickets and the print.
+        430 tickets went in 5 days.
+      </p>
+      <div class="work">
+        <figure class="media"><video data-src="videos/kulture.mp4" poster="images/kulture-web.png" muted loop playsinline preload="none" aria-label="Kulture's site and its ticket"></video></figure>
+      </div>
+      <p class="more"><a href="case-studies/kulture.html">Read the case study →</a></p>
+    </section>
+
+    <!-- Subtitles: captions for whatever you do -->
+    <section class="sec" id="subtitles" data-bg="#0B0B0B" data-fg="#FFFFFF" data-muted="rgba(255,255,255,.56)" data-accent="#F5E400">
+      <p class="kicker"><b>07</b><span>2026 · Motion</span></p>
+      <p class="voice">
+        <a class="name name--subtitles" href="case-studies/subtitles.html">Subtitles</a> is a page you steer with your
+        <button class="pill" data-for="r-hand" aria-expanded="false">hand</button><span class="reveal" id="r-hand">, read through your camera</span>. 1,000 people visited in 2 days.
+      </p>
+      <div class="work">
+        <figure class="media" id="subMedia"><video data-src="videos/subtitles.mp4" poster="images/subtitles-web.png" muted loop playsinline preload="none" aria-label="Subtitles: captioned moments in a moving strip"></video></figure>
+      </div>
+      <p class="more"><a href="case-studies/subtitles.html">Read the case study →</a><span class="hint">This part of the page is captioned.</span></p>
+    </section>
+
+    <!-- Clark: a streak -->
+    <section class="sec" id="clark" data-bg="#FF5B1F" data-fg="#FFFFFF" data-muted="rgba(255,255,255,.78)" data-accent="#FFD23F">
+      <p class="kicker"><b>08</b><span>2024 · Lead product design engineer</span></p>
+      <p class="voice">
+        Before all that, I led product design at <a class="name name--clark" href="case-studies/clark.html">Clark</a>, an AI study companion,
+        from a blank canvas to a shipped MVP. 4,000+ students joined the waitlist.
+      </p>
+      <div class="work">
+        <figure class="media"><video data-src="videos/clark.mp4" poster="images/clark.png" muted loop playsinline preload="none" aria-label="Clark's study app"></video></figure>
+      </div>
+      <p class="more"><a href="case-studies/clark.html">Read the case study →</a><span class="hint streak" id="streak"><svg viewBox="0 0 20 24" width="16" height="19" aria-hidden="true"><path d="M10 1 C12 6 17 8 17 14 A7 7 0 0 1 3 14 C3 10 6 8 7 5 C8 8 9 9 10 9 C11 7 11 4 10 1 Z" fill="#FFD23F"/><path d="M10 12 C11 14 13 15 13 17.5 A3 3 0 0 1 7 17.5 C7 15.5 9 14.5 10 12 Z" fill="#FFF3D6"/></svg><span id="streakText">1-day streak</span></span></p>
+    </section>
+
+    <!-- The rest, in one breath -->
+    <section class="sec" id="rest" data-bg="#EDE8DC" data-fg="#1A1A14" data-muted="rgba(26,26,20,.52)" data-accent="#E4492A">
+      <p class="kicker">And the rest</p>
+      <p class="voice voice--rest">
+        I&rsquo;ve also made <a class="tag" style="--t:#1F8C6E" data-img="assets/img/chalk-updates.jpg" href="https://www.trychalk.tech/updates/2026-11-18" target="_blank" rel="noopener">chalk updates</a>, a page for every chalk launch, drawn in crayon;
+        <a class="tag" style="--t:#4A9FE0" data-img="images/tiwari-town-web.png" href="case-studies/tiwari-town.html">Tiwari Town</a> and
+        <a class="tag" style="--t:#7A9C6F" data-img="images/saleena-tiwari-web.png" href="case-studies/saleena-tiwari.html">Saleena Tiwari</a>, two 3D birthday gifts;
+        <a class="tag" style="--t:#3A8F3A" data-img="images/seyispark-web.png" href="case-studies/seyis-park.html">Seyi&rsquo;s Park</a>, a park you hop around to find my work;
+        <a class="tag" style="--t:#E07BA0" data-img="images/saleena-web.png" href="case-studies/saleena.html">Saleena</a>, a gift in 3 languages;
+        <a class="tag" style="--t:#B8461C" data-img="assets/img/victor.jpg" href="https://victor-chukwu.vercel.app" target="_blank" rel="noopener">Victor Chukwu</a>, a portfolio with a piano, drums and a guitar you can play;
+        <a class="tag" style="--t:#4B63FF" data-img="images/raise-web.png" href="case-studies/raise.html">Raise</a>, Cohort&rsquo;s raise told as a page;
+        and <a class="tag" style="--t:#00BFA6; --tf:#062B26" data-img="images/interfaze-web.png" href="https://interfaze-redesign.vercel.app/redesign" target="_blank" rel="noopener">Interfaze</a>, a redesign.
+        Older work lives in <a class="tag" style="--t:#C8A94A; --tf:#1A1404" data-img="images/fragments-web.png" href="https://www.notion.so/theboygenius/Hello-I-m-Seyi-I-build-cool-Stuff-1086f532ebdc8047ba3efd26f28c9331?pvs=18" target="_blank" rel="noopener">Fragments</a>.
+      </p>
+      <p class="all"><a class="btn" href="work.html">See all 17 projects <span aria-hidden="true">→</span></a></p>
+    </section>
+
+    <!-- Where I've worked -->
+    <section class="sec" id="worked" data-bg="#EDE8DC" data-fg="#1A1A14" data-muted="rgba(26,26,20,.52)" data-accent="#E4492A">
+      <p class="kicker">Where I&rsquo;ve worked</p>
+      <p class="voice voice--rest">
+        I&rsquo;ve been the founding design engineer at Cohort since January 2025. Before that I led product design at Clark, and at FourDimensions, where
+        <button class="pill" data-for="r-linnked" aria-expanded="false">Linnked</button><span class="reveal" id="r-linnked"> got 50,000+ visits on launch day</span>.
+        I started at Charisol, where a <button class="pill" data-for="r-play" aria-expanded="false">redesign</button><span class="reveal" id="r-play"> of Playmuzingo</span> lifted conversion 47%.
+      </p>
+      <ol class="jobs">
+        <li><span>Cohort</span><span>Founding Design Engineer</span><span>Jan 2025 &ndash; Present</span></li>
+        <li><span>Clark</span><span>Lead Product Design Engineer</span><span>Sep 2024 &ndash; Jan 2026</span></li>
+        <li><span>FourDimensions</span><span>Lead Product Design Engineer</span><span>Dec 2023 &ndash; Dec 2025</span></li>
+        <li><span>Charisol</span><span>Product Designer</span><span>May 2023 &ndash; Dec 2024</span></li>
+      </ol>
+    </section>
+
+    <!-- Contact -->
+    <section class="sec sec--end" id="hello-again" data-bg="#15140F" data-fg="#F3F1EA" data-muted="rgba(243,241,234,.56)" data-accent="#F5B21E">
+      <p class="kicker">Say hello</p>
+      <p class="voice">Building something? I probably want to hear about it.</p>
+      <p class="email"><a href="mailto:ogemgoldsmith07@gmail.com">ogemgoldsmith07@gmail.com</a></p>
+      <p class="links">
+        <a href="https://www.linkedin.com/in/oluwaseyiogundipe/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="https://github.com/Theboygenius07" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://x.com/_theboygenius_" target="_blank" rel="noopener">X ↗</a>
+        <a href="cool.html">/cool</a>
+      </p>
     </section>
   </main>
 
-  <!-- ───────────────────────── FOOTER ───────────────────────── -->
-  <footer class="footer">
-    <span class="footer__name">Seyi Ogundipe</span>
-    <span class="footer__clock"><span id="clock">--:--:--</span> <span class="footer__tz">local</span></span>
-    <a href="#top" class="footer__top" data-magnetic>Back to top ↑</a>
-  </footer>
+  <footer class="foot" data-bg="#15140F"><span>Seyi Ogundipe · Liverpool · 2026</span><a href="#hello">Back to top ↑</a></footer>
 
-  <!-- Vibe switcher + physics lamp — ported from Cohort ("change the light") -->
-  <div id="vibe-wrap" aria-label="Change the light">
-    <div id="vibe-controls">
-      <button id="vibe-btn" class="vibe-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
-        <span id="vibe-clock">--:-- --</span>
-        <span id="vibe-label"></span>
-        <svg class="vibe-chevron" viewBox="0 0 10 6" width="10" height="6" fill="none">
-          <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <div id="vibe-menu" class="vibe-menu" role="listbox" hidden>
-        <span class="vibe-menu-hdr">CHANGE THE LIGHT</span>
-        <button class="vibe-opt" data-vibe="auto"    role="option">AUTO</button>
-        <button class="vibe-opt" data-vibe="morning" role="option">MORNING</button>
-        <button class="vibe-opt" data-vibe="day"     role="option">DAY</button>
-        <button class="vibe-opt" data-vibe="evening" role="option">EVENING</button>
-        <button class="vibe-opt" data-vibe="night"   role="option">NIGHT</button>
-        <div class="vibe-menu-divider"></div>
-        <button id="particles-toggle" class="vibe-opt particles-opt" aria-pressed="true" aria-label="Toggle ambient">
-          <span class="particles-opt-label">✸&nbsp; AMBIENT</span>
-          <span class="particles-opt-state"></span>
-        </button>
-      </div>
-    </div>
-
-    <a href="/cool" class="cool-link">Cool</a>
-
-    <div id="lamp-mount" aria-hidden="true">
-      <svg id="lamp-physics" viewBox="0 0 80 190" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="shade-grad" cx="34%" cy="22%" r="70%" fx="30%" fy="18%">
-            <stop offset="0%" stop-color="#909090"/><stop offset="28%" stop-color="#424242"/><stop offset="100%" stop-color="#141414"/>
-          </radialGradient>
-          <radialGradient id="shade-inner" cx="50%" cy="82%" r="58%">
-            <stop offset="0%" stop-color="#3a3a3a"/><stop offset="100%" stop-color="#1a1a1a"/>
-          </radialGradient>
-          <radialGradient id="light-cone" cx="50%" cy="0%" r="100%" fx="50%" fy="0%">
-            <stop offset="0%" stop-color="var(--lamp-glow)" stop-opacity="0.28"/>
-            <stop offset="100%" stop-color="var(--lamp-glow)" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <rect x="36" y="0" width="8" height="4" rx="2" fill="currentColor" opacity="0.38"/>
-        <line x1="40" y1="4" x2="40" y2="25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.38"/>
-        <g id="lp-shade-group">
-          <path id="lp-cone" d="M 22 58 L 2 130 Q 40 138 78 130 L 58 58 Z" fill="url(#light-cone)" opacity="0"/>
-          <path d="M 34 25 Q 24 27 19 44 Q 17 57 40 59 Q 63 57 61 44 Q 56 27 46 25 Z" fill="url(#shade-grad)"/>
-          <path d="M 34 25 Q 40 23 46 25" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1" stroke-linecap="round"/>
-          <ellipse cx="40" cy="58" rx="21.5" ry="5.2" fill="url(#shade-inner)"/>
-          <ellipse cx="40" cy="58" rx="22" ry="5.6" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
-          <circle id="lp-bulb" cx="40" cy="51" r="5" fill="var(--lamp-glow,transparent)"/>
-        </g>
-        <path id="lp-cord" d="M 40 59 Q 40 82 40 104" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.4"/>
-        <circle id="lp-ball" cx="40" cy="104" r="5" fill="currentColor" opacity="0.5"/>
-        <circle id="lp-ball-ring" cx="40" cy="104" r="9" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0"/>
-      </svg>
-    </div>
-  </div>
-
-  <!-- Easter-egg furniture (toast + designer baseline grid) -->
-  <div class="grid-overlay" aria-hidden="true"></div>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="script.js?v=20261011h"></script>
+  <img class="peek" id="peek" alt="" aria-hidden="true" />
+  <div class="caption" id="caption" aria-live="polite" hidden></div>
+  <script src="assets/site.js?v=1"></script>
 </body>
 </html>
