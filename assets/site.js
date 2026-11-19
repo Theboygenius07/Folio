@@ -438,3 +438,27 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAll);
   var rz; addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(drawAll, 150); });
 })();
+
+/* ---------- the photo in the hello: it grows on hover, or on a tap on phones ---------- */
+(function () {
+  var me = document.querySelector(".me"); if (!me) return;
+  var S = 2.8, GAP = 10;
+  // grow from a point that keeps the bigger photo on screen, wherever the line put it
+  function aim() {
+    var box = me.offsetParent; if (!box) return;
+    // where the line put it, untouched by its own tilt or growth
+    var w = me.offsetWidth, left = box.getBoundingClientRect().left + me.offsetLeft, vw = document.documentElement.clientWidth;
+    var lo = (left + w * S - vw + GAP) / (S - 1), hi = (left - GAP) / (S - 1);
+    me.style.setProperty("--me-o", Math.round(Math.min(hi, Math.max(lo, w / 2))) + "px");
+  }
+  me.addEventListener("pointerenter", aim);
+  me.addEventListener("pointerdown", aim);
+  var touch = matchMedia("(hover: none)");
+  me.addEventListener("click", function (e) {
+    if (!touch.matches) return;
+    e.stopPropagation(); aim(); me.classList.toggle("is-big");
+  });
+  function shrink() { me.classList.remove("is-big"); }
+  document.addEventListener("click", shrink);
+  addEventListener("scroll", shrink, { passive: true });
+})();
