@@ -184,3 +184,70 @@ document.addEventListener("click", (e) => {
   const a = e.target.closest && e.target.closest("a[data-back]");
   if (a) try { sessionStorage.setItem("return-to", a.dataset.back); } catch (err) {}
 });
+
+/* ---------- the site's drawn hand: the name's crayon flower and swoosh, the nav's wavy underline, crayon buttons ----------
+   The same drawing as the home page (assets/site.js): a seeded crayon fill with white streaks and a grain that boils at
+   4 frames every 0.6s. Words never move; a reader who asks for less motion gets the grain held still. */
+(() => {
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches, T0 = Date.now();
+  const f = (n) => n.toFixed(1);
+  const rng = (seed) => { let s = (seed % 2147483646) + 1; return () => (s = (s * 16807) % 2147483647) / 2147483647; };
+  const hatch = (x0, y0, x1, y1, seed, step) => {
+    const rnd = rng(seed), h = y1 - y0, dx = h * Math.tan(-0.55); let d = "";
+    for (let x = x0 - Math.abs(dx); x < x1 + Math.abs(dx); x += step * (0.6 + rnd() * 0.9)) {
+      const a = 0.15 + rnd() * 0.25, b = 0.55 + rnd() * 0.4;
+      d += `M${f(x + dx * a)} ${f(y0 + h * a)} L${f(x + dx * b)} ${f(y0 + h * b)} `;
+    }
+    return d;
+  };
+  const flower = (cx, cy, r) => { let d = ""; for (let i = 0; i < 5; i++) { const a = -Math.PI / 2 + (i * 2 * Math.PI) / 5, x = cx + Math.cos(a) * r * 0.5, y = cy + Math.sin(a) * r * 0.5, p = r * 0.52; d += `M${f(x - p)} ${f(y)} a${f(p)} ${f(p)} 0 1 0 ${f(p * 2)} 0 a${f(p)} ${f(p)} 0 1 0 ${f(-p * 2)} 0 Z `; } return d; };
+  const circle = (cx, cy, r) => `M${f(cx - r)} ${f(cy)} a${f(r)} ${f(r)} 0 1 0 ${f(r * 2)} 0 a${f(r)} ${f(r)} 0 1 0 ${f(-r * 2)} 0 Z`;
+  const svg = (w, h, cls, inner) => `<svg class="${cls}" viewBox="0 0 ${f(w)} ${f(h)}" aria-hidden="true" focusable="false">${inner}</svg>`;
+
+  // the grain, with the boil unless less motion is asked for
+  if (!document.getElementById("st-mk")) {
+    const boil = calm ? ["", ""] : ['<animate attributeName="seed" values="11;23;37;41" dur="0.6s" calcMode="discrete" repeatCount="indefinite"/>', '<animate attributeName="seed" values="5;9;14;18" dur="0.6s" calcMode="discrete" repeatCount="indefinite"/>'];
+    document.body.insertAdjacentHTML("beforeend", `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="st-mk" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="11" result="n">${boil[0]}</feTurbulence><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -3.2 0 0 0 2.75" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in" result="t"/><feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="5" result="w">${boil[1]}</feTurbulence><feDisplacementMap in="t" in2="w" scale="1.4" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>`);
+  }
+
+  // the name
+  const home = document.querySelector(".bar-home");
+  if (home && !home.querySelector(".bar-spark")) {
+    const label = home.textContent.replace(/^\s*←\s*/, "").trim();
+    const fl = flower(20, 20, 19);
+    home.setAttribute("aria-label", label);
+    home.innerHTML = svg(40, 40, "bar-spark", `<clipPath id="st-fl"><path d="${fl}"/></clipPath><g filter="url(#st-mk)"><path class="f" d="${fl}"/><g clip-path="url(#st-fl)"><path class="s" stroke-width="2.6" d="${hatch(0, 0, 40, 40, 9, 6.5)}"/></g></g><path fill="#FFFCF6" d="${circle(20, 20, 3.9)}"/>`) + `<span class="bar-label">${label}</span>`;
+  }
+  const swoosh = () => {
+    if (!home) return;
+    const t = home.querySelector(".bar-label"); if (!t) return;
+    const old = home.querySelector(".bar-swoosh"), w = t.offsetWidth + 6;
+    if (old) old.remove();
+    home.insertAdjacentHTML("beforeend", svg(w, 11, "bar-swoosh", `<path pathLength="1" d="M2 7.4 C${f(w * 0.28)} 3.2 ${f(w * 0.62)} 9.6 ${f(w - 2)} 4.2"/>`));
+    // redrawn after it has drawn itself in (late fonts, a resize): it simply stays drawn
+    if (old && Date.now() - T0 > 1300) { const p = home.querySelector(".bar-swoosh path"); p.style.animation = "none"; p.style.strokeDashoffset = "0"; }
+  };
+  // the nav's wavy underline, drawn on hover
+  const waves = () => document.querySelectorAll(".bar-nav a").forEach((a) => {
+    a.querySelectorAll(".bar-ul").forEach((x) => x.remove());
+    const w = a.offsetWidth + 4; if (w < 8) return;
+    const q = (w - 4) / 4, y = 4;
+    a.insertAdjacentHTML("beforeend", svg(w, 8, "bar-ul", `<path pathLength="1" d="M2 ${f(y + 1)} Q${f(2 + q / 2)} ${f(y - 2.4)} ${f(2 + q)} ${f(y + 0.6)} T${f(2 + 2 * q)} ${f(y + 0.6)} T${f(2 + 3 * q)} ${f(y + 0.6)} T${f(w - 2)} ${f(y)}"/>`));
+  });
+  // buttons: wax streaks across, and a drawn arrow in place of a typed one
+  const btns = [...document.querySelectorAll("a.button, button.button")];
+  btns.forEach((b) => {
+    if (b.querySelector(".btn-t")) return;
+    const typed = /\s*[↗→]\s*$/.test(b.textContent);
+    b.innerHTML = `<span class="btn-t">${b.innerHTML.replace(/\s*[↗→]\s*$/, "").trim()}</span>` + (b.tagName === "A" || typed ? svg(28, 16, "btn-arrow", '<path d="M2 8.7 C9 7.9 16 8.5 25.2 7.7 M19 2.4 C21.2 4.7 23.2 6.4 25.6 7.7 C23.3 9.1 21.4 11 19.3 13.7"/>') : "");
+  });
+  const wax = () => btns.forEach((b) => {
+    b.querySelectorAll(".btn-wax").forEach((x) => x.remove());
+    const w = b.offsetWidth, h = b.offsetHeight; if (!w) return;
+    b.insertAdjacentHTML("afterbegin", svg(w, h, "btn-wax", `<path d="${hatch(0, 0, w, h, 17, 15)}"/>`));
+  });
+  const draw = () => { swoosh(); waves(); wax(); };
+  draw();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(draw, 150); });
+})();
