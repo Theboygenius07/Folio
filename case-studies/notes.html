@@ -10,7 +10,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Notes · Seyi Ogundipe" />
   <meta property="og:image" content="https://seyi-xyz.vercel.app/assets/og.png" />
-  <link rel="stylesheet" href="study.css?v=20261123" />
+  <link rel="stylesheet" href="study.css?v=20261124" />
   <style>
     .note-h { margin: 0 0 8px; color: var(--ink-2); font: 700 15px/1.4 var(--hand); }
     .note-list { max-width: 46rem; margin: 0 auto; padding: 0; list-style: none; display: grid; row-gap: 18px; }
@@ -19,6 +19,17 @@
     .note-list b { font-weight: 600; font-size: 19px; line-height: 1.45; }
     .note-list em { display: block; margin-top: 2px; color: var(--ink-2); font-style: normal; font-size: 15px; line-height: 1.55; }
     .note-list a:hover b { text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--tint-ink); text-underline-offset: .2em; }
+    /* wide screens: the titles on the reading column, the numbers hung in the margin, as in the case studies' short version */
+    @media (min-width: 861px) {
+      .note-list { max-width: none; row-gap: 22px; }
+      .note-list a { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); }
+      .note-list span { grid-column: 3; text-align: right; }
+      .note-list a > div { grid-column: 4 / span 6; }
+    }
+    @media (min-width: 861px) and (max-width: 1180px) {
+      .note-list span { grid-column: 2; }
+      .note-list a > div { grid-column: 3 / span 8; }
+    }
   </style>
 </head>
 <body style="--tint:#E4492A; --tint-ink:#C93B1E">
@@ -102,6 +113,6 @@
     </article>
   </main>
   <script src="/assets/crayon.js?v=3" defer></script>
-  <script src="study.js?v=20261119" defer></script>
+  <script src="study.js?v=20261124" defer></script>
 </body>
 </html>

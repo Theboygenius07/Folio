@@ -6,12 +6,12 @@ import { S, $, $$, svgEl, tabs, relRect } from "./util.js";
 import { EXAMPLE_PROMPTS as EX } from "./typewriter.js";
 
 const SENTENCES = [
-  { s: EX[0], src: "Example 1 of 5 in FlowCreator.tsx.", lane: "tiers",
+  { s: EX[0], src: "Example 1 of 5 on the site.", lane: "tiers",
     tiers: [["VIP", 10000, 20], ["Regular", 4000, 100]] },
-  { s: EX[1], src: "Example 2 of 5 in FlowCreator.tsx.", lane: "one", price: 5000, cap: 100 },
+  { s: EX[1], src: "Example 2 of 5 on the site.", lane: "one", price: 5000, cap: 100 },
   { s: EX[2], src: "Example 3 of 5. No cap given, so the prompt's default applies.", lane: "one", price: 2500, cap: 100, capDefault: true },
-  { s: EX[3], src: "Example 4 of 5 in FlowCreator.tsx.", lane: "one", price: 7500, cap: 40 },
-  { s: EX[4], src: "Example 5 of 5 in FlowCreator.tsx.", lane: "one", price: 15000, cap: 50 },
+  { s: EX[3], src: "Example 4 of 5 on the site.", lane: "one", price: 7500, cap: 40 },
+  { s: EX[4], src: "Example 5 of 5 on the site.", lane: "one", price: 15000, cap: 50 },
   { s: "Monthly membership for my book club, ₦3,000 a month", src: "My sentence, using a word the prompt listens for: monthly.", lane: "rec", price: 3000, cap: 100, capDefault: true, freq: "monthly" },
   { s: "Sell tickets to my Saturday event", src: "Example 1 with its prices taken out.", lane: "info", msg: "What's the price per ticket?" },
 ];

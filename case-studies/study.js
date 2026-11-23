@@ -117,7 +117,7 @@
 
     /* The contents sit in the left margin, and wide figures reach into it. When one
        would pass under the list, the list steps aside until it has gone by. */
-    const WIDE = ".stage, .fig, .pair, .trio, .live, .scrolly-fig, .reel, .wide, .ba, .process, .quote, [data-wide]";
+    const WIDE = ".stage, .fig, .pair, .trio, .live, .scrolly-fig, .reel, .wide, .ba, .process, .quote, .brief, [data-wide]";
     let queued = false;
     const check = () => {
       queued = false;

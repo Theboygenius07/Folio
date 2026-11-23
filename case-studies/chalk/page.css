@@ -485,3 +485,15 @@ html { background: var(--u-paper); -webkit-text-size-adjust: 100%; scroll-behavi
 .u-brief b { color: var(--u-ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .u-cut { color: var(--u-muted); text-decoration: line-through; text-decoration-color: var(--u-red); text-decoration-thickness: 2px; }
 @media (max-width: 640px) { .u-brief > div { grid-template-columns: 1fr; row-gap: 4px; } }
+/* wide screens: the brief's words sit on the chapters' 620px column, with the crayon labels hung in the margin to their left */
+@media (min-width: 1025px) {
+  .u-brief { max-width: none; }
+  .u-brief > div { grid-template-columns: minmax(0, 1fr) var(--u-col) minmax(0, 1fr); }
+  .u-brief dt { grid-column: 1; text-align: right; }
+  .u-brief dd { grid-column: 2; }
+}
+/* phones: the step dots on the drawn board keep their look, but take a thumb */
+@media (pointer: coarse), (max-width: 560px) {
+  .db-dots button { position: relative; }
+  .db-dots button::before { content: ""; position: absolute; top: -8px; bottom: -8px; left: -2px; right: -2px; }
+}

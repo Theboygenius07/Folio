@@ -95,7 +95,7 @@ export function initCompiler(fig) {
       op.params.forEach((p, i) => { h += paramLine(p, "p:" + p.name, i === op.params.length - 1); });
       h += line("  ]");
       h += line("}");
-      h += `<p class="fc-sub">compile.ts turns it into a schema</p>`;
+      h += `<p class="fc-sub">the compiler turns it into a schema</p>`;
       if (!op.params.length) h += line("{ }  no inputs");
       op.params.forEach((p) => { h += line(`${esc(p.name)}: ${zodLine(p)}${p.nested ? "  <span class=\"k\">// nested, sent as a JSON string</span>" : ""}`, "p:" + p.name); });
       sum.innerHTML = `parseInput → <b>curl</b> · <b>${op.params.length}</b> input${op.params.length === 1 ? "" : "s"} · auth <b>${spec.auth.type}</b>`;

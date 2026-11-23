@@ -11,7 +11,7 @@
   <meta property="og:title" content="Building Cohort / Raise: an investor page that isn't a deck" />
   <link rel="icon" href="../images/cohort-work-icon.svg" type="image/svg+xml" />
   <link rel="preload" href="raise/centold.woff" as="font" type="font/woff" crossorigin />
-  <link rel="stylesheet" href="study.css?v=20261123" />
+  <link rel="stylesheet" href="study.css?v=20261124" />
   <link rel="stylesheet" href="raise/page.css" />
 </head>
 <body style="--tint:#4b63ff; --tint-ink:#2f45d6">
@@ -55,7 +55,6 @@
           <div><dt>The numbers</dt><dd>The page led to <span class="n">4</span> investor conversations and <span class="n">3</span> signed letters of intent. It answers 13 questions, rotates 3 proof points every 4 seconds, and grows a network graph of 32 nodes as they connect.</dd></div>
         </dl>
 
-        <!-- Fig. 1: both letters, live. Ports raise.js:34-88 (greeting, corner) and the chip behaviours at raise.js:135-178, 251-269. -->
         <figure class="stage rz-hero" id="letter" aria-label="The opening of the investor letter and the student letter, rebuilt live">
           <div class="rz-letter" data-reader="investor">
             <p class="rz-corner" aria-label="The corner clock"><span class="rz-time">12:00 PM</span><span class="rz-stat">2,083 STUDENTS WAITING</span><svg class="rz-chev" viewBox="0 0 10 6" width="10" height="6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
@@ -135,7 +134,6 @@
             <p>The corner is the smallest change. On the student page it tells you the time of day. On the investor page it rotates 3 proof points every 4 seconds: 2,083 students waiting, zero paid acquisition, a Fall '26 launch. The greeting changes language every 5 seconds, so the 2 only change together every 20.</p>
           </div>
 
-          <!-- Fig. 3: the corner and greeting on one timeline. raise.js:39-63 (greeting, 5 s) and raise.js:72, 86-87 (corner, 4 s). -->
           <figure class="stage rz-clock" id="clockfig" aria-label="The corner clock and the greeting on one timeline">
             <div class="rz-clock-live">
               <p class="rz-clock-greet"><span class="rz-hello">Good afternoon</span>,</p>
@@ -180,7 +178,6 @@
             <p>Turn the forces on and the shape makes sense. Repulsion is far stronger than the pull to the middle, so nodes slide outwards until a hard clamp stops them, 17% in from the sides and 14% from the top and bottom. Almost every node ends up on that line, so the graph reads as a frame of students with a few hubs pulling links across the middle.</p>
           </div>
 
-          <!-- Fig. 4: the network overlay as a floating figure. raise.js:497-752 -->
           <figure class="stage rz-net" id="netfig" aria-label="The network graph, live">
             <div class="stage-bar rz-net-top">
               <div class="tabs" role="group" aria-label="Which graph">
@@ -235,7 +232,6 @@
             <p>The notes are blank here, because what they say belongs to the page. What's left is the motion. Every note gets its own random delay inside 0.7 s, a tilt of up to 20° either way, and a back.out(1.7) pop from half size. At 1.1 s the numbers start counting. At 2.2 s the notes fall off the bottom of the screen, each with its own spin, and you're back in the letter.</p>
           </div>
 
-          <!-- Fig. 5: the sticky-note wall. raise.js:180-249, countUp at raise.js:367-372 -->
           <figure class="stage rz-wall" id="wallfig" aria-label="The sticky note wall">
             <div class="stage-canvas rz-wall-canvas">
               <p class="rz-wall-line">We talked to <button type="button" class="rz-chip" aria-expanded="false">500 students</button> across three countries.<span class="rz-wall-ix" hidden> <b class="n">0</b> notes on this wall.</span> Same story every time: drowning in coordination, starving for connection.</p>
@@ -276,7 +272,6 @@
             <p>The stroke is an SVG path with a 300 unit dash, offset by 300 so it starts hidden, and tweened to 0 over 0.65 s on power2.inOut. The path is only about <span data-strike="len">84</span> units long. So the line is fully drawn <span data-strike="tfull">0.27 s</span> in, while the ease is still speeding up, and it reads as one quick flick of a pen.</p>
           </div>
 
-          <!-- Fig. 6: the pen strike. raise.js:754-763, path and CSS from raise/index.html:227 and raise.css:343-349 -->
           <figure class="stage rz-strike" id="strikefig" aria-label="The pen strike through the word ads">
             <p class="rz-strike-line">And we grow through <span class="rz-chip rz-chip--static">experiences</span>, not <span class="rz-ads">ads<svg viewBox="0 0 80 18" preserveAspectRatio="none" aria-hidden="true"><path d="M-2,9 C10,7 20,11 30,9 C42,7 52,11 62,9 C70,7 76,8 82,9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="300" stroke-dashoffset="300"/></svg></span>. You text Cohort to get in.</p>
             <div class="rz-strike-grid">
@@ -318,7 +313,6 @@
             <p>Each phone burns in the first time you see it, with the same shader as the student site: 6 octaves of noise, tilted so the bottom of the picture comes in first, and a thin ember edge where pixels are about to appear. The chats keep their own voices. Cohort writes to the student in lower case and to the business in sentence case.</p>
           </div>
 
-          <!-- Fig. 7: the phone toggle. Shader and easing from raise.js:853-890, toggle from raise.js:892-906 -->
           <figure class="stage rz-phone" id="phonefig" aria-label="The B2C and B2B phones with the burn-in shader">
             <div class="rz-phone-grid">
               <div class="stage-canvas rz-phone-stage">
@@ -360,7 +354,6 @@
             <p>The button does 3 small things. Point at it and the label swaps to Copy Email, out in 0.15 s and in over 0.18 s, the same move as the corner. Click and it copies the address and says Copied ✓ for 2 seconds; if the clipboard refuses, it opens your mail app. And it leans towards your cursor by 32% of the distance, measured from where the button already is, chasing it on a 0.5 s power3.out.</p>
           </div>
 
-          <!-- Fig. 8: the email button. raise.js:929-962 -->
           <figure class="stage rz-ask" id="askfig" aria-label="The email button">
             <div class="stage-canvas rz-ask-canvas">
               <svg class="rz-ask-lines" data-overlay aria-hidden="true">
@@ -422,7 +415,7 @@
     </article>
   </main>
   <script src="/assets/crayon.js?v=3" defer></script>
-  <script src="study.js?v=20261119" defer></script>
+  <script src="study.js?v=20261124" defer></script>
   <script type="module" src="raise/page.js"></script>
 </body>
 </html>

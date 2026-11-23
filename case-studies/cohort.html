@@ -10,7 +10,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Building Cohort: a waitlist page that reads like a letter" />
   <link rel="icon" href="../images/cohort-work-icon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="study.css?v=20261123" />
+  <link rel="stylesheet" href="study.css?v=20261124" />
   <link rel="stylesheet" href="cohort/page.css" />
 </head>
 <body style="--tint:#1c34f5; --tint-ink:#1c34f5">
@@ -54,7 +54,6 @@
           <div><dt>The numbers</dt><dd><span class="n">2,000+</span> students joined the waitlist before launch. Every sign-up is checked twice, in the app and in the database, so pressing the button again never counts anyone twice.</dd></div>
         </dl>
 
-        <!-- Fig. 1: the phone burn-in, ported from Cohort/js/main.js:1987-2171 -->
         <figure class="stage burn" id="burn">
           <div class="stage-canvas burn-stage">
             <div class="burn-wrap">
@@ -137,7 +136,6 @@
             <p>The lamp below runs the site's code with its numbers. Pull it and this page changes with it.</p>
           </div>
 
-          <!-- Fig. 3: the pull-cord lamp, ported from Cohort/js/main.js:1200-1394 and 1458-1480 -->
           <figure class="stage lamp-fig" id="lamp-fig">
             <div class="stage-canvas lamp-stage">
               <div class="lamp-hang">
@@ -213,7 +211,6 @@
             <p>How long that takes depends on how far it has to go: 0.32 seconds, plus a second for every 1,500 pixels, capped at 0.6. Opening eases out. Closing eases in and out, and keeps the words on screen until the height has finished shrinking.</p>
           </div>
 
-          <!-- Fig. 4: the first two paragraphs with their chips, ported from Cohort/index.html:180-235 and main.js:215-269 -->
           <figure class="stage chips-fig" id="chips-fig">
             <div class="stage-canvas chips-stage">
               <div class="letter chips-letter">
@@ -253,7 +250,6 @@
             <p>Each one is a small piece of motion with its own numbers. Pick one below to take it apart.</p>
           </div>
 
-          <!-- Fig. 5: four effects, ported from Cohort/js/main.js:271-487, 634-725, 893-948 -->
           <figure class="stage fx-fig" id="fx-fig">
             <div class="stage-bar fx-tabs-bar">
               <div class="tabs" role="tablist" aria-label="Pick an effect">
@@ -342,7 +338,6 @@
             <p>The noise is tilted by 0.3 from top to bottom, so the bottom of the phone comes through first. The threshold closes 1.6% of the remaining distance every frame, so it moves fast at the start and slows as it arrives. Once the phone is there, it tilts toward your mouse: up to 9 degrees sideways and 5 up or down.</p>
           </div>
 
-          <!-- Fig. 6: the shader's noise and threshold, run on the CPU. Same functions as Cohort/js/main.js:2026-2067 -->
           <figure class="stage noise-fig" id="noise-fig">
             <div class="stage-canvas noise-row">
               <div class="noise-field">
@@ -377,7 +372,6 @@
             <p>The button leans toward your cursor. When you join, confetti goes off twice from the button, in the colours of whatever time of day you're in.</p>
           </div>
 
-          <!-- Fig. 7: the end of the letter, ported from Cohort/js/main.js:164-193, 489-615, 2173-2332 -->
           <figure class="stage eggs-fig" id="eggs-fig">
             <div class="stage-canvas eggs-stage">
               <div class="letter eggs-letter">
@@ -415,7 +409,6 @@
             <p>The shooting star isn't on a fixed beat. Each time one launches, the next is set for 15 seconds plus a random share of 20 more, so you can't predict it, but you never wait more than 35 seconds.</p>
           </div>
 
-          <!-- Fig. 8: the ambient layer, ported from Cohort/js/main.js:1396-1713 -->
           <figure class="stage sky-fig" id="sky-fig">
             <div class="stage-bar sky-tabs">
               <div class="tabs" role="group" aria-label="Pick a layer">
@@ -449,7 +442,6 @@
             <p>The keyboard clicks behind "messages" are bursts of filtered noise with a low thump under them, fired at random gaps of 55 to 145 milliseconds, with a longer pause about 1 time in 8. The lamp's switch is the same trick: a 28 millisecond crack of noise around 1,900 hertz, a low thud, and when it turns on, a 120 hertz hum that dies away in 0.2 seconds.</p>
           </div>
 
-          <!-- Fig. 9: the sound kit, ported from Cohort/js/main.js:23-162 and 2270-2274 -->
           <figure class="stage sound-fig" id="sound-fig">
             <div class="stage-bar">
               <div class="tabs sound-keys" role="group" aria-label="Play a sound">
@@ -498,7 +490,7 @@
     </article>
   </main>
   <script src="/assets/crayon.js?v=3" defer></script>
-  <script src="study.js?v=20261119" defer></script>
+  <script src="study.js?v=20261124" defer></script>
   <script type="module" src="cohort/page.js"></script>
 </body>
 </html>

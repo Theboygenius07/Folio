@@ -496,3 +496,8 @@ button.ck-tool:hover { background: #363636; }
   .ck-think i { animation: none; opacity: 0.6; }
   .ck-modal, .ck-day, .ck-folder, .ck-qcard { transition: none; }
 }
+
+/* phones: the numbered pins keep their size, but take a thumb */
+@media (pointer: coarse), (max-width: 560px) {
+  .ck-pin::before { content: ""; position: absolute; inset: -9px; border-radius: 50%; }
+}

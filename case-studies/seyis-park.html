@@ -10,8 +10,8 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Building Seyi's Park: a portfolio you can walk around" />
   <link rel="icon" href="../images/seyispark-icon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="study.css?v=20261123" />
-  <link rel="stylesheet" href="seyis-park/page.css" />
+  <link rel="stylesheet" href="study.css?v=20261124" />
+  <link rel="stylesheet" href="seyis-park/page.css?v=20261124" />
   <script type="importmap">
     {
       "imports": {
@@ -105,7 +105,7 @@
               </div>
             </div>
             <ul class="readout park-readout" aria-live="polite"><li data-r="cam"><b>OrthographicCamera</b></li><li data-r="info">fitted to the whole park</li></ul>
-            <figcaption><b>Fig. 2</b> <code>Portfolio-test2.glb</code>, loaded here with three.js and lit with the park's own sun. The green squares mark the 11 things that answer a click. <span class="hover-only">Point at anything to see its name and what <code>main.js</code> does with it, click a creature to make it hop, and drag to turn the park.</span><span class="touch-only">Tap anything to see its name and what <code>main.js</code> does with it. Tap a creature to make it hop. Drag sideways to turn the park.</span></figcaption>
+            <figcaption><b>Fig. 2</b> The park&rsquo;s model, loaded here with three.js and lit with the park's own sun. The green squares mark the 11 things that answer a click. <span class="hover-only">Point at anything to see its name and what the code does with it, click a creature to make it hop, and drag to turn the park.</span><span class="touch-only">Tap anything to see its name and what the code does with it. Tap a creature to make it hop. Drag sideways to turn the park.</span></figcaption>
           </figure>
 
           <dl class="facts">
@@ -148,7 +148,7 @@
               </ul>
             </div>
             <div class="hop-lower">
-              <svg class="hop-curve" role="img" aria-label="The squash and stretch curve from main.js: height drops to 0.9 in 0.1 seconds, rises to 1.1 by 0.25 seconds, settles to 1 by 0.4 seconds and holds until 0.5 seconds. Width moves the other way, to 1.08 and 0.92."></svg>
+              <svg class="hop-curve" role="img" aria-label="The squash and stretch curve from the park&rsquo;s code: height drops to 0.9 in 0.1 seconds, rises to 1.1 by 0.25 seconds, settles to 1 by 0.4 seconds and holds until 0.5 seconds. Width moves the other way, to 1.08 and 0.92."></svg>
               <div class="hop-controls">
                 <label class="scrub"><span>Jump</span><input type="range" min="6" max="15" step="0.5" value="11" data-k="jump" aria-label="Jump height, the upward speed of a hop" /><output>11</output></label>
                 <label class="scrub"><span>Move</span><input type="range" min="2" max="14" step="0.5" value="7" data-k="move" aria-label="Move speed, the sideways speed of a hop" /><output>7</output></label>
@@ -197,7 +197,7 @@
               <button type="button" class="link-btn" data-respawn>Back to the start</button>
             </div>
             <ul class="readout floor-readout"><li>x <b data-o="x">−9.66</b></li><li>y <b data-o="y">9.60</b></li><li>z <b data-o="z">−28.55</b></li><li>vy <b data-o="vy">0.00</b></li><li>on floor <b data-o="floor">yes</b></li></ul>
-            <figcaption><b>Fig. 4</b> The park with its floor showing, running the movement code from <code>main.js</code> against the real collider, through the park's own camera. <span class="hover-only">Click the picture, then hop with the arrow keys or WASD. R takes you back to the start.</span><span class="touch-only">Hop with the arrows under the picture.</span> The view is cut to a square of ground round the character so it sits on the page. The green pill at the character's feet is the capsule, and nothing else touches anything.</figcaption>
+            <figcaption><b>Fig. 4</b> The park with its floor showing, running the park&rsquo;s movement code against the real collider, through the park's own camera. <span class="hover-only">Click the picture, then hop with the arrow keys or WASD. R takes you back to the start.</span><span class="touch-only">Hop with the arrows under the picture.</span> The view is cut to a square of ground round the character so it sits on the page. The green pill at the character's feet is the capsule, and nothing else touches anything.</figcaption>
           </figure>
           <p class="note"><b>Capsule against character.</b> The capsule is 1.35 units tall. The character drawn around it is 7.57. Only the capsule touches anything; the rest of the character is just drawn.</p>
         </section>
@@ -241,7 +241,7 @@
                 <div class="sb-sound"><button type="button" class="sb-play" data-play="creature">Creature</button><p class="sb-meta">pokemon.ogg · volume 0.5 · 0.19 s</p><canvas class="sb-wave" data-wave="creature" aria-hidden="true"></canvas></div>
               </div>
             </div>
-            <figcaption><b>Fig. 5</b> The park's four sounds at the volumes <code>main.js</code> gives them, converted from Ogg to MP3 for this page. Press a sound to hear it, or press one of the things that trigger it. The waveforms are drawn from the files. Sound only plays when you press.</figcaption>
+            <figcaption><b>Fig. 5</b> The park's four sounds at the volumes the code gives them, converted from Ogg to MP3 for this page. Press a sound to hear it, or press one of the things that trigger it. The waveforms are drawn from the files. Sound only plays when you press.</figcaption>
           </figure>
           <p class="note"><b>Lengths.</b> The hop lasts 0.16 seconds, the card sound 0.14 and the creature sound 0.19. The music runs 2 minutes 4 seconds, then loops.</p>
         </section>
@@ -319,7 +319,7 @@
     </article>
   </main>
   <script src="/assets/crayon.js?v=3" defer></script>
-  <script src="study.js?v=20261119" defer></script>
+  <script src="study.js?v=20261124" defer></script>
   <script type="module" src="seyis-park/page.js"></script>
 </body>
 </html>

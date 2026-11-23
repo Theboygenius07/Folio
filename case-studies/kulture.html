@@ -12,8 +12,8 @@
   <meta property="og:description" content="A one-night street-culture party in Ojo, Lagos, and the ticket people played with before they bought one." />
   <link rel="icon" href="../images/kulture-icon.svg" type="image/svg+xml" />
   <link rel="preload" href="fonts-kulture/FuturaCyrillicHeavy.woff" as="font" type="font/woff" crossorigin />
-  <link rel="stylesheet" href="study.css?v=20261123" />
-  <link rel="stylesheet" href="kulture/page.css" />
+  <link rel="stylesheet" href="study.css?v=20261124" />
+  <link rel="stylesheet" href="kulture/page.css?v=20261124" />
 </head>
 <body style="--tint:#c8a94a; --tint-ink:#7d6118">
   <div class="page">
@@ -56,7 +56,6 @@
           <div><dt>The numbers</dt><dd><span class="n">430</span> tickets in <span class="n">5</span> days, for a party of about 500. 3 classes, from <span class="n">₦3,000</span> to <span class="n">₦100,000</span> and up. The print passes were generated in code at 2550 by 1050 pixels.</dd></div>
         </dl>
 
-        <!-- Fig. 1: the real pass, floating on the paper. Markup from Kulture/index.html, tilt from js/main.js:219-243. -->
         <figure class="stage k k-hero" id="kHero">
           <div class="stage-canvas k-hero-canvas" data-overlay>
             <div class="k-float">
@@ -142,7 +141,6 @@
             <p>So buying a ticket became boarding. The pass runs from OJO to PTY, Lagos to Party, and the same pass turns up 3 times: on the first screen, in the footer, and in the print files.</p>
           </div>
 
-          <!-- Fig. 2: the pass drawn on the print generator's grid (tickets/generate.js, buildSVG: W 850, H 350, PERF_X 645, STUB_X 668, PAD 38). -->
           <div class="scrolly k k-anat" id="kAnat">
             <figure class="scrolly-fig">
               <div class="k-anat-fig" data-overlay role="img" aria-label="A line drawing of the boarding pass that fills in one part at a time as you scroll"></div>
@@ -169,7 +167,6 @@
             <p>Then it lets you make it yours. Click the name and type, and the stub repeats it as you go. Switch the tier and the class, the stub and the code along the bottom change with it. Nothing is saved.</p>
           </div>
 
-          <!-- Fig. 3: the tilt with its numbers drawn out. js/main.js:219-243. -->
           <figure class="stage k k-tilt" id="kTilt">
             <div class="stage-canvas k-tilt-grid" data-overlay>
               <div class="k-pad-wrap">
@@ -209,7 +206,6 @@
             <p>While the page sits at the very top, the scroll wheel moves the track sideways instead of down. At the last panel it lets go and the page scrolls on. On a phone, a vertical swipe moves the track 2.5 times as far as your finger, and a swipe of 15% of a panel is enough to snap to the next one.</p>
           </div>
 
-          <!-- Fig. 4: the hero in miniature. Wheel and touch handlers from js/main.js:36-98. Cursor from js/main.js:101-119. -->
           <figure class="stage k k-side" id="kSide">
             <div class="stage-canvas k-side-canvas" data-overlay>
               <div class="k-side-view" tabindex="0" role="region" aria-label="The three hero panels in miniature. Scroll, swipe or drag up and down over it to move sideways. Arrow keys move one panel.">
@@ -259,7 +255,6 @@
             <p>Because the timers differ, the lines drift in and out of step. The cycle runs only while the panel is at least 30% on screen, and when it stops every line goes back to Futura.</p>
                       </div>
 
-          <!-- Fig. 5: js/main.js:376-430, same list, same timers, same 30% threshold. -->
           <figure class="stage k k-cycle" id="kCycle">
             <div class="stage-canvas k-cycle-canvas" data-overlay>
               <p class="k-cycle-words" aria-label="FOR THE KULTURE"><span class="font-cycle-el">FOR</span><span class="font-cycle-el">THE</span><span class="font-cycle-el k-in">KULTURE</span></p>
@@ -290,7 +285,6 @@
             <p>This board counts down to the next 9PM in Lagos, the time the doors opened.</p>
           </div>
 
-          <!-- Fig. 6: js/main.js:553-608, flipDigit() with rotateX -90, 0.28s, power2.in. -->
           <figure class="stage k k-board" id="kBoard">
             <div class="stage-canvas k-board-canvas" data-overlay>
               <p class="k-board-eye">Next departure · 21:00 Lagos</p>
@@ -332,7 +326,6 @@
             <p>Scrolling pushes them. On each scroll event the site divides how far the page moved by the time since the last one, and sets a boost of 1 + min(speed × 6, 8). Every frame the boost then loses 5% of whatever is left above 1.</p>
                       </div>
 
-          <!-- Fig. 7: js/main.js:324-373, driven by scrolling on this page. -->
           <figure class="stage k k-mq" id="kMq">
             <div class="k-mq-bands" aria-hidden="true">
               <div class="mq-row mq-row--red"><div class="mq-track"><span class="mq-content">For The Kulture <i class="mq-star"></i> Ojo, Lagos <span class="mq-illus">🔥</span> Street Culture <i class="mq-star"></i> Red Carpet <span class="mq-illus">🎟️</span> 18+ Only <i class="mq-star"></i> Post-Exam Party <span class="mq-illus">🔥</span> 500 Guests <i class="mq-star"></i></span><span class="mq-content">For The Kulture <i class="mq-star"></i> Ojo, Lagos <span class="mq-illus">🔥</span> Street Culture <i class="mq-star"></i> Red Carpet <span class="mq-illus">🎟️</span> 18+ Only <i class="mq-star"></i> Post-Exam Party <span class="mq-illus">🔥</span> 500 Guests <i class="mq-star"></i></span></div></div>
@@ -371,7 +364,6 @@
             <p>The timeline is tied to the scrollbar with a scrub of 1.5, so the cards take a second and a half to catch up with the page. Under 768 pixels none of this runs. The cards stack and fade in.</p>
           </div>
 
-          <!-- Fig. 8: js/main.js:500-545, the desktop branch, on a paused timeline. -->
           <figure class="stage k k-exp" id="kExp">
             <div class="stage-canvas k-exp-stage" data-overlay>
               <div class="k-exp-scene" aria-hidden="true">
@@ -412,7 +404,6 @@
             <p>Regular is cream, VIP is black and Table is red. In print the passenger line reads ADMITS ONE, and the stub carries a barcode instead of a name.</p>
           </div>
 
-          <!-- Fig. 9: tickets/generate.js buildSVG(), run in the browser. -->
           <figure class="stage k k-print" id="kPrint">
             <div class="stage-canvas k-print-stack" data-overlay></div>
             <div class="stage-bar">
@@ -465,7 +456,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="/assets/crayon.js?v=3" defer></script>
-  <script src="study.js?v=20261119" defer></script>
+  <script src="study.js?v=20261124" defer></script>
   <script type="module" src="kulture/page.js"></script>
 </body>
 </html>

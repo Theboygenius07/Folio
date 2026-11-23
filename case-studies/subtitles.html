@@ -11,7 +11,7 @@
   <meta property="og:title" content="Building Subtitles: a year of photos, captioned like film" />
   <link rel="icon" href="../images/subtitles-icon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
-  <link rel="stylesheet" href="study.css?v=20261123" />
+  <link rel="stylesheet" href="study.css?v=20261124" />
   <link rel="stylesheet" href="subtitles/page.css" />
   <script type="importmap">
     { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }
@@ -107,12 +107,12 @@
                 <img data-type-img alt="" width="560" height="315" />
               </div>
               <div class="type-data">
-                <p class="type-k">data.json</p>
+                <p class="type-k">the data file</p>
                 <p class="type-raw" data-type-raw></p>
                 <p class="type-rule" data-type-rule></p>
               </div>
               <div class="type-set" data-theme="dark">
-                <p class="type-k">set by formatSubtitle(), utils.js</p>
+                <p class="type-k">set by the site&rsquo;s formatter</p>
                 <div class="type-screen" data-type-out></div>
                 <p class="type-spec" data-type-spec></p>
               </div>
@@ -352,12 +352,12 @@
           </div>
           <figure class="stage" id="pipe-fig">
             <ol class="pipe-flow">
-              <li><b>data.json</b><p>A week with no address yet.</p><code>{ "id": "Subtiles30",
+              <li><b>The data file</b><p>A week with no address yet.</p><code>{ "id": "Subtiles30",
   "cloudinary_url": "" }</code></li>
-              <li><b>upload.js</b><p>Finds it, then finds its image on disk.</p><code>content/images/Subtiles30.png
+              <li><b>The upload script</b><p>Finds it, then finds its image on disk.</p><code>content/images/Subtiles30.png
 public_id: "Subtiles30"
 overwrite: false</code></li>
-              <li><b>Cloudinary</b><p>Stores the original and answers with an address, written back into data.json.</p><code>secure_url → cloudinary_url</code></li>
+              <li><b>Cloudinary</b><p>Stores the original and answers with an address, written back into the data file.</p><code>secure_url → cloudinary_url</code></li>
               <li><b>The page</b><p>Asks for the width it needs, never the original.</p><code>cloudinaryUrl(url, width)
 w = width × min(dpr, 3)</code></li>
             </ol>
@@ -413,7 +413,7 @@ w = width × min(dpr, 3)</code></li>
     </article>
   </main>
   <script src="/assets/crayon.js?v=3" defer></script>
-  <script src="study.js?v=20261119" defer></script>
+  <script src="study.js?v=20261124" defer></script>
   <script type="module" src="subtitles/page.js"></script>
 </body>
 </html>

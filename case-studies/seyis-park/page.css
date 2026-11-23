@@ -173,3 +173,9 @@
   #fig-file .park-canvas { aspect-ratio: 1 / 1; }
   .park-tip { left: 0; right: 0; top: auto; bottom: 0; width: auto; max-width: none; transform: none !important; font-size: 12.5px; }
 }
+
+/* phones: the pins are a dot each, so the area you press is bigger than the dot */
+@media (pointer: coarse), (max-width: 560px) {
+  .pin { margin: -13px; padding: 13px; }
+  .sb-trig button { min-height: 36px; }
+}

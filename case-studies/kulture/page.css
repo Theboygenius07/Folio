@@ -331,3 +331,8 @@
 @media (max-width: 340px) {
   .k-eases { grid-template-columns: 1fr; }
 }
+
+/* phones: the lineup's longest name ("Photo Activation") clears the timeline's start */
+@media (max-width: 560px) {
+  .k-exp .k-exp-gantt .lbl { font-size: 11px; }
+}

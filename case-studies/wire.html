@@ -11,7 +11,7 @@
   <meta property="og:title" content="Building Wire: a payment page from one sentence" />
   <meta property="og:description" content="Two products on one engine, built for APIConf 2026." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
-  <link rel="stylesheet" href="study.css?v=20261123" />
+  <link rel="stylesheet" href="study.css?v=20261124" />
   <link rel="stylesheet" href="wire/page.css" />
 </head>
 <body style="--tint:#e4f222; --tint-ink:#5c6400">
@@ -54,7 +54,6 @@
           <div><dt>The numbers</dt><dd>Built in a day and a half for the APIConf 2026 hackathon. One sentence becomes a Paystack checkout with a live sales dashboard that updates every <span class="n">3</span> seconds, and an agent gets <span class="n">6</span> hand-written Paystack tools to work with.</dd></div>
         </dl>
 
-        <!-- Fig. 1: Wire's home page, live. Port of app/page.tsx with RepelDotGrid behind and inside the cards. -->
         <figure class="stage w-hero" id="hero" aria-label="Wire's home page, rebuilt: two product cards on a field of dots that move away from the pointer">
           <div class="stage-canvas w-hero-field" data-overlay>
             <canvas class="w-hero-canvas" aria-hidden="true"></canvas>
@@ -107,7 +106,7 @@
           <h2 id="engine-h">Every API becomes the same shape</h2>
           <div class="col">
             <p>Wire rests on one type, 48 lines long. It says what a tool is: a name, a description, a typed input schema, and a handler that makes the real HTTP call. Everything else in Wire either makes that shape or uses it.</p>
-            <p>Paystack's 6 operations are written in that shape by hand. Relay's compiler writes it for you, from a <code>curl</code> command or an OpenAPI spec. On the other side, 2 things consume it: an MCP server that any agent can connect to, and one agent loop, <code>runAgent</code>, which hands the tools to OpenAI's Responses API and calls whatever the model asks for, for up to 6 turns.</p>
+            <p>Paystack's 6 operations are written in that shape by hand. Relay's compiler writes it for you, from a <code>curl</code> command or an OpenAPI spec. On the other side, 2 things consume it: an MCP server that any agent can connect to, and one agent loop, which hands the tools to the model and calls whatever it asks for, for up to 6 turns.</p>
             <p>Flow is that loop pointed at Paystack. Connect is the same loop pointed at a seller's own Airtable or Notion, run once after each sale with 4 turns and a prompt that says "doing nothing is a correct outcome."</p>
           </div>
           <figure class="stage fe" id="fe" aria-label="Diagram of Wire's engine: where tools come from, the shared tool shape, and what calls it">
@@ -116,10 +115,10 @@
               <div class="fe-heads" aria-hidden="true"><span>Where tools come from</span><span>One shape</span><span>What calls them</span><span>Where you meet it</span></div>
               <div class="fe-col fe-col--src">
                 <p class="fe-h">Where tools come from</p>
-                <div class="fe-node" data-n="paystack"><b>lib/paystack/tools.ts</b><span>6 Paystack tools, written by hand</span></div>
-                <div class="fe-node" data-n="wa"><b>lib/whatsapp/agent.ts</b><span>create_flow and edit_flow, by hand</span></div>
-                <div class="fe-node" data-n="curl"><b>parseCurl.ts</b><span>a pasted <code>curl</code> command</span></div>
-                <div class="fe-node" data-n="openapi"><b>parseOpenApi.ts</b><span>an OpenAPI 3 spec, as JSON</span></div>
+                <div class="fe-node" data-n="paystack"><b>Paystack</b><span>6 tools, written by hand</span></div>
+                <div class="fe-node" data-n="wa"><b>WhatsApp</b><span>2 tools for making and editing a sale, by hand</span></div>
+                <div class="fe-node" data-n="curl"><b>curl parser</b><span>a pasted <code>curl</code> command</span></div>
+                <div class="fe-node" data-n="openapi"><b>OpenAPI parser</b><span>an OpenAPI 3 spec, as JSON</span></div>
               </div>
               <div class="fe-col fe-col--mid">
                 <div class="fe-node fe-node--small" data-n="compile"><b>compileSpec</b><span>Zod schema plus a fetch handler</span></div>
@@ -133,7 +132,7 @@ handler: (args) =&gt; Promise</code></pre>
               </div>
               <div class="fe-col fe-col--use">
                 <p class="fe-h">What calls them</p>
-                <div class="fe-node" data-n="agent"><b>runAgent</b><span>OpenAI Responses API, up to 6 turns</span></div>
+                <div class="fe-node" data-n="agent"><b>The agent loop</b><span>up to 6 turns</span></div>
                 <div class="fe-node" data-n="mcp"><b>createMcpServer</b><span>MCP, at /api/mcp and /api/gateway/[id]/mcp</span></div>
               </div>
               <div class="fe-col fe-col--out">
@@ -157,7 +156,7 @@ handler: (args) =&gt; Promise</code></pre>
             <p class="fe-say" aria-live="polite" data-fe-say></p>
             <figcaption><b>Fig. 2</b> The engine, drawn from the imports. Pick a surface, or point at one, to light the path its tools take from where they're written to whatever calls them.</figcaption>
           </figure>
-          <p class="note"><b>Where it lives.</b> <code>lib/gateway/types.ts</code> holds the shape, <code>compile.ts</code> builds it, <code>lib/openai/agent.ts</code> runs it, and <code>lib/mcp/server.ts</code> serves it. None of them knows whether a tool was compiled or written by hand.</p>
+          <p class="note"><b>One shape, 4 parts.</b> One type holds the shape, a compiler builds it, an agent loop runs it, and an MCP server serves it. None of them knows whether a tool was compiled or written by hand.</p>
         </section>
 
         <section class="g s" id="flow" aria-labelledby="flow-h">
@@ -186,7 +185,7 @@ handler: (args) =&gt; Promise</code></pre>
               </ul>
               <button type="button" class="link-btn" data-ft-play hidden>Play</button>
             </div>
-            <figcaption><b>Fig. 3</b> The prompt box, ported from <code>FlowCreator.tsx</code> with its exact timings. The line under it is the current example's life: type, hold, delete, wait. The 5 marks below are the whole loop; pick one to jump there. Type in the box and it stops, as the real one does.</figcaption>
+            <figcaption><b>Fig. 3</b> The prompt box, ported from the site with its exact timings. The line under it is the current example's life: type, hold, delete, wait. The 5 marks below are the whole loop; pick one to jump there. Type in the box and it stops, as the real one does.</figcaption>
           </figure>
           <p class="note"><b>The arithmetic.</b> An example of <i>n</i> characters lasts (<i>n</i> − 1) × 53 + 2,200 milliseconds. The longest has <span class="n">82</span> characters and lasts <span class="n">6.5</span> seconds. The loop of 5 takes <span class="n">24.3</span> seconds.</p>
         </section>
@@ -224,7 +223,7 @@ handler: (args) =&gt; Promise</code></pre>
                 <button type="button" aria-pressed="false" data-payout="0">No payout account</button>
               </div>
             </div>
-            <figcaption><b>Fig. 4</b> A walkthrough of <code>lib/flow/create.ts</code>, not a live model call. Pick a sentence to see which shape the prompt's rules point to, what gets called, and where the payout split joins in code. The first 5 sentences are Flow's own examples.</figcaption>
+            <figcaption><b>Fig. 4</b> A walkthrough of how a sale is set up, not a live model call. Pick a sentence to see which shape the prompt's rules point to, what gets called, and where the payout split joins in code. The first 5 sentences are Flow's own examples.</figcaption>
           </figure>
           <p class="note"><b>Uniqueness.</b> The page's reference and its customer email are made in code as well, because, in the code's words, "an LLM is not a reliable source of uniqueness."</p>
         </section>
@@ -289,7 +288,7 @@ handler: (args) =&gt; Promise</code></pre>
               </ul>
               <button type="button" class="link-btn" data-fd-play hidden>Play</button>
             </div>
-            <figcaption><b>Fig. 5</b> The dashboard from <code>app/dashboard/[slug]/page.tsx</code>, rebuilt with its 3-second poll and 500ms bar. Sales here are simulated. A sale lands at a random moment (hollow mark) but the page only learns of it at the next poll (filled). Press Sell one to make your own.</figcaption>
+            <figcaption><b>Fig. 5</b> The seller&rsquo;s dashboard, rebuilt with its 3-second poll and 500ms bar. Sales here are simulated. A sale lands at a random moment (hollow mark) but the page only learns of it at the next poll (filled). Press Sell one to make your own.</figcaption>
           </figure>
           <ol class="rows">
             <li><div><b>It works in WhatsApp.</b><p>Messages arrive through Twilio. Each one is signature-checked and de-duplicated by its message ID, then the same engine runs with 3 tools: create a sale, edit one, or refund a payment. It replies in plain words, and the prompt sets the tone with one line: "Sold 12/100 so far, ₦60,000 in." A new sale's QR code follows as an image captioned "Scan to pay".</p></div></li>
@@ -339,7 +338,7 @@ handler: (args) =&gt; Promise</code></pre>
               </div>
               <ul class="readout" aria-live="off"><li data-fc-sum></li></ul>
             </div>
-            <figcaption><b>Fig. 7</b> <code>parseCurl.ts</code> and <code>parseOpenApi.ts</code>, ported line for line and running in your browser. Edit the command and the tool rebuilds as you type. Point at any line on the right, or any part of the command, to see what made what.</figcaption>
+            <figcaption><b>Fig. 7</b> The curl and OpenAPI parsers, ported line for line and running in your browser. Edit the command and the tool rebuilds as you type. Point at any line on the right, or any part of the command, to see what made what.</figcaption>
           </figure>
           <p class="note"><b>Where the secret goes.</b> The token from an Authorization header never enters the schema. It's kept as <code>authValue</code> and added to each request by the handler, so the model never sees it.</p>
         </section>
@@ -369,7 +368,7 @@ handler: (args) =&gt; Promise</code></pre>
               <ul class="readout" aria-live="off" data-fg-read></ul>
               <button type="button" class="link-btn" data-fg-play hidden>Play</button>
             </div>
-            <figcaption><b>Fig. 8</b> <code>HeroParticles.tsx</code> and <code>RepelDotGrid.tsx</code>, ported with their constants. <span class="hover-only">Move across the field, or focus it and use the arrow keys.</span><span class="touch-only">Drag sideways across the field.</span> The rings are the 160 and 130 pixel radii. The cross is your pointer; in Brighten, the ring's centre is the eased pointer the dots actually measure from. Under it: the falloff by distance, and the easing over the last 2 seconds.</figcaption>
+            <figcaption><b>Fig. 8</b> The landing page&rsquo;s particle field and dot grid, ported with their constants. <span class="hover-only">Move across the field, or focus it and use the arrow keys.</span><span class="touch-only">Drag sideways across the field.</span> The rings are the 160 and 130 pixel radii. The cross is your pointer; in Brighten, the ring's centre is the eased pointer the dots actually measure from. Under it: the falloff by distance, and the easing over the last 2 seconds.</figcaption>
           </figure>
           <p class="note"><b>Where they run.</b> Brighten on Relay's hero and the developer page. Repel on the home page, inside product cards, and behind checkout, Connect and the dashboard.</p>
         </section>
@@ -424,7 +423,7 @@ handler: (args) =&gt; Promise</code></pre>
     </article>
   </main>
   <script src="/assets/crayon.js?v=3" defer></script>
-  <script src="study.js?v=20261119" defer></script>
+  <script src="study.js?v=20261124" defer></script>
   <script type="module" src="wire/page.js"></script>
 </body>
 </html>

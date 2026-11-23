@@ -10,8 +10,8 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Building Dumpling: UAT feedback, neatly folded" />
   <meta property="og:image" content="https://seyi-xyz.vercel.app/assets/og.png" />
-  <link rel="stylesheet" href="study.css?v=20261123" />
-  <link rel="stylesheet" href="dumpling/page.css?v=1" />
+  <link rel="stylesheet" href="study.css?v=20261124" />
+  <link rel="stylesheet" href="dumpling/page.css?v=2" />
 </head>
 <body style="--tint:#EA6A32; --tint-ink:#C4501C">
   <div class="page">
@@ -51,7 +51,7 @@
         </dl>
 
         <figure class="fig">
-          <div class="frame"><img src="/assets/img/dumpling.jpg" width="1600" height="900" alt="Dumpling's site: get clear feedback from every tester, above the review screen with its queue of cases to decide" /></div>
+          <div class="frame"><img src="/assets/img/dumpling.jpg?v=2" width="1600" height="900" alt="Dumpling's site: get clear feedback from every tester, above the review screen with its queue of cases to decide" /></div>
           <figcaption><b>Fig. 1</b> Dumpling&rsquo;s site, with the manager&rsquo;s review screen under it: a queue of cases to decide, one at a time.</figcaption>
         </figure>
 
@@ -82,48 +82,44 @@
             <p>A percentage on its own asks for trust it hasn&rsquo;t earned. So Dumpling leads with words: very likely the same, likely the same, related but probably not the same, probably different, or not sure, your call. The number comes second, and it&rsquo;s held inside the band its words name. A &ldquo;probably different&rdquo; can never carry 90%.</p>
             <p>Under the words, the score is plain arithmetic. How alike the wording is counts for 70% of a first pass, and where in the script the two notes came from counts for 30%. Pairs under 0.3 are never compared at all. The rest get a closer read, and the score blends the first pass (40%) with that read (60%). A tester&rsquo;s own &ldquo;same as mine&rdquo; lifts it to at least 90%; their &ldquo;different&rdquo; caps it at 40%.</p>
           </div>
-        </section>
 
-        <!-- Fig. 2: Dumpling's matching, ported from heard/src/lib/triage.ts (alike, stepScore, the blend, place),
-             src/lib/ai.ts (the band each verdict's number is held in) and src/app/ui.tsx (linkLabel). -->
-        <figure class="stage dp" id="match">
-          <div class="dp-ui">
-            <div class="dp-pair">
-              <div class="dp-note"><p class="dp-who"><i>T1</i>Tester 1 <span>Safari · Step <b data-step-a>3</b></span></p><p>Pressed Pay and nothing happened. Tried twice.</p></div>
-              <div class="dp-note"><p class="dp-who"><i>T2</i>Tester 2 <span>Chrome · Step <b data-step-b>3</b></span></p><p>The pay button doesn&rsquo;t do anything on the first tap.</p></div>
+          <figure class="stage dp" id="match">
+            <div class="dp-ui">
+              <div class="dp-pair">
+                <div class="dp-note"><p class="dp-who"><i>T1</i>Tester 1 <span>Safari · Step <b data-step-a>3</b></span></p><p>Pressed Pay and nothing happened. Tried twice.</p></div>
+                <div class="dp-note"><p class="dp-who"><i>T2</i>Tester 2 <span>Chrome · Step <b data-step-b>3</b></span></p><p>The pay button doesn&rsquo;t do anything on the first tap.</p></div>
+              </div>
+              <div class="dp-read">
+                <span class="dp-label" data-label>Likely the same</span>
+                <span class="dp-meter" aria-hidden="true"><i data-meter></i></span>
+                <b class="dp-pct" data-pct>74%</b>
+              </div>
+              <p class="dp-fate" data-fate>Folds into the bug</p>
             </div>
-            <div class="dp-read">
-              <span class="dp-label" data-label>Likely the same</span>
-              <span class="dp-meter" aria-hidden="true"><i data-meter></i></span>
-              <b class="dp-pct" data-pct>74%</b>
+            <div class="stage-bar dp-bar">
+              <label class="scrub"><span>Wording alike</span><input type="range" min="20" max="100" step="1" value="80" data-cos aria-label="How alike the wording is, as embedding cosine" /><output data-cos-out>0.80</output></label>
+              <label class="scrub"><span>Closer read</span><input type="range" min="0" max="100" step="1" value="80" data-p aria-label="The closer read's probability that they are the same" /><output data-p-out>80%</output></label>
             </div>
-            <p class="dp-fate" data-fate>Folds into the bug</p>
-          </div>
-          <div class="stage-bar dp-bar">
-            <label class="scrub"><span>Wording alike</span><input type="range" min="20" max="100" step="1" value="80" data-cos aria-label="How alike the wording is, as embedding cosine" /><output data-cos-out>0.80</output></label>
-            <label class="scrub"><span>Closer read</span><input type="range" min="0" max="100" step="1" value="80" data-p aria-label="The closer read's probability that they are the same" /><output data-p-out>80%</output></label>
-          </div>
-          <div class="stage-bar dp-bar">
-            <div class="dp-pick"><span>Where</span><ul class="tabs tabs--small" data-pick="step">
-              <li><button type="button" aria-pressed="true" data-v="1">Same step</button></li><li><button type="button" aria-pressed="false" data-v="0.6">Next step</button></li><li><button type="button" aria-pressed="false" data-v="0.3">Same script</button></li><li><button type="button" aria-pressed="false" data-v="0">Another script</button></li></ul></div>
-            <div class="dp-pick"><span>The read says</span><ul class="tabs tabs--small" data-pick="verdict">
-              <li><button type="button" aria-pressed="true" data-v="same">Same</button></li><li><button type="button" aria-pressed="false" data-v="related">Related</button></li><li><button type="button" aria-pressed="false" data-v="unsure">Unsure</button></li><li><button type="button" aria-pressed="false" data-v="different">Different</button></li></ul></div>
-            <div class="dp-pick"><span>The tester said</span><ul class="tabs tabs--small" data-pick="tester">
-              <li><button type="button" aria-pressed="true" data-v="">Nothing</button></li><li><button type="button" aria-pressed="false" data-v="same">Same as mine</button></li><li><button type="button" aria-pressed="false" data-v="different">Different</button></li></ul></div>
-          </div>
-          <div class="stage-bar">
-            <ul class="readout">
-              <li>alike <b data-r="alike">0.82</b></li>
-              <li>step <b data-r="step">1.0</b></li>
-              <li>first pass <b data-r="pre">0.87</b></li>
-              <li>read <b data-r="p">0.80</b> <span data-r="band">held in 0.60 to 1.00</span></li>
-              <li>score <b data-r="score">0.83</b></li>
-            </ul>
-          </div>
-          <figcaption><b>Fig. 2</b> Dumpling&rsquo;s matching, on its own thresholds. Change how alike two notes are, where they came from, what the closer read said and what the tester told us, and watch the words, the number and where the report ends up. Drag the read past its band and the number stops at the edge. The notes are examples.</figcaption>
-        </figure>
+            <div class="stage-bar dp-bar">
+              <div class="dp-pick"><span>Where</span><ul class="tabs tabs--small" data-pick="step">
+                <li><button type="button" aria-pressed="true" data-v="1">Same step</button></li><li><button type="button" aria-pressed="false" data-v="0.6">Next step</button></li><li><button type="button" aria-pressed="false" data-v="0.3">Same script</button></li><li><button type="button" aria-pressed="false" data-v="0">Another script</button></li></ul></div>
+              <div class="dp-pick"><span>The read says</span><ul class="tabs tabs--small" data-pick="verdict">
+                <li><button type="button" aria-pressed="true" data-v="same">Same</button></li><li><button type="button" aria-pressed="false" data-v="related">Related</button></li><li><button type="button" aria-pressed="false" data-v="unsure">Unsure</button></li><li><button type="button" aria-pressed="false" data-v="different">Different</button></li></ul></div>
+              <div class="dp-pick"><span>The tester said</span><ul class="tabs tabs--small" data-pick="tester">
+                <li><button type="button" aria-pressed="true" data-v="">Nothing</button></li><li><button type="button" aria-pressed="false" data-v="same">Same as mine</button></li><li><button type="button" aria-pressed="false" data-v="different">Different</button></li></ul></div>
+            </div>
+            <div class="stage-bar">
+              <ul class="readout">
+                <li>alike <b data-r="alike">0.82</b></li>
+                <li>step <b data-r="step">1.0</b></li>
+                <li>first pass <b data-r="pre">0.87</b></li>
+                <li>read <b data-r="p">0.80</b> <span data-r="band">held in 0.60 to 1.00</span></li>
+                <li>score <b data-r="score">0.83</b></li>
+              </ul>
+            </div>
+            <figcaption><b>Fig. 2</b> Dumpling&rsquo;s matching, on its own thresholds. Change how alike two notes are, where they came from, what the closer read said and what the tester told us, and watch the words, the number and where the report ends up. Drag the read past its band and the number stops at the edge. The notes are examples.</figcaption>
+          </figure>
 
-        <section class="g s" aria-label="Groups">
           <div class="col col--gap">
             <p>A group is only as sure as its least sure pair. &ldquo;All of these are one problem&rdquo; never sounds more certain than the weakest link inside it.</p>
           </div>
@@ -137,27 +133,27 @@
             <p>The rules live on the server, not just in the interface. There&rsquo;s no approve-all button, and the server takes one decision per request, so nothing is approved in a batch and nothing is created without a person. A note too thin to act on isn&rsquo;t rejected. It&rsquo;s marked as needing a little more, and the tester gets a question.</p>
             <p>Dumpling keeps score of itself, too. Its insights count how often the manager agreed with it, so trust in the tool is earned, not assumed. And once a manager makes a call on a pair, that call outlives any later re-reading of those notes.</p>
           </div>
-        </section>
 
-        <!-- Fig. 3: the draft ticket's severity control and create button, as on Dumpling's review screen -->
-        <figure class="stage dp" id="ticket">
-          <div class="dp-ui dp-ticket">
-            <p class="dp-tk-top"><span>New ticket</span><span>Drafted by Dumpling</span></p>
-            <p class="dp-tk-title">Pay button does nothing on the first tap</p>
-            <p class="dp-tk-k">Severity</p>
-            <div class="dp-sev" role="radiogroup" aria-label="Severity">
-              <button type="button" role="radio" aria-checked="false" data-sev="blocker">Blocker</button>
-              <button type="button" role="radio" aria-checked="true" data-sev="major" class="is-pick">Major<em>Dumpling</em></button>
-              <button type="button" role="radio" aria-checked="false" data-sev="minor">Minor</button>
-              <button type="button" role="radio" aria-checked="false" data-sev="cosmetic">Cosmetic</button>
+          <!-- Fig. 3: the draft ticket's severity control and create button, as on Dumpling's review screen -->
+          <figure class="stage dp" id="ticket">
+            <div class="dp-ui dp-ticket">
+              <p class="dp-tk-top"><span>New ticket</span><span>Drafted by Dumpling</span></p>
+              <p class="dp-tk-title">Pay button does nothing on the first tap</p>
+              <p class="dp-tk-k">Severity</p>
+              <div class="dp-sev" role="radiogroup" aria-label="Severity">
+                <button type="button" role="radio" aria-checked="false" data-sev="blocker">Blocker</button>
+                <button type="button" role="radio" aria-checked="true" data-sev="major" class="is-pick">Major<em>Dumpling</em></button>
+                <button type="button" role="radio" aria-checked="false" data-sev="minor">Minor</button>
+                <button type="button" role="radio" aria-checked="false" data-sev="cosmetic">Cosmetic</button>
+              </div>
+              <p class="dp-tk-say" data-say>Payments can&rsquo;t be completed on the first try.</p>
+              <p class="dp-over" data-over hidden>You overruled Dumpling</p>
+              <button type="button" class="dp-create" data-create>Create ticket</button>
+              <p class="dp-tk-foot" data-foot>All 3 testers are told and credited.</p>
             </div>
-            <p class="dp-tk-say" data-say>Payments can&rsquo;t be completed on the first try.</p>
-            <p class="dp-over" data-over hidden>You overruled Dumpling</p>
-            <button type="button" class="dp-create" data-create>Create ticket</button>
-            <p class="dp-tk-foot" data-foot>All 3 testers are told and credited.</p>
-          </div>
-          <figcaption><b>Fig. 3</b> The draft ticket. Dumpling picked the severity; pick another and it says so. Nothing is created until a person presses the button. The ticket is an example.</figcaption>
-        </figure>
+            <figcaption><b>Fig. 3</b> The draft ticket. Dumpling picked the severity; pick another and it says so. Nothing is created until a person presses the button. The ticket is an example.</figcaption>
+          </figure>
+        </section>
 
         <section class="g s" id="witnesses" aria-labelledby="witnesses-h">
           <p class="num">05</p>
@@ -195,7 +191,7 @@
     </article>
   </main>
   <script src="/assets/crayon.js?v=3" defer></script>
-  <script src="study.js?v=20261119" defer></script>
+  <script src="study.js?v=20261124" defer></script>
   <script src="dumpling/page.js?v=1" defer></script>
 </body>
 </html>
