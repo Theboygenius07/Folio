@@ -10,7 +10,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Building Tiwari Town: a birthday you can walk through" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
-  <link rel="stylesheet" href="study.css?v=20261119" />
+  <link rel="stylesheet" href="study.css?v=20261123" />
   <link rel="stylesheet" href="tiwari-town/page.css" />
   <script type="importmap">
     { "imports": {
@@ -48,11 +48,18 @@
     <article>
       <div class="page">
         <header class="a-head">
-          <p class="eyebrow"><i></i> Case study / 007</p>
+          <p class="eyebrow"><i></i> Case study / 008</p>
           <h1>Building Tiwari Town: a birthday you can walk through</h1>
           <p class="stand">For my partner's birthday I built her a small world that runs in a browser tab. You walk it in first person: a town square, a momo shop, a harbour, a mountain overlook, a museum, and a door under a tower. Every shape in it is made by code.</p>
           <p class="meta"><b>2026</b><span></span>3D world, interaction and code</p>
         </header>
+
+        <dl class="brief" aria-label="The short version">
+          <div><dt>The problem</dt><dd>A birthday present for Saleena, due on 3 August 2026: a small world she walks in a browser tab, on a laptop or a phone held sideways. Places from her life sit at the ends of the roads, and a door at the end opens the next present.</dd></div>
+          <div><dt>How I framed it</dt><dd>One rule held throughout: no art files. Everything is made in code from one seed, so every load is identical. And nothing in the world asks her to decide anything.</dd></div>
+          <div><dt>The call</dt><dd>I built a ceremony where she picked 1 of 3 dogs on a plinth, then threw away <span class="cut">the starter choice</span> for 8 dogs that wander the town. Nothing else there asks her to make a decision, and a podium in the town square turns a walk into a game with a compulsory first step.</dd></div>
+          <div><dt>The numbers</dt><dd>Walkable by her birthday, then 18 more days of features. In the performance test, a frame went from <span class="n">764.8</span> to <span class="n">48.3</span> milliseconds once lamps turned out to be about 98% of it. Now only the <span class="n">8</span> nearest lamps are lit, <span class="n">4</span> on phones.</dd></div>
+        </dl>
 
         <!-- Fig. 1: the world's own map, baked live from the ported heightAt + surfaceColor -->
         <figure class="stage mp-fig" id="mapFig" aria-label="The map of Tiwari Town, drawn from the game's own ground function, with a pin for each place">
@@ -467,7 +474,7 @@
       </div>
     </article>
   </main>
-  <script src="/assets/crayon.js?v=2" defer></script>
+  <script src="/assets/crayon.js?v=3" defer></script>
   <script src="study.js?v=20261119" defer></script>
   <script type="module" src="tiwari-town/page.js"></script>
 </body>

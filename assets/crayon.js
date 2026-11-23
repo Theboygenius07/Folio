@@ -60,6 +60,8 @@
     // Cohort: a message, typing
     cohort: () => shape(blob(18, 30, 124, 88, 30, 3) + "M44 110 L30 144 L76 114 Z", "#1C34F5", 5, 12) +
       `<circle cx="54" cy="74" r="7.5" fill="#fff"/><circle cx="80" cy="74" r="7.5" fill="#fff" opacity=".8"/><circle cx="106" cy="74" r="7.5" fill="#fff" opacity=".6"/>`,
+    // Dumpling: many notes, one problem (its own mark: the pleats fold into one point)
+    dumpling: () => shape("M80.0 48.2 c-32.9 0.0 -55.8 28.5 -55.8 55.2 0.0 16.1 12.4 28.5 28.5 28.5 h54.6 c16.1 0.0 28.5 -12.4 28.5 -28.5 0.0 -26.7 -22.9 -55.2 -55.8 -55.2 z", "#EA6A32", 41, 11) + line("M80.0 48.2 c-6.2 16.1 -18.0 28.5 -34.7 34.7M80.0 48.2 v37.2M80.0 48.2 c6.2 16.1 18.0 28.5 34.7 34.7", "#fff", 5) + shape(star(136, 30, 12), "#F5B21E", 42, 7),
     // Wire: a sentence becomes money
     wire: () => shape("M94 12 L42 92 H76 L60 150 L122 62 H88 Z", "#C8DB1A", 7, 10) + shape(circle(126, 124, 20), "#F5B21E", 9, 7) +
       `<text x="126" y="132" text-anchor="middle" font-family="Shantell Sans, sans-serif" font-weight="800" font-size="22" fill="#5c6400">₦</text>`,

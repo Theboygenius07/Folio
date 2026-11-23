@@ -298,7 +298,7 @@ a:hover > .ul path, button:hover > .ul path, a:focus-visible > .ul path { stroke
 @media (max-width: 720px) {
   .top { padding-top: 18px; }
   .top__nav { gap: 18px; }
-  .top__nav a:not([href="work.html"]):not([href="skills.html"]):not([aria-current]) { display: none; }
+  .top__nav a:not([href="work.html"]):not([href="skills.html"]):not([href="/notes"]):not([aria-current]) { display: none; }
   .voice { line-height: 1.28; }
   .jobs li { grid-template-columns: 1fr; gap: 2px; }
   .jobs li span:last-child { text-align: left; }

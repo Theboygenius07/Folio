@@ -460,3 +460,24 @@ footer a:hover { text-decoration: underline; }
   .bar-swoosh path { animation: none; stroke-dashoffset: 0; }
   .button, .btn-arrow, .bar-spark, .next-art svg, .next-arrow, .live-go { transition: none; }
 }
+
+/* ---------- the short version: problem, framing, the call, the numbers ----------
+   Sits under the masthead so a reviewer gets the whole case in 20 seconds. The call shows what was kept and,
+   struck through in the project's colour, what was thrown away. */
+.brief {
+  max-width: 46rem; margin: 0 auto clamp(64px, 8vw, 112px); padding: 0;
+  display: grid; row-gap: 26px;
+}
+.brief > div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); column-gap: 28px; align-items: baseline; }
+.brief dt { font: 700 15.5px/1.5 var(--hand); letter-spacing: -0.01em; color: var(--tint-ink); }
+.brief dd { margin: 0; font-size: 17px; line-height: 1.62; color: var(--ink); text-wrap: pretty; }
+.brief dd p { margin: 0 0 10px; }
+.brief dd p:last-child { margin-bottom: 0; }
+.brief .cut { color: var(--ink-2); text-decoration: line-through; text-decoration-color: var(--tint-ink); text-decoration-thickness: 2px; }
+.brief .n { font-weight: 600; font-variant-numeric: tabular-nums; }
+.brief a { color: var(--ink); }
+@media (max-width: 640px) {
+  .brief { row-gap: 22px; }
+  .brief > div { grid-template-columns: 1fr; row-gap: 4px; }
+  .brief dd { font-size: 16.5px; }
+}

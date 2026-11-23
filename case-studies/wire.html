@@ -11,7 +11,7 @@
   <meta property="og:title" content="Building Wire: a payment page from one sentence" />
   <meta property="og:description" content="Two products on one engine, built for APIConf 2026." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
-  <link rel="stylesheet" href="study.css?v=20261119" />
+  <link rel="stylesheet" href="study.css?v=20261123" />
   <link rel="stylesheet" href="wire/page.css" />
 </head>
 <body style="--tint:#e4f222; --tint-ink:#5c6400">
@@ -41,11 +41,18 @@
     <article>
       <div class="page">
         <header class="a-head">
-          <p class="eyebrow"><i></i> Case study / 003</p>
+          <p class="eyebrow"><i></i> Case study / 004</p>
           <h1>Building Wire: a payment page from one sentence</h1>
           <p class="stand">Type what you're selling and get back a checkout link, a QR code and a live sales dashboard. Paste any API and an AI agent can use it. Built in one hackathon sprint for APIConf 2026.</p>
           <p class="meta"><b>2026</b><span></span>Product design and front end</p>
         </header>
+
+        <dl class="brief" aria-label="The short version">
+          <div><dt>The problem</dt><dd>Selling something once shouldn&rsquo;t need a merchant setup, a checkout page and a stock sheet. And before an AI agent can call any API, a developer has to write its tools by hand. Both are the same gap: turning a description into something you can call.</dd></div>
+          <div><dt>How I framed it</dt><dd>Every API becomes the same shape. Describe it once, and both a seller and an agent can use it: Flow for sellers and Relay for developers, on one engine.</dd></div>
+          <div><dt>The call</dt><dd>A seller&rsquo;s payout routing is looked up and attached in code. I ruled out <span class="cut">letting the model fill in the payment split</span>. Who gets paid isn&rsquo;t something a model should decide, and a model isn&rsquo;t a reliable source of unique payment references either.</dd></div>
+          <div><dt>The numbers</dt><dd>Built in a day and a half for the APIConf 2026 hackathon. One sentence becomes a Paystack checkout with a live sales dashboard that updates every <span class="n">3</span> seconds, and an agent gets <span class="n">6</span> hand-written Paystack tools to work with.</dd></div>
+        </dl>
 
         <!-- Fig. 1: Wire's home page, live. Port of app/page.tsx with RepelDotGrid behind and inside the cards. -->
         <figure class="stage w-hero" id="hero" aria-label="Wire's home page, rebuilt: two product cards on a field of dots that move away from the pointer">
@@ -416,7 +423,7 @@ handler: (args) =&gt; Promise</code></pre>
       </div>
     </article>
   </main>
-  <script src="/assets/crayon.js?v=2" defer></script>
+  <script src="/assets/crayon.js?v=3" defer></script>
   <script src="study.js?v=20261119" defer></script>
   <script type="module" src="wire/page.js"></script>
 </body>

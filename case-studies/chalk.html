@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@900&amp;family=Shantell+Sans:wght@500..800&amp;display=swap" />
-  <link rel="stylesheet" href="chalk/page.css" />
+  <link rel="stylesheet" href="chalk/page.css?v=2" />
 </head>
 <body class="u-root">
   <!-- The 2 grains and the boil, once per page: one for words, one for shapes. -->
@@ -64,6 +64,13 @@
       <p class="u-meta">Launched 6 November 2026, on the web and the Mac · more than 140 engines</p>
     </header>
     <div data-hero-art></div>
+
+    <dl class="u-brief" aria-label="The short version">
+      <div><dt>The problem</dt><dd>Ask an AI to explain something and you get a wall of text, or a diagram it guessed. A teacher that draws has to draw the right thing, in the right place, while it talks.</dd></div>
+      <div><dt>How I framed it</dt><dd>The model describes; code computes. The model says what the lesson needs, and chalk works out every position itself. No tool the model uses accepts a coordinate, and where a figure can be calculated, chalk&rsquo;s own code calculates it.</dd></div>
+      <div><dt>The call</dt><dd>On the Mac, chalk points at the real control by its name. I threw away <span class="u-cut">asking the model for a pixel position</span>. On a test of 182 named buttons across 13 recorded screens, naming the element hit <b>97%</b>; asking for a pixel position hit <b>59%</b>.</dd></div>
+      <div><dt>The numbers</dt><dd>Built in under 4 months and launched on 6 November 2026, on the web and the Mac together, with more than 140 engines. Students paid in the first week.</dd></div>
+    </dl>
 
     <nav class="u-rail" aria-label="In this case study">
       <p class="u-rail-head">In this case study</p>
@@ -374,7 +381,7 @@
     </a>
   </main>
 
-  <script src="/assets/crayon.js?v=2" defer></script>
+  <script src="/assets/crayon.js?v=3" defer></script>
   <script src="chalk/page.js" defer></script>
 </body>
 </html>

@@ -476,3 +476,12 @@ html { background: var(--u-paper); -webkit-text-size-adjust: 100%; scroll-behavi
   .cs-next-text { grid-column: 1; grid-row: 2; }
 }
 @media (prefers-reduced-motion: reduce) { .cs-next-art svg, .cs-next-t svg { transition: none; } }
+
+/* the short version: problem, framing, the call, what happened */
+.u-brief { max-width: 46rem; margin: clamp(40px, 6vw, 72px) auto clamp(24px, 4vw, 48px); padding: 0 var(--u-gutter); display: grid; row-gap: 24px; }
+.u-brief > div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); column-gap: 28px; align-items: baseline; }
+.u-brief dt { font: 900 19px/1.3 var(--u-crayon), "Shantell Sans", sans-serif; letter-spacing: .01em; color: var(--u-cobalt); }
+.u-brief dd { margin: 0; font: 400 17px/1.62 var(--u-body), system-ui, sans-serif; color: var(--u-words); text-wrap: pretty; }
+.u-brief b { color: var(--u-ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.u-cut { color: var(--u-muted); text-decoration: line-through; text-decoration-color: var(--u-red); text-decoration-thickness: 2px; }
+@media (max-width: 640px) { .u-brief > div { grid-template-columns: 1fr; row-gap: 4px; } }

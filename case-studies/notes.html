@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Notes · Seyi Ogundipe</title>
+  <meta name="description" content="Short notes on the calls behind Seyi Ogundipe's work: what he tried, what he threw away, and the numbers that settled it." />
+  <meta name="author" content="Seyi Ogundipe" />
+  <meta name="theme-color" content="#F6F3EC" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Notes · Seyi Ogundipe" />
+  <meta property="og:image" content="https://seyi-xyz.vercel.app/assets/og.png" />
+  <link rel="stylesheet" href="study.css?v=20261123" />
+  <style>
+    .note-h { margin: 0 0 8px; color: var(--ink-2); font: 700 15px/1.4 var(--hand); }
+    .note-list { max-width: 46rem; margin: 0 auto; padding: 0; list-style: none; display: grid; row-gap: 18px; }
+    .note-list a { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); column-gap: 14px; text-decoration: none; color: var(--ink); }
+    .note-list span { color: var(--ink-2); font: 700 15px/1.6 var(--hand); }
+    .note-list b { font-weight: 600; font-size: 19px; line-height: 1.45; }
+    .note-list em { display: block; margin-top: 2px; color: var(--ink-2); font-style: normal; font-size: 15px; line-height: 1.55; }
+    .note-list a:hover b { text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--tint-ink); text-underline-offset: .2em; }
+  </style>
+</head>
+<body style="--tint:#E4492A; --tint-ink:#C93B1E">
+  <div class="page">
+    <header class="bar">
+      <a class="bar-home" href="/" data-seyi>Seyi Ogundipe</a>
+      <nav class="bar-nav" aria-label="Site"><a href="/work.html">Work</a><a href="/skills.html">Skills</a><a href="/notes" aria-current="page">Notes</a></nav>
+    </header>
+  </div>
+
+  <main>
+    <article>
+      <div class="page">
+        <header class="a-head">
+          <p class="eyebrow"><i></i> Notes</p>
+          <h1>The calls behind the work</h1>
+          <p class="stand">Short notes on decisions I made: what I tried first, what I threw away, and the numbers that settled it.</p>
+        </header>
+
+        <ol class="note-list">
+          <li><a href="#name-the-button"><span>01</span><div><b>Name the button. Don&rsquo;t guess the pixel.</b><em>chalk&rsquo;s Mac app, and why it stopped asking for coordinates.</em></div></a></li>
+          <li><a href="#words-first"><span>02</span><div><b>Words first, number second.</b><em>How Dumpling says how sure it is, and why the two can never disagree.</em></div></a></li>
+          <li><a href="#phone-in-a-queue"><span>03</span><div><b>Built for a phone in a queue.</b><em>What Redbrick gave up so 2,379 buildings fit a mid-range phone.</em></div></a></li>
+        </ol>
+
+        <section class="g s" id="name-the-button" aria-labelledby="n1-h">
+          <p class="num">01</p>
+          <h2 id="n1-h">Name the button. Don&rsquo;t guess the pixel.</h2>
+          <div class="col">
+            <p class="note-h">chalk · 2026</p>
+            <p>chalk has a Mac app that teaches you inside the app you&rsquo;re already using. You&rsquo;re in a spreadsheet, you ask how to make a chart, and chalk draws a crayon circle around the control you need, on top of the real window.</p>
+            <p>The obvious way to build that is to show the model the screen and ask where the control is. It answers with a position, and you draw there. That&rsquo;s how pointing started. The trouble is that a position is a guess, and a teacher that points at the wrong thing is worse than one that doesn&rsquo;t point at all, because you trust it.</p>
+            <p>The fix was to stop asking for a position. Your Mac already knows where its controls are. Apps describe their buttons, menus and fields through macOS accessibility, each with a name and its real bounds. So chalk lists what&rsquo;s on screen, the text it can read and the controls the app exposes, and the model picks one by name. chalk draws on that control&rsquo;s real edges.</p>
+            <p>Then I measured it, because &ldquo;it feels better&rdquo; isn&rsquo;t a number. On a test of 182 named buttons across 13 recorded screens, naming the element hit <b>97%</b>; asking for a pixel position hit <b>59%</b>.</p>
+            <p>The same rule runs through all of chalk. The model describes the lesson: the sections, the figures and how they connect. chalk computes every position itself, and no tool the model uses accepts a coordinate. Where a figure can be calculated, chalk&rsquo;s own code calculates it, so a graph is the real graph.</p>
+            <p>Naming things also made it easier to be careful. chalk only suggests. It acts on your Mac only after a &#8984;&#8997; tap, a click or a spoken &ldquo;yes&rdquo;, and it never offers to send, pay or delete.</p>
+            <p>What I took from it: when a model is guessing at something the system already knows, stop asking it to guess. Give it names, and let code do the geometry.</p>
+            <p><a href="/chalk#on-a-mac">Read the chalk case study</a></p>
+          </div>
+        </section>
+
+        <section class="g s" id="words-first" aria-labelledby="n2-h">
+          <p class="num">02</p>
+          <h2 id="n2-h">Words first, number second.</h2>
+          <div class="col">
+            <p class="note-h">Dumpling · 2026</p>
+            <p>Dumpling reads feedback from user acceptance testing and suggests which reports are the same bug. The hard part wasn&rsquo;t the matching. It was saying how sure it was in a way a test manager could act on.</p>
+            <p>A bare percentage is the usual answer, and it&rsquo;s a weak one. 74% sounds precise and tells you nothing on its own. Is that high? Should I merge it? A percentage can also quietly contradict itself: a model can call two notes different and still hand back 0.9.</p>
+            <p>So Dumpling leads with words: very likely the same, likely the same, related but probably not the same, probably different, or not sure, your call. The number comes second, as a short bar and a percentage, for whoever wants it.</p>
+            <p>Then the two are tied together. When the model gives its read, its number is held inside the band its words name. &ldquo;Same&rdquo; lives between 60% and 100%. &ldquo;Related&rdquo; lives between 25% and 60%. &ldquo;Different&rdquo; can&rsquo;t go above 30%. A &ldquo;probably different&rdquo; can never carry 90%, because the code won&rsquo;t let it.</p>
+            <p>The words also decide what happens next. A report folds into a bug on its own only at &ldquo;same&rdquo; and 68% or above. From 45%, it waits outside the group under a heading that hands the decision to the manager. Below that, Dumpling doesn&rsquo;t suggest the match at all.</p>
+            <p>And confidence doesn&rsquo;t grow by adding. &ldquo;All of these are one problem&rdquo; is only as sure as the least sure pair inside it, so a big group of shaky matches never sounds certain.</p>
+            <p>None of this makes the model smarter. It makes it honest about what it knows, which is what a person needs before they&rsquo;ll let it near their tickets. Dumpling also counts how often the manager agrees with it, so trust in it is earned, not assumed.</p>
+            <p><a href="/dumpling#sure">Read the Dumpling case study</a></p>
+          </div>
+        </section>
+
+        <section class="g s" id="phone-in-a-queue" aria-labelledby="n3-h">
+          <p class="num">03</p>
+          <h2 id="n3-h">Built for a phone in a queue.</h2>
+          <div class="col">
+            <p class="note-h">Redbrick · 2026</p>
+            <p>Redbrick is a walkable 3D model of the University of Liverpool&rsquo;s campus quarter, in the browser: 2,379 buildings and a 7,533-link walking network, made from OpenStreetMap, LIDAR and Historic England data. One line in its brief set the budget. Students open this on a phone in a queue, so build for a mid-range Android from day one.</p>
+            <p>That line decided more than any review did. Here&rsquo;s what it cost and what it bought.</p>
+            <p>Draw calls first. 706 buildings drawn one at a time would have been more than 1,400 draw calls. Merged by material, they were 24. The trade is that a merged mesh can&rsquo;t be culled piece by piece, so buildings behind you still get drawn. 2,998 chimneys became one instanced mesh and a single draw.</p>
+            <p>Then the frame. One pass cut the scene from 21.4 million triangles to 3.5 million, and draw calls from 539 to 227. Shadows now come from simpler copies of the buildings, cut into 128 m tiles, skipping anything smaller than one texel of the shadow map. 352 materials were packed into a few texture sheets. Every change was checked against the old frame pixel by pixel, and 0 to 0.6% of pixels differ.</p>
+            <p>Windows were the hardest call. Real window geometry on every brick building took the scene from 7.5 to 15.9 million triangles. So windows follow the evidence: real ones on the university&rsquo;s 52 buildings and everything within 100 m of them, painted ones everywhere else. That brought it to 10.4 million, and phones keep only the researched windows.</p>
+            <p>Phones get a quieter version of everything, in order of what you&rsquo;d notice least: the pixel ratio capped at 1.5 instead of 2, no anti-aliasing, no ambient occlusion, half-size shadows and textures, and trees drawn to 300 m instead of 600. Draw distance stays generous at 900 m, because the cathedrals on the skyline are how you find your way.</p>
+            <p>Not everything worked. I tried ambient occlusion at half resolution, and taking shadows off small details. Both passed my tests at 1x and softened the detail on retina screens, so both went back the same day.</p>
+            <p>The hardest limit was memory. Ten 2,048 px texture sheets at 22 MB each made Safari on iPhone give up while loading. Phones now load them at 1,024. Textures went from 316 MB to 145 MB, the page&rsquo;s memory from 756 MB to 273 MB, and the work to start up from about 20 seconds on the main thread to about 7.</p>
+            <p>A budget like that is a design tool. It turns &ldquo;make it fast&rdquo; into a written list of what you agree to give up, in order.</p>
+            <p><a href="https://redbrick.ink/about" target="_blank" rel="noopener">Read the Redbrick case study ↗</a></p>
+          </div>
+        </section>
+
+        <footer>
+          <span>Notes</span>
+          <a href="/work.html">All work</a>
+        </footer>
+      </div>
+    </article>
+  </main>
+  <script src="/assets/crayon.js?v=3" defer></script>
+  <script src="study.js?v=20261119" defer></script>
+</body>
+</html>

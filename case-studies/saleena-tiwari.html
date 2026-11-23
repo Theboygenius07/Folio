@@ -10,7 +10,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Building the Saleena Tiwari showcase: memories in orbit" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✸</text></svg>" />
-  <link rel="stylesheet" href="study.css?v=20261119" />
+  <link rel="stylesheet" href="study.css?v=20261123" />
   <link rel="stylesheet" href="saleena-tiwari/page.css" />
   <script type="importmap">
     { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }
@@ -45,11 +45,18 @@
     <article>
       <div class="page">
         <header class="a-head">
-          <p class="eyebrow"><i></i> Case study / 008</p>
+          <p class="eyebrow"><i></i> Case study / 009</p>
           <h1>Building the Saleena Tiwari showcase: memories in orbit</h1>
           <p class="stand">A birthday gift for my partner. A pale statue of her stands on a rock in a green void, and 21 memories wind round her as you scroll, like the steps of a spiral staircase round its column.</p>
           <p class="meta"><b>2026</b><span></span>3D, motion and code</p>
         </header>
+
+        <dl class="brief" aria-label="The short version">
+          <div><dt>The problem</dt><dd>The last stop of the birthday present, opened from Tiwari Town&rsquo;s gate. A statue of her stands still while 21 memories wind around her as you scroll.</dd></div>
+          <div><dt>How I framed it</dt><dd>Like a spiral stair, with a model in the middle, and rules you can check by eye. The build order was fixed: one card on its path, then its size, then all 21.</dd></div>
+          <div><dt>The call</dt><dd>Hover is tested on a 4 cm grid instead of three.js&rsquo;s ray test. I threw away <span class="cut">raycasting against the statue</span>, which cost 8.4 ms a test, half a 60fps frame. The grid costs under 0.003 ms, and across 700 pointer positions at 7 scroll points it agreed with the ray test 97.3 to 99.3% of the time, with no missed hovers. The trade is a hit area about 4 cm bigger than her outline.</dd></div>
+          <div><dt>The numbers</dt><dd><span class="n">21</span> memories, <span class="n">7</span> of them videos, each shown whole with no crop. Her model is held to <span class="n">90,000</span> triangles and the rock to <span class="n">60,000</span>, and on screens under 760 px the pixel ratio is capped at 1.5.</dd></div>
+        </dl>
 
         <!-- Fig. 1: the staircase, live. Pinned while you scroll through it. -->
         <div class="st-pin" id="stair-pin">
@@ -221,7 +228,7 @@
           <p class="num">07</p>
           <h2 id="light-h">Her, and the light</h2>
           <div class="col">
-            <p>The statue isn't sculpted by hand. It came from one photograph through Tripo's image-to-3D model, and I decimated it and compressed it with Draco in Blender: 89,999 triangles for her, 60,000 for the rock, 1.73 MB for the whole scene.</p>
+            <p>The statue isn't sculpted by hand. It came from one photograph through an image-to-3D tool, and I decimated it and compressed it with Draco in Blender: 89,999 triangles for her, 60,000 for the rock, 1.73 MB for the whole scene.</p>
             <p>What I made is the surface. A pale green marble with veins drawn procedurally on a canvas, a clearcoat of 0.18, a little sheen, and a fresnel rim so her edge lifts off the green. Point at her and the rim rises from 1.00 to 1.26 while the camera eases in by 1% of its distance. Testing the pointer against 89,999 triangles took 8.4 ms, so it marches a 4 cm grid of her baked at load instead.</p>
             <p>The biggest single fix was the fog. At a density of 0.062 it lifted the rock's darkest tones by 14 and greyed everything evenly, because fog works on distance and the rock sits at the same depth as she does. It couldn't fade the base without fading her. At 0.012 the rock measures within half a point of where it sat with no fog at all.</p>
           </div>
@@ -354,7 +361,7 @@
       </div>
     </article>
   </main>
-  <script src="/assets/crayon.js?v=2" defer></script>
+  <script src="/assets/crayon.js?v=3" defer></script>
   <script src="study.js?v=20261119" defer></script>
   <script type="module" src="saleena-tiwari/page.js"></script>
 </body>

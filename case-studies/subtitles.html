@@ -11,7 +11,7 @@
   <meta property="og:title" content="Building Subtitles: a year of photos, captioned like film" />
   <link rel="icon" href="../images/subtitles-icon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
-  <link rel="stylesheet" href="study.css?v=20261119" />
+  <link rel="stylesheet" href="study.css?v=20261123" />
   <link rel="stylesheet" href="subtitles/page.css" />
   <script type="importmap">
     { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }
@@ -46,11 +46,18 @@
     <article>
       <div class="page">
         <header class="a-head">
-          <p class="eyebrow"><i></i> Case study / 005</p>
+          <p class="eyebrow"><i></i> Case study / 006</p>
           <h1>Building Subtitles: a year of photos, captioned like film</h1>
           <p class="stand">42 photos, each with a yellow subtitle burned in: something I said or overheard that week. 5 ways to look through them, and a camera mode that lets your hand do the steering. This page has it too.</p>
           <p class="meta"><b>2026</b><span></span>Design and code<span></span>A birthday project</p>
         </header>
+
+        <dl class="brief" aria-label="The short version">
+          <div><dt>The problem</dt><dd>A birthday project: 1 photo and 1 line, overheard or spoken, every week for a year. The line could never come apart from the photo, and the site needed enough ways in that people would actually browse.</dd></div>
+          <div><dt>How I framed it</dt><dd>A year of photos, captioned like film: the words are burned into the picture. And one hard rule: no backend, no database, no build step.</dd></div>
+          <div><dt>The call</dt><dd>I built a visitor card, a guestbook you signed with a drawn signature, with a live count of who else was there. I redesigned it twice, then threw away <span class="cut">the guestbook and its live count</span>. It was the site&rsquo;s only backend, and the site is about the year, not the visitors.</dd></div>
+          <div><dt>The numbers</dt><dd><span class="n">1,000</span> visitors in the first <span class="n">2</span> days. <span class="n">42</span> photos and 5 ways to browse them, including a 3D globe and hand tracking in the browser.</dd></div>
+        </dl>
 
         <figure class="stage hero" id="globe-fig" data-hand>
           <div class="stage-canvas" tabindex="0" role="application" aria-label="The globe: 80 photos on a sphere. Drag or use the arrow keys to spin it, plus and minus to zoom, Enter to open the photo in front."></div>
@@ -405,7 +412,7 @@ w = width × min(dpr, 3)</code></li>
       </div>
     </article>
   </main>
-  <script src="/assets/crayon.js?v=2" defer></script>
+  <script src="/assets/crayon.js?v=3" defer></script>
   <script src="study.js?v=20261119" defer></script>
   <script type="module" src="subtitles/page.js"></script>
 </body>

@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Building Dumpling · Seyi Ogundipe</title>
+  <meta name="description" content="How Dumpling turns messy user acceptance testing feedback into one ticket per problem, with a person approving every step. Sole winner of the Pfizer AI Studio Hackathon." />
+  <meta name="author" content="Seyi Ogundipe" />
+  <meta name="theme-color" content="#F6F3EC" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building Dumpling: UAT feedback, neatly folded" />
+  <meta property="og:image" content="https://seyi-xyz.vercel.app/assets/og.png" />
+  <link rel="stylesheet" href="study.css?v=20261123" />
+  <link rel="stylesheet" href="dumpling/page.css?v=1" />
+</head>
+<body style="--tint:#EA6A32; --tint-ink:#C4501C">
+  <div class="page">
+    <header class="bar">
+      <a class="bar-home" href="/" data-seyi>Seyi Ogundipe</a>
+      <nav class="bar-nav" aria-label="Site"><a href="/work.html">Work</a><a href="/skills.html">Skills</a><a class="bar-open" href="https://tasty-dumpling-kohl.vercel.app/" target="_blank" rel="noopener">Open Dumpling ↗</a></nav>
+    </header>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="label">Contents</p>
+    <ol>
+      <li><a href="#problem"><span>01</span> One bug, five reports</a></li>
+      <li><a href="#people"><span>02</span> Two people</a></li>
+      <li><a href="#sure"><span>03</span> How sure, in words</a></li>
+      <li><a href="#calls"><span>04</span> Every call is a person&rsquo;s</a></li>
+      <li><a href="#witnesses"><span>05</span> Witnesses</a></li>
+      <li><a href="#end"><span>06</span> Conclusion</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <article>
+      <div class="page">
+        <header class="a-head">
+          <p class="eyebrow"><i></i> Case study / 003</p>
+          <h1>Building Dumpling: UAT feedback, neatly folded</h1>
+          <p class="stand">Testers say what went wrong in their own words. Dumpling folds the duplicates into one ticket, asks for what&rsquo;s missing, and leaves every call to a person. It was the sole winner of the Pfizer AI Studio Hackathon.</p>
+          <p class="meta"><b>2026</b><span></span>Product design and engineering</p>
+        </header>
+
+        <dl class="brief" aria-label="The short version">
+          <div><dt>The problem</dt><dd>In user acceptance testing, one bug comes in as 5 reports in 5 different wordings. Some notes just say &ldquo;weird&rdquo;. Ideas get buried, and testers never hear what happened to what they said. Whoever runs the test sorts all of it by hand.</dd></div>
+          <div><dt>How I framed it</dt><dd>Dumpling proposes; it never approves. It reads every note and suggests what belongs together and what&rsquo;s missing, and a person makes every call. Its confidence comes in words first and a number second, and the two can never disagree.</dd></div>
+          <div><dt>The call</dt><dd>Doubtful matches stay outside the group for a person to decide. I ruled out <span class="cut">merging whatever looked similar</span>. A report folds into a bug on its own only when Dumpling reads it as the same problem at <span class="n">68%</span> or above. From <span class="n">45%</span>, it waits in a separate list for the manager.</dd></div>
+          <div><dt>The numbers</dt><dd>Sole winner of the Pfizer AI Studio Hackathon, for its &ldquo;UAT, Untangled&rdquo; challenge. In the demo test cycle, <span class="n">21</span> notes from <span class="n">6</span> testers become <span class="n">17</span> cases to decide: <span class="n">14</span> bug reports fold into <span class="n">11</span> bugs, and <span class="n">5</span> ideas into <span class="n">4</span> themes. Every one still waits for a person.</dd></div>
+        </dl>
+
+        <figure class="fig">
+          <div class="frame"><img src="/assets/img/dumpling.jpg" width="1600" height="900" alt="Dumpling's site: get clear feedback from every tester, above the review screen with its queue of cases to decide" /></div>
+          <figcaption><b>Fig. 1</b> Dumpling&rsquo;s site, with the manager&rsquo;s review screen under it: a queue of cases to decide, one at a time.</figcaption>
+        </figure>
+
+        <section class="g s" id="problem" aria-labelledby="problem-h">
+          <p class="num">01</p>
+          <h2 id="problem-h">One bug, five reports</h2>
+          <div class="col">
+            <p>User acceptance testing is the last check before something ships. Real people run through a script and say what broke. What they write is honest and messy. Five testers hit the same bug and describe it five ways. One writes three careful sentences; another writes &ldquo;doesn&rsquo;t work&rdquo;. Someone has a good idea halfway through, and it sinks under the bug reports.</p>
+            <p>Four people pay for it. The tester never hears back, so next time they write less. The manager running the test merges and chases by hand. The developer gets notes too thin to start from. And product never sees the ideas.</p>
+            <p>So Dumpling had two jobs that pull against each other: do the sorting a manager dreads, without ever taking a decision away from them.</p>
+          </div>
+        </section>
+
+        <section class="g s" id="people" aria-labelledby="people-h">
+          <p class="num">02</p>
+          <h2 id="people-h">Two people, two screens</h2>
+          <div class="col">
+            <p>A tester runs the script one step at a time and picks one of 4 answers: it worked, it didn&rsquo;t work, something felt off, or I have an idea. Then they write in their own words. Their browser, system, device and step are attached for them, so nobody types &ldquo;Safari on an iPad&rdquo; again.</p>
+            <p>About 850 milliseconds after they stop typing, Dumpling says back what it understood and asks one question, which they can skip with one tap. If someone has already reported something like it, the tester sees that too, with 2 buttons: same as mine, or different. The last thing they read before they move on is that a person reads every note. Later, a tracker shows their note go from sent, to understood, to reviewed, to an outcome.</p>
+            <p>The manager gets a queue to decide, grouped into bugs, already known, ideas, questions and praise, and notes waiting on testers. They work it one case at a time, with j and k on the keyboard. Each case opens with Dumpling&rsquo;s read in a single line: how sure it is these reports are one problem, whether there&rsquo;s enough to act on, and how bad it looks.</p>
+          </div>
+        </section>
+
+        <section class="g s" id="sure" aria-labelledby="sure-h">
+          <p class="num">03</p>
+          <h2 id="sure-h">How sure, in words</h2>
+          <div class="col">
+            <p>A percentage on its own asks for trust it hasn&rsquo;t earned. So Dumpling leads with words: very likely the same, likely the same, related but probably not the same, probably different, or not sure, your call. The number comes second, and it&rsquo;s held inside the band its words name. A &ldquo;probably different&rdquo; can never carry 90%.</p>
+            <p>Under the words, the score is plain arithmetic. How alike the wording is counts for 70% of a first pass, and where in the script the two notes came from counts for 30%. Pairs under 0.3 are never compared at all. The rest get a closer read, and the score blends the first pass (40%) with that read (60%). A tester&rsquo;s own &ldquo;same as mine&rdquo; lifts it to at least 90%; their &ldquo;different&rdquo; caps it at 40%.</p>
+          </div>
+        </section>
+
+        <!-- Fig. 2: Dumpling's matching, ported from heard/src/lib/triage.ts (alike, stepScore, the blend, place),
+             src/lib/ai.ts (the band each verdict's number is held in) and src/app/ui.tsx (linkLabel). -->
+        <figure class="stage dp" id="match">
+          <div class="dp-ui">
+            <div class="dp-pair">
+              <div class="dp-note"><p class="dp-who"><i>T1</i>Tester 1 <span>Safari · Step <b data-step-a>3</b></span></p><p>Pressed Pay and nothing happened. Tried twice.</p></div>
+              <div class="dp-note"><p class="dp-who"><i>T2</i>Tester 2 <span>Chrome · Step <b data-step-b>3</b></span></p><p>The pay button doesn&rsquo;t do anything on the first tap.</p></div>
+            </div>
+            <div class="dp-read">
+              <span class="dp-label" data-label>Likely the same</span>
+              <span class="dp-meter" aria-hidden="true"><i data-meter></i></span>
+              <b class="dp-pct" data-pct>74%</b>
+            </div>
+            <p class="dp-fate" data-fate>Folds into the bug</p>
+          </div>
+          <div class="stage-bar dp-bar">
+            <label class="scrub"><span>Wording alike</span><input type="range" min="20" max="100" step="1" value="80" data-cos aria-label="How alike the wording is, as embedding cosine" /><output data-cos-out>0.80</output></label>
+            <label class="scrub"><span>Closer read</span><input type="range" min="0" max="100" step="1" value="80" data-p aria-label="The closer read's probability that they are the same" /><output data-p-out>80%</output></label>
+          </div>
+          <div class="stage-bar dp-bar">
+            <div class="dp-pick"><span>Where</span><ul class="tabs tabs--small" data-pick="step">
+              <li><button type="button" aria-pressed="true" data-v="1">Same step</button></li><li><button type="button" aria-pressed="false" data-v="0.6">Next step</button></li><li><button type="button" aria-pressed="false" data-v="0.3">Same script</button></li><li><button type="button" aria-pressed="false" data-v="0">Another script</button></li></ul></div>
+            <div class="dp-pick"><span>The read says</span><ul class="tabs tabs--small" data-pick="verdict">
+              <li><button type="button" aria-pressed="true" data-v="same">Same</button></li><li><button type="button" aria-pressed="false" data-v="related">Related</button></li><li><button type="button" aria-pressed="false" data-v="unsure">Unsure</button></li><li><button type="button" aria-pressed="false" data-v="different">Different</button></li></ul></div>
+            <div class="dp-pick"><span>The tester said</span><ul class="tabs tabs--small" data-pick="tester">
+              <li><button type="button" aria-pressed="true" data-v="">Nothing</button></li><li><button type="button" aria-pressed="false" data-v="same">Same as mine</button></li><li><button type="button" aria-pressed="false" data-v="different">Different</button></li></ul></div>
+          </div>
+          <div class="stage-bar">
+            <ul class="readout">
+              <li>alike <b data-r="alike">0.82</b></li>
+              <li>step <b data-r="step">1.0</b></li>
+              <li>first pass <b data-r="pre">0.87</b></li>
+              <li>read <b data-r="p">0.80</b> <span data-r="band">held in 0.60 to 1.00</span></li>
+              <li>score <b data-r="score">0.83</b></li>
+            </ul>
+          </div>
+          <figcaption><b>Fig. 2</b> Dumpling&rsquo;s matching, on its own thresholds. Change how alike two notes are, where they came from, what the closer read said and what the tester told us, and watch the words, the number and where the report ends up. Drag the read past its band and the number stops at the edge. The notes are examples.</figcaption>
+        </figure>
+
+        <section class="g s" aria-label="Groups">
+          <div class="col col--gap">
+            <p>A group is only as sure as its least sure pair. &ldquo;All of these are one problem&rdquo; never sounds more certain than the weakest link inside it.</p>
+          </div>
+        </section>
+
+        <section class="g s" id="calls" aria-labelledby="calls-h">
+          <p class="num">04</p>
+          <h2 id="calls-h">Every call is a person&rsquo;s</h2>
+          <div class="col">
+            <p>Dumpling drafts the ticket: a title, the steps, what was expected, what happened, and a severity. The manager can change all of it. When they change the severity, the control still marks Dumpling&rsquo;s pick and says plainly that they overruled it. Every judgement can be overruled in one click: not the same, ask the tester first, or change what kind of note it is.</p>
+            <p>The rules live on the server, not just in the interface. There&rsquo;s no approve-all button, and the server takes one decision per request, so nothing is approved in a batch and nothing is created without a person. A note too thin to act on isn&rsquo;t rejected. It&rsquo;s marked as needing a little more, and the tester gets a question.</p>
+            <p>Dumpling keeps score of itself, too. Its insights count how often the manager agreed with it, so trust in the tool is earned, not assumed. And once a manager makes a call on a pair, that call outlives any later re-reading of those notes.</p>
+          </div>
+        </section>
+
+        <!-- Fig. 3: the draft ticket's severity control and create button, as on Dumpling's review screen -->
+        <figure class="stage dp" id="ticket">
+          <div class="dp-ui dp-ticket">
+            <p class="dp-tk-top"><span>New ticket</span><span>Drafted by Dumpling</span></p>
+            <p class="dp-tk-title">Pay button does nothing on the first tap</p>
+            <p class="dp-tk-k">Severity</p>
+            <div class="dp-sev" role="radiogroup" aria-label="Severity">
+              <button type="button" role="radio" aria-checked="false" data-sev="blocker">Blocker</button>
+              <button type="button" role="radio" aria-checked="true" data-sev="major" class="is-pick">Major<em>Dumpling</em></button>
+              <button type="button" role="radio" aria-checked="false" data-sev="minor">Minor</button>
+              <button type="button" role="radio" aria-checked="false" data-sev="cosmetic">Cosmetic</button>
+            </div>
+            <p class="dp-tk-say" data-say>Payments can&rsquo;t be completed on the first try.</p>
+            <p class="dp-over" data-over hidden>You overruled Dumpling</p>
+            <button type="button" class="dp-create" data-create>Create ticket</button>
+            <p class="dp-tk-foot" data-foot>All 3 testers are told and credited.</p>
+          </div>
+          <figcaption><b>Fig. 3</b> The draft ticket. Dumpling picked the severity; pick another and it says so. Nothing is created until a person presses the button. The ticket is an example.</figcaption>
+        </figure>
+
+        <section class="g s" id="witnesses" aria-labelledby="witnesses-h">
+          <p class="num">05</p>
+          <h2 id="witnesses-h">Witnesses, not duplicates</h2>
+          <div class="col">
+            <p>The usual way treats 5 reports of one bug as noise: keep one, close four. Dumpling treats them as witnesses. Every report stays in the ticket with that tester&rsquo;s setup and their exact words, because the detail a developer needs could be in any one of them.</p>
+            <p>When the ticket is created, every tester who saw the bug is told and credited: others saw it too, and their detail is in the ticket. Testers see how many people reported something, never anyone else&rsquo;s note. The ticket goes to GitHub or Jira, labelled for UAT and with its severity.</p>
+            <p>The mark says the same thing. It&rsquo;s a dumpling whose pleats all fold into one point: many notes, one problem.</p>
+          </div>
+        </section>
+
+        <section class="g s end" id="end" aria-labelledby="end-h">
+          <p class="num">06</p>
+          <h2 id="end-h">Conclusion</h2>
+          <div class="col">
+            <p>A model is good at the sorting nobody wants to do, and bad at being accountable for it. Dumpling splits the work along that line. It reads, matches, drafts and asks. A person decides, and every decision, theirs or Dumpling&rsquo;s, is shown for what it is.</p>
+          </div>
+          <div class="actions"><a class="button" href="https://tasty-dumpling-kohl.vercel.app/" target="_blank" rel="noopener">Open Dumpling</a></div>
+        </section>
+
+        <a class="next" href="/wire">
+          <span class="next-text">
+            <span class="label">Next case study</span>
+            <span class="next-t">Wire<svg class="next-arrow" viewBox="0 0 28 16" aria-hidden="true" focusable="false"><path d="M2 8.7 C9 7.9 16 8.5 25.2 7.7 M19 2.4 C21.2 4.7 23.2 6.4 25.6 7.7 C23.3 9.1 21.4 11 19.3 13.7"/></svg></span>
+            <span class="next-d">A payment page from one sentence, and any API turned into tools an AI agent can use.</span>
+          </span>
+          <span class="next-art" data-art="wire" aria-hidden="true"></span>
+        </a>
+
+        <footer>
+          <span>Dumpling, a case study</span>
+          <a href="/work.html">All work</a>
+        </footer>
+      </div>
+    </article>
+  </main>
+  <script src="/assets/crayon.js?v=3" defer></script>
+  <script src="study.js?v=20261119" defer></script>
+  <script src="dumpling/page.js?v=1" defer></script>
+</body>
+</html>

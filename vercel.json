@@ -6,7 +6,7 @@
       "permanent": true
     },
     {
-      "source": "/case-studies/:slug(chalk|wire|cohort|tiwari-town|saleena-tiwari|subtitles|kulture|clark|raise|seyis-park|saleena).html",
+      "source": "/case-studies/:slug(chalk|dumpling|notes|wire|cohort|tiwari-town|saleena-tiwari|subtitles|kulture|clark|raise|seyis-park|saleena).html",
       "destination": "/:slug",
       "permanent": true
     },
@@ -40,11 +40,11 @@
       "destination": "/cool.html"
     },
     {
-      "source": "/:slug(chalk|wire|cohort|tiwari-town|saleena-tiwari|subtitles|kulture|clark|raise|seyis-park|saleena)",
+      "source": "/:slug(chalk|dumpling|notes|wire|cohort|tiwari-town|saleena-tiwari|subtitles|kulture|clark|raise|seyis-park|saleena)",
       "destination": "/case-studies/:slug.html"
     },
     {
-      "source": "/:slug(chalk|wire|cohort|tiwari-town|saleena-tiwari|subtitles|kulture|clark|raise|seyis-park|saleena)/:path*",
+      "source": "/:slug(chalk|dumpling|notes|wire|cohort|tiwari-town|saleena-tiwari|subtitles|kulture|clark|raise|seyis-park|saleena)/:path*",
       "destination": "/case-studies/:slug/:path*"
     },
     {

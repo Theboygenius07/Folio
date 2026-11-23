@@ -10,7 +10,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Building Seyi's Park: a portfolio you can walk around" />
   <link rel="icon" href="../images/seyispark-icon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="study.css?v=20261119" />
+  <link rel="stylesheet" href="study.css?v=20261123" />
   <link rel="stylesheet" href="seyis-park/page.css" />
   <script type="importmap">
     {
@@ -47,11 +47,18 @@
     <article>
       <div class="page">
         <header class="a-head">
-          <p class="eyebrow"><i></i> Case study / 009</p>
+          <p class="eyebrow"><i></i> Case study / 010</p>
           <h1>Building Seyi's Park: a portfolio you can walk around</h1>
           <p class="stand">A park in the browser, seen from above like a model on a table. You hop a small character along the paths, and the work is on billboards you walk up to and click.</p>
           <p class="meta"><b>2026</b><span></span>3D, sound and code</p>
         </header>
+
+        <dl class="brief" aria-label="The short version">
+          <div><dt>The problem</dt><dd>Show my projects as a place you walk through, not a list you scroll.</dd></div>
+          <div><dt>How I framed it</dt><dd>Seyi&rsquo;s Park trades efficiency for memory. The whole park is one Blender file, and the code finds everything in it by name.</dd></div>
+          <div><dt>The call</dt><dd>What you see and what you bump into are different meshes. The park you see has <span class="n">63,470</span> triangles; the one you walk against has <span class="n">8,196</span>, sorted into an octree, so moving around stays cheap however detailed the scenery gets.</dd></div>
+          <div><dt>The numbers</dt><dd>Gravity 30, a jump of 11 and a walking speed of 7, stepped at a fixed rate so it feels the same on every screen. A 4,096 px sun shadow, the pixel ratio capped at 2, and the whole park in a <span class="n">4.2</span> MB model.</dd></div>
+        </dl>
 
         <figure class="live" data-src="https://seyi3d-park.vercel.app/" data-title="Seyi's Park, live">
           <div class="frame live-frame">
@@ -311,7 +318,7 @@
       </div>
     </article>
   </main>
-  <script src="/assets/crayon.js?v=2" defer></script>
+  <script src="/assets/crayon.js?v=3" defer></script>
   <script src="study.js?v=20261119" defer></script>
   <script type="module" src="seyis-park/page.js"></script>
 </body>

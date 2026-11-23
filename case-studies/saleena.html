@@ -10,7 +10,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Making Saleena: a page in 3 languages" />
   <link rel="icon" href="../images/saleena-logo.png" type="image/png" />
-  <link rel="stylesheet" href="study.css?v=20261119" />
+  <link rel="stylesheet" href="study.css?v=20261123" />
   <link rel="stylesheet" href="saleena/page.css" />
 </head>
 <body style="--tint:#ff5279; --tint-ink:#c42a55">
@@ -37,11 +37,18 @@
     <article>
       <div class="page">
         <header class="a-head">
-          <p class="eyebrow"><i></i> Case study / 010</p>
+          <p class="eyebrow"><i></i> Case study / 011</p>
           <h1>Making Saleena: a page in 3 languages</h1>
           <p class="stand">A one-page site I made as a gift. German, Nepali and English share the page, and the drawings scattered across it open when you point at them.</p>
           <p class="meta"><b>2024</b><span></span>Design and Framer, with custom code</p>
         </header>
+
+        <dl class="brief" aria-label="The short version">
+          <div><dt>The problem</dt><dd>A page for a single reader, about distance.</dd></div>
+          <div><dt>How I framed it</dt><dd>A gift doesn&rsquo;t need to explain itself to anyone but the person it&rsquo;s for.</dd></div>
+          <div><dt>The call</dt><dd>Laptop only. I ruled out <span class="cut">a squeezed phone layout</span>. Under 1,024 px, a phone gets a short note in 3 languages instead, and the page itself is made for one screen.</dd></div>
+          <div><dt>The numbers</dt><dd><span class="n">9</span> drawings and photos that each open a card in 220 ms. The note&rsquo;s <span class="n">24</span> words land in 1.275 seconds, 0.025 s apart. On a laptop, the page is 13,213 px tall.</dd></div>
+        </dl>
 
         <!-- Fig. 1: the drawings that open, rebuilt from the reveal component -->
         <figure class="stage sl-hero" data-mode="published">
@@ -300,7 +307,7 @@
       </div>
     </article>
   </main>
-  <script src="/assets/crayon.js?v=2" defer></script>
+  <script src="/assets/crayon.js?v=3" defer></script>
   <script src="study.js?v=20261119" defer></script>
   <script type="module" src="saleena/page.js"></script>
 </body>
